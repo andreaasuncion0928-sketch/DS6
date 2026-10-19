@@ -86,12 +86,14 @@ nav ul a:hover,nav ul a.on{opacity:1;border-color:var(--gold)}
 
 /* debutante cover */
 #debutante{background:#0c0a09}
-.portrait{position:absolute;top:0;bottom:0;right:0;width:64%;background:var(--p,none) 60% 18%/cover no-repeat;
- -webkit-mask-image:linear-gradient(to right,transparent,#000 38%);mask-image:linear-gradient(to right,transparent,#000 38%)}
-#debutante>.in{position:relative}
-.portrait.full{inset:0;width:100%;background-size:cover;background-position:center;-webkit-mask-image:none;mask-image:none}
-.portrait.full::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0c0a09e0 0,#0c0a0900 58%)}
-@media(max-width:820px){.portrait.full{background-position:68% center}.portrait.full::after{background:linear-gradient(#0c0a0900 40%,#0c0a09ee 92%)}}
+#debutante .bg{position:absolute;inset:0;background:var(--bg,none) center/cover no-repeat;z-index:0}
+/* Gradient overlay on background to ensure text readability */
+#debutante .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0c0a09ee 0,#0c0a09aa 60%,#0c0a0988)}
+
+.portrait{position:absolute;top:0;bottom:0;right:0;width:60%;background:var(--p,none) center 20%/cover no-repeat;z-index:1;
+ -webkit-mask-image:linear-gradient(to right,transparent,#000 35%);mask-image:linear-gradient(to right,transparent,#000 35%)}
+
+#debutante>.in{position:relative;z-index:2}
 .dl{max-width:min(520px,46vw)}
 .ttl{margin:0;font-weight:300;font-style:normal;line-height:1}
 .ttl .the{display:block;font-size:clamp(46px,5.4vw,78px);color:var(--champ);margin-left:.1em}
@@ -102,12 +104,16 @@ nav ul a:hover,nav ul a.on{opacity:1;border-color:var(--gold)}
 .more b{font-weight:300;font-size:16px;transition:transform .3s}
 .more:hover b{transform:translateX(5px)}
 .dl .more{position:relative;flex-wrap:wrap}
+
 .about{position:absolute;inset:0;z-index:5;background:#0c0a09f7;transform:translateX(100%);visibility:hidden;transition:transform .8s ease,visibility .8s}
 .about.on{transform:none;visibility:visible}
 .back{margin-bottom:10px}
+
 @media(max-width:820px){
- .portrait{inset:0;width:100%;background-size:auto 66%;background-position:62% 0;
-  -webkit-mask-image:linear-gradient(#000 55%,transparent 86%);mask-image:linear-gradient(#000 55%,transparent 86%)}
+ /* Mobile portrait styling */
+ #debutante .bg::after{background:linear-gradient(#0c0a0944 0%,#0c0a09dd 60%,#0c0a09ff 100%)}
+ .portrait{inset:0;width:100%;height:65%;background-size:cover;background-position:center 15%;
+  -webkit-mask-image:linear-gradient(#000 50%,transparent 95%);mask-image:linear-gradient(#000 50%,transparent 95%)}
  #debutante>.in{justify-content:flex-end;align-items:center;text-align:center;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
  .dl{max-width:none}.tag{display:none}
  .ttl .the{margin:0}.ttl .deb{font-size:clamp(54px,16vw,80px)}
@@ -188,128 +194,129 @@ body.lt .ctl{color:var(--ink)}
 <body>
 
 <nav id="nav">
-  <a class="mark sans" href="#home" aria-label="Franz, back to opening">Franz</a>
-  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
-  <ul class="sans" id="menu">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#debutante">The Debutante</a></li>
-    <li><a href="#celebration">The Celebration</a></li>
-    <li><a href="#eighteens">The 18s</a></li>
-    <li><a href="#live">Live Gallery</a></li>
-  </ul>
+ <a class="mark sans" href="#home" aria-label="Franz, back to opening">Franz</a>
+ <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
+ <ul class="sans" id="menu">
+  <li><a href="#home">Home</a></li>
+  <li><a href="#debutante">The Debutante</a></li>
+  <li><a href="#celebration">The Celebration</a></li>
+  <li><a href="#eighteens">The 18s</a></li>
+  <li><a href="#live">Live Gallery</a></li>
+ </ul>
 </nav>
 
 <main>
 <section id="home" class="pg on" data-lt="0">
-  <div class="bg" id="introBg"></div>
-  <div class="in"><div class="hero">
-    <p class="a">The Debut of</p>
-    <h1 class="script name b">Franz</h1>
-    <p class="c">September 27, 2026</p>
-    <p class="d">An Evening of Timeless Elegance</p>
-  </div></div>
+ <div class="bg" id="introBg"></div>
+ <div class="in"><div class="hero">
+  <p class="a">The Debut of</p>
+  <h1 class="script name b">Franz</h1>
+  <p class="c">September 27, 2026</p>
+  <p class="d">An Evening of Timeless Elegance</p>
+ </div></div>
 </section>
 
 <section id="debutante" class="pg" data-lt="0">
-  <div class="portrait" id="portrait" role="img" aria-label="Portrait of Franz"></div>
-  <div class="in"><div class="dl">
-    <h2 class="ttl"><span class="the script">The</span><span class="deb">Debutante</span></h2>
-    <p class="tag">Quietly thoughtful, endlessly creative, Franz finds beauty in the little things and a world of possibilities in what's ahead.</p>
-    <button class="more sans" id="aboutOpen"><i></i>A little about her <b>&rarr;</b></button>
-  </div></div>
-  <div class="about" id="aboutPanel" aria-hidden="true"><div class="in"><div class="wrap">
-    <button class="more sans back" id="aboutClose"><b>&larr;</b> Back</button>
-    <h2>The Girl Behind the Story</h2>
-    <div class="split">
-      <div class="quote">
-        <p>“I have always found beauty in the quieter things—in the pages of a good book, the sound of jazz, and the little details that make something feel uniquely my own.</p>
-        <p>I may not always be the loudest in the room, but I have a world of thoughts, ideas, and stories of my own. Tonight, I celebrate a new chapter, carrying with me the things I love and the person I am becoming.</p>
-        <p>This is my story, and I am only just beginning.”</p>
-        <div class="script sign">Franz</div>
-      </div>
-      <div class="gallery" aria-label="Portrait gallery">
-        <button class="ph g1" data-lb aria-label="Open portrait 1"><span>I</span></button>
-        <button class="ph" data-lb aria-label="Open portrait 2"><span>II</span></button>
-        <button class="ph" data-lb aria-label="Open portrait 3"><span>III</span></button>
-        <button class="ph" data-lb aria-label="Open portrait 4"><span>IV</span></button>
-        <button class="ph" data-lb aria-label="Open portrait 5"><span>V</span></button>
-      </div>
-    </div>
-  </div></div></div>
+ <div class="bg" id="debBg"></div>
+ <div class="portrait" id="portrait" role="img" aria-label="Portrait of Franz"></div>
+ <div class="in"><div class="dl">
+  <h2 class="ttl"><span class="the script">The</span><span class="deb">Debutante</span></h2>
+  <p class="tag">Quietly thoughtful, endlessly creative, Franz finds beauty in the little things and a world of possibilities in what's ahead.</p>
+  <button class="more sans" id="aboutOpen"><i></i>A little about her <b>&rarr;</b></button>
+ </div></div>
+ <div class="about" id="aboutPanel" aria-hidden="true"><div class="in"><div class="wrap">
+  <button class="more sans back" id="aboutClose"><b>&larr;</b> Back</button>
+  <h2>The Girl Behind the Story</h2>
+  <div class="split">
+   <div class="quote">
+    <p>“I have always found beauty in the quieter things—in the pages of a good book, the sound of jazz, and the little details that make something feel uniquely my own.</p>
+    <p>I may not always be the loudest in the room, but I have a world of thoughts, ideas, and stories of my own. Tonight, I celebrate a new chapter, carrying with me the things I love and the person I am becoming.</p>
+    <p>This is my story, and I am only just beginning.”</p>
+    <div class="script sign">Franz</div>
+   </div>
+   <div class="gallery" aria-label="Portrait gallery">
+    <button class="ph g1" data-lb aria-label="Open portrait 1"><span>I</span></button>
+    <button class="ph" data-lb aria-label="Open portrait 2"><span>II</span></button>
+    <button class="ph" data-lb aria-label="Open portrait 3"><span>III</span></button>
+    <button class="ph" data-lb aria-label="Open portrait 4"><span>IV</span></button>
+    <button class="ph" data-lb aria-label="Open portrait 5"><span>V</span></button>
+   </div>
+  </div>
+ </div></div></div>
 </section>
 
 <section id="celebration" class="pg light" data-lt="1">
-  <div class="in"><div class="wrap">
-    <p class="sans">You are invited</p>
-    <h2>An Evening to Remember</h2>
-    <div class="details">
-      <div>
-        <dl>
-          <dt class="sans">Date</dt><dd>Sunday, September 27, 2026</dd>
-          <dt class="sans">Time</dt><dd>6:00 PM</dd>
-          <dt class="sans">Venue</dt><dd>The Manor at Camp John Hay, Baguio City</dd>
-          <dt class="sans">Dress code</dt><dd>Formal / Black Tie</dd>
-          <dt class="sans">RSVP by</dt><dd>September 13, 2026</dd>
-        </dl>
-        <div class="btns">
-          <button class="btn" id="rsvpOpen">Confirm attendance</button>
-          <a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=The+Manor+at+Camp+John+Hay+Baguio+City">Get directions</a>
-        </div>
-        <p class="note">Sample event details; venue availability is not confirmed.</p>
-      </div>
-      <div class="frame">
-        <p class="sans" style="margin:0">Counting down</p>
-        <div class="count" id="count" aria-live="polite"></div>
-      </div>
+ <div class="in"><div class="wrap">
+  <p class="sans">You are invited</p>
+  <h2>An Evening to Remember</h2>
+  <div class="details">
+   <div>
+    <dl>
+     <dt class="sans">Date</dt><dd>Sunday, September 27, 2026</dd>
+     <dt class="sans">Time</dt><dd>6:00 PM</dd>
+     <dt class="sans">Venue</dt><dd>The Manor at Camp John Hay, Baguio City</dd>
+     <dt class="sans">Dress code</dt><dd>Formal / Black Tie</dd>
+     <dt class="sans">RSVP by</dt><dd>September 13, 2026</dd>
+    </dl>
+    <div class="btns">
+     <button class="btn" id="rsvpOpen">Confirm attendance</button>
+     <a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=The+Manor+at+Camp+John+Hay+Baguio+City">Get directions</a>
     </div>
-  </div></div>
+    <p class="note">Sample event details; venue availability is not confirmed.</p>
+   </div>
+   <div class="frame">
+    <p class="sans" style="margin:0">Counting down</p>
+    <div class="count" id="count" aria-live="polite"></div>
+   </div>
+  </div>
+ </div></div>
 </section>
 
 <section id="eighteens" class="pg" data-lt="0">
-  <div class="in"><div class="wrap">
-    <p class="sans eyebrow">The program</p>
-    <h2>Eighteen Moments. A Lifetime of Meaning.</h2>
-    <div class="tabs" role="tablist" id="tabs">
-      <button class="tab" role="tab" aria-selected="true" data-p="0">18 Roses</button>
-      <button class="tab" role="tab" aria-selected="false" data-p="1">18 Candles</button>
-      <button class="tab" role="tab" aria-selected="false" data-p="2">18 Treasures</button>
-    </div>
-    <div id="panels"></div>
-    <div class="card" id="card" aria-live="polite"></div>
-  </div></div>
+ <div class="in"><div class="wrap">
+  <p class="sans eyebrow">The program</p>
+  <h2>Eighteen Moments. A Lifetime of Meaning.</h2>
+  <div class="tabs" role="tablist" id="tabs">
+   <button class="tab" role="tab" aria-selected="true" data-p="0">18 Roses</button>
+   <button class="tab" role="tab" aria-selected="false" data-p="1">18 Candles</button>
+   <button class="tab" role="tab" aria-selected="false" data-p="2">18 Treasures</button>
+  </div>
+  <div id="panels"></div>
+  <div class="card" id="card" aria-live="polite"></div>
+ </div></div>
 </section>
 
 <section id="live" class="pg" data-lt="0">
-  <div class="in"><div class="wrap">
-    <p class="sans eyebrow">Scan · Upload · View the memories</p>
-    <h2>The Night, Through Your Eyes</h2>
-    <p style="margin:0;max-width:50ch;color:#f6efe2cc">“Some of the best memories are the ones we capture together.”</p>
-    <div class="qrbox">
-      <div class="qr" id="qr" role="img" aria-label="QR code to upload photos"></div>
-      <div>
-        <div class="steps sans">1 Scan &nbsp;·&nbsp; 2 Upload &nbsp;·&nbsp; 3 View</div>
-        <label class="btn gold up">Upload photos<input type="file" id="file" accept="image/*" multiple></label>
-        <a class="btn ghost" style="margin-left:6px" id="uplink" target="_blank" rel="noopener" href="#">Open upload page</a>
-      </div>
-    </div>
-    <div class="strip" id="grid"></div>
-    <p class="note" id="gnote">Photos appear here as guests share them.</p>
-  </div></div>
+ <div class="in"><div class="wrap">
+  <p class="sans eyebrow">Scan · Upload · View the memories</p>
+  <h2>The Night, Through Your Eyes</h2>
+  <p style="margin:0;max-width:50ch;color:#f6efe2cc">“Some of the best memories are the ones we capture together.”</p>
+  <div class="qrbox">
+   <div class="qr" id="qr" role="img" aria-label="QR code to upload photos"></div>
+   <div>
+    <div class="steps sans">1 Scan &nbsp;·&nbsp; 2 Upload &nbsp;·&nbsp; 3 View</div>
+    <label class="btn gold up">Upload photos<input type="file" id="file" accept="image/*" multiple></label>
+    <a class="btn ghost" style="margin-left:6px" id="uplink" target="_blank" rel="noopener" href="#">Open upload page</a>
+   </div>
+  </div>
+  <div class="strip" id="grid"></div>
+  <p class="note" id="gnote">Photos appear here as guests share them.</p>
+ </div></div>
 </section>
 
 <section id="thanks" class="pg light" data-lt="1">
-  <div class="in"><div>
-    <p class="script">Thank You</p>
-    <p>For being part of this special chapter.</p>
-    <div class="rule"></div>
-    <p style="margin:0">With love,</p>
-    <p class="script" style="font-size:44px;margin:0">Franz</p>
-    <div class="foot">
-      <p class="sans" style="margin:0;letter-spacing:.4em">Pearl Noir · 2026</p>
-      <p style="font-style:italic;margin:4px 0">An evening to remember.</p>
-      <div class="links sans"><a href="#home">Back to home</a><a href="#live">Return to live gallery</a></div>
-    </div>
-  </div></div>
+ <div class="in"><div>
+  <p class="script">Thank You</p>
+  <p>For being part of this special chapter.</p>
+  <div class="rule"></div>
+  <p style="margin:0">With love,</p>
+  <p class="script" style="font-size:44px;margin:0">Franz</p>
+  <div class="foot">
+   <p class="sans" style="margin:0;letter-spacing:.4em">Pearl Noir · 2026</p>
+   <p style="font-style:italic;margin:4px 0">An evening to remember.</p>
+   <div class="links sans"><a href="#home">Back to home</a><a href="#live">Return to live gallery</a></div>
+  </div>
+ </div></div>
 </section>
 </main>
 
@@ -319,34 +326,43 @@ body.lt .ctl{color:var(--ink)}
 
 <div class="lb" id="lb" role="dialog" aria-label="Portrait"><button class="x" aria-label="Close">×</button><div></div></div>
 <div class="modal" id="modal" role="dialog" aria-label="RSVP"><div class="sheet">
-  <button class="x" style="color:var(--ink);top:8px;right:14px" id="rsvpClose" aria-label="Close">×</button>
-  <form id="rsvpForm">
-    <h2 style="font-size:34px;margin:0">RSVP</h2>
-    <label><span class="sans">Full name</span><input name="n" required autocomplete="name"></label>
-    <label><span class="sans">Number of guests</span><select name="g"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
-    <label><span class="sans">Will you attend?</span><select name="a"><option>Joyfully accepts</option><option>Regretfully declines</option></select></label>
-    <label><span class="sans">A note for Franz</span><textarea name="m" rows="2"></textarea></label>
-    <button class="btn" type="submit">Send RSVP</button>
-  </form>
-  <div class="ok" id="ok" role="status"><div class="script">Thank you</div><p>Your RSVP has been received. We can't wait to celebrate with you.</p></div>
+ <button class="x" style="color:var(--ink);top:8px;right:14px" id="rsvpClose" aria-label="Close">×</button>
+ <form id="rsvpForm">
+  <h2 style="font-size:34px;margin:0">RSVP</h2>
+  <label><span class="sans">Full name</span><input name="n" required autocomplete="name"></label>
+  <label><span class="sans">Number of guests</span><select name="g"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+  <label><span class="sans">Will you attend?</span><select name="a"><option>Joyfully accepts</option><option>Regretfully declines</option></select></label>
+  <label><span class="sans">A note for Franz</span><textarea name="m" rows="2"></textarea></label>
+  <button class="btn" type="submit">Send RSVP</button>
+ </form>
+ <div class="ok" id="ok" role="status"><div class="script">Thank you</div><p>Your RSVP has been received. We can't wait to celebrate with you.</p></div>
 </div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
 // ====== EDIT THESE ======
-var PORTRAIT = ''; // optional fallback portrait for page 2 (image URL or embedded data)
 var INTRO_IMAGE = 'bintro.jpg'; // first page background (desktop)
-var PAGE2_IMAGE = 'me.png'; // 2nd page image
+var INTRO_MOBILE = 'intro.jpg'; // phone version of the intro background
+
+var PAGE2_BG = '2nd%20page.jpg'; // 2nd page full background
+var PORTRAIT = 'me.jpg'; // 2nd page portrait (and gallery main photo)
+
 var EVENT_DATE = new Date('2026-09-27T18:00:00+08:00');
 var UPLOAD_URL = 'https://andreaasuncion0928-sketch.github.io/DS4/#story';
 var DEDICATIONS = {0:[],1:[],2:[]}; // per tab, entries like {name:'', text:''}
 // ========================
+
 var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
-if(PORTRAIT){$('#portrait').style.setProperty('--p','url("'+PORTRAIT+'")');$('.gallery .g1').style.backgroundImage='url("'+PORTRAIT+'")'}
-(function(){var t=new Image();t.onload=function(){var p=$('#portrait');p.style.setProperty('--p','url("'+PAGE2_IMAGE+'")');p.classList.add('full')};t.src=PAGE2_IMAGE})();
+
+// Set images safely
 if(INTRO_IMAGE)$('#introBg').style.setProperty('--intro','url("'+INTRO_IMAGE+'")');
-var INTRO_MOBILE = 'intro.jpg'; // phone version of the intro background
 (function(){var t=new Image();t.onload=function(){$('#introBg').style.setProperty('--intro-m','url("'+INTRO_MOBILE+'")')};t.src=INTRO_MOBILE})();
+
+if(PAGE2_BG){$('#debBg').style.setProperty('--bg','url("'+PAGE2_BG+'")')}
+if(PORTRAIT){
+  $('#portrait').style.setProperty('--p','url("'+PORTRAIT+'")');
+  $('.gallery .g1').style.backgroundImage='url("'+PORTRAIT+'")';
+}
 
 // page routing (no scrolling between sections)
 var pages=$$('.pg'),ids=pages.map(function(p){return p.id}),nav=$('#nav'),links=$$('#menu a'),dots=$('#dots'),idx=0;
