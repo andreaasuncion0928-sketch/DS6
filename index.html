@@ -380,7 +380,7 @@ if(ABOUT_BG)$('#aboutBg').style.setProperty('--about-bg','url("'+ABOUT_BG+'")');
 var galleryBtns = $$('.gallery .ph');
 GALLERY_IMAGES.forEach(function(imgSrc, i) {
   if (galleryBtns[i]) {
-    galleryBtns[i].style.backgroundImage = 'url("'+imgSrc+'")';
+    galleryBtns[i].style.background = 'url("'+imgSrc+'") center/cover no-repeat';
   }
 });
 
