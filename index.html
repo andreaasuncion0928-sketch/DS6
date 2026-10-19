@@ -86,8 +86,7 @@ nav ul a:hover,nav ul a.on{opacity:1;border-color:var(--gold)}
 
 /* debutante cover */
 #debutante{background:#0c0a09}
-#debutante .bg{position:absolute;inset:0;background:var(--bg,none) center/cover no-repeat;z-index:0}
-/* Gradient overlay on background to ensure text readability */
+#debutante .bg{position:absolute;inset:0;background:var(--bg-d,none) center/cover no-repeat;z-index:0}
 #debutante .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0c0a09ee 0,#0c0a09aa 60%,#0c0a0988)}
 
 .portrait{position:absolute;top:0;bottom:0;right:0;width:60%;background:var(--p,none) center 20%/cover no-repeat;z-index:1;
@@ -105,12 +104,15 @@ nav ul a:hover,nav ul a.on{opacity:1;border-color:var(--gold)}
 .more:hover b{transform:translateX(5px)}
 .dl .more{position:relative;flex-wrap:wrap}
 
-.about{position:absolute;inset:0;z-index:5;background:#0c0a09f7;transform:translateX(100%);visibility:hidden;transition:transform .8s ease,visibility .8s}
+.about{position:absolute;inset:0;z-index:5;background:#0c0a09;transform:translateX(100%);visibility:hidden;transition:transform .8s ease,visibility .8s}
 .about.on{transform:none;visibility:visible}
+.about .bg{position:absolute;inset:0;background:var(--about-bg,none) center/cover no-repeat;opacity:0.2;z-index:0}
+.about .in{position:relative;z-index:2}
 .back{margin-bottom:10px}
 
 @media(max-width:820px){
- /* Mobile portrait styling */
+ /* Mobile portrait and background styling */
+ #debutante .bg{background-image:var(--bg-m, var(--bg-d, none))}
  #debutante .bg::after{background:linear-gradient(#0c0a0944 0%,#0c0a09dd 60%,#0c0a09ff 100%)}
  .portrait{inset:0;width:100%;height:65%;background-size:cover;background-position:center 15%;
   -webkit-mask-image:linear-gradient(#000 50%,transparent 95%);mask-image:linear-gradient(#000 50%,transparent 95%)}
@@ -224,25 +226,28 @@ body.lt .ctl{color:var(--ink)}
   <p class="tag">Quietly thoughtful, endlessly creative, Franz finds beauty in the little things and a world of possibilities in what's ahead.</p>
   <button class="more sans" id="aboutOpen"><i></i>A little about her <b>&rarr;</b></button>
  </div></div>
- <div class="about" id="aboutPanel" aria-hidden="true"><div class="in"><div class="wrap">
-  <button class="more sans back" id="aboutClose"><b>&larr;</b> Back</button>
-  <h2>The Girl Behind the Story</h2>
-  <div class="split">
-   <div class="quote">
-    <p>“I have always found beauty in the quieter things—in the pages of a good book, the sound of jazz, and the little details that make something feel uniquely my own.</p>
-    <p>I may not always be the loudest in the room, but I have a world of thoughts, ideas, and stories of my own. Tonight, I celebrate a new chapter, carrying with me the things I love and the person I am becoming.</p>
-    <p>This is my story, and I am only just beginning.”</p>
-    <div class="script sign">Franz</div>
+ <div class="about" id="aboutPanel" aria-hidden="true">
+  <div class="bg" id="aboutBg"></div>
+  <div class="in"><div class="wrap">
+   <button class="more sans back" id="aboutClose"><b>&larr;</b> Back</button>
+   <h2>The Girl Behind the Story</h2>
+   <div class="split">
+    <div class="quote">
+     <p>“I have always found beauty in the quieter things—in the pages of a good book, the sound of jazz, and the little details that make something feel uniquely my own.</p>
+     <p>I may not always be the loudest in the room, but I have a world of thoughts, ideas, and stories of my own. Tonight, I celebrate a new chapter, carrying with me the things I love and the person I am becoming.</p>
+     <p>This is my story, and I am only just beginning.”</p>
+     <div class="script sign">Franz</div>
+    </div>
+    <div class="gallery" aria-label="Portrait gallery">
+     <button class="ph g1" data-lb aria-label="Open portrait 1"><span>I</span></button>
+     <button class="ph" data-lb aria-label="Open portrait 2"><span>II</span></button>
+     <button class="ph" data-lb aria-label="Open portrait 3"><span>III</span></button>
+     <button class="ph" data-lb aria-label="Open portrait 4"><span>IV</span></button>
+     <button class="ph" data-lb aria-label="Open portrait 5"><span>V</span></button>
+    </div>
    </div>
-   <div class="gallery" aria-label="Portrait gallery">
-    <button class="ph g1" data-lb aria-label="Open portrait 1"><span>I</span></button>
-    <button class="ph" data-lb aria-label="Open portrait 2"><span>II</span></button>
-    <button class="ph" data-lb aria-label="Open portrait 3"><span>III</span></button>
-    <button class="ph" data-lb aria-label="Open portrait 4"><span>IV</span></button>
-    <button class="ph" data-lb aria-label="Open portrait 5"><span>V</span></button>
-   </div>
-  </div>
- </div></div></div>
+  </div></div>
+ </div>
 </section>
 
 <section id="celebration" class="pg light" data-lt="1">
@@ -344,8 +349,10 @@ body.lt .ctl{color:var(--ink)}
 var INTRO_IMAGE = 'bintro.jpg'; // first page background (desktop)
 var INTRO_MOBILE = 'intro.jpg'; // phone version of the intro background
 
-var PAGE2_BG = '2nd%20page.jpg'; // 2nd page full background
-var PORTRAIT = 'me.jpg'; // 2nd page portrait (and gallery main photo)
+var PAGE2_BG_DESKTOP = 'b2nd%20page.jpg'; // 2nd page full background (desktop only)
+var PAGE2_BG_MOBILE = '2nd%20page.jpg'; // 2nd page full background (mobile fallback)
+var PORTRAIT = '1st.jpg'; // 2nd page portrait replacing me.jpg
+var ABOUT_BG = '1st-2nd.jpg'; // "Girl Behind the Story" page background
 
 var EVENT_DATE = new Date('2026-09-27T18:00:00+08:00');
 var UPLOAD_URL = 'https://andreaasuncion0928-sketch.github.io/DS4/#story';
@@ -358,11 +365,13 @@ var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){retu
 if(INTRO_IMAGE)$('#introBg').style.setProperty('--intro','url("'+INTRO_IMAGE+'")');
 (function(){var t=new Image();t.onload=function(){$('#introBg').style.setProperty('--intro-m','url("'+INTRO_MOBILE+'")')};t.src=INTRO_MOBILE})();
 
-if(PAGE2_BG){$('#debBg').style.setProperty('--bg','url("'+PAGE2_BG+'")')}
+if(PAGE2_BG_DESKTOP)$('#debBg').style.setProperty('--bg-d','url("'+PAGE2_BG_DESKTOP+'")');
+if(PAGE2_BG_MOBILE)$('#debBg').style.setProperty('--bg-m','url("'+PAGE2_BG_MOBILE+'")');
 if(PORTRAIT){
   $('#portrait').style.setProperty('--p','url("'+PORTRAIT+'")');
   $('.gallery .g1').style.backgroundImage='url("'+PORTRAIT+'")';
 }
+if(ABOUT_BG)$('#aboutBg').style.setProperty('--about-bg','url("'+ABOUT_BG+'")');
 
 // page routing (no scrolling between sections)
 var pages=$$('.pg'),ids=pages.map(function(p){return p.id}),nav=$('#nav'),links=$$('#menu a'),dots=$('#dots'),idx=0;
