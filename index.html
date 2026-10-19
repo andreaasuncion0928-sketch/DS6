@@ -86,13 +86,12 @@ nav ul a:hover,nav ul a.on{opacity:1;border-color:var(--gold)}
 
 /* debutante cover */
 #debutante{background:#0c0a09}
-#debutante .bg{position:absolute;inset:0;background:var(--bg-d,none) center/cover no-repeat;z-index:0}
-#debutante .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0c0a09ee 0,#0c0a09aa 60%,#0c0a0988)}
-
-.portrait{position:absolute;top:0;bottom:0;right:0;width:60%;background:var(--p,none) center 20%/cover no-repeat;z-index:1;
- -webkit-mask-image:linear-gradient(to right,transparent,#000 35%);mask-image:linear-gradient(to right,transparent,#000 35%)}
-
-#debutante>.in{position:relative;z-index:2}
+.portrait{position:absolute;top:0;bottom:0;right:0;width:64%;background:var(--p,none) 60% 18%/cover no-repeat;
+ -webkit-mask-image:linear-gradient(to right,transparent,#000 38%);mask-image:linear-gradient(to right,transparent,#000 38%)}
+#debutante>.in{position:relative}
+.portrait.full{inset:0;width:100%;background-size:cover;background-position:center;-webkit-mask-image:none;mask-image:none}
+.portrait.full::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0c0a09e0 0,#0c0a0900 58%)}
+@media(max-width:820px){.portrait.full{background-position:68% center}.portrait.full::after{background:linear-gradient(#0c0a0900 40%,#0c0a09ee 92%)}}
 .dl{max-width:min(520px,46vw)}
 .ttl{margin:0;font-weight:300;font-style:normal;line-height:1}
 .ttl .the{display:block;font-size:clamp(46px,5.4vw,78px);color:var(--champ);margin-left:.1em}
@@ -103,19 +102,12 @@ nav ul a:hover,nav ul a.on{opacity:1;border-color:var(--gold)}
 .more b{font-weight:300;font-size:16px;transition:transform .3s}
 .more:hover b{transform:translateX(5px)}
 .dl .more{position:relative;flex-wrap:wrap}
-
-.about{position:absolute;inset:0;z-index:5;background:#0c0a09;transform:translateX(100%);visibility:hidden;transition:transform .8s ease,visibility .8s}
+.about{position:absolute;inset:0;z-index:5;background:#0c0a09f7;transform:translateX(100%);visibility:hidden;transition:transform .8s ease,visibility .8s}
 .about.on{transform:none;visibility:visible}
-.about .bg{position:absolute;inset:0;background:var(--about-bg,none) center/cover no-repeat;opacity:0.2;z-index:0}
-.about .in{position:relative;z-index:2}
 .back{margin-bottom:10px}
-
 @media(max-width:820px){
- /* Mobile portrait and background styling */
- #debutante .bg{background-image:var(--bg-m, var(--bg-d, none))}
- #debutante .bg::after{background:linear-gradient(#0c0a0944 0%,#0c0a09dd 60%,#0c0a09ff 100%)}
- .portrait{inset:0;width:100%;height:65%;background-size:cover;background-position:center 15%;
-  -webkit-mask-image:linear-gradient(#000 50%,transparent 95%);mask-image:linear-gradient(#000 50%,transparent 95%)}
+ .portrait{inset:0;width:100%;background-size:auto 66%;background-position:62% 0;
+  -webkit-mask-image:linear-gradient(#000 55%,transparent 86%);mask-image:linear-gradient(#000 55%,transparent 86%)}
  #debutante>.in{justify-content:flex-end;align-items:center;text-align:center;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
  .dl{max-width:none}.tag{display:none}
  .ttl .the{margin:0}.ttl .deb{font-size:clamp(54px,16vw,80px)}
@@ -141,6 +133,11 @@ padding:15px 26px;border:1px solid var(--ink);background:var(--ink);color:var(--
 .modal{position:fixed;inset:0;z-index:90;background:#0c0a09d9;display:none;align-items:center;justify-content:center;padding:5vw}
 .modal.on{display:flex}
 .sheet{background:var(--ivory);color:var(--ink);width:min(480px,100%);max-height:90vh;overflow:auto;padding:36px;position:relative}
+form{display:grid;gap:14px}
+label{display:grid;gap:4px}
+input,select,textarea{font:inherit;font-size:18px;padding:8px 0;border:0;border-bottom:1px solid #6d5a3a;background:transparent;color:var(--ink);border-radius:0;width:100%}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--gold)}
+.ok{display:none;text-align:center}.ok .script{font-size:48px}
 @media(max-width:820px){.details{grid-template-columns:1fr;gap:30px}}
 
 /* 18s */
@@ -191,132 +188,128 @@ body.lt .ctl{color:var(--ink)}
 <body>
 
 <nav id="nav">
- <a class="mark sans" href="#home" aria-label="Franz, back to opening">Franz</a>
- <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
- <ul class="sans" id="menu">
-  <li><a href="#home">Home</a></li>
-  <li><a href="#debutante">The Debutante</a></li>
-  <li><a href="#celebration">The Celebration</a></li>
-  <li><a href="#eighteens">The 18s</a></li>
-  <li><a href="#live">Live Gallery</a></li>
- </ul>
+  <a class="mark sans" href="#home" aria-label="Franz, back to opening">Franz</a>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
+  <ul class="sans" id="menu">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#debutante">The Debutante</a></li>
+    <li><a href="#celebration">The Celebration</a></li>
+    <li><a href="#eighteens">The 18s</a></li>
+    <li><a href="#live">Live Gallery</a></li>
+  </ul>
 </nav>
 
 <main>
 <section id="home" class="pg on" data-lt="0">
- <div class="bg" id="introBg"></div>
- <div class="in"><div class="hero">
-  <p class="a">The Debut of</p>
-  <h1 class="script name b">Franz</h1>
-  <p class="c">September 27, 2028</p>
-  <p class="d">An Evening of Timeless Elegance</p>
- </div></div>
+  <div class="bg" id="introBg"></div>
+  <div class="in"><div class="hero">
+    <p class="a">The Debut of</p>
+    <h1 class="script name b">Franz</h1>
+    <p class="c">September 27, 2026</p>
+    <p class="d">An Evening of Timeless Elegance</p>
+  </div></div>
 </section>
 
 <section id="debutante" class="pg" data-lt="0">
- <div class="bg" id="debBg"></div>
- <div class="portrait" id="portrait" role="img" aria-label="Portrait of Franz"></div>
- <div class="in"><div class="dl">
-  <h2 class="ttl"><span class="the script">The</span><span class="deb">Debutante</span></h2>
-  <p class="tag">Quietly thoughtful, endlessly creative, Franz finds beauty in the little things and a world of possibilities in what's ahead.</p>
-  <button class="more sans" id="aboutOpen"><i></i>Know a little more about me <b>&rarr;</b></button>
- </div></div>
- <div class="about" id="aboutPanel" aria-hidden="true">
-  <div class="bg" id="aboutBg"></div>
-  <div class="in"><div class="wrap">
-   <button class="more sans back" id="aboutClose"><b>&larr;</b> Back</button>
-   <h2>The Girl Behind the Story</h2>
-   <div class="split">
-    <div class="quote">
-     <p>“I have always found beauty in the quieter things—in the pages of a good book, the sound of jazz, and the little details that make something feel uniquely my own.</p>
-     <p>I may not always be the loudest in the room, but I have a world of thoughts, ideas, and stories of my own. Tonight, I celebrate a new chapter, carrying with me the things I love and the person I am becoming.</p>
-     <p>This is my story, and I am only just beginning.”</p>
-     <div class="script sign">Franz</div>
-    </div>
-    <div class="gallery" aria-label="Portrait gallery">
-     <button class="ph g1" data-lb aria-label="Open portrait 1"><span>I</span></button>
-     <button class="ph" data-lb aria-label="Open portrait 2"><span>II</span></button>
-     <button class="ph" data-lb aria-label="Open portrait 3"><span>III</span></button>
-     <button class="ph" data-lb aria-label="Open portrait 4"><span>IV</span></button>
-     <button class="ph" data-lb aria-label="Open portrait 5"><span>V</span></button>
-    </div>
-   </div>
+  <div class="portrait" id="portrait" role="img" aria-label="Portrait of Franz"></div>
+  <div class="in"><div class="dl">
+    <h2 class="ttl"><span class="the script">The</span><span class="deb">Debutante</span></h2>
+    <p class="tag">Quietly thoughtful, endlessly creative, Franz finds beauty in the little things and a world of possibilities in what's ahead.</p>
+    <button class="more sans" id="aboutOpen"><i></i>A little about her <b>&rarr;</b></button>
   </div></div>
- </div>
+  <div class="about" id="aboutPanel" aria-hidden="true"><div class="in"><div class="wrap">
+    <button class="more sans back" id="aboutClose"><b>&larr;</b> Back</button>
+    <h2>The Girl Behind the Story</h2>
+    <div class="split">
+      <div class="quote">
+        <p>“I have always found beauty in the quieter things—in the pages of a good book, the sound of jazz, and the little details that make something feel uniquely my own.</p>
+        <p>I may not always be the loudest in the room, but I have a world of thoughts, ideas, and stories of my own. Tonight, I celebrate a new chapter, carrying with me the things I love and the person I am becoming.</p>
+        <p>This is my story, and I am only just beginning.”</p>
+        <div class="script sign">Franz</div>
+      </div>
+      <div class="gallery" aria-label="Portrait gallery">
+        <button class="ph g1" data-lb aria-label="Open portrait 1"><span>I</span></button>
+        <button class="ph" data-lb aria-label="Open portrait 2"><span>II</span></button>
+        <button class="ph" data-lb aria-label="Open portrait 3"><span>III</span></button>
+        <button class="ph" data-lb aria-label="Open portrait 4"><span>IV</span></button>
+        <button class="ph" data-lb aria-label="Open portrait 5"><span>V</span></button>
+      </div>
+    </div>
+  </div></div></div>
 </section>
 
 <section id="celebration" class="pg light" data-lt="1">
- <div class="in"><div class="wrap">
-  <p class="sans">You are invited</p>
-  <h2>An Evening to Remember</h2>
-  <div class="details">
-   <div>
-    <dl>
-     <dt class="sans">Date</dt><dd>Wednesday, September 27, 2028</dd>
-     <dt class="sans">Time</dt><dd>6:00 PM</dd>
-     <dt class="sans">Venue</dt><dd>The Manor at Camp John Hay, Baguio City</dd>
-     <dt class="sans">Dress code</dt><dd>Formal / Black Tie</dd>
-     <dt class="sans">RSVP by</dt><dd>September 13, 2028</dd>
-    </dl>
-    <div class="btns">
-     <button class="btn" id="rsvpOpen">Confirm attendance</button>
-     <a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=The+Manor+at+Camp+John+Hay+Baguio+City">Get directions</a>
+  <div class="in"><div class="wrap">
+    <p class="sans">You are invited</p>
+    <h2>An Evening to Remember</h2>
+    <div class="details">
+      <div>
+        <dl>
+          <dt class="sans">Date</dt><dd>Sunday, September 27, 2026</dd>
+          <dt class="sans">Time</dt><dd>6:00 PM</dd>
+          <dt class="sans">Venue</dt><dd>The Manor at Camp John Hay, Baguio City</dd>
+          <dt class="sans">Dress code</dt><dd>Formal / Black Tie</dd>
+          <dt class="sans">RSVP by</dt><dd>September 13, 2026</dd>
+        </dl>
+        <div class="btns">
+          <button class="btn" id="rsvpOpen">Confirm attendance</button>
+          <a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=The+Manor+at+Camp+John+Hay+Baguio+City">Get directions</a>
+        </div>
+        <p class="note">Sample event details; venue availability is not confirmed.</p>
+      </div>
+      <div class="frame">
+        <p class="sans" style="margin:0">Counting down</p>
+        <div class="count" id="count" aria-live="polite"></div>
+      </div>
     </div>
-    <p class="note">Sample event details; venue availability is not confirmed.</p>
-   </div>
-   <div class="frame">
-    <p class="sans" style="margin:0">Counting down</p>
-    <div class="count" id="count" aria-live="polite"></div>
-   </div>
-  </div>
- </div></div>
+  </div></div>
 </section>
 
 <section id="eighteens" class="pg" data-lt="0">
- <div class="in"><div class="wrap">
-  <p class="sans eyebrow">The program</p>
-  <h2>Eighteen Moments. A Lifetime of Meaning.</h2>
-  <div class="tabs" role="tablist" id="tabs">
-   <button class="tab" role="tab" aria-selected="true" data-p="0">18 Roses</button>
-   <button class="tab" role="tab" aria-selected="false" data-p="1">18 Candles</button>
-   <button class="tab" role="tab" aria-selected="false" data-p="2">18 Treasures</button>
-  </div>
-  <div id="panels"></div>
-  <div class="card" id="card" aria-live="polite"></div>
- </div></div>
+  <div class="in"><div class="wrap">
+    <p class="sans eyebrow">The program</p>
+    <h2>Eighteen Moments. A Lifetime of Meaning.</h2>
+    <div class="tabs" role="tablist" id="tabs">
+      <button class="tab" role="tab" aria-selected="true" data-p="0">18 Roses</button>
+      <button class="tab" role="tab" aria-selected="false" data-p="1">18 Candles</button>
+      <button class="tab" role="tab" aria-selected="false" data-p="2">18 Treasures</button>
+    </div>
+    <div id="panels"></div>
+    <div class="card" id="card" aria-live="polite"></div>
+  </div></div>
 </section>
 
 <section id="live" class="pg" data-lt="0">
- <div class="in"><div class="wrap">
-  <p class="sans eyebrow">Scan · Upload · View the memories</p>
-  <h2>The Night, Through Your Eyes</h2>
-  <p style="margin:0;max-width:50ch;color:#f6efe2cc">“Some of the best memories are the ones we capture together.”</p>
-  <div class="qrbox">
-   <div class="qr" id="qr" role="img" aria-label="QR code to upload photos"></div>
-   <div>
-    <div class="steps sans">1 Scan &nbsp;·&nbsp; 2 Upload &nbsp;·&nbsp; 3 View</div>
-    <label class="btn gold up">Upload photos<input type="file" id="file" accept="image/*" multiple></label>
-    <a class="btn ghost" style="margin-left:6px" id="uplink" target="_blank" rel="noopener" href="#">Open upload page</a>
-   </div>
-  </div>
-  <div class="strip" id="grid"></div>
-  <p class="note" id="gnote">Photos appear here as guests share them.</p>
- </div></div>
+  <div class="in"><div class="wrap">
+    <p class="sans eyebrow">Scan · Upload · View the memories</p>
+    <h2>The Night, Through Your Eyes</h2>
+    <p style="margin:0;max-width:50ch;color:#f6efe2cc">“Some of the best memories are the ones we capture together.”</p>
+    <div class="qrbox">
+      <div class="qr" id="qr" role="img" aria-label="QR code to upload photos"></div>
+      <div>
+        <div class="steps sans">1 Scan &nbsp;·&nbsp; 2 Upload &nbsp;·&nbsp; 3 View</div>
+        <label class="btn gold up">Upload photos<input type="file" id="file" accept="image/*" multiple></label>
+        <a class="btn ghost" style="margin-left:6px" id="uplink" target="_blank" rel="noopener" href="#">Open upload page</a>
+      </div>
+    </div>
+    <div class="strip" id="grid"></div>
+    <p class="note" id="gnote">Photos appear here as guests share them.</p>
+  </div></div>
 </section>
 
 <section id="thanks" class="pg light" data-lt="1">
- <div class="in"><div>
-  <p class="script">Thank You</p>
-  <p>For being part of this special chapter.</p>
-  <div class="rule"></div>
-  <p style="margin:0">With love,</p>
-  <p class="script" style="font-size:44px;margin:0">Franz</p>
-  <div class="foot">
-   <p class="sans" style="margin:0;letter-spacing:.4em">Pearl Noir · 2028</p>
-   <p style="font-style:italic;margin:4px 0">An evening to remember.</p>
-   <div class="links sans"><a href="#home">Back to home</a><a href="#live">Return to live gallery</a></div>
-  </div>
- </div></div>
+  <div class="in"><div>
+    <p class="script">Thank You</p>
+    <p>For being part of this special chapter.</p>
+    <div class="rule"></div>
+    <p style="margin:0">With love,</p>
+    <p class="script" style="font-size:44px;margin:0">Franz</p>
+    <div class="foot">
+      <p class="sans" style="margin:0;letter-spacing:.4em">Pearl Noir · 2026</p>
+      <p style="font-style:italic;margin:4px 0">An evening to remember.</p>
+      <div class="links sans"><a href="#home">Back to home</a><a href="#live">Return to live gallery</a></div>
+    </div>
+  </div></div>
 </section>
 </main>
 
@@ -325,147 +318,49 @@ body.lt .ctl{color:var(--ink)}
 <div class="dots" id="dots"></div>
 
 <div class="lb" id="lb" role="dialog" aria-label="Portrait"><button class="x" aria-label="Close">×</button><div></div></div>
-<div class="modal" id="modal" role="dialog" aria-label="RSVP"><div class="sheet" style="text-align:center;">
- <button class="x" style="color:var(--ink);top:8px;right:14px" id="rsvpClose" aria-label="Close">×</button>
- <h2 style="font-size:34px;margin:0 0 10px">RSVP</h2>
- <p class="sans" style="margin-bottom:24px;color:#6d5a3a">Scan to confirm your attendance</p>
- <img src="sampleQR.png" alt="Scan to RSVP" style="width:100%;max-width:250px;border:1px solid var(--gold);padding:14px;display:block;margin:0 auto">
+<div class="modal" id="modal" role="dialog" aria-label="RSVP"><div class="sheet">
+  <button class="x" style="color:var(--ink);top:8px;right:14px" id="rsvpClose" aria-label="Close">×</button>
+  <form id="rsvpForm">
+    <h2 style="font-size:34px;margin:0">RSVP</h2>
+    <label><span class="sans">Full name</span><input name="n" required autocomplete="name"></label>
+    <label><span class="sans">Number of guests</span><select name="g"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+    <label><span class="sans">Will you attend?</span><select name="a"><option>Joyfully accepts</option><option>Regretfully declines</option></select></label>
+    <label><span class="sans">A note for Franz</span><textarea name="m" rows="2"></textarea></label>
+    <button class="btn" type="submit">Send RSVP</button>
+  </form>
+  <div class="ok" id="ok" role="status"><div class="script">Thank you</div><p>Your RSVP has been received. We can't wait to celebrate with you.</p></div>
 </div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
 // ====== EDIT THESE ======
+var PORTRAIT = ''; // optional fallback portrait for page 2 (image URL or embedded data)
 var INTRO_IMAGE = 'bintro.jpg'; // first page background (desktop)
-var INTRO_MOBILE = 'intro.jpg'; // phone version of the intro background
-
-var PAGE2_BG_DESKTOP = 'b2nd%20page.jpg'; // 2nd page full background (desktop only)
-var PAGE2_BG_MOBILE = ''; // removed 2nd page.jpg completely as requested
-var PORTRAIT = 'me.jpg'; // MAIN 2nd page portrait
-
-var ABOUT_BG = '1st-2nd.jpg'; // "Girl Behind the Story" page background
-var GALLERY_IMAGES = ['1st.JPG', '2nd.JPG', '3rd.JPG', '4th.JPG', '5th.JPG']; // The 5 gallery portraits for the story page
-
-var EVENT_DATE = new Date('2028-09-27T18:00:00+08:00');
+var PAGE2_IMAGE = 'me.png'; // 2nd page image
+var EVENT_DATE = new Date('2026-09-27T18:00:00+08:00');
 var UPLOAD_URL = 'https://andreaasuncion0928-sketch.github.io/DS4/#story';
-
-// Generated names and youthful/fun dedications for the 18s
-var roses = [
-  {name: 'Liam Carter', text: 'My designated driver and the guy who always knows the best late-night food spots.'},
-  {name: 'Noah Davis', text: 'We survived high school math together, which basically makes us bonded for life.'},
-  {name: 'Oliver Reyes', text: 'The only person I trust to give me absolutely honest feedback on my playlist.'},
-  {name: 'Elijah Smith', text: 'My childhood rival turned best friend. He still thinks he can beat me at Mario Kart.'},
-  {name: 'James Ocampo', text: 'Always has the most unhinged takes but is secretly the most caring guy I know.'},
-  {name: 'William Chen', text: 'The group’s resident tech support and the reason I passed computer science.'},
-  {name: 'Benjamin Lee', text: 'Literal golden retriever energy. He always knows exactly how to make me laugh.'},
-  {name: 'Lucas Garcia', text: 'My travel buddy and the only one who appreciates my spontaneous midnight ideas.'},
-  {name: 'Henry Alonzo', text: 'The most stylish guy in our circle, constantly inspiring me to level up my fits.'},
-  {name: 'Theodore Cruz', text: 'We’ve been friends since kindergarten. He literally knows too much about my awkward phase.'},
-  {name: 'Jack Fernandez', text: 'My go-to person for deep 2 AM conversations about the universe and conspiracies.'},
-  {name: 'Levi Villanueva', text: 'The one who forced me to step out of my comfort zone (and I secretly love him for it).'},
-  {name: 'Alexander Lim', text: 'Always matching my freak. The ultimate chaos coordinator of our friend group.'},
-  {name: 'Jackson Perez', text: 'He might leave me on read for 3 days, but he’d also fight anyone for me.'},
-  {name: 'Mateo Santos', text: 'My gym bro who actually just talks to me while I do all the hard working out.'},
-  {name: 'Daniel Gomez', text: 'The peacekeeper. He’s saved us from so many unnecessary group chat arguments.'},
-  {name: 'Michael Torres', text: 'My favorite person to drag to indie concerts and aesthetic coffee shops.'},
-  {name: 'Gabriel Mendoza', text: 'He radiates main character energy, but always lets me take the spotlight tonight.'}
-];
-
-var candles = [
-  {name: 'Emma Martinez', text: 'The ultimate hype woman. She’s the reason I have any confidence at all.'},
-  {name: 'Olivia Taylor', text: 'My therapist, stylist, and the one who tells me when my outfit is a tragic miss.'},
-  {name: 'Ava Domingo', text: 'We share exactly one brain cell and it’s usually focused on getting iced coffee.'},
-  {name: 'Isabella Ramos', text: 'The "mom friend" who always makes sure everyone is hydrated and gets home safe.'},
-  {name: 'Sophia Castillo', text: 'My literal partner in crime and the only person who gets my niche TikTok humor.'},
-  {name: 'Mia Gutierrez', text: 'The smartest person I know, yet she still happily entertains my dumbest ideas.'},
-  {name: 'Charlotte Bautista', text: 'She’s my Pinterest aesthetic moodboard in human form. Always effortlessly cool.'},
-  {name: 'Amelia Vargas', text: 'My go-to for spilling the tea. We can communicate entirely through intense eye contact.'},
-  {name: 'Harper Navarro', text: 'The most adventurous girl I know. She completely keeps my life from getting boring.'},
-  {name: 'Evelyn Roxas', text: 'My soft-hearted bestie. She remembers the little details that no one else does.'},
-  {name: 'Abigail Chua', text: 'Fiercely loyal. I pity anyone who gets on her bad side (thankfully, not me).'},
-  {name: 'Emily Aguilar', text: 'We’ve cried over so many cheesy rom-coms together it’s actually embarrassing.'},
-  {name: 'Elizabeth Tan', text: 'The absolute realist. She tells me what I need to hear, not what I want to hear.'},
-  {name: 'Mila Soriano', text: 'My ultimate concert buddy. Our vocal cords are permanently damaged from screaming.'},
-  {name: 'Ella Villanueva', text: 'She manifests good vibes only. Her astrology readings actually keep me sane.'},
-  {name: 'Avery Flores', text: 'The funniest person in the room. She can make me laugh in the most serious situations.'},
-  {name: 'Sofia Mercado', text: 'My long-distance bestie. Time zones literally have nothing on our friendship.'},
-  {name: 'Camila De Leon', text: 'She pushes me to be the very best version of myself every single day.'}
-];
-
-var treasures = [
-  {name: 'Uncle Arthur Reyes', text: 'The cool uncle who gives the absolute best life advice (and the best birthday gifts).'},
-  {name: 'Aunt Marie Santos', text: 'Always manifesting good vibes and keeping me grounded when I stress out about school.'},
-  {name: 'Cousin Joey Lim', text: 'Basically my older brother. He taught me how to drive and how to sneak out (sorry, Mom).'},
-  {name: 'Grandma Rose Cruz', text: 'The queen of our family. Listening to her vintage stories is my absolute favorite thing.'},
-  {name: 'Grandpa Joe Cruz', text: 'My biggest supporter. He still treats me like I’m five years old, and honestly I love it.'},
-  {name: 'Uncle Ben Ocampo', text: 'The undisputed grill master of family reunions and my personal hero.'},
-  {name: 'Aunt May Ocampo', text: 'Her baking cures all sadness. Easily the sweetest soul in our entire family.'},
-  {name: 'Cousin Lily Gomez', text: 'We survived all those awkward family gatherings by hiding in the corner together.'},
-  {name: 'Mr. Smith', text: 'My favorite teacher who believed in my writing long before I ever did.'},
-  {name: 'Mrs. Davis', text: 'She mentored me through my worst academic burnout. A literal angel in human form.'},
-  {name: 'Uncle Robert Tan', text: 'Always drops the hardest truth bombs at dinner, but annoyingly he’s never wrong.'},
-  {name: 'Aunt Sarah Tan', text: 'The epitome of elegance. I am constantly taking mental notes on her style.'},
-  {name: 'Cousin Max Chua', text: 'My childhood playmate. We have way too much blackmail material on each other.'},
-  {name: 'Mr. Johnson', text: 'My coach who taught me that a failure is literally just a setup for a comeback.'},
-  {name: 'Mrs. Wilson', text: 'The neighbor who practically co-parented me. Her house is basically my second home.'},
-  {name: 'Uncle David Mendoza', text: 'Always has a terrible dad joke ready. The life and soul of every single party.'},
-  {name: 'Aunt Laura Mendoza', text: 'The independent boss lady I aspire to be. Her career advice is pure gold.'},
-  {name: 'Cousin Chloe Perez', text: 'My older cousin who graciously let me borrow all her clothes. The real MVP.'}
-];
-
-var DEDICATIONS = {0: roses, 1: candles, 2: treasures}; 
+var DEDICATIONS = {0:[],1:[],2:[]}; // per tab, entries like {name:'', text:''}
 // ========================
-
 var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
-
-// Set images safely
+if(PORTRAIT){$('#portrait').style.setProperty('--p','url("'+PORTRAIT+'")');$('.gallery .g1').style.backgroundImage='url("'+PORTRAIT+'")'}
+(function(){var t=new Image();t.onload=function(){var p=$('#portrait');p.style.setProperty('--p','url("'+PAGE2_IMAGE+'")');p.classList.add('full')};t.src=PAGE2_IMAGE})();
 if(INTRO_IMAGE)$('#introBg').style.setProperty('--intro','url("'+INTRO_IMAGE+'")');
+var INTRO_MOBILE = 'intro.jpg'; // phone version of the intro background
 (function(){var t=new Image();t.onload=function(){$('#introBg').style.setProperty('--intro-m','url("'+INTRO_MOBILE+'")')};t.src=INTRO_MOBILE})();
-
-if(PAGE2_BG_DESKTOP)$('#debBg').style.setProperty('--bg-d','url("'+PAGE2_BG_DESKTOP+'")');
-if(PAGE2_BG_MOBILE)$('#debBg').style.setProperty('--bg-m','url("'+PAGE2_BG_MOBILE+'")');
-
-// Main portrait on the Debutante landing page
-if(PORTRAIT){
-  $('#portrait').style.setProperty('--p','url("'+PORTRAIT+'")');
-}
-if(ABOUT_BG)$('#aboutBg').style.setProperty('--about-bg','url("'+ABOUT_BG+'")');
-
-// Apply the 1st.JPG to 5th.JPG exactly to the 5 gallery buttons
-var galleryBtns = $$('.gallery .ph');
-GALLERY_IMAGES.forEach(function(imgSrc, i) {
-  if (galleryBtns[i]) {
-    galleryBtns[i].style.background = 'url("'+imgSrc+'") center/cover no-repeat';
-  }
-});
 
 // page routing (no scrolling between sections)
 var pages=$$('.pg'),ids=pages.map(function(p){return p.id}),nav=$('#nav'),links=$$('#menu a'),dots=$('#dots'),idx=0;
 dots.innerHTML=ids.map(function(id,i){return '<button aria-label="Page '+(i+1)+'" data-i="'+i+'"></button>'}).join('');
-
-function setAbout(o){
-  var p=$('#aboutPanel');
-  p.classList.toggle('on',o);
-  p.setAttribute('aria-hidden',!o);
-  // Ensure the next button only appears on the Debutante page AFTER the about panel opens
-  if(idx === 1) $('#next').style.visibility = o ? 'visible' : 'hidden';
-}
-
 function show(i){
  idx=Math.max(0,Math.min(ids.length-1,i));
  pages.forEach(function(p,k){p.classList.toggle('on',k===idx)});
  var lt=pages[idx].dataset.lt==='1';nav.classList.toggle('lt',lt);document.body.classList.toggle('lt',lt);
  links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')==='#'+ids[idx])});
  $$('button',dots).forEach(function(b,k){b.classList.toggle('on',k===idx)});
- 
- $('#prev').style.visibility=idx?'visible':'hidden';
- // Globally hide the Next button on Debutante page (index 1) until 'Know more about me' is clicked
- $('#next').style.visibility=(idx<ids.length-1 && idx!==1)?'visible':'hidden';
- 
- $$('.in',pages[idx]).forEach(function(x){x.scrollTop=0});
- setAbout(false);
+ $('#prev').style.visibility=idx?'visible':'hidden';$('#next').style.visibility=idx<ids.length-1?'visible':'hidden';
+ $$('.in',pages[idx]).forEach(function(x){x.scrollTop=0});setAbout(false);
  nav.classList.remove('open');$('#burger').setAttribute('aria-expanded',false);
 }
-
 function route(){var h=location.hash.slice(1),i=ids.indexOf(h);show(i<0?0:i)}
 addEventListener('hashchange',route);route();
 function go(i){var t=ids[Math.max(0,Math.min(ids.length-1,i))];if(location.hash==='#'+t)show(idx);else location.hash=t}
@@ -475,15 +370,15 @@ addEventListener('keydown',function(e){
  if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||$('#modal').classList.contains('on'))return;
  if(e.key==='ArrowRight'||e.key==='PageDown')go(idx+1);
  if(e.key==='ArrowLeft'||e.key==='PageUp')go(idx-1);
- if(e.key==='Escape'){lb.classList.remove('on');$('#modal').classList.remove('on')}});
+ if(e.key==='Escape'){setAbout(false);lb.classList.remove('on');$('#modal').classList.remove('on')}});
 var tx=null;addEventListener('touchstart',function(e){tx=e.touches[0].clientX},{passive:true});
 addEventListener('touchend',function(e){if(tx===null)return;var d=e.changedTouches[0].clientX-tx;tx=null;
  if(Math.abs(d)>80&&!e.target.closest('.strip,.nums'))go(idx+(d<0?1:-1))},{passive:true});
 $('#burger').onclick=function(){var o=nav.classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)};
 
-// about panel listeners
-$('#aboutOpen').onclick=function(){setAbout(true)};
-$('#aboutClose').onclick=function(){setAbout(false)};
+// about panel (bio + portraits)
+function setAbout(o){var p=$('#aboutPanel');p.classList.toggle('on',o);p.setAttribute('aria-hidden',!o)}
+$('#aboutOpen').onclick=function(){setAbout(true)};$('#aboutClose').onclick=function(){setAbout(false)};
 
 // lightbox
 var lb=$('#lb');
@@ -497,16 +392,17 @@ function tick(){var d=EVENT_DATE-new Date(),c=$('#count');
  c.innerHTML=v.map(function(x){return '<div><b>'+x[0]+'</b><span class="sans">'+x[1]+'</span></div>'}).join('')}
 tick();setInterval(tick,1000);
 
-// rsvp (QR Code Modal)
+// rsvp (demo confirmation; connect a form service to collect replies)
 $('#rsvpOpen').onclick=function(){$('#modal').classList.add('on')};
 $('#rsvpClose').onclick=function(){$('#modal').classList.remove('on')};
 $('#modal').onclick=function(e){if(e.target===this)this.classList.remove('on')};
+$('#rsvpForm').onsubmit=function(e){e.preventDefault();this.style.display='none';$('#ok').style.display='block'};
 
 // the 18s
 var PAN=[['The traditional dance with the important men in Franz\u2019s life.','Rose'],['Wishes and messages from the significant women in her life.','Candle'],['Meaningful gifts and dedications.','Treasure']];
 var panels=$('#panels'),card=$('#card');
 panels.innerHTML=PAN.map(function(p,i){var n='';for(var k=1;k<=18;k++)n+='<button class="num" aria-pressed="false" aria-label="'+p[1]+' '+k+'" data-i="'+i+'" data-k="'+k+'">'+k+'</button>';
- return '<div class="panel'+(i===0?' on':'')+'"><p>'+p[0]+' Tap a number to reveal the participant.</p><div class="nums">'+n+'</div></div>'}).join('');
+ return '<div class="panel'+(i===0?' on':'')+'"><p>'+p[0]+' Tap a number to reveal a dedication.</p><div class="nums">'+n+'</div></div>'}).join('');
 panels.onclick=function(e){var b=e.target.closest('.num');if(!b)return;
  $$('.num',panels).forEach(function(x){x.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed','true');
  var i=+b.dataset.i,k=+b.dataset.k,d=DEDICATIONS[i][k-1]||{},p=PAN[i];card.classList.remove('show');
