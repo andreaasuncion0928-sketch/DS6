@@ -351,8 +351,10 @@ var INTRO_MOBILE = 'intro.jpg'; // phone version of the intro background
 
 var PAGE2_BG_DESKTOP = 'b2nd%20page.jpg'; // 2nd page full background (desktop only)
 var PAGE2_BG_MOBILE = '2nd%20page.jpg'; // 2nd page full background (mobile fallback)
-var PORTRAIT = '1st.jpg'; // 2nd page portrait replacing me.jpg
+var PORTRAIT = 'me.jpg'; // MAIN 2nd page portrait
+
 var ABOUT_BG = '1st-2nd.jpg'; // "Girl Behind the Story" page background
+var GALLERY_IMAGES = ['1st.jpg', '2nd.jpg', '3rd.jpg', '4th.jpg', '5th.jpg']; // The 5 gallery portraits for the story page
 
 var EVENT_DATE = new Date('2026-09-27T18:00:00+08:00');
 var UPLOAD_URL = 'https://andreaasuncion0928-sketch.github.io/DS4/#story';
@@ -367,11 +369,20 @@ if(INTRO_IMAGE)$('#introBg').style.setProperty('--intro','url("'+INTRO_IMAGE+'")
 
 if(PAGE2_BG_DESKTOP)$('#debBg').style.setProperty('--bg-d','url("'+PAGE2_BG_DESKTOP+'")');
 if(PAGE2_BG_MOBILE)$('#debBg').style.setProperty('--bg-m','url("'+PAGE2_BG_MOBILE+'")');
+
+// Main portrait on the Debutante landing page
 if(PORTRAIT){
   $('#portrait').style.setProperty('--p','url("'+PORTRAIT+'")');
-  $('.gallery .g1').style.backgroundImage='url("'+PORTRAIT+'")';
 }
 if(ABOUT_BG)$('#aboutBg').style.setProperty('--about-bg','url("'+ABOUT_BG+'")');
+
+// Apply the 1st.jpg to 5th.jpg exactly to the 5 gallery buttons
+var galleryBtns = $$('.gallery .ph');
+GALLERY_IMAGES.forEach(function(imgSrc, i) {
+  if (galleryBtns[i]) {
+    galleryBtns[i].style.backgroundImage = 'url("'+imgSrc+'")';
+  }
+});
 
 // page routing (no scrolling between sections)
 var pages=$$('.pg'),ids=pages.map(function(p){return p.id}),nav=$('#nav'),links=$$('#menu a'),dots=$('#dots'),idx=0;
