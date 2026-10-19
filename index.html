@@ -98,6 +98,10 @@ nav ul a:hover,nav ul a.on{opacity:1;border-color:var(--gold)}
 .ttl .the{display:block;font-size:clamp(46px,5.4vw,78px);color:var(--champ);margin-left:.1em}
 .ttl .deb{display:block;font-style:italic;font-size:clamp(58px,7.6vw,112px);color:var(--champ);margin-top:-.12em}
 .tag{margin:28px 0 36px;font-family:var(--sans);font-weight:300;font-size:clamp(14px,1.25vw,17px);line-height:1.9;letter-spacing:.03em;color:#f6efe2e6;max-width:38ch}
+.more{background:none;border:0;color:var(--ivory);cursor:pointer;display:flex;align-items:center;gap:14px;padding:8px 0}
+.more i{width:56px;height:1px;background:var(--gold);display:block}
+.more b{font-weight:300;font-size:16px;transition:transform .3s}
+.more:hover b{transform:translateX(5px)}
 .dl .more{position:relative;flex-wrap:wrap}
 
 .about{position:absolute;inset:0;z-index:5;background:#0c0a09;transform:translateX(100%);visibility:hidden;transition:transform .8s ease,visibility .8s}
@@ -215,10 +219,12 @@ body.lt .ctl{color:var(--ink)}
  <div class="in"><div class="dl">
   <h2 class="ttl"><span class="the script">The</span><span class="deb">Debutante</span></h2>
   <p class="tag">Quietly thoughtful, endlessly creative, Franz finds beauty in the little things and a world of possibilities in what's ahead.</p>
+  <button class="more sans" id="aboutOpen"><i></i>Know a little more about me <b>&rarr;</b></button>
  </div></div>
  <div class="about" id="aboutPanel" aria-hidden="true">
   <div class="bg" id="aboutBg"></div>
   <div class="in"><div class="wrap">
+   <button class="more sans back" id="aboutClose"><b>&larr;</b> Back</button>
    <h2>The Girl Behind the Story</h2>
    <div class="split">
     <div class="quote">
@@ -435,16 +441,31 @@ GALLERY_IMAGES.forEach(function(imgSrc, i) {
 // page routing (no scrolling between sections)
 var pages=$$('.pg'),ids=pages.map(function(p){return p.id}),nav=$('#nav'),links=$$('#menu a'),dots=$('#dots'),idx=0;
 dots.innerHTML=ids.map(function(id,i){return '<button aria-label="Page '+(i+1)+'" data-i="'+i+'"></button>'}).join('');
+
+function setAbout(o){
+  var p=$('#aboutPanel');
+  p.classList.toggle('on',o);
+  p.setAttribute('aria-hidden',!o);
+  // Ensure the next button only appears on the Debutante page AFTER the about panel opens
+  if(idx === 1) $('#next').style.visibility = o ? 'visible' : 'hidden';
+}
+
 function show(i){
  idx=Math.max(0,Math.min(ids.length-1,i));
  pages.forEach(function(p,k){p.classList.toggle('on',k===idx)});
  var lt=pages[idx].dataset.lt==='1';nav.classList.toggle('lt',lt);document.body.classList.toggle('lt',lt);
  links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')==='#'+ids[idx])});
  $$('button',dots).forEach(function(b,k){b.classList.toggle('on',k===idx)});
- $('#prev').style.visibility=idx?'visible':'hidden';$('#next').style.visibility=idx<ids.length-1?'visible':'hidden';
+ 
+ $('#prev').style.visibility=idx?'visible':'hidden';
+ // Globally hide the Next button on Debutante page (index 1) until 'Know more about me' is clicked
+ $('#next').style.visibility=(idx<ids.length-1 && idx!==1)?'visible':'hidden';
+ 
  $$('.in',pages[idx]).forEach(function(x){x.scrollTop=0});
+ setAbout(false);
  nav.classList.remove('open');$('#burger').setAttribute('aria-expanded',false);
 }
+
 function route(){var h=location.hash.slice(1),i=ids.indexOf(h);show(i<0?0:i)}
 addEventListener('hashchange',route);route();
 function go(i){var t=ids[Math.max(0,Math.min(ids.length-1,i))];if(location.hash==='#'+t)show(idx);else location.hash=t}
@@ -459,6 +480,10 @@ var tx=null;addEventListener('touchstart',function(e){tx=e.touches[0].clientX},{
 addEventListener('touchend',function(e){if(tx===null)return;var d=e.changedTouches[0].clientX-tx;tx=null;
  if(Math.abs(d)>80&&!e.target.closest('.strip,.nums'))go(idx+(d<0?1:-1))},{passive:true});
 $('#burger').onclick=function(){var o=nav.classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)};
+
+// about panel listeners
+$('#aboutOpen').onclick=function(){setAbout(true)};
+$('#aboutClose').onclick=function(){setAbout(false)};
 
 // lightbox
 var lb=$('#lb');
