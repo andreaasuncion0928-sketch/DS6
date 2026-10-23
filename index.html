@@ -107,7 +107,7 @@
       z-index: 10;
     }
 
-    /* Ambient Dust Particles (Hero) */
+    /* Hero Particles */
     .particle {
       position: absolute;
       border-radius: 50%;
@@ -122,28 +122,28 @@
       100% { transform: translateY(-120px) translateX(30px) scale(1.2); opacity: 0; }
     }
 
-    /* Rising Yellow Small Circles (My Story Page) */
+    /* Rising Yellow Small Circles (Frequent, noticeble, floating through text panels) */
     .rising-circle {
       position: absolute;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(254, 240, 138, 0.85) 0%, rgba(234, 179, 8, 0.4) 60%, rgba(202, 138, 4, 0) 100%);
-      box-shadow: 0 0 8px rgba(250, 204, 21, 0.55);
+      background: radial-gradient(circle, rgba(254, 240, 138, 0.95) 0%, rgba(250, 204, 21, 0.65) 55%, rgba(202, 138, 4, 0) 100%);
+      box-shadow: 0 0 8px 1.5px rgba(250, 204, 21, 0.7);
       pointer-events: none;
       animation: riseSlowly linear infinite;
     }
     @keyframes riseSlowly {
       0% {
-        transform: translateY(105vh) translateX(0px) scale(0.6);
+        transform: translateY(105vh) translateX(0px) scale(0.65);
         opacity: 0;
       }
-      15% {
-        opacity: 0.75;
+      10% {
+        opacity: 0.85;
       }
       85% {
-        opacity: 0.65;
+        opacity: 0.75;
       }
       100% {
-        transform: translateY(-10vh) translateX(25px) scale(1.15);
+        transform: translateY(-8vh) translateX(28px) scale(1.25);
         opacity: 0;
       }
     }
@@ -166,24 +166,13 @@
     /* Celebration Card Button Styles */
     .btn-details-dark {
       background: #251239;
-      border: 1px solid rgba(139, 92, 246, 0.3);
+      border: 1px solid rgba(139, 92, 246, 0.4);
       border-radius: 9999px;
       transition: all 0.3s ease;
     }
     .btn-details-dark:hover {
       background: #3b1d5a;
-      border-color: rgba(212, 175, 55, 0.7);
-      transform: translateY(-1px);
-    }
-    .btn-details-outline {
-      background: transparent;
-      border: 1px solid rgba(92, 45, 145, 0.45);
-      border-radius: 9999px;
-      transition: all 0.3s ease;
-    }
-    .btn-details-outline:hover {
-      background: rgba(255, 255, 255, 0.6);
-      border-color: #5c2d91;
+      border-color: rgba(212, 175, 55, 0.85);
       transform: translateY(-1px);
     }
   </style>
@@ -192,7 +181,8 @@
 
   <!-- ========================================================
        TOP BROWSER-LIKE NAVIGATION BAR
-       (Removed Amethyst Reverie title & yellow blinking dot)
+       - Amethyst Reverie title & yellow blinking dot removed
+       - "Dress Code" item removed
        ======================================================== -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-plum-deep/95 via-plum-deep/85 to-transparent backdrop-blur-md border-b border-purple-500/15 py-3 px-4 sm:px-8 transition-all duration-300">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
@@ -205,12 +195,11 @@
       </div>
 
       <!-- Center: Refined Navigation Menu List -->
-      <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8">
+      <nav class="hidden lg:flex items-center space-x-7 xl:space-x-9">
         <button onclick="navigateToPage(0)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-gold-light font-semibold hover:text-gold-light transition duration-200" data-page="0">Home</button>
         <button onclick="navigateToPage(1)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="1">My Story</button>
         <button onclick="navigateToPage(2)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="2">The Celebration</button>
         <button onclick="navigateToPage(3)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="3">The 18s</button>
-        <button onclick="navigateToPage(2)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="2">Dress Code</button>
         <button onclick="navigateToPage(4)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="4">Gallery</button>
         <button onclick="navigateToPage(3)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="3">Find Your Name</button>
         <button onclick="navigateToPage(2)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="2">FAQs</button>
@@ -229,7 +218,7 @@
     <div id="mobileMenu" class="hidden lg:hidden pt-4 pb-2 border-t border-purple-500/20 mt-2 bg-plum-deep/95 backdrop-blur-xl px-4 rounded-b-xl flex flex-col space-y-3">
       <button onclick="navigateToPage(0); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">Home</button>
       <button onclick="navigateToPage(1); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">My Story</button>
-      <button onclick="navigateToPage(2); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">The Celebration & Dress Code</button>
+      <button onclick="navigateToPage(2); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">The Celebration</button>
       <button onclick="navigateToPage(3); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">The 18s (Find Your Role)</button>
       <button onclick="navigateToPage(4); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-gold-champagne py-1 font-semibold">Gallery & RSVP</button>
     </div>
@@ -241,18 +230,13 @@
   <main class="perspective-container relative w-full h-screen overflow-hidden bg-black">
 
     <!-- ----------------------------------------------------
-         PAGE 1: HOME / WELCOME[cite: 1]
+         PAGE 1: HOME / WELCOME
          ---------------------------------------------------- -->
     <section id="page-0" class="page-sheet active bg-custom-1 bg-cover bg-center">
-      <!-- 80% Dark Plum / Amethyst Contrast Dimmer Overlay -->
       <div class="absolute inset-0 bg-[#0f0617]/80 backdrop-brightness-[0.9]"></div>
-
-      <!-- Subtle Floating Ambient Particles -->
       <div id="particleField" class="absolute inset-0 pointer-events-none z-10"></div>
 
-      <!-- Main Welcome Layout -->
       <div class="relative z-20 w-full h-full flex flex-col justify-between px-4 sm:px-8 md:px-14 pb-8">
-        
         <div class="w-full flex-1 flex flex-col items-center justify-center text-center pt-32 sm:pt-36">
           
           <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-purple-200/90 uppercase font-light mb-3 sm:mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
@@ -282,10 +266,9 @@
               <span class="text-gold-light group-hover:translate-x-0.5 transition-transform duration-300">Enter The Invitation</span>
             </button>
           </div>
-
         </div>
 
-        <!-- Right-Side Floating Vertical Countdown Pillar[cite: 1] -->
+        <!-- Right Vertical Countdown Pillar -->
         <aside class="fixed right-3 sm:right-6 bottom-8 z-30 hidden md:flex flex-col items-center bg-plum-deep/80 backdrop-blur-md border border-purple-500/25 px-4 py-5 rounded-sm shadow-[0_10px_30px_rgba(0,0,0,0.8)] w-28">
           <div class="flex flex-col items-center text-center space-y-3 font-cinzel">
             <div>
@@ -321,18 +304,16 @@
     </section>
 
     <!-- ----------------------------------------------------
-         PAGE 2: MY STORY (With Rising Yellow Circles)
+         PAGE 2: MY STORY
+         - Frequent rising yellow circles float through text panels
+         - Circles do NOT cover portrait image (image has higher z-index / isolation)
          ---------------------------------------------------- -->
     <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center">
-      <!-- 80% Dark Plum / Amethyst Contrast Dimmer Overlay -->
       <div class="absolute inset-0 bg-[#0f0617]/85 backdrop-brightness-[0.9]"></div>
 
-      <!-- Rising Yellow Small Circles Field -->
-      <div id="risingCirclesField" class="absolute inset-0 pointer-events-none z-10 overflow-hidden"></div>
-
-      <div class="relative z-20 min-h-full max-w-6xl mx-auto px-6 py-28 flex flex-col justify-center">
+      <div class="relative min-h-full max-w-6xl mx-auto px-6 py-28 flex flex-col justify-center">
         
-        <div class="text-center mb-12">
+        <div class="text-center mb-12 relative z-20">
           <p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold mb-2 drop-shadow">
             Chapter I • My Story
           </p>
@@ -344,21 +325,21 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
-          <!-- Franz's Portrait with 'me.jpg' -->
-          <div class="lg:col-span-5 flex justify-center">
-            <div class="relative p-2 rounded-2xl bg-gradient-to-tr from-purple-800/40 via-gold-champagne/20 to-purple-400/30 shadow-[0_15px_40px_rgba(0,0,0,0.8)] border border-purple-400/20 max-w-sm w-full">
-              <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-purple-950/80">
+          <!-- Franz's Portrait (Isolated with highest z-index 40 so particles don't pass over it) -->
+          <div class="lg:col-span-5 flex justify-center relative z-40">
+            <div class="relative p-2 rounded-2xl bg-gradient-to-tr from-purple-800/60 via-gold-champagne/30 to-purple-400/40 shadow-[0_20px_50px_rgba(0,0,0,0.95)] border border-purple-400/30 max-w-sm w-full bg-plum-deep">
+              <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-purple-950">
                 <img src="me.jpg" alt="Franz - Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';" class="w-full h-full object-cover filter contrast-[1.05] brightness-95">
                 <div class="absolute inset-0 bg-gradient-to-t from-plum-deep/80 via-transparent to-transparent"></div>
               </div>
-              <div class="absolute -bottom-3 -right-3 bg-plum-deep/90 border border-gold-champagne/40 px-4 py-1.5 rounded-full shadow-lg">
+              <div class="absolute -bottom-3 -right-3 bg-plum-deep/95 border border-gold-champagne/60 px-4 py-1.5 rounded-full shadow-lg">
                 <span class="font-script text-gold-light text-xl">Franz</span>
               </div>
             </div>
           </div>
 
-          <!-- Story Text Content -->
-          <div class="lg:col-span-7 bg-plum-deep/65 backdrop-blur-md p-8 sm:p-10 rounded-2xl border border-purple-500/20 shadow-2xl">
+          <!-- Story Text Content (Particles flow behind and through this layer) -->
+          <div class="lg:col-span-7 relative z-10 bg-plum-deep/60 backdrop-blur-sm p-8 sm:p-10 rounded-2xl border border-purple-500/20 shadow-2xl">
             <div class="text-purple-300 text-3xl mb-4"><i class="fa-solid fa-quote-left"></i></div>
             
             <p class="font-serif text-lg sm:text-xl md:text-2xl text-purple-100/90 leading-relaxed font-light italic mb-6">
@@ -380,188 +361,249 @@
         </div>
 
       </div>
+
+      <!-- Rising Yellow Small Circles Field (z-index 30: flows across background & text card, but below portrait's z-40) -->
+      <div id="risingCirclesField" class="absolute inset-0 pointer-events-none z-30 overflow-hidden"></div>
     </section>
 
     <!-- ----------------------------------------------------
-         PAGE 3: THE CELEBRATION (Recreated Exactly from Image)
+         PAGE 3: THE CELEBRATION
+         - Updated Tagaytay garden overlook setup image
+         - Exactly 3 bullet items (Date/Time, Location with View Direction, Dress Code with Shades & Sketches)
+         - "Add to calendar" removed
+         - Clean typography with no citation markers
          ---------------------------------------------------- -->
     <section id="page-2" class="page-sheet peel-in-wait bg-custom-3 bg-cover bg-center">
-      <!-- 80% Dark Plum / Amethyst Contrast Dimmer Overlay -->
       <div class="absolute inset-0 bg-[#0f0617]/80 backdrop-brightness-[0.9]"></div>
 
       <div class="relative z-20 min-h-full max-w-6xl mx-auto px-4 sm:px-6 py-28 flex flex-col justify-center">
         
-        <!-- Section Breadcrumb Heading[cite: 2] -->
+        <!-- Breadcrumb Header -->
         <div class="mb-4">
           <p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold">
-            3. The Celebration[cite: 2]
+            3. The Celebration
           </p>
         </div>
 
-        <!-- Exact Image Layout: Two-Column Card (Castle Image Left, Elegant White Card Right)[cite: 2] -->
+        <!-- Celebration Two-Column Feature Card -->
         <div class="rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.85)] border border-purple-400/20 grid grid-cols-1 lg:grid-cols-12 bg-white">
           
-          <!-- Left Column: Twilight Mansion Garden Imagery[cite: 2] -->
-          <div class="lg:col-span-6 relative min-h-[320px] lg:min-h-[460px] overflow-hidden bg-purple-950">
+          <!-- Left Column: Tagaytay Overlook Garden Setup Imagery -->
+          <div class="lg:col-span-6 relative min-h-[360px] lg:min-h-[500px] overflow-hidden bg-purple-950">
             <img 
-              src="https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=1200&q=80" 
-              alt="The Celebration Mansion at Twilight" 
+              src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" 
+              alt="Tagaytay Garden Celebration Overlook" 
               class="w-full h-full object-cover"
             >
             <div class="absolute inset-0 bg-gradient-to-t from-purple-950/60 via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4 bg-plum-deep/80 backdrop-blur-md p-3 rounded-lg border border-purple-400/30">
+              <p class="font-cinzel text-[10px] tracking-widest text-gold-light uppercase font-semibold">Narra Hill Sanctuary</p>
+              <p class="font-sans text-[11px] text-purple-200">Lush Tagaytay ridge gardens overlooking the serene lake horizon.</p>
+            </div>
           </div>
 
-          <!-- Right Column: Clean Floral Invitation Details Panel[cite: 2] -->
-          <div class="lg:col-span-6 relative bg-gradient-to-br from-[#faf8fc] to-[#f4eef9] p-8 sm:p-12 md:p-14 flex flex-col justify-between text-[#3b1d5a]">
+          <!-- Right Column: Details Panel -->
+          <div class="lg:col-span-6 relative bg-gradient-to-br from-[#faf8fc] to-[#f4eef9] p-7 sm:p-10 md:p-12 flex flex-col justify-between text-[#3b1d5a]">
             
-            <!-- Delicate Floral Corner Accent Graphic (Right Edge)[cite: 2] -->
-            <div class="absolute top-0 right-0 w-32 h-32 sm:w-44 sm:h-44 pointer-events-none opacity-25">
+            <!-- Floral Corner Accent -->
+            <div class="absolute top-0 right-0 w-32 h-32 sm:w-40 sm:h-40 pointer-events-none opacity-20">
               <svg viewBox="0 0 100 100" fill="none" class="w-full h-full text-purple-700">
                 <path d="M100 0 C70 10, 50 30, 40 60 C35 75, 20 85, 0 100 L100 100 Z" fill="currentColor"/>
               </svg>
             </div>
 
-            <!-- Header[cite: 2] -->
             <div>
               <p class="font-cinzel text-xs sm:text-[13px] tracking-[0.35em] text-[#5c2d91] uppercase font-semibold mb-1">
-                The Celebration[cite: 2]
+                The Celebration
               </p>
-              <h2 class="font-script text-5xl sm:text-6xl text-[#3b1d5a] -rotate-1 select-none leading-tight mb-8">
-                Details[cite: 2]
+              <h2 class="font-script text-5xl sm:text-6xl text-[#3b1d5a] -rotate-1 select-none leading-tight mb-6">
+                Details
               </h2>
 
-              <!-- Details List with Icons[cite: 2] -->
+              <!-- Exactly 3 Bullet Sections -->
               <div class="space-y-6">
-                <!-- Date & Time[cite: 2] -->
+                
+                <!-- Bullet 1: Date & Time -->
                 <div class="flex items-start space-x-4">
-                  <div class="text-[#5c2d91] text-2xl mt-1">
+                  <div class="text-[#5c2d91] text-2xl mt-0.5">
                     <i class="fa-regular fa-calendar-check"></i>
                   </div>
                   <div>
                     <p class="font-serif text-lg sm:text-xl text-[#240b36] font-semibold leading-snug">
-                      September 22, 2028[cite: 2]
+                      September 22, 2028
                     </p>
                     <p class="font-sans text-xs sm:text-sm text-[#664b7d] flex items-center mt-1">
-                      <i class="fa-regular fa-clock mr-1.5 text-xs"></i> 6:00 PM[cite: 2]
+                      <i class="fa-regular fa-clock mr-1.5 text-xs"></i> 6:00 PM (Philippine Standard Time)
                     </p>
                   </div>
                 </div>
 
-                <!-- Venue & Dress Code[cite: 2] -->
+                <!-- Bullet 2: Location & View Direction -->
                 <div class="flex items-start space-x-4">
-                  <div class="text-[#5c2d91] text-2xl mt-1">
-                    <i class="fa-solid fa-vest-patches"></i>
+                  <div class="text-[#5c2d91] text-2xl mt-0.5">
+                    <i class="fa-solid fa-location-dot"></i>
                   </div>
-                  <div>
+                  <div class="flex-1">
                     <p class="font-serif text-lg sm:text-xl text-[#240b36] font-semibold leading-snug">
-                      Narra Hill, Tagaytay City[cite: 2]
+                      Narra Hill
                     </p>
-                    <p class="font-sans text-xs sm:text-sm text-[#664b7d] mt-1">
-                      Dress Code: Strictly White[cite: 2]
+                    <p class="font-sans text-xs sm:text-sm text-[#664b7d] mt-0.5">
+                      Tagaytay City, Cavite
                     </p>
+                    <!-- View Direction Button & Note -->
+                    <div class="mt-2.5">
+                      <a 
+                        href="https://maps.google.com/?q=Narra+Hill+Tagaytay" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="inline-flex items-center space-x-1.5 text-[11px] font-cinzel font-semibold tracking-wider text-[#5c2d91] hover:text-[#240b36] underline underline-offset-4 decoration-purple-300 transition"
+                      >
+                        <i class="fa-solid fa-diamond-turn-right text-xs"></i>
+                        <span>View Direction (Google Maps)</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
+
+                <!-- Bullet 3: Dress Code, Shades of White & Sketches -->
+                <div class="flex items-start space-x-4">
+                  <div class="text-[#5c2d91] text-2xl mt-0.5">
+                    <i class="fa-solid fa-vest-patches"></i>
+                  </div>
+                  <div class="flex-1">
+                    <p class="font-serif text-lg sm:text-xl text-[#240b36] font-semibold leading-snug">
+                      Dress Code: Strictly White
+                    </p>
+                    <p class="font-sans text-xs sm:text-sm text-[#664b7d] mt-0.5">
+                      Formal / Semi-Formal Evening Wear
+                    </p>
+
+                    <!-- Illustration: Shades of White Palette -->
+                    <div class="mt-3">
+                      <p class="font-cinzel text-[10px] uppercase tracking-wider text-[#7a599b] mb-1.5 font-medium">Permitted Shades of White</p>
+                      <div class="flex items-center space-x-2">
+                        <div class="flex flex-col items-center">
+                          <span class="w-6 h-6 rounded-full bg-[#FFFFFF] border border-gray-300 shadow-sm"></span>
+                          <span class="text-[9px] font-sans text-[#5c2d91] mt-0.5">Pure</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                          <span class="w-6 h-6 rounded-full bg-[#FCFBF7] border border-gray-300 shadow-sm"></span>
+                          <span class="text-[9px] font-sans text-[#5c2d91] mt-0.5">Ivory</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                          <span class="w-6 h-6 rounded-full bg-[#F7F5F0] border border-gray-300 shadow-sm"></span>
+                          <span class="text-[9px] font-sans text-[#5c2d91] mt-0.5">Cream</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                          <span class="w-6 h-6 rounded-full bg-[#EAE6DF] border border-gray-300 shadow-sm"></span>
+                          <span class="text-[9px] font-sans text-[#5c2d91] mt-0.5">Alabaster</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Minimalist Fashion Sketches (Gown & Barong/Suit) -->
+                    <div class="mt-3.5 pt-3 border-t border-purple-200/60 flex items-center space-x-6">
+                      <!-- Female Formal Sketch -->
+                      <div class="flex items-center space-x-2">
+                        <svg class="w-6 h-9 text-[#5c2d91]" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="1.8">
+                          <path d="M16 10 C16 6, 24 6, 24 10 C24 14, 20 16, 20 18" />
+                          <path d="M15 18 L25 18 L27 26 L13 26 Z" />
+                          <path d="M13 26 Q10 45 4 56 L36 56 Q30 45 27 26 Z" />
+                          <line x1="20" y1="26" x2="20" y2="56" stroke-dasharray="2 2" stroke-width="1" />
+                        </svg>
+                        <div class="text-[10px] font-sans text-[#4a2472] leading-tight">
+                          <span class="font-medium block">Ladies</span>
+                          <span class="text-[9px] text-[#7a599b]">White Evening Gown</span>
+                        </div>
+                      </div>
+
+                      <!-- Male Formal Sketch -->
+                      <div class="flex items-center space-x-2">
+                        <svg class="w-6 h-9 text-[#5c2d91]" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="1.8">
+                          <circle cx="20" cy="8" r="4" />
+                          <path d="M14 16 L26 16 L28 34 L12 34 Z" />
+                          <path d="M20 16 L20 34" stroke-dasharray="2 2" stroke-width="1" />
+                          <path d="M15 34 L14 56 M25 34 L26 56" />
+                        </svg>
+                        <div class="text-[10px] font-sans text-[#4a2472] leading-tight">
+                          <span class="font-medium block">Gentlemen</span>
+                          <span class="text-[9px] text-[#7a599b]">White Barong / Suit</span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
               </div>
             </div>
 
-            <!-- Action Buttons matching image shape[cite: 2] -->
-            <div class="flex flex-wrap items-center gap-4 pt-10 mt-6 border-t border-purple-200/60">
-              <!-- VIEW MAP (Dark pill button)[cite: 2] -->
+            <!-- Bottom Action: Map Only (Add to Calendar removed) -->
+            <div class="flex items-center pt-8 mt-4 border-t border-purple-200/60">
               <a 
                 href="https://maps.google.com/?q=Narra+Hill+Tagaytay" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                class="btn-details-dark px-6 py-2.5 text-white font-cinzel text-xs uppercase tracking-[0.2em] shadow-md flex items-center"
+                class="btn-details-dark px-7 py-2.5 text-white font-cinzel text-xs uppercase tracking-[0.2em] shadow-md flex items-center space-x-2"
               >
-                View Map[cite: 2]
+                <span>View Map</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
-
-              <!-- ADD TO CALENDAR (Outline pill button)[cite: 2] -->
-              <button 
-                onclick="downloadICS()" 
-                class="btn-details-outline px-6 py-2.5 text-[#3b1d5a] font-cinzel text-xs uppercase tracking-[0.2em] shadow-sm flex items-center"
-              >
-                Add To Calendar[cite: 2]
-              </button>
             </div>
 
           </div>
 
-        </div>
-
-        <!-- Next Step Transition Link -->
-        <div class="mt-8 text-center">
-          <button onclick="navigateToPage(3)" class="text-xs font-cinzel uppercase tracking-widest text-purple-300 hover:text-white transition">
-            Proceed to The 18s • Discover Your Role <i class="fa-solid fa-arrow-right ml-1"></i>
-          </button>
         </div>
 
       </div>
     </section>
 
     <!-- ----------------------------------------------------
-         PAGE 4: THE 18s (Find Your Place) — Uses 4th Page Background
+         PAGE 4: THE 18s (Find Your Role)
+         - Uses 4th page background WITHOUT dim overlay (clean & vibrant)
+         - Chapter, "Find your place", 18 roses/candles/symbols removed
+         - No card panels; only clean floating role lookup input
+         - Preloaded names:
+           * "Mavis Godani" -> 18 Candles + note
+           * "Oreo" -> Guest + note
          ---------------------------------------------------- -->
     <section id="page-3" class="page-sheet peel-in-wait bg-custom-4 bg-cover bg-center">
-      <!-- 80% Dark Plum / Amethyst Contrast Dimmer Overlay -->
-      <div class="absolute inset-0 bg-[#0f0617]/85 backdrop-brightness-[0.9]"></div>
+      <!-- Overlay removed as requested -->
 
-      <div class="relative z-20 min-h-full max-w-4xl mx-auto px-6 py-28 flex flex-col justify-center">
+      <div class="relative z-20 min-h-full max-w-xl mx-auto px-6 py-32 flex flex-col justify-center items-center">
         
-        <!-- Section Title Header -->
-        <div class="text-center mb-10">
-          <p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold mb-2">
-            Chapter III • The 18s
-          </p>
-          <h2 class="font-serif text-3xl sm:text-5xl text-purple-100 font-light drop-shadow">
-            Find Your Place in the Celebration
-          </h2>
-          <div class="w-16 h-[1px] bg-purple-400/50 mx-auto mt-4"></div>
-        </div>
-
-        <!-- Main 18s Lookup Card -->
-        <div class="bg-plum-deep/85 backdrop-blur-md p-8 sm:p-12 rounded-2xl border border-purple-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.8)] text-center">
+        <!-- Minimalist Role Lookup Interface -->
+        <div class="w-full text-center">
           
-          <p class="font-sans text-sm sm:text-base text-purple-200/90 max-w-xl mx-auto mb-8 font-light leading-relaxed">
-            “Be part of Franz’s special milestone. Enter your name below to discover your role in the celebration.”
+          <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-gold-light uppercase font-semibold mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            Guest Role Lookup
           </p>
 
-          <!-- 3 Categories (Markers Only - No lists disclosed) -->
-          <div class="flex flex-wrap justify-center gap-3 sm:gap-6 mb-8">
-            <span class="px-5 py-2 rounded-full bg-purple-900/40 border border-purple-400/30 text-xs font-cinzel tracking-wider text-purple-200">
-              <i class="fa-solid fa-spa mr-1.5 text-purple-300"></i> 18 Roses
-            </span>
-            <span class="px-5 py-2 rounded-full bg-purple-900/40 border border-purple-400/30 text-xs font-cinzel tracking-wider text-purple-200">
-              <i class="fa-solid fa-fire-flame-simple mr-1.5 text-gold-champagne"></i> 18 Candles
-            </span>
-            <span class="px-5 py-2 rounded-full bg-purple-900/40 border border-purple-400/30 text-xs font-cinzel tracking-wider text-purple-200">
-              <i class="fa-solid fa-gem mr-1.5 text-lavender-soft"></i> 18 Symbols
-            </span>
-          </div>
+          <h3 class="font-serif text-3xl sm:text-4xl text-ivory font-light mb-6 drop-shadow-[0_3px_10px_rgba(0,0,0,0.9)]">
+            Enter Your Name
+          </h3>
 
-          <!-- Lookup Form -->
-          <form onsubmit="handle18sLookup(event)" class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+          <!-- Single Clean Input & Button -->
+          <form onsubmit="handle18sLookup(event)" class="w-full flex flex-col sm:flex-row gap-3 shadow-[0_15px_35px_rgba(0,0,0,0.7)]">
             <input 
               type="text" 
               id="guestSearchInput" 
-              placeholder="Enter your full name..." 
+              placeholder="e.g. Mavis Godani or Oreo" 
               required
-              class="flex-1 px-4 py-3 bg-white/5 border border-purple-400/40 rounded text-sm text-ivory placeholder-purple-400/50 focus:outline-none focus:border-gold-champagne transition"
+              class="flex-1 px-5 py-3.5 bg-black/60 backdrop-blur-md border border-purple-300/40 rounded text-sm text-ivory placeholder-purple-300/60 focus:outline-none focus:border-gold-champagne transition shadow-inner"
             >
-            <button type="submit" class="px-6 py-3 bg-gradient-to-r from-purple-800 to-purple-900 border border-gold-champagne/40 hover:border-gold-champagne text-xs font-cinzel uppercase tracking-widest text-ivory rounded shadow-md transition">
+            <button type="submit" class="px-7 py-3.5 bg-purple-900/90 hover:bg-purple-800 backdrop-blur-md border border-gold-champagne/60 hover:border-gold-champagne text-xs font-cinzel uppercase tracking-widest text-ivory rounded transition shadow-lg">
               Find My Role
             </button>
           </form>
 
-          <!-- Dynamic Lookup Result Display -->
-          <div id="lookupResult" class="max-w-md mx-auto mt-6 text-center transition-all duration-300 hidden"></div>
+          <!-- Result Area (Appears cleanly below input without heavy card container) -->
+          <div id="lookupResult" class="w-full mt-6 transition-all duration-300 hidden"></div>
 
-          <div class="mt-10 pt-6 border-t border-purple-500/20 flex justify-between items-center text-xs font-cinzel uppercase tracking-widest text-purple-300">
-            <button onclick="navigateToPage(2)" class="hover:text-white transition">
-              <i class="fa-solid fa-arrow-left mr-1"></i> The Celebration
-            </button>
-            <button onclick="navigateToPage(4)" class="hover:text-gold-light transition text-gold-champagne">
-              Gallery & RSVP <i class="fa-solid fa-arrow-right ml-1"></i>
+          <!-- Bottom Navigation to next page -->
+          <div class="mt-12">
+            <button onclick="navigateToPage(4)" class="px-5 py-2 text-xs font-cinzel uppercase tracking-widest text-gold-light bg-black/40 backdrop-blur-sm border border-purple-400/30 hover:border-gold-champagne rounded transition">
+              Continue to Gallery & RSVP <i class="fa-solid fa-arrow-right ml-1"></i>
             </button>
           </div>
 
@@ -574,7 +616,6 @@
          PAGE 5: EDITORIAL GALLERY & RSVP
          ---------------------------------------------------- -->
     <section id="page-4" class="page-sheet peel-in-wait bg-custom-4 bg-cover bg-center">
-      <!-- 80% Dark Plum / Amethyst Contrast Dimmer Overlay -->
       <div class="absolute inset-0 bg-[#0f0617]/85 backdrop-brightness-[0.9]"></div>
 
       <div class="relative z-20 min-h-full max-w-6xl mx-auto px-6 py-28">
@@ -654,7 +695,7 @@
           <div id="rsvpFeedback" class="mt-4 text-center hidden"></div>
         </div>
 
-        <!-- Section Closing / Return to Welcome -->
+        <!-- Section Closing -->
         <div class="text-center mt-16 pt-8 border-t border-purple-500/20">
           <h4 class="font-serif text-2xl text-purple-200">Until We Meet in Bloom</h4>
           <p class="font-sans text-xs text-purple-300/70 mt-2 max-w-md mx-auto">
@@ -700,15 +741,12 @@
         return;
       }
 
-      // Peel out current page
       currentSheet.classList.remove('active');
       currentSheet.classList.add('peel-out');
 
-      // Prepare target page
       nextSheet.classList.remove('peel-out', 'peel-in-wait');
       nextSheet.classList.add('active');
 
-      // Update Navigation Menu Active State
       document.querySelectorAll('.nav-item').forEach(btn => {
         const pageAttr = parseInt(btn.getAttribute('data-page'));
         if (pageAttr === targetIndex) {
@@ -718,13 +756,12 @@
         }
       });
 
-      // Cleanup post-transition state
       setTimeout(() => {
         currentSheet.classList.remove('peel-out');
         currentSheet.classList.add('peel-in-wait');
         currentPageIndex = targetIndex;
         isTransitioning = false;
-      }, 1600); // 1.6s synchronized with CSS transition
+      }, 1600);
     }
 
     function enterCelebration() {
@@ -813,7 +850,7 @@
     }
 
     // ----------------------------------------------------
-    // The 18s Name Lookup (Privacy Safeguarded)
+    // The 18s Name Lookup (Includes Mavis Godani & Oreo)
     // ----------------------------------------------------
     function handle18sLookup(e) {
       e.preventDefault();
@@ -823,44 +860,52 @@
 
       if (!input) return;
 
+      const lower = input.toLowerCase();
+
+      // Check for Mavis Godani
+      if (lower.includes('mavis') || lower.includes('godani')) {
+        resultArea.innerHTML = `
+          <div class="p-5 rounded-xl bg-black/75 backdrop-blur-md border border-gold-champagne/80 text-center shadow-2xl">
+            <div class="w-10 h-10 rounded-full bg-purple-900/60 border border-gold-champagne/50 flex items-center justify-center mx-auto mb-2 text-gold-light">
+              <i class="fa-solid fa-fire-flame-simple text-base"></i>
+            </div>
+            <p class="font-cinzel text-xs text-gold-light uppercase tracking-widest font-semibold">18 Candles</p>
+            <h4 class="font-serif text-2xl text-ivory font-normal my-1">Mavis Godani</h4>
+            <p class="font-sans text-xs text-purple-200/95 leading-relaxed max-w-md mx-auto mt-2 italic">
+              “Thank you for being a glowing light and a source of warmth, guidance, and wisdom in Franz’s journey into eighteen.”
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      // Check for Oreo
+      if (lower.includes('oreo')) {
+        resultArea.innerHTML = `
+          <div class="p-5 rounded-xl bg-black/75 backdrop-blur-md border border-purple-400/60 text-center shadow-2xl">
+            <div class="w-10 h-10 rounded-full bg-purple-900/60 border border-purple-300/50 flex items-center justify-center mx-auto mb-2 text-purple-200">
+              <i class="fa-solid fa-heart text-base"></i>
+            </div>
+            <p class="font-cinzel text-xs text-purple-300 uppercase tracking-widest font-semibold">Honored Guest</p>
+            <h4 class="font-serif text-2xl text-ivory font-normal my-1">Oreo</h4>
+            <p class="font-sans text-xs text-purple-200/95 leading-relaxed max-w-md mx-auto mt-2 italic">
+              “A truly cherished presence in Franz’s life. Your love, cheer, and companionship bring boundless joy to this celebration.”
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      // Generic / Not Found Feedback
       resultArea.innerHTML = `
-        <div class="p-4 rounded bg-purple-900/40 border border-purple-400/40 text-center">
-          <p class="font-cinzel text-xs text-gold-light uppercase tracking-wider mb-1">Role Lookup Inquiry</p>
-          <p class="font-serif text-base text-purple-200">Checking registry for "<span class="text-ivory font-semibold">${input}</span>"...</p>
+        <div class="p-4 rounded-xl bg-black/75 backdrop-blur-md border border-purple-500/40 text-center shadow-xl">
+          <p class="font-cinzel text-xs text-gold-light uppercase tracking-wider mb-1">Inquiry Result</p>
+          <p class="font-serif text-base text-purple-200">Searched for "<span class="text-ivory font-semibold">${input}</span>"</p>
           <p class="font-sans text-[11px] text-purple-300/80 mt-2">
-            No active assignment found under this exact spelling. Please verify with Franz or try your formal name.
+            No matching role record found under this spelling. Please verify your formal name or check with Franz.
           </p>
         </div>
       `;
-    }
-
-    // ----------------------------------------------------
-    // ICS Calendar Generator
-    // ----------------------------------------------------
-    function downloadICS() {
-      const icsData = [
-        'BEGIN:VCALENDAR',
-        'VERSION:2.0',
-        'PRODID:-//Amethyst Reverie//Franz 18th Birthday//EN',
-        'BEGIN:VEVENT',
-        'UID:franz-18th-' + Date.now() + '@amethystreverie.com',
-        'DTSTAMP:20280922T100000Z',
-        'DTSTART:20280922T100000Z',
-        'DTEND:20280922T160000Z',
-        'SUMMARY:Franz’s 18th Birthday — Amethyst Reverie',
-        'DESCRIPTION:Strictly White Formal Evening Wear. Celebrate Franz\'s 18th Milestone.',
-        'LOCATION:Narra Hill, Tagaytay City, Cavite',
-        'END:VEVENT',
-        'END:VCALENDAR'
-      ].join('\r\n');
-
-      const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.setAttribute('download', 'Franz_18th_Birthday.ics');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
     }
 
     // ----------------------------------------------------
@@ -896,7 +941,7 @@
     }
 
     // ----------------------------------------------------
-    // Floating Light Particles Generator (Hero)
+    // Hero Particles Generator
     // ----------------------------------------------------
     function createParticles() {
       const container = document.getElementById('particleField');
@@ -918,24 +963,23 @@
     createParticles();
 
     // ----------------------------------------------------
-    // Rising Yellow Small Circles (My Story Page)
+    // Frequent Rising Yellow Circles (My Story Page)
+    // Noticeable, flowing across background and through text card
     // ----------------------------------------------------
     function createRisingCircles() {
       const container = document.getElementById('risingCirclesField');
       if (!container) return;
-      const count = 22; // Noticeable yet not distracting
+      const count = 48; // Increased frequency for a noticeable yet graceful ambient rise
       for (let i = 0; i < count; i++) {
         const circle = document.createElement('div');
         circle.className = 'rising-circle';
         
-        // Small, subtle diameters (3px to 7px)
-        const size = Math.random() * 4 + 3;
+        const size = Math.random() * 4.5 + 2.5; // Small, refined particle size (2.5px to 7px)
         circle.style.width = `${size}px`;
         circle.style.height = `${size}px`;
-        circle.style.left = `${Math.random() * 98}%`;
+        circle.style.left = `${Math.random() * 99}%`;
         
-        // Random staggered speeds and delays for an organic flow
-        const duration = Math.random() * 8 + 8; // 8s to 16s rise
+        const duration = Math.random() * 7 + 7; // Smooth 7s to 14s rise
         const delay = Math.random() * 10;
         circle.style.animationDuration = `${duration}s`;
         circle.style.animationDelay = `${delay}s`;
