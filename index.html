@@ -1,658 +1,1034 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full overflow-hidden">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The Debut of Franz</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Pinyon+Script&family=Jost:wght@300;400&display=swap" rel="stylesheet">
-<style>
-:root{--ivory:#f6efe2;--champ:#d8c3a0;--gold:#b8924a;--black:#0c0a09;--ink:#1b1713;
---serif:'Cormorant Garamond',Georgia,serif;--script:'Pinyon Script','Snell Roundhand',cursive;--sans:'Jost',system-ui,sans-serif;color-scheme:dark}
-*,*::before,*::after{box-sizing:border-box}
-html,body{height:100%;margin:0;overflow:hidden}
-body{background:var(--black);color:var(--ivory);font-family:var(--serif);font-size:clamp(16px,1.35vw,20px);line-height:1.6}
-a{color:inherit}
-:focus-visible{outline:1px solid var(--gold);outline-offset:3px}
-.sans{font-family:var(--sans);font-weight:300;letter-spacing:.2em;text-transform:uppercase;font-size:11px}
-.script{font-family:var(--script);font-weight:400;line-height:1.1}
-h2{font-weight:300;font-style:italic;font-size:clamp(30px,4.2vw,54px);line-height:1.1;margin:.1em 0 .45em}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franz's Eighteenth — Amethyst Reverie</title>
 
-/* nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
-padding:calc(20px + env(safe-area-inset-top,0px)) 4vw 16px;transition:color .5s}
-nav.lt{color:var(--ink)}
-.mark{font-size:12px;letter-spacing:.38em;text-decoration:none}
-nav ul{display:flex;gap:2.4vw;list-style:none;margin:0;padding:0}
-nav ul a{text-decoration:none;opacity:.7;padding:6px 0;border-bottom:1px solid transparent;transition:.3s}
-nav ul a:hover,nav ul a.on{opacity:1;border-color:var(--gold)}
-.burger{display:none;background:none;border:0;width:40px;height:40px;cursor:pointer;color:inherit}
-.burger i{display:block;width:22px;height:1px;background:currentColor;margin:6px auto;transition:.3s}
-@media(max-width:820px){
- .burger{display:block}
- nav ul{position:fixed;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:28px;background:#0c0a09fa;color:var(--ivory);
- opacity:0;pointer-events:none;transition:opacity .5s;z-index:-1}
- nav.open{color:var(--ivory)}
- nav.open ul{opacity:1;pointer-events:auto}
- nav ul a{font-size:14px}
- nav.open .burger i:first-child{transform:translateY(3.5px) rotate(45deg)}
- nav.open .burger i:last-child{transform:translateY(-3.5px) rotate(-45deg)}
-}
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-/* pages: one at a time, no page scroll */
-.pg{position:fixed;inset:0;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s}
-.pg.on{opacity:1;visibility:visible}
-.in{height:100%;overflow-y:auto;padding:calc(88px + env(safe-area-inset-top,0px)) 6vw calc(76px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;justify-content:center}
-.wrap{width:100%;max-width:1120px;margin:0 auto}
-.light{background:var(--ivory);color:var(--ink)}
-.light .sans{color:#6d5a3a}
-.eyebrow{color:var(--gold)}
+    <!-- Google Fonts: Cormorant Garamond, Great Vibes / Allura, Cinzel, Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 
-/* intro */
-#home{background:var(--black)}
-#home .bg{position:absolute;inset:0;background:
- linear-gradient(#0c0a0966,#0c0a0999 60%,#0c0a09cc),
- var(--intro,none) center/cover no-repeat,
- radial-gradient(ellipse at 25% 20%,#e9dcc0 0,#bba57c 8%,#0c0a09 45%)}
-#home .in{align-items:center;text-align:center;position:relative}
-.hero>*{opacity:0;animation:rise 2.2s ease forwards;margin:0}
-.hero .a{animation-delay:.4s}.hero .b{animation-delay:1.3s}.hero .c{animation-delay:2.4s}.hero .d{animation-delay:3s}
-@keyframes rise{from{opacity:0;filter:blur(8px)}to{opacity:1;filter:none}}
-.hero .name{font-size:clamp(100px,20vw,230px);color:var(--champ);text-shadow:0 0 50px #b8924a66;margin:.05em 0 .15em}
-.hero .a{letter-spacing:.5em;font-size:clamp(11px,1.5vw,15px)}
-.hero .c{letter-spacing:.5em;font-size:clamp(12px,1.7vw,18px);color:var(--ivory);margin-top:clamp(70px,16vh,180px);margin-bottom:18px}
-.hero .d{letter-spacing:.34em;font-size:clamp(10px,1.2vw,13px);color:#f6efe2cc}
-.hero .a,.hero .c,.hero .d{font-family:var(--sans);font-weight:300;text-transform:uppercase}
-@media(max-width:820px){
- #home .bg{background:linear-gradient(#0c0a0966,#0c0a0999 60%,#0c0a09cc),var(--intro-m,var(--intro,none)) center/cover no-repeat,radial-gradient(ellipse at 25% 20%,#e9dcc0 0,#bba57c 8%,#0c0a09 45%)}
- .hero .c{margin-top:clamp(60px,14vh,140px)}
-}
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        plum: {
+                            DEFAULT: '#180724',
+                            deep: '#0F0317',
+                            rich: '#220A33',
+                            light: '#2D1142'
+                        },
+                        amethyst: {
+                            DEFAULT: '#522378',
+                            bright: '#7935AD',
+                            glow: '#A855F7'
+                        },
+                        lavender: {
+                            DEFAULT: '#C4A1DC',
+                            light: '#EFE7F6',
+                            muted: '#9E82B2'
+                        },
+                        champagne: {
+                            DEFAULT: '#E5C985',
+                            light: '#F8F1DE',
+                            dark: '#B89745'
+                        },
+                        ivory: {
+                            DEFAULT: '#FDFBF7',
+                            soft: '#ECE5D8'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        cinzel: ['"Cinzel"', 'serif'],
+                        script: ['"Allura"', 'cursive'],
+                        sans: ['"Montserrat"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
 
-/* debutante */
-.split{display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:center}
-.quote{font-size:clamp(15px,1.3vw,19px);line-height:1.55}
-.quote p{margin:0 0 .9em;color:#f6efe2dd}
-.sign{font-size:40px;color:var(--champ)}
-.gallery{display:grid;grid-template-columns:1.2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:10px;height:min(62vh,560px)}
-.ph{border:1px solid #b8924a55;cursor:zoom-in;background-color:#241b13;position:relative;overflow:hidden;padding:0;color:inherit;transition:border-color .3s}
-.ph:hover{border-color:var(--gold)}
-.ph span{position:absolute;left:10px;bottom:8px;font-family:var(--sans);font-size:10px;letter-spacing:.2em;color:#f6efe288;text-shadow:0 1px 3px #000}
-.gallery .g1{grid-row:span 2}
-.lb{position:fixed;inset:0;z-index:100;background:#000e;display:none;align-items:center;justify-content:center;padding:6vw}
-.lb.on{display:flex}
-.lb div{height:min(80vh,720px);aspect-ratio:3/4;max-width:90vw;border:1px solid var(--gold);background-color:#000;background-position:center;background-size:contain;background-repeat:no-repeat}
-.x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:22px;background:none;border:0;color:inherit;font-size:34px;cursor:pointer;font-family:var(--serif)}
-@media(max-width:820px){.split{grid-template-columns:1fr;gap:24px}.gallery{height:300px;grid-template-columns:1fr 1fr 1fr}}
+    <style>
+        /* Exact Backgrounds per requirements with high-fidelity twilight floral fallbacks */
+        .bg-page-common {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
 
-/* debutante cover */
-#debutante{background:#0c0a09}
-/* Separated Background Properties to prevent CSS drop bug */
-#debutante .bg{
-  position:absolute; inset:0; 
-  background-image:var(--bg-d,none); 
-  background-position:center; 
-  background-size:cover; 
-  background-repeat:no-repeat; 
-  z-index:0;
-}
-#debutante .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0c0a09ee 0,#0c0a09aa 60%,#0c0a0988)}
+        /* Desktop Views */
+        @media (min-width: 769px) {
+            #page-1 { 
+                background-image: url('background b.jpg'), 
+                radial-gradient(circle at center, rgba(62, 23, 89, 0.45) 0%, rgba(20, 5, 29, 0.85) 75%, rgba(10, 2, 16, 0.98) 100%),
+                radial-gradient(circle at 15% 50%, rgba(132, 60, 186, 0.35) 0%, transparent 50%),
+                radial-gradient(circle at 85% 50%, rgba(132, 60, 186, 0.35) 0%, transparent 50%),
+                linear-gradient(180deg, #180724 0%, #2f1042 50%, #0d0213 100%);
+            }
+            #page-2 { 
+                background-image: url('2nd page b.jpg'), 
+                radial-gradient(circle at top right, rgba(82, 35, 120, 0.5) 0%, rgba(15, 3, 23, 0.92) 80%),
+                linear-gradient(135deg, #180724 0%, #29093b 100%);
+            }
+            #page-3 { 
+                background-image: url('3rd page b.jpg'), 
+                radial-gradient(circle at bottom left, rgba(121, 53, 173, 0.4) 0%, rgba(15, 3, 23, 0.95) 80%),
+                linear-gradient(135deg, #14041e 0%, #260838 100%);
+            }
+            #page-4 { 
+                background-image: url('4th page b.jpg'), 
+                radial-gradient(circle at center, rgba(82, 35, 120, 0.45) 0%, rgba(12, 2, 18, 0.97) 85%),
+                linear-gradient(135deg, #110219 0%, #1d0728 100%);
+            }
+        }
 
-/* Separated Portrait Properties */
-.portrait{
-  position:absolute; top:0; bottom:0; right:0; width:60%; 
-  background-image:var(--p,none); 
-  background-position:center 20%; 
-  background-size:cover; 
-  background-repeat:no-repeat; 
-  z-index:1;
-  -webkit-mask-image:linear-gradient(to right,transparent,#000 35%);mask-image:linear-gradient(to right,transparent,#000 35%)
-}
+        /* Mobile Views */
+        @media (max-width: 768px) {
+            #page-1 { 
+                background-image: url('background p.jpg'), 
+                radial-gradient(circle at top, rgba(82, 35, 120, 0.6) 0%, rgba(15, 3, 23, 0.95) 85%),
+                linear-gradient(180deg, #180724 0%, #2b0e3f 60%, #0a010f 100%);
+            }
+            #page-2 { 
+                background-image: url('2nd page p.jpg'), 
+                radial-gradient(circle at center, rgba(62, 23, 89, 0.5) 0%, rgba(15, 3, 23, 0.95) 80%),
+                linear-gradient(180deg, #180724 0%, #1e052c 100%);
+            }
+            #page-3 { 
+                background-image: url('3rd page p.jpg'), 
+                radial-gradient(circle at center, rgba(62, 23, 89, 0.5) 0%, rgba(15, 3, 23, 0.95) 80%),
+                linear-gradient(180deg, #180724 0%, #1e052c 100%);
+            }
+            #page-4 { 
+                background-image: url('4th page p.jpg'), 
+                radial-gradient(circle at center, rgba(62, 23, 89, 0.5) 0%, rgba(15, 3, 23, 0.95) 80%),
+                linear-gradient(180deg, #180724 0%, #1e052c 100%);
+            }
+        }
 
-#debutante>.in{position:relative;z-index:2}
-.dl{max-width:min(520px,46vw)}
-.ttl{margin:0;font-weight:300;font-style:normal;line-height:1}
-.ttl .the{display:block;font-size:clamp(46px,5.4vw,78px);color:var(--champ);margin-left:.1em}
-.ttl .deb{display:block;font-style:italic;font-size:clamp(58px,7.6vw,112px);color:var(--champ);margin-top:-.12em}
-.tag{margin:28px 0 36px;font-family:var(--sans);font-weight:300;font-size:clamp(14px,1.25vw,17px);line-height:1.9;letter-spacing:.03em;color:#f6efe2e6;max-width:38ch}
-.dl .more{position:relative;flex-wrap:wrap}
+        /* 3D Perspective Stage & Cubic-Bezier Page Peel / Scale Transition */
+        #stage-viewport {
+            perspective: 2000px;
+            perspective-origin: center center;
+        }
 
-/* Pulshing Highlight for the About Button */
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(184, 146, 74, 0.6); }
-  70% { box-shadow: 0 0 0 15px rgba(184, 146, 74, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(184, 146, 74, 0); }
-}
-#aboutOpen {
-  background: rgba(184, 146, 74, 0.15);
-  border: 1px solid var(--gold);
-  color: var(--ivory);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 30px;
-  margin-top: 10px;
-  animation: pulse 2s infinite;
-  transition: .3s;
-}
-#aboutOpen:hover { background: var(--gold); color: var(--black); }
-#aboutOpen i { display: none; }
-#aboutOpen b { font-weight: 300; font-size: 16px; transition: transform .3s; }
-#aboutOpen:hover b { transform: translateX(5px); }
+        .stage-page {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            transform-origin: left center;
+            backface-visibility: hidden;
+            will-change: transform, opacity, filter;
+            transition: transform 1.25s cubic-bezier(0.77, 0, 0.175, 1),
+                        opacity 1.05s cubic-bezier(0.77, 0, 0.175, 1),
+                        filter 1.25s cubic-bezier(0.77, 0, 0.175, 1);
+        }
 
-.about{position:absolute;inset:0;z-index:5;background:#0c0a09;transform:translateX(100%);visibility:hidden;transition:transform .8s ease,visibility .8s}
-.about.on{transform:none;visibility:visible}
-.about .bg{
-  position:absolute; inset:0; 
-  background-image:var(--about-bg,none); 
-  background-position:center; 
-  background-size:cover; 
-  background-repeat:no-repeat; 
-  opacity:0.2; z-index:0;
-}
-.about .in{position:relative;z-index:2}
-.back{background:none; border:0; color:var(--ivory); cursor:pointer; display:inline-flex; align-items:center; gap:10px; padding:8px 0; margin-bottom:10px;}
-.back b { transition:transform .3s; }
-.back:hover b { transform:translateX(-5px); }
+        /* Active In-View State */
+        .page-state-active {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
+            pointer-events: auto;
+            z-index: 30;
+            filter: blur(0px);
+        }
 
-@media(max-width:820px){
- #debutante .bg{background-image:var(--bg-m, var(--bg-d, none))}
- #debutante .bg::after{background:linear-gradient(#0c0a0944 0%,#0c0a09dd 60%,#0c0a09ff 100%)}
- .portrait{inset:0;width:100%;height:65%;background-size:cover;background-position:center 15%;
-  -webkit-mask-image:linear-gradient(#000 50%,transparent 95%);mask-image:linear-gradient(#000 50%,transparent 95%)}
- #debutante>.in{justify-content:flex-end;align-items:center;text-align:center;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
- .dl{max-width:none}.tag{display:none}
- .ttl .the{margin:0}.ttl .deb{font-size:clamp(54px,16vw,80px)}
- .dl .more{margin:18px auto 0;justify-content:center}
-}
+        /* 3D Cubic-Bezier Peel Out State */
+        .page-state-peeled {
+            opacity: 0;
+            transform: translate3d(-105%, 0, -320px) rotateY(-42deg) scale(0.88);
+            pointer-events: none;
+            z-index: 20;
+            filter: blur(8px) brightness(0.6);
+        }
 
-/* celebration */
-.celeb-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 6vw; align-items: center; }
-.celeb-dl { margin: 30px 0; display: grid; grid-template-columns: auto 1fr; gap: 20px 24px; align-items: center; font-family: var(--sans); font-size: 12px; letter-spacing: .15em; text-transform: uppercase; }
-.celeb-dl dt { margin: 0; font-weight: 400; opacity: 0.6; display: flex; align-items: center; gap: 14px; }
-.celeb-dl dd { margin: 0; font-family: var(--serif); font-size: clamp(16px, 1.4vw, 20px); text-transform: none; letter-spacing: 0; font-weight: 400; }
-.celeb-visuals { display: flex; gap: 16px; height: min(65vh, 600px); }
-.c-main { flex: 2; background-color: #d8c3a0; background-position: center; background-size: cover; background-repeat: no-repeat; border: 1px solid #d8c3a033; }
-.c-side { flex: 1; background-color: #b8924a; background-position: center; background-size: cover; background-repeat: no-repeat; border: 1px solid #d8c3a033; }
-.btn-rsvp { background: var(--ink); color: var(--ivory); border: 1px solid var(--ink); padding: 16px 48px; font-family: var(--sans); letter-spacing: .2em; text-transform: uppercase; cursor: pointer; font-size: 11px; transition: .3s; }
-.btn-rsvp:hover { background: var(--black); border-color: var(--gold); }
-.modal{position:fixed;inset:0;z-index:90;background:#0c0a09d9;display:none;align-items:center;justify-content:center;padding:5vw}
-.modal.on{display:flex}
-.sheet{background:var(--ivory);color:var(--ink);width:min(480px,100%);max-height:90vh;overflow:auto;padding:36px;position:relative}
-@media(max-width:820px){
-  .celeb-layout { grid-template-columns: 1fr; gap: 40px; }
-  .celeb-visuals { height: 400px; }
-  .celeb-dl dt svg { width: 18px; height: 18px; }
-}
+        /* Morphing Scale Entry State */
+        .page-state-queued {
+            opacity: 0;
+            transform: translate3d(25%, 0, -220px) scale(0.88);
+            pointer-events: none;
+            z-index: 10;
+            filter: blur(8px) brightness(0.7);
+        }
 
-/* 18s */
-.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 6px}
-.tab{background:none;border:1px solid #b8924a66;color:var(--ivory);padding:13px 20px;cursor:pointer;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:.3s}
-.tab[aria-selected=true]{background:var(--gold);color:var(--black);border-color:var(--gold)}
-.panel{display:none}.panel.on{display:block}
-.panel>p{max-width:60ch;color:#f6efe2cc;margin:.6em 0}
-.nums{display:grid;grid-template-columns:repeat(9,1fr);gap:9px;margin:16px 0;max-width:640px}
-.num{aspect-ratio:1;border-radius:50%;border:1px solid #b8924a77;background:none;color:var(--champ);font:300 clamp(16px,1.6vw,22px) var(--serif);cursor:pointer;transition:.3s}
-.num:hover,.num[aria-pressed=true]{background:var(--champ);color:var(--black);border-color:var(--champ)}
-.card{min-height:120px;border-left:1px solid var(--gold);padding:4px 0 4px 24px;max-width:60ch;opacity:0;transform:translateY(8px);transition:.7s}
-.card.show{opacity:1;transform:none}
-.card h3{font-weight:300;font-style:italic;font-size:clamp(22px,2.4vw,30px);margin:0}
-.card p{margin:.3em 0 0}
-@media(max-width:620px){.nums{grid-template-columns:repeat(6,1fr)}}
+        /* Custom Scrollbar for inner content pages */
+        .custom-scroll::-webkit-scrollbar { width: 5px; }
+        .custom-scroll::-webkit-scrollbar-track { background: rgba(15, 3, 23, 0.4); }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(196, 161, 220, 0.3); border-radius: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: rgba(229, 201, 133, 0.6); }
 
-/* live gallery */
-#live { background: #0c0a09; }
-#live .bg { position:absolute; inset:0; background-image: var(--live-bg-d, none); background-position:center; background-size:cover; opacity: 0.35; z-index: 0; }
-.qr-panel { 
-  border: 1px solid var(--gold); 
-  padding: clamp(24px, 4vw, 40px); 
-  margin: 30px auto; 
-  background: rgba(12,10,9,0.5); 
-  backdrop-filter: blur(8px); 
-  -webkit-backdrop-filter: blur(8px);
-  display: inline-block; 
-  cursor: pointer; 
-  transition: .3s; 
-  text-align: center;
-}
-.qr-panel:hover { background: rgba(12,10,9,0.75); border-color: var(--champ); }
-.qr-panel .qr { background: var(--ivory); padding: 10px; display: inline-block; }
-.qr-panel .qr img { width: clamp(120px, 16vw, 160px); height: auto; display: block; }
-.strip-container { margin: 0 -6vw; padding: 20px 6vw 0; position: relative; }
-.strip { display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none; scroll-behavior: smooth; }
-.strip::-webkit-scrollbar { display: none; }
-.strip .ph { flex: 0 0 clamp(130px, 20vw, 220px); aspect-ratio: 4/3; border: 1px solid #b8924a55; background-color: #241b13; background-position:center; background-size:cover; cursor: default; }
-.strip-arr { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--ivory); font-size: 36px; cursor: pointer; z-index: 10; opacity: 0.6; transition: .3s; margin-top: 10px; padding: 10px; }
-.strip-arr:hover { opacity: 1; color: var(--gold); }
-.strip-arr.left { left: 10px; }
-.strip-arr.right { right: 10px; }
-@media(max-width:820px) {
-  #live .bg { background-image: var(--live-bg-m, var(--live-bg-d, none)); }
-  .strip-arr { display: none; }
-  .strip .ph { flex: 0 0 130px; aspect-ratio: 1; }
-}
+        /* Ornate Vintage Scalloped / Clipped-Corner Button */
+        .ornate-border-btn {
+            position: relative;
+            background: rgba(18, 5, 27, 0.45);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(248, 241, 222, 0.55);
+            box-shadow: 0 0 25px rgba(121, 53, 173, 0.3), inset 0 0 15px rgba(229, 201, 133, 0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .ornate-border-btn::before,
+        .ornate-border-btn::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border: 1px solid rgba(229, 201, 133, 0.85);
+            transition: all 0.3s ease;
+        }
+        .ornate-border-btn::before { top: 3px; left: 3px; border-right: none; border-bottom: none; }
+        .ornate-border-btn::after { bottom: 3px; right: 3px; border-left: none; border-top: none; }
+        .ornate-border-btn:hover {
+            background: rgba(82, 35, 120, 0.65);
+            border-color: rgba(229, 201, 133, 0.95);
+            box-shadow: 0 0 35px rgba(200, 145, 245, 0.5), inset 0 0 25px rgba(229, 201, 133, 0.3);
+            transform: translateY(-2px) scale(1.02);
+        }
 
-/* closing */
-#thanks .in{align-items:center;text-align:center;background:radial-gradient(ellipse at 90% 100%,#d8c3a0 0,#f6efe2 40%)}
-#thanks .script{font-size:clamp(64px,12vw,130px);margin:0}
-.rule{width:1px;height:44px;background:var(--gold);margin:20px auto}
-.foot{margin-top:34px}
-.foot .links{display:flex;gap:26px;justify-content:center;margin-top:10px;flex-wrap:wrap}
-.foot a{text-decoration:none;border-bottom:1px solid transparent}.foot a:hover{border-color:var(--gold)}
+        /* Glassmorphism Cards */
+        .glass-panel-dark {
+            background: rgba(18, 5, 28, 0.76);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(196, 161, 220, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
 
-/* page controls */
-.ctl{position:fixed;z-index:40;bottom:calc(22px + env(safe-area-inset-bottom,0px));background:none;border:1px solid #b8924a88;color:inherit;width:46px;height:46px;border-radius:50%;cursor:pointer;font:22px/1 var(--serif);transition:.3s}
-.ctl:hover{background:var(--gold);color:var(--black);border-color:var(--gold)}
-#prev{left:4vw}#next{right:4vw}
-.dots{display:none}
-body.lt .ctl{color:var(--ink)}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}}
-</style>
+        .glass-panel-light {
+            background: rgba(253, 251, 247, 0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(229, 201, 133, 0.4);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Particle Overlay */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        /* Shimmer text */
+        .gold-shimmer {
+            background: linear-gradient(120deg, #FDFBF7 0%, #F8F1DE 30%, #E5C985 65%, #C4A1DC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Accessibility: reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .stage-page { transition: opacity 0.35s ease !important; transform: none !important; }
+        }
+    </style>
 </head>
-<body>
+<body class="bg-plum-deep text-ivory font-sans antialiased h-full overflow-hidden select-none">
 
-<nav id="nav">
- <a class="mark sans" href="#home" aria-label="Franz, back to opening">Franz</a>
- <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
- <ul class="sans" id="menu">
-  <li><a href="#home">Home</a></li>
-  <li><a href="#debutante">The Debutante</a></li>
-  <li><a href="#celebration">The Celebration</a></li>
-  <li><a href="#eighteens">The 18s</a></li>
-  <li><a href="#live">Live Gallery</a></li>
- </ul>
-</nav>
+    <!-- Subtle Floating Twilight Dust Particles -->
+    <canvas id="particle-canvas"></canvas>
 
-<main>
-<section id="home" class="pg on" data-lt="0">
- <div class="bg" id="introBg"></div>
- <div class="in"><div class="hero">
-  <p class="a">The Debut of</p>
-  <h1 class="script name b">Franz</h1>
-  <p class="c">September 27, 2028</p>
-  <p class="d">An Evening of Timeless Elegance</p>
- </div></div>
-</section>
+    <!-- TOP BROWSER-LIKE ELEGANT MENU BAR (Matching the provided UI) -->
+    <header class="fixed top-0 left-0 w-full z-50 h-16 sm:h-20 px-4 sm:px-8 flex items-center justify-between border-b border-white/10 bg-gradient-to-b from-plum-deep/90 via-plum-deep/65 to-transparent backdrop-blur-[6px] transition-all duration-300">
+        
+        <!-- Left: Hamburger Icon Button -->
+        <button id="nav-drawer-toggle" aria-label="Toggle Navigation Drawer" class="p-2 text-ivory/80 hover:text-champagne transition focus:outline-none">
+            <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
 
-<section id="debutante" class="pg" data-lt="0">
- <div class="bg" id="debBg"></div>
- <div class="portrait" id="portrait" role="img" aria-label="Portrait of Franz"></div>
- <div class="in"><div class="dl">
-  <h2 class="ttl"><span class="the script">The</span><span class="deb">Debutante</span></h2>
-  <p class="tag">Quietly thoughtful, endlessly creative, Franz finds beauty in the little things and a world of possibilities in what's ahead.</p>
-  <button class="sans" id="aboutOpen">Know a little more about me <b>&rarr;</b></button>
- </div></div>
- <div class="about" id="aboutPanel" aria-hidden="true">
-  <div class="bg" id="aboutBg"></div>
-  <div class="in"><div class="wrap">
-   <button class="sans back" id="aboutClose"><b>&larr;</b> Back</button>
-   <h2>The Girl Behind the Story</h2>
-   <div class="split">
-    <div class="quote">
-     <p>“I have always found beauty in the quieter things—in the pages of a good book, the sound of jazz, and the little details that make something feel uniquely my own.</p>
-     <p>I may not always be the loudest in the room, but I have a world of thoughts, ideas, and stories of my own. Tonight, I celebrate a new chapter, carrying with me the things I love and the person I am becoming.</p>
-     <p>This is my story, and I am only just beginning.”</p>
-     <div class="script sign">Franz</div>
+        <!-- Center: Elegant Browser Nav Links -->
+        <nav class="hidden lg:flex items-center space-x-5 xl:space-x-8 text-[11px] xl:text-[12px] tracking-[0.25em] font-cinzel uppercase text-ivory/85">
+            <button onclick="navigateToPage(1)" id="nav-btn-home" class="hover:text-champagne transition py-1 text-champagne border-b border-champagne/60">HOME</button>
+            <button onclick="navigateToPage(2)" id="nav-btn-story" class="hover:text-champagne transition py-1">MY STORY</button>
+            <button onclick="navigateToPage(3, 'celebration-panel')" id="nav-btn-celebration" class="hover:text-champagne transition py-1">THE CELEBRATION</button>
+            <button onclick="navigateToPage(3, 'the-18s-panel')" id="nav-btn-18s" class="hover:text-champagne transition py-1">THE 18S</button>
+            <button onclick="navigateToPage(3, 'dresscode-panel')" id="nav-btn-dresscode" class="hover:text-champagne transition py-1">DRESS CODE</button>
+            <button onclick="navigateToPage(4, 'editorial-gallery-panel')" id="nav-btn-gallery" class="hover:text-champagne transition py-1">GALLERY</button>
+            <button onclick="navigateToPage(3, 'the-18s-panel')" id="nav-btn-findname" class="hover:text-champagne transition py-1">FIND YOUR NAME</button>
+            <button onclick="navigateToPage(3, 'faqs-panel')" id="nav-btn-faqs" class="hover:text-champagne transition py-1">FAQS</button>
+            <button onclick="navigateToPage(4, 'rsvp-panel')" id="nav-btn-rsvp" class="hover:text-champagne transition py-1">RSVP</button>
+        </nav>
+
+        <!-- Right: Musical Note Audio Toggle Button -->
+        <button id="nav-music-toggle" aria-label="Toggle Ambient Twilight Melody" class="p-2 sm:p-2.5 rounded-full text-champagne hover:text-white transition focus:outline-none flex items-center justify-center">
+            <svg id="header-music-icon" class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
+        </button>
+    </header>
+
+    <!-- Responsive Mobile / Drawer Navigation Menu -->
+    <div id="nav-drawer" class="fixed inset-y-0 left-0 w-72 sm:w-80 bg-plum-deep/98 border-r border-lavender/20 z-50 transform -translate-x-full transition-transform duration-500 ease-in-out p-8 flex flex-col justify-between shadow-2xl backdrop-blur-xl">
+        <div class="space-y-6">
+            <div class="flex items-center justify-between border-b border-lavender/20 pb-4">
+                <span class="font-script text-3xl text-champagne">Franz's 18th</span>
+                <button id="close-drawer-btn" class="text-ivory/70 hover:text-champagne">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <nav class="flex flex-col space-y-4 font-cinzel text-xs tracking-[0.2em] uppercase text-ivory/90">
+                <button onclick="navigateToPage(1); toggleDrawer();" class="text-left py-1 hover:text-champagne">Home</button>
+                <button onclick="navigateToPage(2); toggleDrawer();" class="text-left py-1 hover:text-champagne">My Story</button>
+                <button onclick="navigateToPage(3, 'celebration-panel'); toggleDrawer();" class="text-left py-1 hover:text-champagne">The Celebration</button>
+                <button onclick="navigateToPage(3, 'the-18s-panel'); toggleDrawer();" class="text-left py-1 hover:text-champagne">The 18s & Role Lookup</button>
+                <button onclick="navigateToPage(3, 'dresscode-panel'); toggleDrawer();" class="text-left py-1 hover:text-champagne">Dress Code</button>
+                <button onclick="navigateToPage(4, 'editorial-gallery-panel'); toggleDrawer();" class="text-left py-1 hover:text-champagne">Editorial Gallery</button>
+                <button onclick="navigateToPage(4, 'live-gallery-panel'); toggleDrawer();" class="text-left py-1 hover:text-champagne">Live Photos</button>
+                <button onclick="navigateToPage(3, 'faqs-panel'); toggleDrawer();" class="text-left py-1 hover:text-champagne">Event Details & FAQs</button>
+                <button onclick="navigateToPage(4, 'rsvp-panel'); toggleDrawer();" class="text-left py-1 hover:text-champagne text-champagne">RSVP</button>
+            </nav>
+        </div>
+        <div class="text-[10px] text-lavender/60 font-sans tracking-widest uppercase border-t border-lavender/10 pt-4">
+            Amethyst Reverie • September 22, 2028
+        </div>
     </div>
-    <div class="gallery" aria-label="Portrait gallery">
-     <button class="ph g1" data-lb aria-label="Open portrait 1"><span>I</span></button>
-     <button class="ph" data-lb aria-label="Open portrait 2"><span>II</span></button>
-     <button class="ph" data-lb aria-label="Open portrait 3"><span>III</span></button>
-     <button class="ph" data-lb aria-label="Open portrait 4"><span>IV</span></button>
-     <button class="ph" data-lb aria-label="Open portrait 5"><span>V</span></button>
+    <div id="drawer-backdrop" class="fixed inset-0 bg-black/60 z-40 hidden backdrop-blur-sm"></div>
+
+    <!-- 3D PERSPECTIVE VIEWPORT STAGE FOR MULTI-PAGE EXPERIENCE -->
+    <main id="stage-viewport" class="relative w-full h-full overflow-hidden">
+
+        <!-- ==============================================================
+             PAGE 1: HOME / WELCOME (EXACT RECREATION OF USER SCREENSHOT)
+             ============================================================== -->
+        <section id="page-1" class="stage-page page-state-active bg-page-common flex items-center justify-center">
+            
+            <!-- Atmospheric Twilight Vignette & Glow Overlays -->
+            <div class="absolute inset-0 bg-gradient-to-t from-plum-deep/80 via-transparent to-plum-deep/40 pointer-events-none"></div>
+
+            <!-- Left & Right Floral Archway Architectural Shadows for Ambience -->
+            <div class="hidden md:block absolute left-0 inset-y-0 w-1/4 bg-gradient-to-r from-plum-deep/60 to-transparent pointer-events-none"></div>
+            <div class="hidden md:block absolute right-0 inset-y-0 w-1/4 bg-gradient-to-l from-plum-deep/60 to-transparent pointer-events-none"></div>
+
+            <!-- Center Content: Matching Screenshot Placement & Styling -->
+            <div class="relative z-20 text-center px-4 max-w-4xl mx-auto flex flex-col items-center justify-center -mt-6 sm:-mt-2">
+                
+                <!-- "YOU ARE INVITED TO" -->
+                <p class="font-cinzel text-[11px] sm:text-xs md:text-sm tracking-[0.35em] text-ivory/85 uppercase font-medium mb-3 sm:mb-4 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                    You Are Invited To
+                </p>
+
+                <!-- "FRANZ'S" -->
+                <h1 class="font-cinzel text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[0.22em] text-ivory font-normal leading-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)] ml-2">
+                    FRANZ'S
+                </h1>
+
+                <!-- "Eighteenth" (Exquisite large calligraphy script) -->
+                <div class="relative -mt-3 sm:-mt-6 md:-mt-8 mb-2 sm:mb-4">
+                    <span class="font-script text-6xl sm:text-8xl md:text-9xl lg:text-[140px] text-white/95 font-normal tracking-wide drop-shadow-[0_6px_22px_rgba(0,0,0,0.9)] transform -rotate-[3deg] inline-block">
+                        Eighteenth
+                    </span>
+                </div>
+
+                <!-- Ornamental Vintage Center Divider -->
+                <div class="flex items-center justify-center w-64 sm:w-80 md:w-96 my-2 sm:my-3 opacity-80">
+                    <div class="h-[1px] flex-grow bg-gradient-to-r from-transparent via-champagne/70 to-champagne"></div>
+                    <div class="mx-3 text-champagne/90 text-sm sm:text-base">❖</div>
+                    <div class="h-[1px] flex-grow bg-gradient-to-l from-transparent via-champagne/70 to-champagne"></div>
+                </div>
+
+                <!-- "A NEW CHAPTER BEGINS" -->
+                <p class="font-cinzel text-[11px] sm:text-xs md:text-sm tracking-[0.32em] text-ivory/90 uppercase font-light my-3 sm:my-5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                    A New Chapter Begins
+                </p>
+
+                <!-- "ENTER THE INVITATION" Button with Ornate Vintage Border -->
+                <div class="mt-4 sm:mt-6">
+                    <button id="enter-invitation-btn" onclick="executePagePeel(2)" class="ornate-border-btn px-8 sm:px-12 py-3 sm:py-3.5 rounded-sm font-cinzel text-xs sm:text-sm tracking-[0.3em] uppercase text-ivory cursor-pointer">
+                        Enter The Invitation
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE VERTICAL WIDGET (Matching Screenshot Translucent Dark Pillar) -->
+            <aside class="absolute right-3 sm:right-6 md:right-10 top-1/2 -translate-y-1/2 z-30 flex flex-col items-center">
+                <div class="w-16 sm:w-20 md:w-24 bg-plum-deep/80 backdrop-blur-md border border-white/10 rounded-xl py-6 px-2 flex flex-col items-center space-y-5 shadow-2xl">
+                    
+                    <!-- Days -->
+                    <div class="text-center w-full">
+                        <span id="countdown-days" class="font-serif text-xl sm:text-2xl md:text-3xl text-ivory font-light block leading-none">000</span>
+                        <span class="font-cinzel text-[8px] sm:text-[9px] tracking-[0.2em] text-lavender/70 uppercase mt-1 block">Days</span>
+                    </div>
+
+                    <div class="w-8 h-[1px] bg-white/10"></div>
+
+                    <!-- Hours -->
+                    <div class="text-center w-full">
+                        <span id="countdown-hours" class="font-serif text-xl sm:text-2xl md:text-3xl text-ivory font-light block leading-none">00</span>
+                        <span class="font-cinzel text-[8px] sm:text-[9px] tracking-[0.2em] text-lavender/70 uppercase mt-1 block">Hours</span>
+                    </div>
+
+                    <div class="w-8 h-[1px] bg-white/10"></div>
+
+                    <!-- Minutes -->
+                    <div class="text-center w-full">
+                        <span id="countdown-minutes" class="font-serif text-xl sm:text-2xl md:text-3xl text-ivory font-light block leading-none">00</span>
+                        <span class="font-cinzel text-[8px] sm:text-[9px] tracking-[0.2em] text-lavender/70 uppercase mt-1 block">Minutes</span>
+                    </div>
+
+                    <div class="w-8 h-[1px] bg-white/10"></div>
+
+                    <!-- Seconds -->
+                    <div class="text-center w-full">
+                        <span id="countdown-seconds" class="font-serif text-xl sm:text-2xl md:text-3xl text-champagne font-light block leading-none">00</span>
+                        <span class="font-cinzel text-[8px] sm:text-[9px] tracking-[0.2em] text-lavender/70 uppercase mt-1 block">Seconds</span>
+                    </div>
+
+                    <!-- Bottom Pillar Button: MUSIC ON ♫ -->
+                    <div class="w-full pt-2 border-t border-white/10 mt-1">
+                        <button id="pillar-music-btn" class="w-full text-center group cursor-pointer focus:outline-none">
+                            <span id="pillar-music-label" class="font-cinzel text-[8px] sm:text-[9px] tracking-[0.18em] text-champagne/90 group-hover:text-white uppercase block">
+                                MUSIC ON ♫
+                            </span>
+                        </button>
+                    </div>
+
+                </div>
+            </aside>
+
+        </section>
+
+        <!-- ==============================================================
+             PAGE 2: MY STORY — "THE GIRL BEHIND THE BLOOM"
+             ============================================================== -->
+        <section id="page-2" class="stage-page page-state-queued bg-page-common overflow-y-auto custom-scroll pt-24 pb-16 px-4 sm:px-8 flex items-center justify-center">
+            <div class="max-w-5xl mx-auto w-full my-auto">
+                
+                <!-- Section Header -->
+                <div class="text-center mb-8 sm:mb-12">
+                    <span class="font-cinzel text-xs tracking-[0.3em] text-champagne uppercase block mb-1">My Story</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl text-ivory font-normal">The Girl Behind the Bloom</h2>
+                    <div class="w-24 h-0.5 bg-gradient-to-r from-transparent via-champagne/60 to-transparent mx-auto mt-3"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- Portrait Frame with Delicate Lavender / Champagne Border -->
+                    <div class="md:col-span-5 flex justify-center">
+                        <div class="relative p-3 rounded-2xl bg-gradient-to-b from-champagne/30 via-lavender/20 to-amethyst/30 border border-lavender/30 shadow-2xl max-w-sm w-full">
+                            <div class="relative rounded-xl overflow-hidden aspect-[3/4] bg-plum-rich">
+                                <img src="https://placehold.co/800x1060/220A33/EFE7F6?text=Franz+Debut+Portrait" alt="Franz Portrait" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-plum-deep/70 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 right-4 text-center">
+                                    <span class="font-cinzel text-[10px] tracking-[0.25em] text-champagne uppercase">Eighteen In Bloom</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Franz's Personal Introduction Quote -->
+                    <div class="md:col-span-7">
+                        <div class="glass-panel-dark p-6 sm:p-10 rounded-2xl border border-lavender/25 relative">
+                            <div class="text-champagne/40 font-serif text-6xl leading-none absolute -top-4 left-4 select-none">“</div>
+                            <p class="font-serif italic text-base sm:text-xl text-ivory/95 leading-relaxed tracking-wide pt-2">
+                                There is a quiet beauty in the pages of a classic novel, the rhythm of a jazz melody, and the artistry of makeup. In these little things, I find inspiration and pieces of myself.
+                            </p>
+                            <p class="font-serif italic text-base sm:text-xl text-ivory/95 leading-relaxed tracking-wide mt-4">
+                                As I turn eighteen, I look forward to the experiences, memories, and possibilities that lie ahead. It would mean so much to have you with me as I celebrate this new chapter of my story.
+                            </p>
+                            <div class="mt-8 text-right border-t border-white/10 pt-4">
+                                <span class="font-script text-4xl sm:text-5xl text-champagne inline-block">— Franz</span>
+                            </div>
+                        </div>
+
+                        <!-- Next Navigation Hook -->
+                        <div class="mt-8 flex justify-center md:justify-start">
+                            <button onclick="navigateToPage(3)" class="ornate-border-btn px-6 py-2.5 rounded-sm font-cinzel text-xs tracking-[0.25em] uppercase text-ivory">
+                                Explore The Celebration →
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==============================================================
+             PAGE 3: THE CELEBRATION, DRESS CODE & PRIVATE 18S ROLE LOOKUP
+             ============================================================== -->
+        <section id="page-3" class="stage-page page-state-queued bg-page-common overflow-y-auto custom-scroll pt-24 pb-16 px-4 sm:px-8 flex items-center justify-center">
+            <div class="max-w-5xl mx-auto w-full my-auto space-y-10">
+
+                <!-- Section Title -->
+                <div class="text-center" id="celebration-panel">
+                    <span class="font-cinzel text-xs tracking-[0.3em] text-champagne uppercase block mb-1">Event Information</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl text-ivory font-normal">An Evening in Bloom</h2>
+                    <p class="font-serif italic text-sm text-lavender-light/80 mt-1">Narra Hill, Tagaytay City, Cavite</p>
+                </div>
+
+                <!-- Event Details 4-Column Ivory/Glass Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="glass-panel-dark p-5 rounded-xl text-center border-t border-t-champagne/80">
+                        <span class="font-cinzel text-[10px] tracking-[0.25em] text-champagne uppercase block mb-1">Date</span>
+                        <h3 class="font-serif text-base sm:text-lg text-ivory font-medium">Sept 22, 2028</h3>
+                    </div>
+                    <div class="glass-panel-dark p-5 rounded-xl text-center border-t border-t-champagne/80">
+                        <span class="font-cinzel text-[10px] tracking-[0.25em] text-champagne uppercase block mb-1">Time</span>
+                        <h3 class="font-serif text-base sm:text-lg text-ivory font-medium">6:00 PM PHT</h3>
+                    </div>
+                    <div class="glass-panel-dark p-5 rounded-xl text-center border-t border-t-champagne/80">
+                        <span class="font-cinzel text-[10px] tracking-[0.25em] text-champagne uppercase block mb-1">Venue</span>
+                        <h3 class="font-serif text-base sm:text-lg text-ivory font-medium">Narra Hill, Tagaytay</h3>
+                    </div>
+                    <div id="dresscode-panel" class="glass-panel-dark p-5 rounded-xl text-center border-t border-t-champagne/80">
+                        <span class="font-cinzel text-[10px] tracking-[0.25em] text-champagne uppercase block mb-1">Dress Code</span>
+                        <h3 class="font-serif text-base sm:text-lg text-champagne font-medium">Strictly White</h3>
+                        <p class="text-[10px] text-ivory/70 uppercase font-sans mt-0.5">Formal Evening</p>
+                    </div>
+                </div>
+
+                <!-- Action Links: Google Maps & Add to Calendar -->
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <a href="https://maps.google.com/?q=Narra+Hill+Tagaytay+City+Cavite" target="_blank" rel="noopener noreferrer" class="ornate-border-btn px-6 py-2.5 rounded-sm font-cinzel text-xs tracking-[0.2em] uppercase text-ivory flex items-center space-x-2">
+                        <span>Google Maps Directions</span>
+                    </a>
+                    <button id="add-to-calendar-btn" class="ornate-border-btn px-6 py-2.5 rounded-sm font-cinzel text-xs tracking-[0.2em] uppercase text-champagne flex items-center space-x-2">
+                        <span>Add To Calendar (.ics)</span>
+                    </button>
+                </div>
+
+                <!-- THE 18S: FIND YOUR ROLE (Strict Privacy Implementation) -->
+                <div id="the-18s-panel" class="glass-panel-dark p-6 sm:p-10 rounded-2xl border border-champagne/40 max-w-2xl mx-auto">
+                    <div class="text-center mb-6">
+                        <span class="font-cinzel text-xs tracking-[0.3em] text-champagne uppercase block mb-1">The 18s Experience</span>
+                        <h3 class="font-serif text-2xl sm:text-3xl text-ivory font-normal">Find Your Place in the Celebration</h3>
+                        <p class="font-serif italic text-xs sm:text-sm text-lavender-light/80 mt-1 max-w-md mx-auto">
+                            “Be part of Franz’s special milestone. Enter your name below to discover your role in the celebration.”
+                        </p>
+                    </div>
+
+                    <!-- 3 Visual Category Markers (Visual references only, no guest names revealed) -->
+                    <div class="grid grid-cols-3 gap-3 text-center mb-6 font-cinzel text-[11px] tracking-widest uppercase">
+                        <div class="p-3 rounded-lg bg-plum-deep/80 border border-lavender/20">
+                            <span class="font-script text-2xl text-champagne block normal-case">18</span> Roses
+                        </div>
+                        <div class="p-3 rounded-lg bg-plum-deep/80 border border-lavender/20">
+                            <span class="font-script text-2xl text-champagne block normal-case">18</span> Candles
+                        </div>
+                        <div class="p-3 rounded-lg bg-plum-deep/80 border border-lavender/20">
+                            <span class="font-script text-2xl text-champagne block normal-case">18</span> Symbols
+                        </div>
+                    </div>
+
+                    <!-- Search Form -->
+                    <form id="role-lookup-form" class="space-y-3">
+                        <div class="relative">
+                            <input type="text" id="guest-lookup-input" placeholder="Enter your full name (e.g. Maria Santos)" required class="w-full px-5 py-3 rounded-lg bg-plum-deep/90 border border-lavender/30 text-ivory placeholder-lavender/40 text-center font-serif text-base focus:outline-none focus:border-champagne transition">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="ornate-border-btn px-8 py-2.5 rounded-sm font-cinzel text-xs tracking-[0.25em] uppercase text-champagne">
+                                Find My Role
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Result Display Area -->
+                    <div id="role-result-container" class="mt-4 hidden p-4 rounded-xl bg-plum-rich/90 border border-champagne/40 text-center">
+                        <div id="role-result-text" class="space-y-1"></div>
+                    </div>
+                </div>
+
+                <!-- Event FAQs / Timeline Preview Placeholder -->
+                <div id="faqs-panel" class="text-center pt-2">
+                    <button onclick="navigateToPage(4)" class="ornate-border-btn px-6 py-2.5 rounded-sm font-cinzel text-xs tracking-[0.25em] uppercase text-ivory">
+                        Continue to Gallery & RSVP →
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==============================================================
+             PAGE 4: EDITORIAL GALLERY, LIVE PHOTO UPLOAD, RSVP & CLOSING
+             ============================================================== -->
+        <section id="page-4" class="stage-page page-state-queued bg-page-common overflow-y-auto custom-scroll pt-24 pb-16 px-4 sm:px-8 flex items-center justify-center">
+            <div class="max-w-5xl mx-auto w-full my-auto space-y-12">
+
+                <!-- Editorial Gallery -->
+                <div id="editorial-gallery-panel">
+                    <div class="text-center mb-6">
+                        <span class="font-cinzel text-xs tracking-[0.3em] text-champagne uppercase block mb-1">Editorial Portraits</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl text-ivory font-normal">Chapters in Bloom</h2>
+                        <div class="w-20 h-0.5 bg-champagne/40 mx-auto mt-2"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div class="editorial-card group relative rounded-xl overflow-hidden cursor-pointer border border-lavender/25 bg-plum-deep shadow-xl" data-full="https://placehold.co/1000x1200/220A33/EFE7F6?text=Chapter+I+%E2%80%94+Awakening">
+                            <img src="https://placehold.co/600x750/220A33/EFE7F6?text=Chapter+I" alt="Chapter 1" class="w-full h-80 object-cover group-hover:scale-105 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-plum-deep via-transparent to-transparent opacity-80"></div>
+                            <div class="absolute bottom-3 left-4">
+                                <span class="font-cinzel text-xs text-champagne tracking-widest uppercase">Chapter I</span>
+                            </div>
+                        </div>
+
+                        <div class="editorial-card group relative rounded-xl overflow-hidden cursor-pointer border border-lavender/25 bg-plum-deep shadow-xl" data-full="https://placehold.co/1000x1200/522378/FDFBF7?text=Chapter+II+%E2%80%94+Twilight+Elegance">
+                            <img src="https://placehold.co/600x750/522378/FDFBF7?text=Chapter+II" alt="Chapter 2" class="w-full h-80 object-cover group-hover:scale-105 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-plum-deep via-transparent to-transparent opacity-80"></div>
+                            <div class="absolute bottom-3 left-4">
+                                <span class="font-cinzel text-xs text-champagne tracking-widest uppercase">Chapter II</span>
+                            </div>
+                        </div>
+
+                        <div class="editorial-card group relative rounded-xl overflow-hidden cursor-pointer border border-lavender/25 bg-plum-deep shadow-xl" data-full="https://placehold.co/1000x1200/0F0317/E5C985?text=Chapter+III+%E2%80%94+Serenade">
+                            <img src="https://placehold.co/600x750/0F0317/E5C985?text=Chapter+III" alt="Chapter 3" class="w-full h-80 object-cover group-hover:scale-105 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-plum-deep via-transparent to-transparent opacity-80"></div>
+                            <div class="absolute bottom-3 left-4">
+                                <span class="font-cinzel text-xs text-champagne tracking-widest uppercase">Chapter III</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Guest Photo Gallery & Upload Dropzone -->
+                <div id="live-gallery-panel" class="glass-panel-dark p-6 sm:p-8 rounded-2xl border border-lavender/25">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                        <div class="md:col-span-5 text-center md:text-left space-y-2">
+                            <span class="font-cinzel text-[10px] tracking-[0.25em] text-champagne uppercase block">Live Photo Gallery</span>
+                            <h3 class="font-serif text-2xl text-ivory">Our Night, Through Your Eyes</h3>
+                            <p class="font-serif italic text-xs text-lavender-light/80">
+                                “Every photo holds a little piece of the celebration. Share your favorite moments and watch our memories come together in one live gallery.”
+                            </p>
+                            <!-- Elegant SVG QR Code Placeholder -->
+                            <div class="p-3 bg-ivory rounded-xl inline-block mt-2 shadow-inner">
+                                <svg class="w-24 h-24 text-plum" viewBox="0 0 100 100" fill="currentColor">
+                                    <path d="M10,10 h30 v30 h-30 z M15,15 v20 h20 v-20 z M20,20 h10 v10 h-10 z" />
+                                    <path d="M60,10 h30 v30 h-30 z M65,15 v20 h20 v-20 z M70,20 h10 v10 h-10 z" />
+                                    <path d="M10,60 h30 v30 h-30 z M15,65 v20 h20 v-20 z M20,70 h10 v10 h-10 z" />
+                                    <rect x="45" y="10" width="10" height="20" /><rect x="45" y="40" width="20" height="10" /><rect x="65" y="60" width="25" height="10" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Dropzone & Upload Preview -->
+                        <div class="md:col-span-7">
+                            <div id="live-dropzone" class="border-2 border-dashed border-champagne/40 bg-plum-deep/60 p-6 rounded-xl text-center cursor-pointer hover:border-champagne transition">
+                                <svg class="w-8 h-8 mx-auto text-champagne mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <p class="font-cinzel text-xs tracking-wider text-ivory">Click or Drag Guest Photos Here</p>
+                                <input type="file" id="live-file-input" multiple accept="image/*" class="hidden">
+                            </div>
+                            <div id="live-preview-grid" class="grid grid-cols-4 gap-2 mt-4 max-h-36 overflow-y-auto custom-scroll"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RSVP Section -->
+                <div id="rsvp-panel" class="glass-panel-light p-6 sm:p-10 rounded-2xl text-plum shadow-2xl">
+                    <div class="text-center mb-6">
+                        <span class="font-cinzel text-xs tracking-[0.3em] text-amethyst uppercase block mb-1">Kindly Respond</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl text-plum font-semibold">A Place for You</h2>
+                        <p class="font-cinzel text-[11px] tracking-widest text-amethyst/90 uppercase mt-1">RSVP Deadline: September 1, 2028</p>
+                    </div>
+
+                    <form id="rsvp-submission-form" class="space-y-4 max-w-xl mx-auto">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <input type="text" id="form-guest-name" required placeholder="Guest Full Name *" class="w-full px-4 py-2.5 rounded-lg bg-ivory border border-amethyst/30 text-plum focus:outline-none focus:border-amethyst text-sm">
+                            <input type="email" id="form-guest-email" required placeholder="Email Address *" class="w-full px-4 py-2.5 rounded-lg bg-ivory border border-amethyst/30 text-plum focus:outline-none focus:border-amethyst text-sm">
+                        </div>
+                        <select id="form-attendance" required class="w-full px-4 py-2.5 rounded-lg bg-ivory border border-amethyst/30 text-plum focus:outline-none focus:border-amethyst text-sm">
+                            <option value="">Will you be attending? *</option>
+                            <option value="attending">Joyfully Accepts (Attending)</option>
+                            <option value="declined">Regretfully Declines</option>
+                        </select>
+                        <textarea id="form-message" rows="2" placeholder="Warm message for Franz (optional)..." class="w-full px-4 py-2.5 rounded-lg bg-ivory border border-amethyst/30 text-plum focus:outline-none focus:border-amethyst text-sm"></textarea>
+                        
+                        <div class="text-center pt-2">
+                            <button type="submit" class="px-10 py-3 rounded-full bg-amethyst hover:bg-amethyst-bright text-ivory font-cinzel text-xs tracking-[0.25em] uppercase transition shadow-lg">
+                                Send RSVP Confirmation
+                            </button>
+                        </div>
+                    </form>
+
+                    <div id="rsvp-response-feedback" class="mt-4 hidden p-3 rounded-xl text-center font-serif text-sm"></div>
+                </div>
+
+                <!-- Closing Page Section -->
+                <div class="text-center pt-8 pb-10 space-y-3">
+                    <span class="font-cinzel text-[11px] tracking-[0.3em] text-champagne uppercase block">With Heartfelt Gratitude</span>
+                    <h3 class="font-serif text-3xl sm:text-4xl text-ivory">Until We Meet in Bloom</h3>
+                    <p class="font-serif italic text-sm text-lavender-light/90 max-w-lg mx-auto">
+                        “Thank you for being part of my story. I look forward to celebrating this beautiful beginning with you.”
+                    </p>
+                    <p class="font-script text-4xl sm:text-5xl text-champagne pt-2">— With love, Franz</p>
+
+                    <div class="pt-6">
+                        <button onclick="navigateToPage(1)" class="font-cinzel text-xs tracking-[0.25em] text-champagne hover:text-white uppercase transition border-b border-champagne/40 pb-1">
+                            ↺ Return to Welcome (Page 1)
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Editorial Lightbox Modal -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-plum-deep/95 hidden items-center justify-center p-4">
+        <button id="lightbox-close-btn" class="absolute top-6 right-6 text-champagne hover:text-white p-2">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <img id="lightbox-image" src="" alt="Enlarged view" class="max-w-full max-h-[85vh] rounded-xl border border-champagne/30 shadow-2xl">
     </div>
-   </div>
-  </div></div>
- </div>
-</section>
 
-<section id="celebration" class="pg light" data-lt="1">
- <div class="in"><div class="wrap">
-  <div class="celeb-layout">
-   <div class="celeb-info">
-    <h2 class="ttl" style="margin-bottom:12px">
-      <span class="the script" style="display:block;font-size:clamp(46px,5vw,72px);color:var(--ink);margin-left:.1em;line-height:0.8">The</span>
-      <span class="deb" style="display:block;font-style:italic;font-size:clamp(52px,6.5vw,94px);color:var(--ink)">Celebration</span>
-    </h2>
-    <p style="margin:0 0 30px; font-size:clamp(15px,1.2vw,18px); color:rgba(27,23,19,0.85); max-width:32ch">
-      Join us for an evening of elegance,<br>joy and new beginnings.
-    </p>
-    <dl class="celeb-dl">
-     <dt>
-       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-       Date
-     </dt><dd>Wednesday, September 27, 2028</dd>
-     
-     <dt>
-       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-       Time
-     </dt><dd>6:00 PM</dd>
-     
-     <dt>
-       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-       Venue
-     </dt><dd>Felicidad Mansion</dd>
-     
-     <dt>
-       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.53 5.3L15 2l-3 3-3-3-5.53 3.3a2 2 0 0 0-.97 1.7v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-.97-1.7z"></path></svg>
-       Dress Code
-     </dt><dd>Formal / Black Tie</dd>
-    </dl>
-    <button class="btn-rsvp" id="rsvpOpen">RSVP</button>
-   </div>
-   <div class="celeb-visuals">
-    <div class="c-main" id="cMainImg"></div>
-    <div class="c-side" id="cSideImg"></div>
-   </div>
-  </div>
- </div></div>
-</section>
+    <!-- JAVASCRIPT: 3D PAGE PEEL TRANSITION & EVENT LOGIC -->
+    <script>
+        let activePageNumber = 1;
 
-<section id="eighteens" class="pg" data-lt="0">
- <div class="in"><div class="wrap">
-  <p class="sans eyebrow">The program</p>
-  <h2>Eighteen Moments. A Lifetime of Meaning.</h2>
-  <div class="tabs" role="tablist" id="tabs">
-   <button class="tab" role="tab" aria-selected="true" data-p="0">18 Roses</button>
-   <button class="tab" role="tab" aria-selected="false" data-p="1">18 Candles</button>
-   <button class="tab" role="tab" aria-selected="false" data-p="2">18 Treasures</button>
-  </div>
-  <div id="panels"></div>
-  <div class="card" id="card" aria-live="polite"></div>
- </div></div>
-</section>
+        // -----------------------------------------------------------------
+        // 1. 3D Cubic-Bezier Page Peel / Reveal Transition Controller
+        // -----------------------------------------------------------------
+        function navigateToPage(targetPage, optionalScrollTargetId) {
+            if (targetPage === activePageNumber) {
+                if (optionalScrollTargetId) scrollToTargetInsideActivePage(optionalScrollTargetId);
+                return;
+            }
 
-<section id="live" class="pg" data-lt="0">
- <div class="bg" id="liveBg"></div>
- <div class="in" style="justify-content:center; padding-bottom:0; z-index:2">
-  <div class="wrap" style="text-align:center; display:flex; flex-direction:column; justify-content:center; height:100%">
-   
-   <div style="margin-top:auto">
-     <h2 style="margin-bottom:8px; font-style:normal; font-size:clamp(36px, 5vw, 64px)">Live Photo Gallery</h2>
-     <p style="margin:0; font-family:var(--sans); letter-spacing:.1em; font-size:clamp(12px, 1.4vw, 15px); color:#f6efe2dd">
-       Scan. Upload. Be part of the story.
-     </p>
-     
-     <label class="qr-panel" title="Click to upload photos">
-       <input type="file" id="file" accept="image/*" multiple style="display:none">
-       <div class="qr" id="qr"></div>
-       <div style="margin-top:18px; font-size:clamp(14px, 1.5vw, 16px); font-family:var(--serif); line-height:1.4">
-         <span style="font-size:20px; display:block; margin-bottom:4px">👆</span>
-         Scan the QR code<br>to upload your photos
-       </div>
-     </label>
-   </div>
+            const activeEl = document.getElementById(`page-${activePageNumber}`);
+            const targetEl = document.getElementById(`page-${targetPage}`);
 
-   <div class="strip-container" style="margin-top:auto">
-     <button class="strip-arr left" id="arrLeft" aria-label="Scroll left">‹</button>
-     <div class="strip" id="grid">
-       <!-- Images populated by JS -->
-     </div>
-     <button class="strip-arr right" id="arrRight" aria-label="Scroll right">›</button>
-   </div>
+            // Perform 3D Peel out on currently active page
+            activeEl.classList.remove('page-state-active');
+            activeEl.classList.add('page-state-peeled');
 
-  </div>
- </div>
-</section>
+            // Bring target page forward with smooth scale morph
+            targetEl.classList.remove('page-state-peeled', 'page-state-queued');
+            targetEl.classList.add('page-state-active');
 
-<section id="thanks" class="pg light" data-lt="1">
- <div class="in"><div>
-  <p class="script">Thank You</p>
-  <p>For being part of this special chapter.</p>
-  <div class="rule"></div>
-  <p style="margin:0">With love,</p>
-  <p class="script" style="font-size:44px;margin:0">Franz</p>
-  <div class="foot">
-   <p class="sans" style="margin:0;letter-spacing:.4em">Pearl Noir · 2028</p>
-   <p style="font-style:italic;margin:4px 0">An evening to remember.</p>
-   <div class="links sans"><a href="#home">Back to home</a><a href="#live">Return to live gallery</a></div>
-  </div>
- </div></div>
-</section>
-</main>
+            // Keep all other pages in queued stage
+            for (let i = 1; i <= 4; i++) {
+                if (i !== targetPage && i !== activePageNumber) {
+                    const el = document.getElementById(`page-${i}`);
+                    el.classList.remove('page-state-active', 'page-state-peeled');
+                    el.classList.add('page-state-queued');
+                }
+            }
 
-<button class="ctl" id="prev" aria-label="Previous page">‹</button>
-<button class="ctl" id="next" aria-label="Next page">›</button>
-<div class="dots" id="dots"></div>
+            // Update top browser menu indicators
+            updateNavMenuHighlight(targetPage);
 
-<div class="lb" id="lb" role="dialog" aria-label="Portrait"><button class="x" aria-label="Close">×</button><div></div></div>
-<div class="modal" id="modal" role="dialog" aria-label="RSVP"><div class="sheet" style="text-align:center;">
- <button class="x" style="color:var(--ink);top:8px;right:14px" id="rsvpClose" aria-label="Close">×</button>
- <h2 style="font-size:34px;margin:0 0 10px">RSVP / Reservation</h2>
- <p class="sans" style="margin-bottom:24px;color:#6d5a3a">Scan to confirm your attendance</p>
- <img src="sampleQR.png" alt="Scan to RSVP" style="width:100%;max-width:250px;border:1px solid var(--gold);padding:14px;display:block;margin:0 auto">
-</div></div>
+            activePageNumber = targetPage;
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
-<script>
-// ====== EDIT THESE ======
-var INTRO_IMAGE = 'bintro.jpg'; // first page background (desktop)
-var INTRO_MOBILE = 'intro.jpg'; // phone version of the intro background
+            // Handle optional internal element scroll once transition completes
+            if (optionalScrollTargetId) {
+                setTimeout(() => {
+                    scrollToTargetInsideActivePage(optionalScrollTargetId);
+                }, 400);
+            }
+        }
 
-var PAGE2_BG_DESKTOP = 'b2nd%20page.jpg'; // 2nd page full background (desktop only)
-var PAGE2_BG_MOBILE = ''; // removed 2nd page.jpg completely as requested
-var PORTRAIT = 'me.jpg'; // MAIN 2nd page portrait
+        function executePagePeel(target) {
+            navigateToPage(target || 2);
+        }
 
-var ABOUT_BG = '1st-2nd.jpg'; // "Girl Behind the Story" page background
+        function scrollToTargetInsideActivePage(elementId) {
+            const target = document.getElementById(elementId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
 
-// IMPORTANT: Check your file extensions! If your files are 1st.jpg instead of 1st.JPG, they will vanish on the live site!
-var GALLERY_IMAGES = ['1st.JPG', '2nd.JPG', '3rd.JPG', '4th.JPG', '5th.JPG']; 
+        function updateNavMenuHighlight(pageIndex) {
+            const navIds = ['nav-btn-home', 'nav-btn-story', 'nav-btn-celebration', 'nav-btn-gallery'];
+            navIds.forEach((id, idx) => {
+                const btn = document.getElementById(id);
+                if (btn) {
+                    if (idx + 1 === pageIndex) {
+                        btn.className = "hover:text-champagne transition py-1 text-champagne border-b border-champagne/60";
+                    } else {
+                        btn.className = "hover:text-champagne transition py-1 text-ivory/85";
+                    }
+                }
+            });
+        }
 
-// Celebration Page Images
-var CELEB_MAIN = 'function-room.jpg';
-var CELEB_SIDE = 'flowers-ribbon.jpg';
+        // Drawer Controls
+        function toggleDrawer() {
+            const drawer = document.getElementById('nav-drawer');
+            const backdrop = document.getElementById('drawer-backdrop');
+            const isClosed = drawer.classList.contains('-translate-x-full');
+            if (isClosed) {
+                drawer.classList.remove('-translate-x-full');
+                backdrop.classList.remove('hidden');
+            } else {
+                drawer.classList.add('-translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
+        document.getElementById('nav-drawer-toggle').addEventListener('click', toggleDrawer);
+        document.getElementById('close-drawer-btn').addEventListener('click', toggleDrawer);
+        document.getElementById('drawer-backdrop').addEventListener('click', toggleDrawer);
 
-// Live Gallery Backgrounds
-var LIVE_BG_DESKTOP = 'blive.jpg'; // Desktop view live gallery background
-var LIVE_BG_MOBILE = 'live.jpg';   // Mobile view live gallery background
+        // -----------------------------------------------------------------
+        // 2. Real-Time Countdown (Sept 22, 2028, 6:00 PM PHT)
+        // -----------------------------------------------------------------
+        const eventDatePHT = new Date("2028-09-22T18:00:00+08:00").getTime();
 
-var LIVE_STRIP_IMGS = ['live1.jpg', 'live2.jpg', 'live3.jpg', 'live4.jpg', 'live5.jpg']; // dummy gallery images
+        function refreshCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDatePHT - now;
 
-var EVENT_DATE = new Date('2028-09-27T18:00:00+08:00');
-var UPLOAD_URL = 'https://andreaasuncion0928-sketch.github.io/DS4/#story';
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-// Generated names and youthful/fun dedications for the 18s
-var roses = [
-  {name: 'Liam Carter', text: 'My designated driver and the guy who always knows the best late-night food spots.'},
-  {name: 'Noah Davis', text: 'We survived high school math together, which basically makes us bonded for life.'},
-  {name: 'Oliver Reyes', text: 'The only person I trust to give me absolutely honest feedback on my playlist.'},
-  {name: 'Elijah Smith', text: 'My childhood rival turned best friend. He still thinks he can beat me at Mario Kart.'},
-  {name: 'James Ocampo', text: 'Always has the most unhinged takes but is secretly the most caring guy I know.'},
-  {name: 'William Chen', text: 'The group’s resident tech support and the reason I passed computer science.'},
-  {name: 'Benjamin Lee', text: 'Literal golden retriever energy. He always knows exactly how to make me laugh.'},
-  {name: 'Lucas Garcia', text: 'My travel buddy and the only one who appreciates my spontaneous midnight ideas.'},
-  {name: 'Henry Alonzo', text: 'The most stylish guy in our circle, constantly inspiring me to level up my fits.'},
-  {name: 'Theodore Cruz', text: 'We’ve been friends since kindergarten. He literally knows too much about my awkward phase.'},
-  {name: 'Jack Fernandez', text: 'My go-to person for deep 2 AM conversations about the universe and conspiracies.'},
-  {name: 'Levi Villanueva', text: 'The one who forced me to step out of my comfort zone (and I secretly love him for it).'},
-  {name: 'Alexander Lim', text: 'Always matching my freak. The ultimate chaos coordinator of our friend group.'},
-  {name: 'Jackson Perez', text: 'He might leave me on read for 3 days, but he’d also fight anyone for me.'},
-  {name: 'Mateo Santos', text: 'My gym bro who actually just talks to me while I do all the hard working out.'},
-  {name: 'Daniel Gomez', text: 'The peacekeeper. He’s saved us from so many unnecessary group chat arguments.'},
-  {name: 'Michael Torres', text: 'My favorite person to drag to indie concerts and aesthetic coffee shops.'},
-  {name: 'Gabriel Mendoza', text: 'He radiates main character energy, but always lets me take the spotlight tonight.'}
-];
+                document.getElementById('countdown-days').innerText = String(days).padStart(2, '0');
+                document.getElementById('countdown-hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('countdown-minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('countdown-seconds').innerText = String(seconds).padStart(2, '0');
+            } else {
+                document.getElementById('countdown-days').innerText = "00";
+                document.getElementById('countdown-hours').innerText = "00";
+                document.getElementById('countdown-minutes').innerText = "00";
+                document.getElementById('countdown-seconds').innerText = "00";
+            }
+        }
+        setInterval(refreshCountdown, 1000);
+        refreshCountdown();
 
-var candles = [
-  {name: 'Emma Martinez', text: 'The ultimate hype woman. She’s the reason I have any confidence at all.'},
-  {name: 'Olivia Taylor', text: 'My therapist, stylist, and the one who tells me when my outfit is a tragic miss.'},
-  {name: 'Ava Domingo', text: 'We share exactly one brain cell and it’s usually focused on getting iced coffee.'},
-  {name: 'Isabella Ramos', text: 'The "mom friend" who always makes sure everyone is hydrated and gets home safe.'},
-  {name: 'Sophia Castillo', text: 'My literal partner in crime and the only person who gets my niche TikTok humor.'},
-  {name: 'Mia Gutierrez', text: 'The smartest person I know, yet she still happily entertains my dumbest ideas.'},
-  {name: 'Charlotte Bautista', text: 'She’s my Pinterest aesthetic moodboard in human form. Always effortlessly cool.'},
-  {name: 'Amelia Vargas', text: 'My go-to for spilling the tea. We can communicate entirely through intense eye contact.'},
-  {name: 'Harper Navarro', text: 'The most adventurous girl I know. She completely keeps my life from getting boring.'},
-  {name: 'Evelyn Roxas', text: 'My soft-hearted bestie. She remembers the little details that no one else does.'},
-  {name: 'Abigail Chua', text: 'Fiercely loyal. I pity anyone who gets on her bad side (thankfully, not me).'},
-  {name: 'Emily Aguilar', text: 'We’ve cried over so many cheesy rom-coms together it’s actually embarrassing.'},
-  {name: 'Elizabeth Tan', text: 'The absolute realist. She tells me what I need to hear, not what I want to hear.'},
-  {name: 'Mila Soriano', text: 'My ultimate concert buddy. Our vocal cords are permanently damaged from screaming.'},
-  {name: 'Ella Villanueva', text: 'She manifests good vibes only. Her astrology readings actually keep me sane.'},
-  {name: 'Avery Flores', text: 'The funniest person in the room. She can make me laugh in the most serious situations.'},
-  {name: 'Sofia Mercado', text: 'My long-distance bestie. Time zones literally have nothing on our friendship.'},
-  {name: 'Camila De Leon', text: 'She pushes me to be the very best version of myself every single day.'}
-];
+        // -----------------------------------------------------------------
+        // 3. Web Audio API Ambient Twilight Melodic Synth
+        // -----------------------------------------------------------------
+        let audioContext = null;
+        let isMusicPlaying = false;
+        let ambientOscillators = [];
 
-var treasures = [
-  {name: 'Uncle Arthur Reyes', text: 'The cool uncle who gives the absolute best life advice (and the best birthday gifts).'},
-  {name: 'Aunt Marie Santos', text: 'Always manifesting good vibes and keeping me grounded when I stress out about school.'},
-  {name: 'Cousin Joey Lim', text: 'Basically my older brother. He taught me how to drive and how to sneak out (sorry, Mom).'},
-  {name: 'Grandma Rose Cruz', text: 'The queen of our family. Listening to her vintage stories is my absolute favorite thing.'},
-  {name: 'Grandpa Joe Cruz', text: 'My biggest supporter. He still treats me like I’m five years old, and honestly I love it.'},
-  {name: 'Uncle Ben Ocampo', text: 'The undisputed grill master of family reunions and my personal hero.'},
-  {name: 'Aunt May Ocampo', text: 'Her baking cures all sadness. Easily the sweetest soul in our entire family.'},
-  {name: 'Cousin Lily Gomez', text: 'We survived all those awkward family gatherings by hiding in the corner together.'},
-  {name: 'Mr. Smith', text: 'My favorite teacher who believed in my writing long before I ever did.'},
-  {name: 'Mrs. Davis', text: 'She mentored me through my worst academic burnout. A literal angel in human form.'},
-  {name: 'Uncle Robert Tan', text: 'Always drops the hardest truth bombs at dinner, but annoyingly he’s never wrong.'},
-  {name: 'Aunt Sarah Tan', text: 'The epitome of elegance. I am constantly taking mental notes on her style.'},
-  {name: 'Cousin Max Chua', text: 'My childhood playmate. We have way too much blackmail material on each other.'},
-  {name: 'Mr. Johnson', text: 'My coach who taught me that a failure is literally just a setup for a comeback.'},
-  {name: 'Mrs. Wilson', text: 'The neighbor who practically co-parented me. Her house is basically my second home.'},
-  {name: 'Uncle David Mendoza', text: 'Always has a terrible dad joke ready. The life and soul of every single party.'},
-  {name: 'Aunt Laura Mendoza', text: 'The independent boss lady I aspire to be. Her career advice is pure gold.'},
-  {name: 'Cousin Chloe Perez', text: 'My older cousin who graciously let me borrow all her clothes. The real MVP.'}
-];
+        function toggleAmbientAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
 
-var DEDICATIONS = {0: roses, 1: candles, 2: treasures}; 
-// ========================
+            const pillarLabel = document.getElementById('pillar-music-label');
+            const headerIcon = document.getElementById('header-music-icon');
 
-var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+            if (!isMusicPlaying) {
+                // Harmonic twilight chord: Fmaj7 (F3, A3, C4, E4)
+                const chordFrequencies = [174.61, 220.00, 261.63, 329.63];
+                ambientOscillators = [];
 
-// Set images safely
-if(INTRO_IMAGE)$('#introBg').style.setProperty('--intro','url("'+INTRO_IMAGE+'")');
-(function(){var t=new Image();t.onload=function(){$('#introBg').style.setProperty('--intro-m','url("'+INTRO_MOBILE+'")')};t.src=INTRO_MOBILE})();
+                chordFrequencies.forEach(freq => {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, audioContext.currentTime);
 
-if(PAGE2_BG_DESKTOP)$('#debBg').style.setProperty('--bg-d','url("'+PAGE2_BG_DESKTOP+'")');
-if(PAGE2_BG_MOBILE)$('#debBg').style.setProperty('--bg-m','url("'+PAGE2_BG_MOBILE+'")');
+                    // Soft, warm ambient volume
+                    gain.gain.setValueAtTime(0.012, audioContext.currentTime);
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
 
-if(PORTRAIT){ $('#portrait').style.setProperty('--p','url("'+PORTRAIT+'")'); }
-if(ABOUT_BG)$('#aboutBg').style.setProperty('--about-bg','url("'+ABOUT_BG+'")');
+                    osc.start();
+                    ambientOscillators.push(osc);
+                });
 
-if(CELEB_MAIN)$('#cMainImg').style.backgroundImage='url("'+CELEB_MAIN+'")';
-if(CELEB_SIDE)$('#cSideImg').style.backgroundImage='url("'+CELEB_SIDE+'")';
+                isMusicPlaying = true;
+                pillarLabel.innerText = "MUSIC OFF ♫";
+                headerIcon.classList.add('text-amethyst-bright');
+            } else {
+                ambientOscillators.forEach(osc => osc.stop());
+                ambientOscillators = [];
+                isMusicPlaying = false;
+                pillarLabel.innerText = "MUSIC ON ♫";
+                headerIcon.classList.remove('text-amethyst-bright');
+            }
+        }
 
-if(LIVE_BG_DESKTOP)$('#liveBg').style.setProperty('--live-bg-d','url("'+LIVE_BG_DESKTOP+'")');
-if(LIVE_BG_MOBILE)$('#liveBg').style.setProperty('--live-bg-m','url("'+LIVE_BG_MOBILE+'")');
+        document.getElementById('nav-music-toggle').addEventListener('click', toggleAmbientAudio);
+        document.getElementById('pillar-music-btn').addEventListener('click', toggleAmbientAudio);
 
-// Apply the 1st.JPG to 5th.JPG exactly to the 5 gallery buttons securely
-var galleryBtns = $$('.gallery .ph');
-GALLERY_IMAGES.forEach(function(imgSrc, i) {
-  if (galleryBtns[i]) {
-    galleryBtns[i].style.backgroundImage = 'url("'+imgSrc+'")';
-    galleryBtns[i].style.backgroundSize = 'cover';
-    galleryBtns[i].style.backgroundPosition = 'center';
-  }
-});
+        // -----------------------------------------------------------------
+        // 4. Calendar (.ics) Generator
+        // -----------------------------------------------------------------
+        document.getElementById('add-to-calendar-btn').addEventListener('click', () => {
+            const icsContent = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Amethyst Reverie//Franz 18th Debut//EN',
+                'BEGIN:VEVENT',
+                'SUMMARY:Franz 18th Birthday Celebration — Amethyst Reverie',
+                'DESCRIPTION:Eighteen years of becoming. A new chapter begins. Dress Code: Strictly White Formal Evening Wear.',
+                'LOCATION:Narra Hill, Tagaytay City, Cavite',
+                'DTSTART:20280922T100000Z',
+                'DTEND:20280922T160000Z',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].join('\n');
 
-// Pre-fill live gallery strip with dummy images
-var liveGrid = $('#grid');
-LIVE_STRIP_IMGS.forEach(function(src){
-  var d=document.createElement('div');
-  d.className='ph';
-  d.style.backgroundImage='url("'+src+'")';
-  liveGrid.appendChild(d);
-});
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const anchor = document.createElement('a');
+            anchor.href = downloadUrl;
+            anchor.setAttribute('download', 'Franz_18th_Birthday_Amethyst_Reverie.ics');
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+        });
 
-// page routing (no scrolling between sections)
-var pages=$$('.pg'),ids=pages.map(function(p){return p.id}),nav=$('#nav'),links=$$('#menu a'),dots=$('#dots'),idx=0;
-dots.innerHTML=ids.map(function(id,i){return '<button aria-label="Page '+(i+1)+'" data-i="'+i+'"></button>'}).join('');
+        // -----------------------------------------------------------------
+        // 5. The 18s Private Name Lookup (Compliant with Privacy Rules)
+        // -----------------------------------------------------------------
+        // Actual guest assignments to be connected to secure backend
+        const guestRolesRoster = [
+            { name: "john doe", role: "18 Roses", note: "Partner for the Grand Waltz" },
+            { name: "maria santos", role: "18 Candles", note: "Bestowing a blessing of light and wisdom" },
+            { name: "sofia cruz", role: "18 Symbols", note: "Presenting a cherished token of guidance" }
+        ];
 
-function setAbout(o){
-  var p=$('#aboutPanel');
-  p.classList.toggle('on',o);
-  p.setAttribute('aria-hidden',!o);
-  // Ensure the next button only appears on the Debutante page AFTER the about panel opens
-  if(idx === 1) $('#next').style.visibility = o ? 'visible' : 'hidden';
-}
+        document.getElementById('role-lookup-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const queryName = document.getElementById('guest-lookup-input').value.trim().toLowerCase();
+            const resultBox = document.getElementById('role-result-container');
+            const resultText = document.getElementById('role-result-text');
 
-function show(i){
- idx=Math.max(0,Math.min(ids.length-1,i));
- pages.forEach(function(p,k){p.classList.toggle('on',k===idx)});
- var lt=pages[idx].dataset.lt==='1';nav.classList.toggle('lt',lt);document.body.classList.toggle('lt',lt);
- links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')==='#'+ids[idx])});
- $$('button',dots).forEach(function(b,k){b.classList.toggle('on',k===idx)});
- 
- $('#prev').style.visibility=idx?'visible':'hidden';
- // Globally hide the Next button on Debutante page (index 1) until 'Know more about me' is clicked
- $('#next').style.visibility=(idx<ids.length-1 && idx!==1)?'visible':'hidden';
- 
- $$('.in',pages[idx]).forEach(function(x){x.scrollTop=0});
- setAbout(false);
- nav.classList.remove('open');$('#burger').setAttribute('aria-expanded',false);
-}
+            resultBox.classList.remove('hidden');
 
-function route(){var h=location.hash.slice(1),i=ids.indexOf(h);show(i<0?0:i)}
-addEventListener('hashchange',route);route();
-function go(i){var t=ids[Math.max(0,Math.min(ids.length-1,i))];if(location.hash==='#'+t)show(idx);else location.hash=t}
-$('#prev').onclick=function(){go(idx-1)};$('#next').onclick=function(){go(idx+1)};
-dots.onclick=function(e){var b=e.target.closest('button');if(b)go(+b.dataset.i)};
-addEventListener('keydown',function(e){
- if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||$('#modal').classList.contains('on'))return;
- if(e.key==='ArrowRight'||e.key==='PageDown')go(idx+1);
- if(e.key==='ArrowLeft'||e.key==='PageUp')go(idx-1);
- if(e.key==='Escape'){lb.classList.remove('on');$('#modal').classList.remove('on')}});
-var tx=null;addEventListener('touchstart',function(e){tx=e.touches[0].clientX},{passive:true});
-addEventListener('touchend',function(e){if(tx===null)return;var d=e.changedTouches[0].clientX-tx;tx=null;
- if(Math.abs(d)>80&&!e.target.closest('.strip,.nums'))go(idx+(d<0?1:-1))},{passive:true});
-$('#burger').onclick=function(){var o=nav.classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)};
+            const foundMatch = guestRolesRoster.find(g => g.name === queryName);
 
-// about panel listeners
-$('#aboutOpen').onclick=function(){setAbout(true)};
-$('#aboutClose').onclick=function(){setAbout(false)};
+            if (foundMatch) {
+                resultText.innerHTML = `
+                    <span class="font-cinzel text-[10px] tracking-widest text-champagne uppercase block">Role Confirmation</span>
+                    <h4 class="font-serif text-xl text-ivory font-semibold capitalize">${queryName}</h4>
+                    <p class="font-cinzel text-sm text-champagne mt-0.5">${foundMatch.role}</p>
+                    <p class="font-serif italic text-xs text-lavender-light/90 mt-1">${foundMatch.note}</p>
+                `;
+            } else {
+                resultText.innerHTML = `
+                    <p class="font-serif text-sm text-ivory/90">No role assignment was found for "<span class="italic text-champagne">${queryName}</span>".</p>
+                    <p class="text-[11px] text-lavender-light/70 font-sans mt-1">Please verify the spelling or check with the debutante’s coordinator.</p>
+                `;
+            }
+        });
 
-// lightbox
-var lb=$('#lb');
-$$('[data-lb]').forEach(function(b){
-  b.onclick=function(){
-    lb.lastElementChild.style.backgroundImage=b.style.backgroundImage;
-    lb.classList.add('on');
-  }
-});
-lb.onclick=function(){lb.classList.remove('on')};
+        // -----------------------------------------------------------------
+        // 6. Editorial Lightbox & Live Photo Upload Mechanics
+        // -----------------------------------------------------------------
+        const modal = document.getElementById('lightbox-modal');
+        const modalImg = document.getElementById('lightbox-image');
 
-// countdown
-function tick(){var d=EVENT_DATE-new Date(),c=$('#count');
- if(d<=0){c.innerHTML='<p style="margin:0;font-style:italic;font-size:1.3em">The evening has arrived. Relive it in the live gallery.</p>';return}
- var v=[[Math.floor(d/864e5),'Days'],[Math.floor(d/36e5)%24,'Hours'],[Math.floor(d/6e4)%60,'Min'],[Math.floor(d/1e3)%60,'Sec']];
- c.innerHTML=v.map(function(x){return '<div><b>'+x[0]+'</b><span class="sans">'+x[1]+'</span></div>'}).join('')}
-tick();setInterval(tick,1000);
+        document.querySelectorAll('.editorial-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const fullSrc = card.getAttribute('data-full');
+                modalImg.src = fullSrc;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            });
+        });
 
-// rsvp (QR Code Modal)
-$('#rsvpOpen').onclick=function(){$('#modal').classList.add('on')};
-$('#rsvpClose').onclick=function(){$('#modal').classList.remove('on')};
-$('#modal').onclick=function(e){if(e.target===this)this.classList.remove('on')};
+        document.getElementById('lightbox-close-btn').addEventListener('click', () => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        });
 
-// the 18s
-var PAN=[['The traditional dance with the important men in Franz\u2019s life.','Rose'],['Wishes and messages from the significant women in her life.','Candle'],['Meaningful gifts and dedications.','Treasure']];
-var panels=$('#panels'),card=$('#card');
-panels.innerHTML=PAN.map(function(p,i){var n='';for(var k=1;k<=18;k++)n+='<button class="num" aria-pressed="false" aria-label="'+p[1]+' '+k+'" data-i="'+i+'" data-k="'+k+'">'+k+'</button>';
- return '<div class="panel'+(i===0?' on':'')+'"><p>'+p[0]+' Tap a number to reveal the participant.</p><div class="nums">'+n+'</div></div>'}).join('');
-panels.onclick=function(e){var b=e.target.closest('.num');if(!b)return;
- $$('.num',panels).forEach(function(x){x.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed','true');
- var i=+b.dataset.i,k=+b.dataset.k,d=DEDICATIONS[i][k-1]||{},p=PAN[i];card.classList.remove('show');
- setTimeout(function(){card.innerHTML='<p class="sans eyebrow" style="margin:0 0 4px">'+p[1]+' '+k+'</p><h3>'+(d.name||'To be announced')+'</h3><p>'+(d.text||'This dedication will be revealed once the program is finalized.')+'</p>';card.classList.add('show')},250)};
-$$('.tab').forEach(function(t){t.onclick=function(){
- $$('.tab').forEach(function(x){x.setAttribute('aria-selected',x===t)});
- $$('.panel').forEach(function(p,i){p.classList.toggle('on',i==t.dataset.p)});card.classList.remove('show')}});
+        const liveDropzone = document.getElementById('live-dropzone');
+        const liveFileInput = document.getElementById('live-file-input');
+        const previewGrid = document.getElementById('live-preview-grid');
 
-// live gallery functionality
-try{var q=qrcode(0,'M');q.addData(UPLOAD_URL);q.make();$('#qr').innerHTML=q.createImgTag(5,0)}catch(e){$('#qr').textContent='QR'}
+        liveDropzone.addEventListener('click', () => liveFileInput.click());
 
-// Strip arrow scrolling
-$('#arrLeft').onclick=function(){ $('#grid').scrollBy({left: -200, behavior: 'smooth'}) };
-$('#arrRight').onclick=function(){ $('#grid').scrollBy({left: 200, behavior: 'smooth'}) };
+        liveFileInput.addEventListener('change', (e) => {
+            Array.from(e.target.files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (evt) => {
+                        const item = document.createElement('div');
+                        item.className = 'relative rounded-lg overflow-hidden h-20 border border-champagne/40 shadow';
+                        item.innerHTML = `<img src="${evt.target.result}" class="w-full h-full object-cover">`;
+                        previewGrid.appendChild(item);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
 
-$('#file').onchange=function(){
-  var f=this.files;if(!f.length)return;
-  Array.prototype.forEach.call(f,function(file){
-    var d=document.createElement('div');
-    d.className='ph';
-    d.style.backgroundImage = 'url("'+URL.createObjectURL(file)+'")';
-    $('#grid').prepend(d);
-  });
-};
-</script>
+        // -----------------------------------------------------------------
+        // 7. Interactive RSVP Form Handler
+        // -----------------------------------------------------------------
+        document.getElementById('rsvp-submission-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const guestName = document.getElementById('form-guest-name').value;
+            const status = document.getElementById('form-attendance').value;
+            const feedback = document.getElementById('rsvp-response-feedback');
+
+            feedback.classList.remove('hidden');
+
+            if (status === 'attending') {
+                feedback.className = "mt-4 p-3 rounded-xl text-center font-serif bg-amethyst/20 border border-amethyst text-plum";
+                feedback.innerHTML = `Warmest thanks, <strong>${guestName}</strong>! Your attendance is joyfully recorded for September 22, 2028.`;
+            } else {
+                feedback.className = "mt-4 p-3 rounded-xl text-center font-serif bg-plum-deep/10 border border-plum/30 text-plum";
+                feedback.innerHTML = `Thank you, <strong>${guestName}</strong>. Your response has been received. You will be missed!`;
+            }
+
+            document.getElementById('rsvp-submission-form').reset();
+        });
+
+        // -----------------------------------------------------------------
+        // 8. Subtle Canvas Twilight Light Particles
+        // -----------------------------------------------------------------
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeParticleCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeParticleCanvas);
+        resizeParticleCanvas();
+
+        class AmbientParticle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.6;
+                this.speedY = -Math.random() * 0.35 - 0.1;
+                this.opacity = Math.random() * 0.45 + 0.2;
+            }
+            update() {
+                this.y += this.speedY;
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(229, 201, 133, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 30; i++) {
+            particles.push(new AmbientParticle());
+        }
+
+        function renderParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(renderParticles);
+        }
+        renderParticles();
+    </script>
 </body>
 </html>
