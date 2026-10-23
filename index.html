@@ -11,7 +11,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
   
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -51,18 +51,10 @@
     ::-webkit-scrollbar-thumb:hover { background: #5c2d91; }
 
     /* Custom Responsive Backgrounds */
-    .bg-custom-1 {
-      background-image: url('background b.jpg');
-    }
-    .bg-custom-2 {
-      background-image: url('2nd page b.jpg');
-    }
-    .bg-custom-3 {
-      background-image: url('3rd page b.jpg');
-    }
-    .bg-custom-4 {
-      background-image: url('4th page b.jpg');
-    }
+    .bg-custom-1 { background-image: url('background b.jpg'); }
+    .bg-custom-2 { background-image: url('2nd page b.jpg'); }
+    .bg-custom-3 { background-image: url('3rd page b.jpg'); }
+    .bg-custom-4 { background-image: url('4th page b.jpg'); }
 
     @media (max-width: 768px) {
       .bg-custom-1 { background-image: url('background p.jpg'); }
@@ -91,7 +83,6 @@
                   filter 1.4s cubic-bezier(0.65, 0, 0.15, 1);
     }
 
-    /* Active & Inactive Sheet States */
     .page-sheet.active {
       transform: translate3d(0, 0, 0) scale(1) rotateY(0deg);
       opacity: 1;
@@ -116,7 +107,7 @@
       z-index: 10;
     }
 
-    /* Ambient Dust Particles */
+    /* Ambient Dust Particles (Hero) */
     .particle {
       position: absolute;
       border-radius: 50%;
@@ -131,13 +122,30 @@
       100% { transform: translateY(-120px) translateX(30px) scale(1.2); opacity: 0; }
     }
 
-    /* Subtle Pulsing for Music & Lanterns */
-    @keyframes pulseSoft {
-      0%, 100% { opacity: 0.85; filter: drop-shadow(0 0 10px rgba(212,175,55,0.4)); }
-      50% { opacity: 1; filter: drop-shadow(0 0 20px rgba(212,175,55,0.7)); }
+    /* Rising Yellow Small Circles (My Story Page) */
+    .rising-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(254, 240, 138, 0.85) 0%, rgba(234, 179, 8, 0.4) 60%, rgba(202, 138, 4, 0) 100%);
+      box-shadow: 0 0 8px rgba(250, 204, 21, 0.55);
+      pointer-events: none;
+      animation: riseSlowly linear infinite;
     }
-    .candle-glow {
-      animation: pulseSoft 4s infinite ease-in-out;
+    @keyframes riseSlowly {
+      0% {
+        transform: translateY(105vh) translateX(0px) scale(0.6);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0.75;
+      }
+      85% {
+        opacity: 0.65;
+      }
+      100% {
+        transform: translateY(-10vh) translateX(25px) scale(1.15);
+        opacity: 0;
+      }
     }
 
     /* Vintage Button Cutout Borders */
@@ -154,38 +162,59 @@
       box-shadow: 0 0 25px rgba(212, 175, 55, 0.45), inset 0 0 15px rgba(212, 175, 55, 0.3);
       transform: translateY(-1px) scale(1.02);
     }
+
+    /* Celebration Card Button Styles */
+    .btn-details-dark {
+      background: #251239;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+    }
+    .btn-details-dark:hover {
+      background: #3b1d5a;
+      border-color: rgba(212, 175, 55, 0.7);
+      transform: translateY(-1px);
+    }
+    .btn-details-outline {
+      background: transparent;
+      border: 1px solid rgba(92, 45, 145, 0.45);
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+    }
+    .btn-details-outline:hover {
+      background: rgba(255, 255, 255, 0.6);
+      border-color: #5c2d91;
+      transform: translateY(-1px);
+    }
   </style>
 </head>
 <body class="bg-plum-deep text-ivory font-sans antialiased overflow-hidden select-none">
 
   <!-- ========================================================
-       TOP BROWSER-LIKE NAVIGATION BAR (Visible Across All Pages)
+       TOP BROWSER-LIKE NAVIGATION BAR
+       (Removed Amethyst Reverie title & yellow blinking dot)
        ======================================================== -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-plum-deep/95 via-plum-deep/85 to-transparent backdrop-blur-md border-b border-purple-500/15 py-3 px-4 sm:px-8 transition-all duration-300">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       
-      <!-- Left: Mobile Menu Toggle / Brand -->
-      <div class="flex items-center space-x-3">
+      <!-- Left: Mobile Menu Toggle Button -->
+      <div class="flex items-center">
         <button id="mobileMenuBtn" class="lg:hidden text-lavender-soft/80 hover:text-white p-1 text-sm focus:outline-none" aria-label="Open Navigation">
           <i class="fa-solid fa-bars"></i>
         </button>
-        <div class="flex items-center space-x-2">
-          <span class="w-2 h-2 rounded-full bg-gold-champagne/80 animate-ping"></span>
-          <span class="font-cinzel text-xs tracking-[0.25em] text-purple-200/90 font-medium">AMETHYST REVERIE</span>
-        </div>
       </div>
 
-      <!-- Center: Refined, Smaller Menu List -->
+      <!-- Center: Refined Navigation Menu List -->
       <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8">
-        <button onclick="navigateToPage(0)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="0">Home</button>
+        <button onclick="navigateToPage(0)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-gold-light font-semibold hover:text-gold-light transition duration-200" data-page="0">Home</button>
         <button onclick="navigateToPage(1)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="1">My Story</button>
         <button onclick="navigateToPage(2)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="2">The Celebration</button>
-        <button onclick="navigateToPage(2)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="2">The 18s</button>
+        <button onclick="navigateToPage(3)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="3">The 18s</button>
         <button onclick="navigateToPage(2)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="2">Dress Code</button>
-        <button onclick="navigateToPage(3)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="3">Gallery</button>
-        <button onclick="navigateToPage(2)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="2">Find Your Name</button>
+        <button onclick="navigateToPage(4)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="4">Gallery</button>
+        <button onclick="navigateToPage(3)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="3">Find Your Name</button>
         <button onclick="navigateToPage(2)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="2">FAQs</button>
-        <button onclick="navigateToPage(3)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200 text-gold-champagne/90 font-semibold" data-page="3">RSVP</button>
+        <button onclick="navigateToPage(4)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200 text-gold-champagne/90 font-semibold" data-page="4">RSVP</button>
       </nav>
 
       <!-- Right: Compact Audio Note Status -->
@@ -200,8 +229,9 @@
     <div id="mobileMenu" class="hidden lg:hidden pt-4 pb-2 border-t border-purple-500/20 mt-2 bg-plum-deep/95 backdrop-blur-xl px-4 rounded-b-xl flex flex-col space-y-3">
       <button onclick="navigateToPage(0); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">Home</button>
       <button onclick="navigateToPage(1); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">My Story</button>
-      <button onclick="navigateToPage(2); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">The Celebration & The 18s</button>
-      <button onclick="navigateToPage(3); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-gold-champagne py-1 font-semibold">Gallery & RSVP</button>
+      <button onclick="navigateToPage(2); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">The Celebration & Dress Code</button>
+      <button onclick="navigateToPage(3); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">The 18s (Find Your Role)</button>
+      <button onclick="navigateToPage(4); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-gold-champagne py-1 font-semibold">Gallery & RSVP</button>
     </div>
   </header>
 
@@ -211,7 +241,7 @@
   <main class="perspective-container relative w-full h-screen overflow-hidden bg-black">
 
     <!-- ----------------------------------------------------
-         PAGE 1: HOME / WELCOME (Recreated Exactly from Reference)
+         PAGE 1: HOME / WELCOME[cite: 1]
          ---------------------------------------------------- -->
     <section id="page-0" class="page-sheet active bg-custom-1 bg-cover bg-center">
       <!-- 80% Dark Plum / Amethyst Contrast Dimmer Overlay -->
@@ -223,37 +253,30 @@
       <!-- Main Welcome Layout -->
       <div class="relative z-20 w-full h-full flex flex-col justify-between px-4 sm:px-8 md:px-14 pb-8">
         
-        <!-- Pushed downward for clean header clearance and optimal hierarchy -->
         <div class="w-full flex-1 flex flex-col items-center justify-center text-center pt-32 sm:pt-36">
           
-          <!-- Supporting Intro Header -->
           <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-purple-200/90 uppercase font-light mb-3 sm:mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             You Are Invited To
           </p>
 
-          <!-- Celebrant First Name -->
           <h2 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[0.22em] text-ivory font-light uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] mb-1 sm:mb-2">
             Franz’s
           </h2>
 
-          <!-- Signature Calligraphy Script -->
           <div class="font-script text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] text-lilac-pale leading-[0.8] mb-4 sm:mb-6 drop-shadow-[0_6px_18px_rgba(0,0,0,0.95)] -rotate-2 select-none">
             Eighteenth
           </div>
 
-          <!-- Vintage Floral Divider Ornament -->
           <div class="flex items-center justify-center space-x-4 my-2 sm:my-3 text-gold-champagne/70">
             <span class="h-[1px] w-12 sm:w-24 bg-gradient-to-r from-transparent to-gold-champagne/60"></span>
             <span class="text-xs sm:text-sm tracking-widest text-gold-light"><i class="fa-regular fa-gem"></i></span>
             <span class="h-[1px] w-12 sm:w-24 bg-gradient-to-l from-transparent to-gold-champagne/60"></span>
           </div>
 
-          <!-- Supporting Concept Line -->
           <p class="font-cinzel text-xs sm:text-sm tracking-[0.28em] text-purple-200/85 uppercase font-medium mt-1 mb-8 sm:mb-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">
             A New Chapter Begins
           </p>
 
-          <!-- Refined & Smaller "Enter The Invitation" Button -->
           <div>
             <button onclick="enterCelebration()" class="vintage-invitation-btn group px-6 sm:px-9 py-2.5 sm:py-3 rounded-[3px] text-ivory font-cinzel text-[11px] sm:text-xs tracking-[0.25em] uppercase flex items-center space-x-2">
               <span class="text-gold-light group-hover:translate-x-0.5 transition-transform duration-300">Enter The Invitation</span>
@@ -262,9 +285,8 @@
 
         </div>
 
-        <!-- Right-Side Floating Vertical Countdown Pillar (Matching Image) -->
+        <!-- Right-Side Floating Vertical Countdown Pillar[cite: 1] -->
         <aside class="fixed right-3 sm:right-6 bottom-8 z-30 hidden md:flex flex-col items-center bg-plum-deep/80 backdrop-blur-md border border-purple-500/25 px-4 py-5 rounded-sm shadow-[0_10px_30px_rgba(0,0,0,0.8)] w-28">
-          <!-- Countdown Numbers -->
           <div class="flex flex-col items-center text-center space-y-3 font-cinzel">
             <div>
               <span id="p1-days" class="text-2xl font-light text-ivory block leading-none">000</span>
@@ -287,7 +309,6 @@
             </div>
           </div>
 
-          <!-- Bottom Button inside Pillar: Music On -->
           <div class="mt-5 pt-3 border-t border-purple-500/30 w-full text-center">
             <button onclick="toggleAudio()" class="w-full text-[9px] font-cinzel uppercase tracking-widest text-gold-champagne/90 hover:text-white flex items-center justify-center space-x-1 transition">
               <span id="heroMusicStatus">MUSIC ON</span>
@@ -300,15 +321,17 @@
     </section>
 
     <!-- ----------------------------------------------------
-         PAGE 2: MY STORY ("The Girl Behind the Bloom")
+         PAGE 2: MY STORY (With Rising Yellow Circles)
          ---------------------------------------------------- -->
     <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center">
       <!-- 80% Dark Plum / Amethyst Contrast Dimmer Overlay -->
       <div class="absolute inset-0 bg-[#0f0617]/85 backdrop-brightness-[0.9]"></div>
 
+      <!-- Rising Yellow Small Circles Field -->
+      <div id="risingCirclesField" class="absolute inset-0 pointer-events-none z-10 overflow-hidden"></div>
+
       <div class="relative z-20 min-h-full max-w-6xl mx-auto px-6 py-28 flex flex-col justify-center">
         
-        <!-- Header with Enhanced Readability & Purple Accents -->
         <div class="text-center mb-12">
           <p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold mb-2 drop-shadow">
             Chapter I • My Story
@@ -319,10 +342,9 @@
           <div class="w-16 h-[1px] bg-purple-400/50 mx-auto mt-4"></div>
         </div>
 
-        <!-- Editorial Story Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
-          <!-- Franz's Portrait with 'me.jpg' Integration -->
+          <!-- Franz's Portrait with 'me.jpg' -->
           <div class="lg:col-span-5 flex justify-center">
             <div class="relative p-2 rounded-2xl bg-gradient-to-tr from-purple-800/40 via-gold-champagne/20 to-purple-400/30 shadow-[0_15px_40px_rgba(0,0,0,0.8)] border border-purple-400/20 max-w-sm w-full">
               <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-purple-950/80">
@@ -350,7 +372,7 @@
             <div class="flex items-center justify-between pt-6 border-t border-purple-500/25">
               <span class="font-script text-3xl sm:text-4xl text-purple-200">— Franz</span>
               <button onclick="navigateToPage(2)" class="px-5 py-2 text-xs font-cinzel uppercase tracking-widest text-gold-light border border-gold-champagne/50 hover:bg-gold-champagne/20 transition rounded">
-                Continue to Celebration <i class="fa-solid fa-arrow-right ml-1"></i>
+                The Celebration <i class="fa-solid fa-arrow-right ml-1"></i>
               </button>
             </div>
           </div>
@@ -361,101 +383,163 @@
     </section>
 
     <!-- ----------------------------------------------------
-         PAGE 3: THE CELEBRATION, 18s ROLE LOOKUP & DETAILS
+         PAGE 3: THE CELEBRATION (Recreated Exactly from Image)
          ---------------------------------------------------- -->
     <section id="page-2" class="page-sheet peel-in-wait bg-custom-3 bg-cover bg-center">
       <!-- 80% Dark Plum / Amethyst Contrast Dimmer Overlay -->
+      <div class="absolute inset-0 bg-[#0f0617]/80 backdrop-brightness-[0.9]"></div>
+
+      <div class="relative z-20 min-h-full max-w-6xl mx-auto px-4 sm:px-6 py-28 flex flex-col justify-center">
+        
+        <!-- Section Breadcrumb Heading[cite: 2] -->
+        <div class="mb-4">
+          <p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold">
+            3. The Celebration[cite: 2]
+          </p>
+        </div>
+
+        <!-- Exact Image Layout: Two-Column Card (Castle Image Left, Elegant White Card Right)[cite: 2] -->
+        <div class="rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.85)] border border-purple-400/20 grid grid-cols-1 lg:grid-cols-12 bg-white">
+          
+          <!-- Left Column: Twilight Mansion Garden Imagery[cite: 2] -->
+          <div class="lg:col-span-6 relative min-h-[320px] lg:min-h-[460px] overflow-hidden bg-purple-950">
+            <img 
+              src="https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=1200&q=80" 
+              alt="The Celebration Mansion at Twilight" 
+              class="w-full h-full object-cover"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-purple-950/60 via-transparent to-transparent"></div>
+          </div>
+
+          <!-- Right Column: Clean Floral Invitation Details Panel[cite: 2] -->
+          <div class="lg:col-span-6 relative bg-gradient-to-br from-[#faf8fc] to-[#f4eef9] p-8 sm:p-12 md:p-14 flex flex-col justify-between text-[#3b1d5a]">
+            
+            <!-- Delicate Floral Corner Accent Graphic (Right Edge)[cite: 2] -->
+            <div class="absolute top-0 right-0 w-32 h-32 sm:w-44 sm:h-44 pointer-events-none opacity-25">
+              <svg viewBox="0 0 100 100" fill="none" class="w-full h-full text-purple-700">
+                <path d="M100 0 C70 10, 50 30, 40 60 C35 75, 20 85, 0 100 L100 100 Z" fill="currentColor"/>
+              </svg>
+            </div>
+
+            <!-- Header[cite: 2] -->
+            <div>
+              <p class="font-cinzel text-xs sm:text-[13px] tracking-[0.35em] text-[#5c2d91] uppercase font-semibold mb-1">
+                The Celebration[cite: 2]
+              </p>
+              <h2 class="font-script text-5xl sm:text-6xl text-[#3b1d5a] -rotate-1 select-none leading-tight mb-8">
+                Details[cite: 2]
+              </h2>
+
+              <!-- Details List with Icons[cite: 2] -->
+              <div class="space-y-6">
+                <!-- Date & Time[cite: 2] -->
+                <div class="flex items-start space-x-4">
+                  <div class="text-[#5c2d91] text-2xl mt-1">
+                    <i class="fa-regular fa-calendar-check"></i>
+                  </div>
+                  <div>
+                    <p class="font-serif text-lg sm:text-xl text-[#240b36] font-semibold leading-snug">
+                      September 22, 2028[cite: 2]
+                    </p>
+                    <p class="font-sans text-xs sm:text-sm text-[#664b7d] flex items-center mt-1">
+                      <i class="fa-regular fa-clock mr-1.5 text-xs"></i> 6:00 PM[cite: 2]
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Venue & Dress Code[cite: 2] -->
+                <div class="flex items-start space-x-4">
+                  <div class="text-[#5c2d91] text-2xl mt-1">
+                    <i class="fa-solid fa-vest-patches"></i>
+                  </div>
+                  <div>
+                    <p class="font-serif text-lg sm:text-xl text-[#240b36] font-semibold leading-snug">
+                      Narra Hill, Tagaytay City[cite: 2]
+                    </p>
+                    <p class="font-sans text-xs sm:text-sm text-[#664b7d] mt-1">
+                      Dress Code: Strictly White[cite: 2]
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons matching image shape[cite: 2] -->
+            <div class="flex flex-wrap items-center gap-4 pt-10 mt-6 border-t border-purple-200/60">
+              <!-- VIEW MAP (Dark pill button)[cite: 2] -->
+              <a 
+                href="https://maps.google.com/?q=Narra+Hill+Tagaytay" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="btn-details-dark px-6 py-2.5 text-white font-cinzel text-xs uppercase tracking-[0.2em] shadow-md flex items-center"
+              >
+                View Map[cite: 2]
+              </a>
+
+              <!-- ADD TO CALENDAR (Outline pill button)[cite: 2] -->
+              <button 
+                onclick="downloadICS()" 
+                class="btn-details-outline px-6 py-2.5 text-[#3b1d5a] font-cinzel text-xs uppercase tracking-[0.2em] shadow-sm flex items-center"
+              >
+                Add To Calendar[cite: 2]
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Next Step Transition Link -->
+        <div class="mt-8 text-center">
+          <button onclick="navigateToPage(3)" class="text-xs font-cinzel uppercase tracking-widest text-purple-300 hover:text-white transition">
+            Proceed to The 18s • Discover Your Role <i class="fa-solid fa-arrow-right ml-1"></i>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------
+         PAGE 4: THE 18s (Find Your Place) — Uses 4th Page Background
+         ---------------------------------------------------- -->
+    <section id="page-3" class="page-sheet peel-in-wait bg-custom-4 bg-cover bg-center">
+      <!-- 80% Dark Plum / Amethyst Contrast Dimmer Overlay -->
       <div class="absolute inset-0 bg-[#0f0617]/85 backdrop-brightness-[0.9]"></div>
 
-      <div class="relative z-20 min-h-full max-w-6xl mx-auto px-6 py-28">
+      <div class="relative z-20 min-h-full max-w-4xl mx-auto px-6 py-28 flex flex-col justify-center">
         
-        <!-- Section Header -->
-        <div class="text-center mb-12">
+        <!-- Section Title Header -->
+        <div class="text-center mb-10">
           <p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold mb-2">
-            Chapter II • The Event
+            Chapter III • The 18s
           </p>
-          <h2 class="font-serif text-3xl sm:text-5xl text-purple-100 font-light">
-            An Evening in Bloom
+          <h2 class="font-serif text-3xl sm:text-5xl text-purple-100 font-light drop-shadow">
+            Find Your Place in the Celebration
           </h2>
           <div class="w-16 h-[1px] bg-purple-400/50 mx-auto mt-4"></div>
         </div>
 
-        <!-- Event Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <!-- Main 18s Lookup Card -->
+        <div class="bg-plum-deep/85 backdrop-blur-md p-8 sm:p-12 rounded-2xl border border-purple-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.8)] text-center">
           
-          <!-- Card 1: Time & Date -->
-          <div class="bg-plum-deep/80 backdrop-blur-md p-6 rounded-xl border border-purple-500/25 text-center flex flex-col justify-between">
-            <div>
-              <div class="w-10 h-10 rounded-full bg-purple-900/40 border border-purple-400/30 flex items-center justify-center mx-auto mb-4 text-purple-300">
-                <i class="fa-regular fa-calendar-check"></i>
-              </div>
-              <h3 class="font-cinzel text-sm text-gold-light uppercase tracking-wider mb-2">Date & Time</h3>
-              <p class="font-serif text-xl text-ivory">September 22, 2028</p>
-              <p class="font-sans text-xs text-purple-300 mt-1">Friday at 6:00 PM (PHT)</p>
-            </div>
-            <button onclick="downloadICS()" class="mt-6 w-full py-2 border border-purple-400/30 hover:border-gold-champagne/60 rounded text-[11px] font-cinzel uppercase tracking-widest text-purple-200 transition">
-              <i class="fa-regular fa-calendar-plus mr-1"></i> Add to Calendar
-            </button>
-          </div>
+          <p class="font-sans text-sm sm:text-base text-purple-200/90 max-w-xl mx-auto mb-8 font-light leading-relaxed">
+            “Be part of Franz’s special milestone. Enter your name below to discover your role in the celebration.”
+          </p>
 
-          <!-- Card 2: Venue -->
-          <div class="bg-plum-deep/80 backdrop-blur-md p-6 rounded-xl border border-purple-500/25 text-center flex flex-col justify-between">
-            <div>
-              <div class="w-10 h-10 rounded-full bg-purple-900/40 border border-purple-400/30 flex items-center justify-center mx-auto mb-4 text-purple-300">
-                <i class="fa-solid fa-location-dot"></i>
-              </div>
-              <h3 class="font-cinzel text-sm text-gold-light uppercase tracking-wider mb-2">The Sanctuary</h3>
-              <p class="font-serif text-xl text-ivory">Narra Hill</p>
-              <p class="font-sans text-xs text-purple-300 mt-1">Tagaytay City, Cavite</p>
-            </div>
-            <a href="https://maps.google.com/?q=Narra+Hill+Tagaytay" target="_blank" rel="noopener noreferrer" class="mt-6 block w-full py-2 border border-purple-400/30 hover:border-gold-champagne/60 rounded text-[11px] font-cinzel uppercase tracking-widest text-purple-200 transition">
-              <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> View on Google Maps
-            </a>
-          </div>
-
-          <!-- Card 3: Dress Code -->
-          <div class="bg-plum-deep/80 backdrop-blur-md p-6 rounded-xl border border-purple-500/25 text-center flex flex-col justify-between">
-            <div>
-              <div class="w-10 h-10 rounded-full bg-purple-900/40 border border-purple-400/30 flex items-center justify-center mx-auto mb-4 text-purple-300">
-                <i class="fa-solid fa-vest-patches"></i>
-              </div>
-              <h3 class="font-cinzel text-sm text-gold-light uppercase tracking-wider mb-2">Attire Code</h3>
-              <p class="font-serif text-xl text-ivory">Strictly White</p>
-              <p class="font-sans text-xs text-purple-300 mt-1">Formal Evening Wear</p>
-            </div>
-            <div class="mt-6 py-2 bg-white/5 rounded text-[10px] font-sans tracking-wide text-purple-300/90">
-              Gentlemen: White Suit / Barong • Ladies: White Gown
-            </div>
-          </div>
-
-        </div>
-
-        <!-- The 18s - Find Your Role (Strict Privacy Compliant) -->
-        <div class="bg-plum-deep/80 backdrop-blur-md p-8 sm:p-10 rounded-2xl border border-purple-500/30 shadow-2xl">
-          <div class="text-center max-w-2xl mx-auto mb-8">
-            <span class="font-cinzel text-xs tracking-widest text-gold-light uppercase">Honored Traditions</span>
-            <h3 class="font-serif text-2xl sm:text-4xl text-purple-100 font-light mt-1 mb-3">
-              Find Your Place in the Celebration
-            </h3>
-            <p class="font-sans text-xs sm:text-sm text-purple-300/80">
-              “Be part of Franz’s special milestone. Enter your name below to discover your role in the celebration.”
-            </p>
-          </div>
-
-          <!-- Category Badges (Markers Only - No names disclosed) -->
+          <!-- 3 Categories (Markers Only - No lists disclosed) -->
           <div class="flex flex-wrap justify-center gap-3 sm:gap-6 mb-8">
-            <span class="px-4 py-1.5 rounded-full bg-purple-900/30 border border-purple-400/30 text-xs font-cinzel tracking-wider text-purple-200">
-              <i class="fa-solid fa-spa mr-1 text-purple-400"></i> 18 Roses
+            <span class="px-5 py-2 rounded-full bg-purple-900/40 border border-purple-400/30 text-xs font-cinzel tracking-wider text-purple-200">
+              <i class="fa-solid fa-spa mr-1.5 text-purple-300"></i> 18 Roses
             </span>
-            <span class="px-4 py-1.5 rounded-full bg-purple-900/30 border border-purple-400/30 text-xs font-cinzel tracking-wider text-purple-200">
-              <i class="fa-solid fa-fire-flame-simple mr-1 text-gold-champagne"></i> 18 Candles
+            <span class="px-5 py-2 rounded-full bg-purple-900/40 border border-purple-400/30 text-xs font-cinzel tracking-wider text-purple-200">
+              <i class="fa-solid fa-fire-flame-simple mr-1.5 text-gold-champagne"></i> 18 Candles
             </span>
-            <span class="px-4 py-1.5 rounded-full bg-purple-900/30 border border-purple-400/30 text-xs font-cinzel tracking-wider text-purple-200">
-              <i class="fa-solid fa-gem mr-1 text-lavender-soft"></i> 18 Symbols
+            <span class="px-5 py-2 rounded-full bg-purple-900/40 border border-purple-400/30 text-xs font-cinzel tracking-wider text-purple-200">
+              <i class="fa-solid fa-gem mr-1.5 text-lavender-soft"></i> 18 Symbols
             </span>
           </div>
 
-          <!-- Search Input Form -->
+          <!-- Lookup Form -->
           <form onsubmit="handle18sLookup(event)" class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
             <input 
               type="text" 
@@ -469,26 +553,35 @@
             </button>
           </form>
 
-          <!-- Result Area -->
+          <!-- Dynamic Lookup Result Display -->
           <div id="lookupResult" class="max-w-md mx-auto mt-6 text-center transition-all duration-300 hidden"></div>
+
+          <div class="mt-10 pt-6 border-t border-purple-500/20 flex justify-between items-center text-xs font-cinzel uppercase tracking-widest text-purple-300">
+            <button onclick="navigateToPage(2)" class="hover:text-white transition">
+              <i class="fa-solid fa-arrow-left mr-1"></i> The Celebration
+            </button>
+            <button onclick="navigateToPage(4)" class="hover:text-gold-light transition text-gold-champagne">
+              Gallery & RSVP <i class="fa-solid fa-arrow-right ml-1"></i>
+            </button>
+          </div>
+
         </div>
 
       </div>
     </section>
 
     <!-- ----------------------------------------------------
-         PAGE 4: EDITORIAL GALLERY, LIVE UPLOAD & RSVP
+         PAGE 5: EDITORIAL GALLERY & RSVP
          ---------------------------------------------------- -->
-    <section id="page-3" class="page-sheet peel-in-wait bg-custom-4 bg-cover bg-center">
+    <section id="page-4" class="page-sheet peel-in-wait bg-custom-4 bg-cover bg-center">
       <!-- 80% Dark Plum / Amethyst Contrast Dimmer Overlay -->
       <div class="absolute inset-0 bg-[#0f0617]/85 backdrop-brightness-[0.9]"></div>
 
       <div class="relative z-20 min-h-full max-w-6xl mx-auto px-6 py-28">
         
-        <!-- Section Header -->
         <div class="text-center mb-12">
           <p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold mb-2">
-            Chapter III • Memories & Attendance
+            Chapter IV • Memories & Attendance
           </p>
           <h2 class="font-serif text-3xl sm:text-5xl text-purple-100 font-light">
             Chapters in Bloom & RSVP
@@ -583,11 +676,8 @@
        JAVASCRIPT LOGIC & 3D INTERACTION CONTROLS
        ======================================================== -->
   <script>
-    // ----------------------------------------------------
-    // Configuration & State
-    // ----------------------------------------------------
     let currentPageIndex = 0;
-    const totalPages = 4;
+    const totalPages = 5;
     let isTransitioning = false;
     let audioContext = null;
     let isPlayingAudio = false;
@@ -638,7 +728,6 @@
     }
 
     function enterCelebration() {
-      // Transition from Page 1 to Page 2
       navigateToPage(1);
     }
 
@@ -707,7 +796,6 @@
 
     function playTwilightChords() {
       if (!audioContext) return;
-      // Gentle synthesized harmony: D3, F#3, A3, C#4
       const freqs = [146.83, 185.00, 220.00, 277.18];
       freqs.forEach(freq => {
         const osc = audioContext.createOscillator();
@@ -735,8 +823,6 @@
 
       if (!input) return;
 
-      // Notice: In production, integrate an authenticated serverless endpoint.
-      // Privacy rule: No full roster is disclosed client-side.
       resultArea.innerHTML = `
         <div class="p-4 rounded bg-purple-900/40 border border-purple-400/40 text-center">
           <p class="font-cinzel text-xs text-gold-light uppercase tracking-wider mb-1">Role Lookup Inquiry</p>
@@ -810,7 +896,7 @@
     }
 
     // ----------------------------------------------------
-    // Floating Light Particles Generator
+    // Floating Light Particles Generator (Hero)
     // ----------------------------------------------------
     function createParticles() {
       const container = document.getElementById('particleField');
@@ -830,6 +916,34 @@
       }
     }
     createParticles();
+
+    // ----------------------------------------------------
+    // Rising Yellow Small Circles (My Story Page)
+    // ----------------------------------------------------
+    function createRisingCircles() {
+      const container = document.getElementById('risingCirclesField');
+      if (!container) return;
+      const count = 22; // Noticeable yet not distracting
+      for (let i = 0; i < count; i++) {
+        const circle = document.createElement('div');
+        circle.className = 'rising-circle';
+        
+        // Small, subtle diameters (3px to 7px)
+        const size = Math.random() * 4 + 3;
+        circle.style.width = `${size}px`;
+        circle.style.height = `${size}px`;
+        circle.style.left = `${Math.random() * 98}%`;
+        
+        // Random staggered speeds and delays for an organic flow
+        const duration = Math.random() * 8 + 8; // 8s to 16s rise
+        const delay = Math.random() * 10;
+        circle.style.animationDuration = `${duration}s`;
+        circle.style.animationDelay = `${delay}s`;
+
+        container.appendChild(circle);
+      }
+    }
+    createRisingCircles();
   </script>
 </body>
 </html>
