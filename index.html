@@ -106,7 +106,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   filter: blur(6px);
   transition: opacity 0.8s ease 0.1s;
 }
-#gate.open #archBackdropHider { opacity: 1; }
+#gate.open #archBackdropHider {
+  opacity: 1;
+}
 
 #portalMist {
   position: absolute;
@@ -317,6 +319,33 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   transform: translateY(-1px);
 }
 
+/* ========================================================
+   ENCHANTED ANIMATIONS FOR "I'M OFFICIALLY 18!"
+   ======================================================== */
+.enchanted-eighteen {
+  display: inline-block;
+  animation: enchantedFloatSlow 6s ease-in-out infinite alternate, enchantedShimmer 4s ease-in-out infinite alternate;
+  will-change: transform, text-shadow;
+}
+
+@keyframes enchantedFloatSlow {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes enchantedShimmer {
+  0% {
+    text-shadow: 0 4px 18px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4);
+  }
+  50% {
+    text-shadow: 0 6px 26px rgba(0,0,0,0.98), 0 0 35px rgba(243,229,171,0.65), 0 0 55px rgba(192,132,252,0.75);
+  }
+  100% {
+    text-shadow: 0 4px 18px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4);
+  }
+}
+
 /* Page 1 (My Story) Enchanted Animations */
 .enchanted-title {
   animation: enchantedGlow 4s ease-in-out infinite alternate;
@@ -426,16 +455,15 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <!-- Central Restrained Luxury Card -->
     <div class="relative z-10 max-w-2xl mx-auto px-6 text-center my-auto">
       <div class="py-10 px-8 sm:px-14 rounded-2xl bg-[#0f0617]/35 backdrop-blur-md border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-        <p class="font-cinzel text-[11px] sm:text-xs tracking-[0.45em] text-[#d4bbf3]/90 uppercase font-light mb-3">
-          The Honour of Your Presence
-        </p>
 
-        <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl tracking-[0.28em] text-[#fcfbfa] font-light uppercase leading-tight">
-          Franz
-        </h1>
-
-        <div class="font-script text-4xl sm:text-6xl md:text-7xl text-[#f3e5ab] leading-none my-1 select-none font-normal">
-          Eighteenth
+        <!-- Animated "I'm officially 18!" (Subtle, elegant float and shimmer) -->
+        <div class="enchanted-eighteen">
+          <span class="block font-serif text-2xl sm:text-3xl md:text-4xl tracking-[0.22em] text-[#fcfbfa] font-light uppercase leading-tight mb-1">
+            I'm officially
+          </span>
+          <span class="block font-script text-5xl sm:text-7xl md:text-8xl text-[#f3e5ab] leading-none my-1 select-none font-normal">
+            18!
+          </span>
         </div>
 
         <div class="flex items-center justify-center space-x-3 my-5">
@@ -451,7 +479,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         <div>
           <button onclick="enterCelebration()" 
                   class="inline-block px-8 py-3 rounded-full border border-[#d4af37]/60 bg-[#0f0617]/40 hover:bg-[#d4af37]/15 text-[#fcfbfa] hover:text-[#f3e5ab] font-cinzel text-[11px] tracking-[0.3em] uppercase transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.15)] hover:border-[#f3e5ab]">
-            Enter Invitation
+            See My Debut Details
           </button>
         </div>
       </div>
