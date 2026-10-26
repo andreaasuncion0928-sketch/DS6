@@ -39,7 +39,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 #gateWorld {
   position: absolute;
   inset: 0;
-  transform-origin: 52% 34%;
+  transform-origin: 52.8% 34%;
   transition: transform 2.8s cubic-bezier(.65,0,.9,.4), opacity 1.1s ease;
 }
 #gate.zoom #gateWorld { transform: scale(8.5); }
@@ -88,6 +88,54 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   z-index: 1;
 }
 
+/* 
+  HIDE THE CLOSED GATE:
+  This layer sits over the static background archway and covers up
+  the static closed gate with an open, misty twilight gateway path.
+*/
+#archBackdropHider {
+  position: absolute;
+  left: 40.5%;
+  top: 15.5%;
+  width: 24.5%;
+  height: 36%;
+  border-radius: 50% 50% 0 0;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 85%, #6a498f 0%, #3e1b65 50%, #17072a 90%);
+  filter: blur(6px);
+  transition: opacity 0.8s ease 0.1s;
+}
+#gate.open #archBackdropHider {
+  opacity: 1;
+}
+
+/* Dense glowing portal mist that rolls out to completely disguise the inner arch */
+#portalMist {
+  position: absolute;
+  left: 36%;
+  top: 12%;
+  width: 33.5%;
+  height: 44%;
+  border-radius: 50% 50% 10% 10%;
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: 
+    radial-gradient(ellipse at 50% 60%, rgba(255, 235, 175, 0.95), rgba(206, 155, 255, 0.75) 45%, rgba(135, 75, 215, 0.45) 65%, transparent 78%),
+    radial-gradient(circle at 45% 45%, rgba(255, 255, 255, 0.9), transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(230, 200, 255, 0.8), transparent 60%);
+  filter: blur(8px);
+  transform: scale(0.85);
+  transition: opacity 1.2s ease 0.15s, transform 2.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+#gate.open #portalMist {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
 /* Light portal glow revealed behind the iron bars when opened */
 #gateGlow {
   left: 41.5%;
@@ -97,7 +145,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   opacity: 0;
   border-radius: 50% 50% 0 0;
   mix-blend-mode: screen;
-  z-index: 2;
+  z-index: 3;
   background: radial-gradient(ellipse at 50% 70%, rgba(255,232,170,.95), rgba(190,140,255,.55) 45%, transparent 75%);
   transition: opacity 1.6s ease .3s;
 }
@@ -105,7 +153,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
 /* 
   Left & Right Doors clipped directly from the photograph.
-  Coordinates match the arch aperture in gate.jpg.
+  When opened, they swing outwards in 3D perspective.
 */
 .gate-leaf-crop {
   position: absolute;
@@ -113,7 +161,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 4;
+  z-index: 5;
   cursor: pointer;
   transition: transform 2.7s cubic-bezier(.55,.03,.25,1);
 }
@@ -125,12 +173,12 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   clip-path: polygon(52.7% 16.5%, 63.8% 20.8%, 64.6% 23%, 64.6% 50.8%, 52.7% 50.8%);
   transform-origin: 64.5% 34%;
 }
-#gate.open .gate-leaf-crop.l { transform: rotateY(85deg); }
-#gate.open .gate-leaf-crop.r { transform: rotateY(-85deg); }
+#gate.open .gate-leaf-crop.l { transform: rotateY(88deg); }
+#gate.open .gate-leaf-crop.r { transform: rotateY(-88deg); }
 
-/* Candlelight flicker glows positioned right on the candles in the photo */
+/* Candlelight flicker glows positioned on the path candles */
 .cf {
-  z-index: 5;
+  z-index: 6;
   width: 8%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
@@ -147,9 +195,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   80% { opacity: .95; transform: translate(-50%, -50%) scale(1.08); }
 }
 
-/* Ambient morning mist */
+/* Ambient ground fog */
 .mist {
-  z-index: 6;
+  z-index: 7;
   left: -30%;
   width: 160%;
   height: 26%;
@@ -302,7 +350,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 </head>
 <body class="bg-plum-deep text-ivory font-sans antialiased overflow-hidden select-none">
 
-<!-- ===== ENTRANCE GATE USING gate.jpg ===== -->
+<!-- ===== ENTRANCE GATE ===== -->
 <div id="gate" role="dialog" aria-label="Invitation entrance">
   <div id="gateWorld">
     <div class="g-side l"></div><div class="g-side r"></div>
@@ -310,22 +358,28 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       <!-- Full photograph base -->
       <img class="gate-photo-base" src="gate.jpg" alt="Franz's Garden Gate">
 
-      <!-- Glowing portal behind the gate opening -->
+      <!-- Hider mask: fades out the static closed gate on the base image -->
+      <div id="archBackdropHider"></div>
+
+      <!-- Glowing portal mist that billows outward and conceals the archway interior -->
+      <div id="portalMist"></div>
+
+      <!-- Golden portal glow -->
       <div id="gateGlow"></div>
 
-      <!-- Left gate leaf: exact clipped crop of the photo's gate -->
+      <!-- Left gate leaf (opens outward) -->
       <img class="gate-leaf-crop l" src="gate.jpg" alt="" onclick="openGate()">
 
-      <!-- Right gate leaf: exact clipped crop of the photo's gate -->
+      <!-- Right gate leaf (opens outward) -->
       <img class="gate-leaf-crop r" src="gate.jpg" alt="" onclick="openGate()">
 
-      <!-- Candle flickers positioned precisely over the pathway candles in gate.jpg -->
+      <!-- Candle flickers -->
       <div id="cflames"></div>
 
-      <!-- Mist overlays -->
+      <!-- Path mist -->
       <div class="mist a"></div><div class="mist b"></div>
 
-      <!-- Tap to open lock -->
+      <!-- Glowing Lock Button -->
       <button type="button" class="g-lock" onclick="openGate()" aria-label="Open the gate"></button>
     </div>
   </div>
