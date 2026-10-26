@@ -16,8 +16,8 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#0f0617}::-webkit-scrollbar-thumb{background:#3b1d5a;border-radius:3px}::-webkit-scrollbar-thumb:hover{background:#5c2d91}
 
 /* Ambient / Page Backgrounds */
-.bg-custom-1{background-image:url('background b.jpg'), radial-gradient(circle at 50% 30%, #2a1145 0%, #0f0617 80%)}
-.bg-custom-2{background-image:url('2nd page b.jpg'), radial-gradient(circle at 40% 40%, #1f0b33 0%, #09030e 85%)}
+.bg-custom-1{background-image:url('background b.jpg'), radial-gradient(circle at 50% 30%, #240b36 0%, #0f0617 80%)}
+.bg-custom-2{background-image:url('2nd page b.jpg'), radial-gradient(circle at 40% 40%, #240b36 0%, #09030e 85%)}
 .bg-custom-3{background-image:url('3rd page b.jpg'), radial-gradient(circle at 60% 40%, #230d3a 0%, #0c0413 85%)}
 .bg-custom-4{background-image:url('4th page b.jpg'), radial-gradient(circle at 50% 50%, #1a082c 0%, #07020b 90%)}
 
@@ -45,7 +45,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 #gate.zoom #gateWorld { transform: scale(8.5); }
 #gate.fade #gateWorld { opacity: 0; }
 
-/* Side filler panels to ensure edge-to-edge backdrop on ultra-wide screens */
 .g-side {
   position: absolute;
   top: 0;
@@ -59,7 +58,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 .g-side.l { left: 0; background-position: left center; }
 .g-side.r { right: 0; background-position: right center; }
 
-/* 3D Stage */
 #gateStage {
   position: absolute;
   top: 0;
@@ -79,7 +77,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 #gate.open #gateStage { animation: none; }
 #gateStage > * { position: absolute; }
 
-/* The full original gate photograph */
 .gate-photo-base {
   inset: 0;
   width: 100%;
@@ -88,11 +85,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   z-index: 1;
 }
 
-/* 
-  HIDE THE CLOSED GATE:
-  This layer sits over the static background archway and covers up
-  the static closed gate with an open, misty twilight gateway path.
-*/
+/* Hides closed gate upon opening */
 #archBackdropHider {
   position: absolute;
   left: 40.5%;
@@ -103,7 +96,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   z-index: 2;
   opacity: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% 85%, #6a498f 0%, #3e1b65 50%, #17072a 90%);
+  background: radial-gradient(ellipse at 50% 85%, #4c1d95 0%, #2e1065 50%, #0f0617 90%);
   filter: blur(6px);
   transition: opacity 0.8s ease 0.1s;
 }
@@ -111,7 +104,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   opacity: 1;
 }
 
-/* Dense glowing portal mist that rolls out to completely disguise the inner arch */
+/* Glowing purple portal mist */
 #portalMist {
   position: absolute;
   left: 36%;
@@ -124,9 +117,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   pointer-events: none;
   mix-blend-mode: screen;
   background: 
-    radial-gradient(ellipse at 50% 60%, rgba(255, 235, 175, 0.95), rgba(206, 155, 255, 0.75) 45%, rgba(135, 75, 215, 0.45) 65%, transparent 78%),
-    radial-gradient(circle at 45% 45%, rgba(255, 255, 255, 0.9), transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(230, 200, 255, 0.8), transparent 60%);
+    radial-gradient(ellipse at 50% 60%, rgba(255, 235, 175, 0.95), rgba(192, 132, 252, 0.8) 45%, rgba(126, 34, 206, 0.5) 65%, transparent 78%),
+    radial-gradient(circle at 45% 45%, rgba(255, 255, 255, 0.95), transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(216, 180, 254, 0.85), transparent 60%);
   filter: blur(8px);
   transform: scale(0.85);
   transition: opacity 1.2s ease 0.15s, transform 2.4s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -136,7 +129,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   transform: scale(1.15);
 }
 
-/* Light portal glow revealed behind the iron bars when opened */
+/* Light portal glow */
 #gateGlow {
   left: 41.5%;
   top: 15.5%;
@@ -146,15 +139,11 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   border-radius: 50% 50% 0 0;
   mix-blend-mode: screen;
   z-index: 3;
-  background: radial-gradient(ellipse at 50% 70%, rgba(255,232,170,.95), rgba(190,140,255,.55) 45%, transparent 75%);
+  background: radial-gradient(ellipse at 50% 70%, rgba(255,232,170,.95), rgba(168,85,247,.6) 45%, transparent 75%);
   transition: opacity 1.6s ease .3s;
 }
 #gate.open #gateGlow { opacity: 1; }
 
-/* 
-  Left & Right Doors clipped directly from the photograph.
-  When opened, they swing outwards in 3D perspective.
-*/
 .gate-leaf-crop {
   position: absolute;
   inset: 0;
@@ -176,7 +165,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 #gate.open .gate-leaf-crop.l { transform: rotateY(88deg); }
 #gate.open .gate-leaf-crop.r { transform: rotateY(-88deg); }
 
-/* Candlelight flicker glows positioned on the path candles */
 .cf {
   z-index: 6;
   width: 8%;
@@ -185,7 +173,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   border-radius: 50%;
   pointer-events: none;
   mix-blend-mode: screen;
-  background: radial-gradient(circle, rgba(255,200,120,.85), rgba(255,130,150,.35) 40%, transparent 72%);
+  background: radial-gradient(circle, rgba(255,200,120,.85), rgba(216,180,254,.35) 40%, transparent 72%);
   animation: flick 2.4s ease-in-out infinite;
 }
 @keyframes flick {
@@ -195,7 +183,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   80% { opacity: .95; transform: translate(-50%, -50%) scale(1.08); }
 }
 
-/* Ambient ground fog */
 .mist {
   z-index: 7;
   left: -30%;
@@ -203,16 +190,15 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   height: 26%;
   pointer-events: none;
   filter: blur(14px);
-  background: radial-gradient(ellipse 20% 50% at 20% 60%, rgba(200,175,255,.32), transparent),
-              radial-gradient(ellipse 24% 45% at 55% 50%, rgba(190,160,255,.26), transparent),
-              radial-gradient(ellipse 18% 55% at 85% 65%, rgba(210,185,255,.3), transparent);
+  background: radial-gradient(ellipse 20% 50% at 20% 60%, rgba(192,132,252,.35), transparent),
+              radial-gradient(ellipse 24% 45% at 55% 50%, rgba(168,85,247,.28), transparent),
+              radial-gradient(ellipse 18% 55% at 85% 65%, rgba(216,180,254,.3), transparent);
   animation: drift 26s ease-in-out infinite alternate;
 }
 .mist.a { top: 58%; }
 .mist.b { top: 76%; animation-duration: 34s; animation-direction: alternate-reverse; opacity: .8; }
 @keyframes drift { from { transform: translateX(-8%); } to { transform: translateX(8%); } }
 
-/* Glowing Interactive Gate Lock */
 .g-lock {
   z-index: 8;
   left: calc(52.8% - 3.8%);
@@ -233,18 +219,17 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 }
 #gate.open .g-lock { opacity: 0; pointer-events: none; animation: none; }
 
-/* Cinematic entrance veil */
 #veil {
   position: absolute;
   inset: 0;
   z-index: 20;
   background: #0b0412;
   pointer-events: none;
-  animation: veil 2.4s ease .2s forwards;
+  animation: veil 1.2s ease forwards;
 }
 @keyframes veil { to { opacity: 0; visibility: hidden; } }
 
-/* Entrance text UI */
+/* Entrance text UI: appears right away without delay */
 #gateUI {
   position: absolute;
   left: 0;
@@ -264,22 +249,20 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 }
 #gate.open #gateUI { opacity: 0; transform: translateY(24px); }
 #gateUI > * {
-  opacity: 0;
-  transform: translateY(14px);
-  animation: rise 1.6s ease forwards;
+  opacity: 1;
+  transform: none;
+  animation: fadeInQuick 0.6s ease-out forwards;
 }
-#gateUI > :nth-child(1) { animation-delay: 1.4s; }
-#gateUI > :nth-child(2) { animation-delay: 1.9s; }
-#gateUI > :nth-child(3) { animation-delay: 2.5s; }
-#gateUI > :nth-child(4) { animation-delay: 3.2s; }
-@keyframes rise { to { opacity: 1; transform: none; } }
+@keyframes fadeInQuick {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-/* Falling Petals */
 .fx { position: absolute; z-index: 12; pointer-events: none; }
 .petal {
   top: -5vh;
   border-radius: 80% 0 80% 0;
-  background: linear-gradient(135deg, #e9dcff, #a77be0);
+  background: linear-gradient(135deg, #f3e8ff, #9333ea);
   opacity: .85;
   animation: fall linear infinite;
 }
@@ -337,7 +320,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
 .btn-details-dark {
   background: #251239;
-  border: 1px solid rgba(139,92,246,.4);
+  border: 1px solid rgba(168,85,247,.4);
   border-radius: 9999px;
   transition: all .3s ease;
 }
@@ -346,11 +329,49 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   border-color: rgba(212,175,55,.85);
   transform: translateY(-1px);
 }
+
+/* ===== ENCHANTED TEXT ANIMATION (Page 1) ===== */
+.enchanted-title {
+  animation: enchantedGlow 4s ease-in-out infinite alternate;
+}
+.enchanted-quote {
+  animation: enchantedFloat 6s ease-in-out infinite alternate;
+}
+.enchanted-body {
+  animation: enchantedFloat 6s ease-in-out infinite alternate 1s;
+}
+.enchanted-sign {
+  animation: enchantedGlow 3.5s ease-in-out infinite alternate 0.5s;
+}
+
+@keyframes enchantedFloat {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes enchantedGlow {
+  0% {
+    text-shadow: 0 2px 8px rgba(0,0,0,0.9), 0 0 15px rgba(168,85,247,0.3);
+  }
+  50% {
+    text-shadow: 0 4px 18px rgba(0,0,0,0.95), 0 0 28px rgba(212,175,55,0.45), 0 0 40px rgba(192,132,252,0.6);
+  }
+  100% {
+    text-shadow: 0 2px 8px rgba(0,0,0,0.9), 0 0 15px rgba(168,85,247,0.3);
+  }
+}
 </style>
 </head>
 <body class="bg-plum-deep text-ivory font-sans antialiased overflow-hidden select-none">
 
-<!-- ===== ENTRANCE GATE ===== -->
+<!-- ===== ENTRANCE GATE (Page 0 Entrance) ===== -->
 <div id="gate" role="dialog" aria-label="Invitation entrance">
   <div id="gateWorld">
     <div class="g-side l"></div><div class="g-side r"></div>
@@ -361,7 +382,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       <!-- Hider mask: fades out the static closed gate on the base image -->
       <div id="archBackdropHider"></div>
 
-      <!-- Glowing portal mist that billows outward and conceals the archway interior -->
+      <!-- Glowing purple portal mist -->
       <div id="portalMist"></div>
 
       <!-- Golden portal glow -->
@@ -385,8 +406,8 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   </div>
   <div id="fxLayer"></div>
   <div id="gateUI">
-    <p style="font-family:'Cinzel',serif;letter-spacing:.4em;font-size:.7rem;color:#d4bbf3;text-transform:uppercase;margin:0 0 .2rem">An evening in violet awaits</p>
-    <h1 style="font-family:'Great Vibes',cursive;font-weight:400;font-size:clamp(3.2rem,9vw,6.4rem);line-height:1;color:#f0e6f6;text-shadow:0 6px 24px rgba(0,0,0,.95),0 0 40px rgba(167,119,255,.6);margin:0 0 .1rem">You Are Invited</h1>
+    <p style="font-family:'Cinzel',serif;letter-spacing:.4em;font-size:.7rem;color:#c084fc;text-transform:uppercase;margin:0 0 .2rem">An evening in purple awaits</p>
+    <h1 style="font-family:'Great Vibes',cursive;font-weight:400;font-size:clamp(3.2rem,9vw,6.4rem);line-height:1;color:#f0e6f6;text-shadow:0 6px 24px rgba(0,0,0,.95),0 0 40px rgba(168,85,247,.7);margin:0 0 .1rem">You Are Invited</h1>
     <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.25rem;color:#d4bbf3;margin:0 0 1rem">to Franz’s eighteenth</p>
     <p style="font-family:'Cinzel',serif;letter-spacing:.3em;font-size:.62rem;color:#f3e5ab;text-transform:uppercase;margin:0">Tap the glowing lock to open the gate</p>
   </div>
@@ -431,11 +452,11 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="absolute inset-0 bg-[#0f0617]/80 backdrop-brightness-[0.9]"></div>
     <div class="relative z-20 w-full h-full flex flex-col justify-between px-4 sm:px-8 md:px-14 pb-8">
       <div class="w-full flex-1 flex flex-col items-center justify-center text-center pt-32 sm:pt-36">
-        <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-purple-200/90 uppercase font-light mb-3 sm:mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">You Are Invited To</p>
+        <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-purple-300 uppercase font-light mb-3 sm:mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">You Are Invited To</p>
         <h2 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[0.22em] text-ivory font-light uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] mb-1 sm:mb-2">Franz’s</h2>
         <div class="font-script text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] text-lilac-pale leading-[0.8] mb-4 sm:mb-6 drop-shadow-[0_6px_18px_rgba(0,0,0,0.95)] -rotate-2 select-none">Eighteenth</div>
         <div class="flex items-center justify-center space-x-4 my-2 sm:my-3 text-gold-champagne/70"><span class="h-[1px] w-12 sm:w-24 bg-gradient-to-r from-transparent to-gold-champagne/60"></span><span class="text-xs sm:text-sm tracking-widest text-gold-light"><i class="fa-regular fa-gem"></i></span><span class="h-[1px] w-12 sm:w-24 bg-gradient-to-l from-transparent to-gold-champagne/60"></span></div>
-        <p class="font-cinzel text-xs sm:text-sm tracking-[0.28em] text-purple-200/85 uppercase font-medium mt-1 mb-8 sm:mb-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">A New Chapter Begins</p>
+        <p class="font-cinzel text-xs sm:text-sm tracking-[0.28em] text-purple-200/90 uppercase font-medium mt-1 mb-8 sm:mb-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">A New Chapter Begins</p>
         <div><button onclick="enterCelebration()" class="vintage-invitation-btn group px-6 sm:px-9 py-2.5 sm:py-3 rounded-[3px] text-ivory font-cinzel text-[11px] sm:text-xs tracking-[0.25em] uppercase flex items-center space-x-2"><span class="text-gold-light group-hover:translate-x-0.5 transition-transform duration-300">Enter The Invitation</span></button></div>
       </div>
       <aside class="fixed right-3 sm:right-6 bottom-8 z-30 hidden md:flex flex-col items-center bg-plum-deep/80 backdrop-blur-md border border-purple-500/25 px-4 py-5 rounded-sm shadow-[0_10px_30px_rgba(0,0,0,0.8)] w-28">
@@ -453,18 +474,18 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     </div>
   </section>
 
-  <!-- Page 1: My Story -->
+  <!-- Page 1: My Story (Background Overlay Removed + Enchanted Animated Text) -->
   <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center">
-    <div class="absolute inset-0 bg-[#0f0617]/85 backdrop-brightness-[0.9]"></div>
+    <!-- REMOVED: dark overlay div to showcase the raw background image -->
     <div class="relative min-h-full max-w-6xl mx-auto px-6 py-28 flex flex-col justify-center">
       <div class="text-center mb-12 relative z-20">
         <p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold mb-2 drop-shadow">Chapter I • My Story</p>
-        <h2 class="font-serif text-3xl sm:text-5xl text-purple-200 font-light drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">The Girl Behind the Bloom</h2>
-        <div class="w-16 h-[1px] bg-purple-400/50 mx-auto mt-4"></div>
+        <h2 class="enchanted-title font-serif text-3xl sm:text-5xl text-purple-100 font-light">The Girl Behind the Bloom</h2>
+        <div class="w-16 h-[1px] bg-purple-400/60 mx-auto mt-4 shadow-[0_0_8px_rgba(168,85,247,0.8)]"></div>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
         <div class="lg:col-span-5 flex justify-center relative z-40">
-          <div class="relative p-2 rounded-2xl bg-gradient-to-tr from-purple-800/60 via-gold-champagne/30 to-purple-400/40 shadow-[0_20px_50px_rgba(0,0,0,0.95)] border border-purple-400/30 max-w-sm w-full bg-plum-deep">
+          <div class="relative p-2 rounded-2xl bg-gradient-to-tr from-purple-800/70 via-gold-champagne/30 to-purple-400/40 shadow-[0_20px_50px_rgba(0,0,0,0.95)] border border-purple-400/40 max-w-sm w-full bg-plum-deep/80 backdrop-blur-md">
             <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-purple-950">
               <img src="me.jpg" alt="Franz - Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';" class="w-full h-full object-cover filter contrast-[1.05] brightness-95">
               <div class="absolute inset-0 bg-gradient-to-t from-plum-deep/80 via-transparent to-transparent"></div>
@@ -472,13 +493,13 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
             <div class="absolute -bottom-3 -right-3 bg-plum-deep/95 border border-gold-champagne/60 px-4 py-1.5 rounded-full shadow-lg"><span class="font-script text-gold-light text-xl">Franz</span></div>
           </div>
         </div>
-        <div class="lg:col-span-7 relative z-10 bg-plum-deep/60 backdrop-blur-sm p-8 sm:p-10 rounded-2xl border border-purple-500/20 shadow-2xl">
+        <div class="lg:col-span-7 relative z-10 bg-plum-deep/60 backdrop-blur-md p-8 sm:p-10 rounded-2xl border border-purple-400/30 shadow-[0_15px_40px_rgba(0,0,0,0.7)]">
           <div class="text-purple-300 text-3xl mb-4"><i class="fa-solid fa-quote-left"></i></div>
-          <p class="font-serif text-lg sm:text-xl md:text-2xl text-purple-100/90 leading-relaxed font-light italic mb-6">“There is a quiet beauty in the pages of a classic novel, the rhythm of a jazz melody, and the artistry of makeup. In these little things, I find inspiration and pieces of myself.”</p>
-          <p class="font-sans text-sm sm:text-base text-purple-200/80 leading-relaxed font-light mb-8">“As I turn eighteen, I look forward to the experiences, memories, and possibilities that lie ahead. It would mean so much to have you with me as I celebrate this new chapter of my story.”</p>
+          <p class="enchanted-quote font-serif text-lg sm:text-xl md:text-2xl text-purple-100 leading-relaxed font-light italic mb-6">“There is a quiet beauty in the pages of a classic novel, the rhythm of a jazz melody, and the artistry of makeup. In these little things, I find inspiration and pieces of myself.”</p>
+          <p class="enchanted-body font-sans text-sm sm:text-base text-purple-200/90 leading-relaxed font-light mb-8">“As I turn eighteen, I look forward to the experiences, memories, and possibilities that lie ahead. It would mean so much to have you with me as I celebrate this new chapter of my story.”</p>
           <div class="flex items-center justify-between pt-6 border-t border-purple-500/25">
-            <span class="font-script text-3xl sm:text-4xl text-purple-200">— Franz</span>
-            <button onclick="navigateToPage(2)" class="px-5 py-2 text-xs font-cinzel uppercase tracking-widest text-gold-light border border-gold-champagne/50 hover:bg-gold-champagne/20 transition rounded">The Celebration <i class="fa-solid fa-arrow-right ml-1"></i></button>
+            <span class="enchanted-sign font-script text-3xl sm:text-4xl text-purple-200">— Franz</span>
+            <button onclick="navigateToPage(2)" class="px-5 py-2 text-xs font-cinzel uppercase tracking-widest text-gold-light border border-gold-champagne/50 hover:bg-gold-champagne/20 transition rounded shadow-[0_0_15px_rgba(212,175,55,0.2)]">The Celebration <i class="fa-solid fa-arrow-right ml-1"></i></button>
           </div>
         </div>
       </div>
@@ -661,16 +682,16 @@ const R = Math.random;
 
 // Candle flames accurately mapped onto the candles in gate.jpg
 const candleCoords = [
-  [300, 725], // foreground candle left
-  [665, 855], // foreground candle right
-  [370, 615], // mid candle left
-  [558, 595], // mid candle right
-  [444, 520], // distance candle left
-  [554, 538], // distance candle right
-  [426, 495], // gate-step candle
-  [490, 465], // path candle behind gate
-  [516, 442], // far candle 1
-  [562, 446]  // far candle 2
+  [300, 725],
+  [665, 855],
+  [370, 615],
+  [558, 595],
+  [444, 520],
+  [554, 538],
+  [426, 495],
+  [490, 465],
+  [516, 442],
+  [562, 446]
 ];
 
 const cflamesContainer = document.getElementById('cflames');
@@ -681,7 +702,7 @@ candleCoords.forEach(([x, y]) => {
   cflamesContainer.appendChild(d);
 });
 
-// Lilac petals floating gently across the entrance
+// Purple petals floating gently across the entrance
 const fx = document.getElementById('fxLayer');
 for (let i = 0; i < 16; i++) {
   const s = R() * 8 + 8, p = document.createElement('div');
