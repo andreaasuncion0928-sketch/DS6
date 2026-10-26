@@ -106,9 +106,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   filter: blur(6px);
   transition: opacity 0.8s ease 0.1s;
 }
-#gate.open #archBackdropHider {
-  opacity: 1;
-}
+#gate.open #archBackdropHider { opacity: 1; }
 
 #portalMist {
   position: absolute;
@@ -129,10 +127,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   transform: scale(0.85);
   transition: opacity 1.2s ease 0.15s, transform 2.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-#gate.open #portalMist {
-  opacity: 1;
-  transform: scale(1.15);
-}
+#gate.open #portalMist { opacity: 1; transform: scale(1.15); }
 
 #gateGlow {
   left: 41.5%;
@@ -299,14 +294,14 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 12;
+  z-index: 25; /* Sits above backdrop to flow through translucent cards */
   overflow: hidden;
 }
 
 .rising-circle {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(254, 240, 138, 0.85) 0%, rgba(250, 204, 21, 0.45) 55%, rgba(202, 138, 4, 0) 100%);
+  background: radial-gradient(circle, rgba(254, 240, 138, 0.9) 0%, rgba(250, 204, 21, 0.45) 55%, rgba(202, 138, 4, 0) 100%);
   box-shadow: 0 0 6px 1px rgba(250, 204, 21, 0.45);
   pointer-events: none;
   animation: riseSlowly linear infinite;
@@ -396,11 +391,20 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
 /* Page 2: Translucent / See-Through Celebration Card Panel */
 .celebration-glass-card {
-  background: rgba(20, 7, 33, 0.58);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(192, 132, 252, 0.35);
-  box-shadow: 0 25px 60px rgba(11, 4, 18, 0.8), inset 0 0 25px rgba(168, 85, 247, 0.18);
+  background: rgba(17, 6, 28, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(212, 187, 243, 0.3);
+  box-shadow: 0 20px 50px rgba(11, 4, 18, 0.65), inset 0 0 25px rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 768px) {
+  .celebration-glass-card {
+    background: rgba(17, 6, 28, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 187, 243, 0.35);
+  }
 }
 
 .mobile-story-frame {
@@ -490,12 +494,12 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   <div id="gateWorld">
     <div class="g-side l"></div><div class="g-side r"></div>
     <div id="gateStage">
-      <img class="gate-photo-base" src="gate.jpg" alt="Franz's Garden Gate"[cite: 1]>
+      <img class="gate-photo-base" src="gate.jpg" alt="Franz's Garden Gate">
       <div id="archBackdropHider"></div>
       <div id="portalMist"></div>
       <div id="gateGlow"></div>
-      <img class="gate-leaf-crop l" src="gate.jpg" alt="" onclick="openGate()"[cite: 1]>
-      <img class="gate-leaf-crop r" src="gate.jpg" alt="" onclick="openGate()"[cite: 1]>
+      <img class="gate-leaf-crop l" src="gate.jpg" alt="" onclick="openGate()">
+      <img class="gate-leaf-crop r" src="gate.jpg" alt="" onclick="openGate()">
       <div id="cflames"></div>
       <div class="mist a"></div><div class="mist b"></div>
       <button type="button" class="g-lock" onclick="openGate()" aria-label="Open the gate"></button>
@@ -717,143 +721,117 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 2: The Celebration (See-Through Glass Card, Photo & Bottom Map Button Removed) ==================== -->
+  <!-- ==================== Page 2: The Celebration (Cleaned Up & See-Through) ==================== -->
   <section id="page-2" class="page-sheet peel-in-wait bg-custom-3 bg-cover bg-center">
-    <div class="relative z-20 min-h-full max-w-4xl mx-auto px-4 sm:px-8 py-28 flex flex-col justify-center">
+    <!-- Subtle gradient wash to gently anchor the card while keeping the artwork clean -->
+    <div class="absolute inset-0 bg-[#0f0617]/35 backdrop-brightness-[0.95]"></div>
+
+    <div class="relative z-20 min-h-full max-w-3xl mx-auto px-4 sm:px-8 py-24 sm:py-28 flex flex-col justify-center">
+      
       <div class="text-center mb-6">
-        <p class="font-cinzel text-xs tracking-[0.35em] text-[#d4bbf3] uppercase font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">
+        <p class="font-cinzel text-xs tracking-[0.35em] text-[#d4bbf3] uppercase font-semibold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
           Chapter II • Event Guide
         </p>
       </div>
 
-      <!-- Centered See-Through Glassmorphic Card -->
-      <div class="celebration-glass-card rounded-3xl p-7 sm:p-12 md:p-14 relative overflow-hidden">
-        <!-- Subtle decorative floral corner accent -->
-        <div class="absolute top-0 right-0 w-36 h-36 pointer-events-none opacity-20">
-          <svg viewBox="0 0 100 100" fill="none" class="w-full h-full text-purple-400">
-            <path d="M100 0 C70 10, 50 30, 40 60 C35 75, 20 85, 0 100 L100 100 Z" fill="currentColor"/>
-          </svg>
-        </div>
-
-        <div>
+      <!-- Centered See-Through Glassmorphic Card (Rising embers pass directly through here) -->
+      <div class="celebration-glass-card rounded-3xl p-6 sm:p-12 md:p-14 relative">
+        <div class="text-center mb-8">
           <p class="font-cinzel text-xs sm:text-[13px] tracking-[0.35em] text-gold-light uppercase font-semibold mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             The Celebration
           </p>
-          <h2 class="font-script text-5xl sm:text-6xl md:text-7xl text-[#fcfbfa] drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] -rotate-1 select-none leading-tight mb-8">
+          <h2 class="font-script text-5xl sm:text-6xl md:text-7xl text-[#fcfbfa] drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] -rotate-1 select-none leading-tight">
             Details
           </h2>
+          <div class="w-16 h-[1px] bg-gradient-to-r from-transparent via-gold-champagne/80 to-transparent mx-auto mt-2.5"></div>
+        </div>
 
-          <div class="space-y-7">
-            <!-- Date & Time -->
-            <div class="flex items-start space-x-4">
-              <div class="text-gold-light text-2xl mt-0.5 drop-shadow">
-                <i class="fa-regular fa-calendar-check"></i>
-              </div>
-              <div>
-                <p class="font-serif text-xl sm:text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
-                  September 22, 2028
-                </p>
-                <p class="font-sans text-xs sm:text-sm text-[#d4bbf3] flex items-center mt-1 drop-shadow">
-                  <i class="fa-regular fa-clock mr-1.5 text-xs text-gold-champagne"></i> 6:00 PM (Philippine Standard Time)
-                </p>
+        <div class="space-y-8 sm:space-y-9">
+          <!-- Clean Date & Time (PST removed) -->
+          <div class="flex items-start space-x-4 sm:space-x-5">
+            <div class="text-gold-light text-2xl sm:text-3xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+              <i class="fa-regular fa-calendar-check"></i>
+            </div>
+            <div>
+              <p class="font-serif text-xl sm:text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                September 22, 2028
+              </p>
+              <p class="font-sans text-xs sm:text-sm text-[#d4bbf3] flex items-center mt-1.5 drop-shadow">
+                <i class="fa-regular fa-clock mr-1.5 text-xs text-gold-champagne"></i> 6:00 PM
+              </p>
+            </div>
+          </div>
+
+          <!-- Location & Google Maps -->
+          <div class="flex items-start space-x-4 sm:space-x-5">
+            <div class="text-gold-light text-2xl sm:text-3xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div class="flex-1">
+              <p class="font-serif text-xl sm:text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                Narra Hill
+              </p>
+              <p class="font-sans text-xs sm:text-sm text-[#d4bbf3] mt-1 drop-shadow">
+                Tagaytay City, Cavite
+              </p>
+              <div class="mt-2.5">
+                <a href="https://maps.google.com/?q=Narra+Hill+Tagaytay" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-xs font-cinzel font-semibold tracking-wider text-gold-light hover:text-white underline underline-offset-4 decoration-gold-champagne/60 transition drop-shadow">
+                  <i class="fa-solid fa-diamond-turn-right text-xs text-gold-champagne"></i>
+                  <span>View Direction (Google Maps)</span>
+                </a>
               </div>
             </div>
+          </div>
 
-            <!-- Venue & Location with Direction link -->
-            <div class="flex items-start space-x-4">
-              <div class="text-gold-light text-2xl mt-0.5 drop-shadow">
-                <i class="fa-solid fa-location-dot"></i>
-              </div>
-              <div class="flex-1">
-                <p class="font-serif text-xl sm:text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
-                  Narra Hill
-                </p>
-                <p class="font-sans text-xs sm:text-sm text-[#d4bbf3] mt-0.5 drop-shadow">
-                  Tagaytay City, Cavite
-                </p>
-                <div class="mt-2.5">
-                  <a href="https://maps.google.com/?q=Narra+Hill+Tagaytay" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-[11px] font-cinzel font-semibold tracking-wider text-gold-light hover:text-white underline underline-offset-4 decoration-gold-champagne/60 transition drop-shadow">
-                    <i class="fa-solid fa-diamond-turn-right text-xs text-gold-champagne"></i>
-                    <span>View Direction (Google Maps)</span>
-                  </a>
-                </div>
-              </div>
+          <!-- Dress Code (Shades of white removed) -->
+          <div class="flex items-start space-x-4 sm:space-x-5">
+            <div class="text-gold-light text-2xl sm:text-3xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+              <i class="fa-solid fa-vest-patches"></i>
             </div>
+            <div class="flex-1">
+              <p class="font-serif text-xl sm:text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                Dress Code: Strictly White
+              </p>
+              <p class="font-sans text-xs sm:text-sm text-[#d4bbf3] mt-1 drop-shadow">
+                Formal / Semi-Formal Evening Wear
+              </p>
 
-            <!-- Dress Code -->
-            <div class="flex items-start space-x-4">
-              <div class="text-gold-light text-2xl mt-0.5 drop-shadow">
-                <i class="fa-solid fa-vest-patches"></i>
-              </div>
-              <div class="flex-1">
-                <p class="font-serif text-xl sm:text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
-                  Dress Code: Strictly White
-                </p>
-                <p class="font-sans text-xs sm:text-sm text-[#d4bbf3] mt-0.5 drop-shadow">
-                  Formal / Semi-Formal Evening Wear
-                </p>
-
-                <!-- Color Swatches -->
-                <div class="mt-3.5">
-                  <p class="font-cinzel text-[10px] uppercase tracking-wider text-[#d4bbf3]/90 mb-2 font-medium">
-                    Permitted Shades of White
-                  </p>
-                  <div class="flex items-center space-x-3">
-                    <div class="flex flex-col items-center">
-                      <span class="w-7 h-7 rounded-full bg-[#FFFFFF] border border-white/60 shadow-md"></span>
-                      <span class="text-[9px] font-sans text-purple-200 mt-1">Pure</span>
-                    </div>
-                    <div class="flex flex-col items-center">
-                      <span class="w-7 h-7 rounded-full bg-[#FCFBF7] border border-white/60 shadow-md"></span>
-                      <span class="text-[9px] font-sans text-purple-200 mt-1">Ivory</span>
-                    </div>
-                    <div class="flex flex-col items-center">
-                      <span class="w-7 h-7 rounded-full bg-[#F7F5F0] border border-white/60 shadow-md"></span>
-                      <span class="text-[9px] font-sans text-purple-200 mt-1">Cream</span>
-                    </div>
-                    <div class="flex flex-col items-center">
-                      <span class="w-7 h-7 rounded-full bg-[#EAE6DF] border border-white/60 shadow-md"></span>
-                      <span class="text-[9px] font-sans text-purple-200 mt-1">Alabaster</span>
-                    </div>
+              <!-- Clean Attire Guidance -->
+              <div class="mt-4 pt-4 border-t border-purple-300/25 flex flex-wrap items-center gap-6 sm:gap-10">
+                <div class="flex items-center space-x-3">
+                  <svg class="w-6 h-9 text-gold-light drop-shadow" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M16 10 C16 6, 24 6, 24 10 C24 14, 20 16, 20 18"/>
+                    <path d="M15 18 L25 18 L27 26 L13 26 Z"/>
+                    <path d="M13 26 Q10 45 4 56 L36 56 Q30 45 27 26 Z"/>
+                    <line x1="20" y1="26" x2="20" y2="56" stroke-dasharray="2 2" stroke-width="1"/>
+                  </svg>
+                  <div class="text-xs font-sans text-ivory leading-tight drop-shadow">
+                    <span class="font-medium block text-gold-light">Ladies</span>
+                    <span class="text-[11px] text-purple-200">White Evening Gown</span>
                   </div>
                 </div>
 
-                <!-- Attire Icons -->
-                <div class="mt-5 pt-4 border-t border-purple-300/20 flex flex-wrap items-center gap-8">
-                  <div class="flex items-center space-x-2.5">
-                    <svg class="w-6 h-9 text-gold-light" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="1.8">
-                      <path d="M16 10 C16 6, 24 6, 24 10 C24 14, 20 16, 20 18"/>
-                      <path d="M15 18 L25 18 L27 26 L13 26 Z"/>
-                      <path d="M13 26 Q10 45 4 56 L36 56 Q30 45 27 26 Z"/>
-                      <line x1="20" y1="26" x2="20" y2="56" stroke-dasharray="2 2" stroke-width="1"/>
-                    </svg>
-                    <div class="text-[11px] font-sans text-ivory leading-tight drop-shadow">
-                      <span class="font-medium block text-gold-light">Ladies</span>
-                      <span class="text-[10px] text-purple-200">White Evening Gown</span>
-                    </div>
-                  </div>
-
-                  <div class="flex items-center space-x-2.5">
-                    <svg class="w-6 h-9 text-gold-light" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="1.8">
-                      <circle cx="20" cy="8" r="4"/>
-                      <path d="M14 16 L26 16 L28 34 L12 34 Z"/>
-                      <path d="M20 16 L20 34" stroke-dasharray="2 2" stroke-width="1"/>
-                      <path d="M15 34 L14 56 M25 34 L26 56"/>
-                    </svg>
-                    <div class="text-[11px] font-sans text-ivory leading-tight drop-shadow">
-                      <span class="font-medium block text-gold-light">Gentlemen</span>
-                      <span class="text-[10px] text-purple-200">White Barong / Suit</span>
-                    </div>
+                <div class="flex items-center space-x-3">
+                  <svg class="w-6 h-9 text-gold-light drop-shadow" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="20" cy="8" r="4"/>
+                    <path d="M14 16 L26 16 L28 34 L12 34 Z"/>
+                    <path d="M20 16 L20 34" stroke-dasharray="2 2" stroke-width="1"/>
+                    <path d="M15 34 L14 56 M25 34 L26 56"/>
+                  </svg>
+                  <div class="text-xs font-sans text-ivory leading-tight drop-shadow">
+                    <span class="font-medium block text-gold-light">Gentlemen</span>
+                    <span class="text-[11px] text-purple-200">White Barong / Suit</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
     
-    <!-- Rising Yellow Circles Layer -->
+    <!-- Rising Yellow Circles Layer (Rises throughout and behind the glass card) -->
     <div class="rising-circles-layer"></div>
   </section>
 
@@ -959,7 +937,7 @@ const targetDate = new Date('2028-09-22T18:00:00+08:00').getTime();
 
 const R = Math.random;
 
-// Candle flames accurately mapped onto the candles in gate.jpg[cite: 1]
+// Candle flames mapped onto candles in gate.jpg[cite: 1]
 const candleCoords = [
   [300, 725],
   [665, 855],
@@ -974,20 +952,24 @@ const candleCoords = [
 ];
 
 const cflamesContainer = document.getElementById('cflames');
-candleCoords.forEach(([x, y]) => {
-  const d = document.createElement('div');
-  d.className = 'cf';
-  d.style.cssText = `left:${x/10.24}%;top:${y/10.24}%;animation-duration:${1.5+R()*1.5}s;animation-delay:${-R()*3}s`;
-  cflamesContainer.appendChild(d);
-});
+if (cflamesContainer) {
+  candleCoords.forEach(([x, y]) => {
+    const d = document.createElement('div');
+    d.className = 'cf';
+    d.style.cssText = `left:${x/10.24}%;top:${y/10.24}%;animation-duration:${1.5+R()*1.5}s;animation-delay:${-R()*3}s`;
+    cflamesContainer.appendChild(d);
+  });
+}
 
 // Purple petals floating across entrance[cite: 1]
 const fx = document.getElementById('fxLayer');
-for (let i = 0; i < 16; i++) {
-  const s = R() * 8 + 8, p = document.createElement('div');
-  p.className = 'fx petal';
-  p.style.cssText = `width:${s}px;height:${s*.7}px;left:${R()*90}%;animation-duration:${R()*8+10}s;animation-delay:${-R()*16}s`;
-  fx.appendChild(p);
+if (fx) {
+  for (let i = 0; i < 16; i++) {
+    const s = R() * 8 + 8, p = document.createElement('div');
+    p.className = 'fx petal';
+    p.style.cssText = `width:${s}px;height:${s*.7}px;left:${R()*90}%;animation-duration:${R()*8+10}s;animation-delay:${-R()*16}s`;
+    fx.appendChild(p);
+  }
 }
 
 // Gate Opening Animation sequence[cite: 1]
@@ -1042,7 +1024,10 @@ function enterCelebration() { navigateToPage(1); }
 function updateCountdown(){
   const difference = targetDate - new Date().getTime();
   if(difference <= 0){
-    ['p1-days','p1-hours','p1-minutes','p1-seconds'].forEach(id => document.getElementById(id).innerText="00");
+    ['p1-days','p1-hours','p1-minutes','p1-seconds'].forEach(id => {
+      const el = document.getElementById(id);
+      if(el) el.innerText = "00";
+    });
     return;
   }
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
@@ -1152,20 +1137,18 @@ const mobileBtn = document.getElementById('mobileMenuBtn'), mobileMenu = documen
 if(mobileBtn) mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
 function closeMobileMenu(){ if(mobileMenu) mobileMenu.classList.add('hidden'); }
 
-// ========================================================
-// SLOW, GENTLE RISING EMBERS LOGIC ON ALL PAGES
-// ========================================================
+// Slow rising embers logic running across all pages
 function createRisingCirclesOnAllPages(){
   const layers = document.querySelectorAll('.rising-circles-layer');
   layers.forEach(layer => {
-    for(let i = 0; i < 28; i++){
+    for(let i = 0; i < 26; i++){
       const c = document.createElement('div');
       c.className = 'rising-circle';
       const size = Math.random() * 3.5 + 2.5;
       c.style.width = `${size}px`;
       c.style.height = `${size}px`;
       c.style.left = `${Math.random() * 99}%`;
-      const duration = Math.random() * 8 + 18; 
+      const duration = Math.random() * 8 + 18; // 18s - 26s
       c.style.animationDuration = `${duration}s`;
       c.style.animationDelay = `${Math.random() * 16}s`;
       layer.appendChild(c);
