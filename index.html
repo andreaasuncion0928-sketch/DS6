@@ -288,13 +288,13 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 .page-sheet.peel-in-wait { transform: translate3d(25%,0,-180px) rotateY(25deg) scale(.92); opacity: 0; filter: blur(4px); pointer-events: none; z-index: 10; }
 
 /* ========================================================
-   REFINED SLOWER, GENTLE RISING EMBERS (ACROSS ALL PAGES)
+   REFINED SLOWER, GENTLE RISING EMBERS
    ======================================================== */
 .rising-circles-layer {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 25; /* Sits above backdrop to flow through translucent cards */
+  z-index: 25;
   overflow: hidden;
 }
 
@@ -309,20 +309,10 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 }
 
 @keyframes riseSlowly {
-  0% {
-    transform: translateY(105vh) translateX(0) scale(0.7);
-    opacity: 0;
-  }
-  15% {
-    opacity: 0.65;
-  }
-  80% {
-    opacity: 0.55;
-  }
-  100% {
-    transform: translateY(-10vh) translateX(16px) scale(1.15);
-    opacity: 0;
-  }
+  0% { transform: translateY(105vh) translateX(0) scale(0.7); opacity: 0; }
+  15% { opacity: 0.65; }
+  80% { opacity: 0.55; }
+  100% { transform: translateY(-10vh) translateX(16px) scale(1.15); opacity: 0; }
 }
 
 .vintage-invitation-btn {
@@ -367,15 +357,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 }
 
 @keyframes enchantedShimmer {
-  0% {
-    text-shadow: 0 4px 18px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4);
-  }
-  50% {
-    text-shadow: 0 6px 28px rgba(0,0,0,0.98), 0 0 38px rgba(243,229,171,0.7), 0 0 60px rgba(192,132,252,0.8);
-  }
-  100% {
-    text-shadow: 0 4px 18px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4);
-  }
+  0% { text-shadow: 0 4px 18px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4); }
+  50% { text-shadow: 0 6px 28px rgba(0,0,0,0.98), 0 0 38px rgba(243,229,171,0.7), 0 0 60px rgba(192,132,252,0.8); }
+  100% { text-shadow: 0 4px 18px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4); }
 }
 
 /* ========================================================
@@ -391,16 +375,16 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
 /* Page 2: Translucent / See-Through Celebration Card Panel */
 .celebration-glass-card {
-  background: rgba(17, 6, 28, 0.45);
+  background: rgba(20, 7, 33, 0.45);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(212, 187, 243, 0.3);
-  box-shadow: 0 20px 50px rgba(11, 4, 18, 0.65), inset 0 0 25px rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(212, 187, 243, 0.32);
+  box-shadow: 0 25px 60px rgba(11, 4, 18, 0.7), inset 0 0 25px rgba(255, 255, 255, 0.08);
 }
 
 @media (max-width: 768px) {
   .celebration-glass-card {
-    background: rgba(17, 6, 28, 0.35);
+    background: rgba(20, 7, 33, 0.35);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(212, 187, 243, 0.35);
@@ -420,13 +404,14 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   aspect-ratio: 9 / 16;
 }
 
+/* Photo shifted upward cleanly without clipping the face */
 .mobile-story-frame img.portrait-bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 18%;
 }
 
 .mobile-story-scrim {
@@ -434,10 +419,10 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(15, 6, 23, 0.2) 0%,
-    rgba(15, 6, 23, 0) 35%,
-    rgba(15, 6, 23, 0.75) 60%,
-    rgba(15, 6, 23, 0.96) 85%,
+    rgba(15, 6, 23, 0.05) 0%,
+    rgba(15, 6, 23, 0) 30%,
+    rgba(15, 6, 23, 0.7) 58%,
+    rgba(15, 6, 23, 0.94) 82%,
     rgba(15, 6, 23, 0.99) 100%
   );
   z-index: 2;
@@ -620,52 +605,53 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       </button>
     </div>
 
-    <!-- Background Slower Rising Yellow Circles for Home Page -->
+    <!-- Background Rising Circles Layer -->
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 1: My Story ==================== -->
+  <!-- ==================== Page 1: My Story (Photo Shifted Upward, Clear Face, Generous Text Space) ==================== -->
   <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center">
-    <div class="relative min-h-full max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-28 flex flex-col justify-center">
+    <div class="relative min-h-full max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 flex flex-col justify-center">
       
       <!-- Title Header: Just "My Story" -->
-      <div class="text-center mb-8 sm:mb-12 relative z-20">
+      <div class="text-center mb-6 sm:mb-12 relative z-20">
         <h2 class="enchanted-title font-serif text-3xl sm:text-5xl md:text-6xl text-purple-100 font-light drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">My Story</h2>
         <div class="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-purple-300/80 to-transparent mx-auto mt-4 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></div>
       </div>
       
-      <!-- MOBILE VIEW: Text Overlaid directly on 4th.JPG[cite: 4] -->
+      <!-- MOBILE VIEW: Text Overlaid directly on 4th.JPG with Photo Pushed Higher Up -->
       <div class="block lg:hidden relative z-20 w-full flex justify-center">
-        <div class="mobile-story-frame">
+        <div class="mobile-story-frame" style="aspect-ratio: 9/16; max-height: 78vh;">
+          <!-- Portrait shifted upward cleanly so the face is fully open and uncropped -->
           <img class="portrait-bg" src="4th.JPG" alt="Franz - 4th Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';">
           <div class="mobile-story-scrim"></div>
 
-          <!-- Top-right Franz badge[cite: 4] -->
-          <div class="absolute top-4 right-4 z-10 px-4 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-gold-champagne/80 shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-            <span class="font-script text-gold-light text-lg">Franz</span>
+          <!-- Top-right Franz badge -->
+          <div class="absolute top-4 right-4 z-10 px-3.5 py-1 rounded-full bg-black/65 backdrop-blur-md border border-gold-champagne/80 shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+            <span class="font-script text-gold-light text-base">Franz</span>
           </div>
 
-          <!-- Subtle Glow Dust[cite: 4] -->
-          <span class="sparkle-dot" style="top: 58%; left: 18%; width: 4px; height: 4px;"></span>
-          <span class="sparkle-dot" style="top: 64%; left: 32%; width: 5px; height: 5px; animation-delay: 0.6s;"></span>
-          <span class="sparkle-dot" style="top: 60%; left: 62%; width: 4.5px; height: 4.5px; animation-delay: 1.2s;"></span>
-          <span class="sparkle-dot" style="top: 67%; left: 82%; width: 4px; height: 4px; animation-delay: 1.8s;"></span>
+          <!-- Subtle Glow Dust -->
+          <span class="sparkle-dot" style="top: 54%; left: 18%; width: 4px; height: 4px;"></span>
+          <span class="sparkle-dot" style="top: 60%; left: 32%; width: 5px; height: 5px; animation-delay: 0.6s;"></span>
+          <span class="sparkle-dot" style="top: 56%; left: 62%; width: 4.5px; height: 4.5px; animation-delay: 1.2s;"></span>
+          <span class="sparkle-dot" style="top: 62%; left: 82%; width: 4px; height: 4px; animation-delay: 1.8s;"></span>
 
-          <!-- Overlaid Text Content at Bottom[cite: 4] -->
-          <div class="absolute inset-x-0 bottom-0 z-10 p-6 flex flex-col justify-end text-left">
-            <div class="text-gold-light drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] text-2xl mb-2.5">
+          <!-- Overlaid Text Content at Bottom with Expanded Breathing Room -->
+          <div class="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-6 flex flex-col justify-end text-left">
+            <div class="text-gold-light drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] text-xl sm:text-2xl mb-2">
               <i class="fa-solid fa-quote-left"></i>
             </div>
             
-            <p class="font-serif text-sm sm:text-base text-[#fcfbfa] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed italic font-light mb-3">
+            <p class="font-serif text-[13px] sm:text-base text-[#fcfbfa] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed italic font-light mb-2.5">
               “It feels crazy to think that 18 years have already passed. From little moments to big memories every year has been part of the story that brought me here.”
             </p>
             
-            <p class="font-sans text-xs text-[#f0e6f6] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed font-light mb-3">
+            <p class="font-sans text-[11px] sm:text-xs text-[#f0e6f6] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed font-light mb-2.5">
               “Now, a new season begins — I'd love to celebrate it with you.”
             </p>
             
-            <p class="font-sans text-xs text-[#f3e5ab] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed font-medium mb-4">
+            <p class="font-sans text-[11px] sm:text-xs text-[#f3e5ab] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed font-medium mb-3.5">
               “Come celebrate, have fun, and make a memory with me.”
             </p>
             
@@ -678,11 +664,11 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
       <!-- DESKTOP VIEW: Side-by-Side Grid Layout -->
       <div class="hidden lg:grid grid-cols-12 gap-10 items-center">
-        <!-- Photo with 4th.JPG -->
+        <!-- Photo with 4th.JPG positioned higher up -->
         <div class="col-span-5 flex justify-center relative z-40">
           <div class="relative p-2 rounded-2xl bg-gradient-to-tr from-purple-800/80 via-gold-champagne/40 to-purple-400/60 shadow-[0_20px_50px_rgba(0,0,0,0.95)] border border-purple-300/50 max-w-sm w-full bg-plum-deep/80 backdrop-blur-md">
             <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-purple-950">
-              <img src="4th.JPG" alt="Franz - 4th Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';" class="w-full h-full object-cover filter contrast-[1.05] brightness-95">
+              <img src="4th.JPG" alt="Franz - 4th Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';" class="w-full h-full object-cover object-[center_15%] filter contrast-[1.05] brightness-95">
               <div class="absolute inset-0 bg-gradient-to-t from-plum-deep/80 via-transparent to-transparent"></div>
             </div>
             <div class="absolute -bottom-3 -right-3 bg-plum-deep/95 border border-gold-champagne/70 px-4 py-1.5 rounded-full shadow-lg">
@@ -721,14 +707,14 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 2: The Celebration (Cleaned Up & See-Through) ==================== -->
+  <!-- ==================== Page 2: The Celebration (Expanded Browser Line, Simplified Mobile, Clean Glass) ==================== -->
   <section id="page-2" class="page-sheet peel-in-wait bg-custom-3 bg-cover bg-center">
     <!-- Subtle gradient wash to gently anchor the card while keeping the artwork clean -->
     <div class="absolute inset-0 bg-[#0f0617]/35 backdrop-brightness-[0.95]"></div>
 
-    <div class="relative z-20 min-h-full max-w-3xl mx-auto px-4 sm:px-8 py-24 sm:py-28 flex flex-col justify-center">
+    <div class="relative z-20 min-h-full max-w-5xl mx-auto px-4 sm:px-8 py-24 sm:py-28 flex flex-col justify-center">
       
-      <div class="text-center mb-6">
+      <div class="text-center mb-6 sm:mb-8">
         <p class="font-cinzel text-xs tracking-[0.35em] text-[#d4bbf3] uppercase font-semibold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
           Chapter II • Event Guide
         </p>
@@ -736,7 +722,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
       <!-- Centered See-Through Glassmorphic Card (Rising embers pass directly through here) -->
       <div class="celebration-glass-card rounded-3xl p-6 sm:p-12 md:p-14 relative">
-        <div class="text-center mb-8">
+        <div class="text-center mb-8 sm:mb-10">
           <p class="font-cinzel text-xs sm:text-[13px] tracking-[0.35em] text-gold-light uppercase font-semibold mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             The Celebration
           </p>
@@ -746,84 +732,116 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           <div class="w-16 h-[1px] bg-gradient-to-r from-transparent via-gold-champagne/80 to-transparent mx-auto mt-2.5"></div>
         </div>
 
-        <div class="space-y-8 sm:space-y-9">
-          <!-- Clean Date & Time (PST removed) -->
-          <div class="flex items-start space-x-4 sm:space-x-5">
-            <div class="text-gold-light text-2xl sm:text-3xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+        <!-- DESKTOP / BROWSER VIEW: Date, Time & Location on ONE LINE; Dress Code Below -->
+        <div class="hidden md:flex flex-col gap-9">
+          <!-- Row 1: Date & Time + Location Side-by-Side in One Balanced Line -->
+          <div class="grid grid-cols-2 gap-8 items-start pb-8 border-b border-purple-300/20">
+            <!-- Left Column: Date & Time -->
+            <div class="flex items-start space-x-4">
+              <div class="text-gold-light text-3xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                <i class="fa-regular fa-calendar-check"></i>
+              </div>
+              <div>
+                <p class="font-cinzel text-[11px] tracking-widest text-[#d4bbf3]/80 uppercase font-medium mb-1">Date & Time</p>
+                <p class="font-serif text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  September 22, 2028
+                </p>
+                <p class="font-sans text-sm text-[#d4bbf3] flex items-center mt-1 drop-shadow">
+                  <i class="fa-regular fa-clock mr-1.5 text-xs text-gold-champagne"></i> 6:00 PM
+                </p>
+              </div>
+            </div>
+
+            <!-- Right Column: Location & View Directions -->
+            <div class="flex items-start space-x-4">
+              <div class="text-gold-light text-3xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div class="flex-1">
+                <p class="font-cinzel text-[11px] tracking-widest text-[#d4bbf3]/80 uppercase font-medium mb-1">Venue Location</p>
+                <p class="font-serif text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  Narra Hill
+                </p>
+                <p class="font-sans text-sm text-[#d4bbf3] mt-0.5 drop-shadow">
+                  Tagaytay City, Cavite
+                </p>
+                <div class="mt-2">
+                  <a href="https://maps.google.com/?q=Narra+Hill+Tagaytay" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-xs font-cinzel font-semibold tracking-wider text-gold-light hover:text-white underline underline-offset-4 decoration-gold-champagne/60 transition drop-shadow">
+                    <i class="fa-solid fa-diamond-turn-right text-xs text-gold-champagne"></i>
+                    <span>View Directions</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Dress Code Below Across Full Width -->
+          <div class="flex items-start space-x-4">
+            <div class="text-gold-light text-3xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+              <i class="fa-solid fa-vest-patches"></i>
+            </div>
+            <div class="flex-1">
+              <p class="font-cinzel text-[11px] tracking-widest text-[#d4bbf3]/80 uppercase font-medium mb-1">Attire Guidelines</p>
+              <p class="font-serif text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                Dress Code: Strictly White
+              </p>
+              <p class="font-sans text-sm text-[#d4bbf3] mt-1 drop-shadow">
+                Formal / Semi-Formal Evening Wear
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- MOBILE VIEW: Clean, Simple Vertical Stack -->
+        <div class="flex md:hidden flex-col space-y-7 text-left">
+          <!-- Date & Time -->
+          <div class="flex items-start space-x-4">
+            <div class="text-gold-light text-2xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
               <i class="fa-regular fa-calendar-check"></i>
             </div>
             <div>
-              <p class="font-serif text-xl sm:text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+              <p class="font-serif text-xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                 September 22, 2028
               </p>
-              <p class="font-sans text-xs sm:text-sm text-[#d4bbf3] flex items-center mt-1.5 drop-shadow">
+              <p class="font-sans text-xs text-[#d4bbf3] flex items-center mt-1 drop-shadow">
                 <i class="fa-regular fa-clock mr-1.5 text-xs text-gold-champagne"></i> 6:00 PM
               </p>
             </div>
           </div>
 
-          <!-- Location & Google Maps -->
-          <div class="flex items-start space-x-4 sm:space-x-5">
-            <div class="text-gold-light text-2xl sm:text-3xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+          <!-- Location -->
+          <div class="flex items-start space-x-4">
+            <div class="text-gold-light text-2xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
               <i class="fa-solid fa-location-dot"></i>
             </div>
             <div class="flex-1">
-              <p class="font-serif text-xl sm:text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+              <p class="font-serif text-xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                 Narra Hill
               </p>
-              <p class="font-sans text-xs sm:text-sm text-[#d4bbf3] mt-1 drop-shadow">
+              <p class="font-sans text-xs text-[#d4bbf3] mt-0.5 drop-shadow">
                 Tagaytay City, Cavite
               </p>
-              <div class="mt-2.5">
-                <a href="https://maps.google.com/?q=Narra+Hill+Tagaytay" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-xs font-cinzel font-semibold tracking-wider text-gold-light hover:text-white underline underline-offset-4 decoration-gold-champagne/60 transition drop-shadow">
+              <div class="mt-2">
+                <a href="https://maps.google.com/?q=Narra+Hill+Tagaytay" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-[11px] font-cinzel font-semibold tracking-wider text-gold-light hover:text-white underline underline-offset-4 decoration-gold-champagne/60 transition drop-shadow">
                   <i class="fa-solid fa-diamond-turn-right text-xs text-gold-champagne"></i>
-                  <span>View Direction (Google Maps)</span>
+                  <span>View Directions</span>
                 </a>
               </div>
             </div>
           </div>
 
-          <!-- Dress Code (Shades of white removed) -->
-          <div class="flex items-start space-x-4 sm:space-x-5">
-            <div class="text-gold-light text-2xl sm:text-3xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+          <!-- Dress Code -->
+          <div class="flex items-start space-x-4">
+            <div class="text-gold-light text-2xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
               <i class="fa-solid fa-vest-patches"></i>
             </div>
             <div class="flex-1">
-              <p class="font-serif text-xl sm:text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+              <p class="font-serif text-xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                 Dress Code: Strictly White
               </p>
-              <p class="font-sans text-xs sm:text-sm text-[#d4bbf3] mt-1 drop-shadow">
+              <p class="font-sans text-xs text-[#d4bbf3] mt-1 drop-shadow">
                 Formal / Semi-Formal Evening Wear
               </p>
-
-              <!-- Clean Attire Guidance -->
-              <div class="mt-4 pt-4 border-t border-purple-300/25 flex flex-wrap items-center gap-6 sm:gap-10">
-                <div class="flex items-center space-x-3">
-                  <svg class="w-6 h-9 text-gold-light drop-shadow" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="1.8">
-                    <path d="M16 10 C16 6, 24 6, 24 10 C24 14, 20 16, 20 18"/>
-                    <path d="M15 18 L25 18 L27 26 L13 26 Z"/>
-                    <path d="M13 26 Q10 45 4 56 L36 56 Q30 45 27 26 Z"/>
-                    <line x1="20" y1="26" x2="20" y2="56" stroke-dasharray="2 2" stroke-width="1"/>
-                  </svg>
-                  <div class="text-xs font-sans text-ivory leading-tight drop-shadow">
-                    <span class="font-medium block text-gold-light">Ladies</span>
-                    <span class="text-[11px] text-purple-200">White Evening Gown</span>
-                  </div>
-                </div>
-
-                <div class="flex items-center space-x-3">
-                  <svg class="w-6 h-9 text-gold-light drop-shadow" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="1.8">
-                    <circle cx="20" cy="8" r="4"/>
-                    <path d="M14 16 L26 16 L28 34 L12 34 Z"/>
-                    <path d="M20 16 L20 34" stroke-dasharray="2 2" stroke-width="1"/>
-                    <path d="M15 34 L14 56 M25 34 L26 56"/>
-                  </svg>
-                  <div class="text-xs font-sans text-ivory leading-tight drop-shadow">
-                    <span class="font-medium block text-gold-light">Gentlemen</span>
-                    <span class="text-[11px] text-purple-200">White Barong / Suit</span>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -937,7 +955,7 @@ const targetDate = new Date('2028-09-22T18:00:00+08:00').getTime();
 
 const R = Math.random;
 
-// Candle flames mapped onto candles in gate.jpg[cite: 1]
+// Candle flames accurately mapped onto the candles in gate.jpg
 const candleCoords = [
   [300, 725],
   [665, 855],
@@ -952,27 +970,23 @@ const candleCoords = [
 ];
 
 const cflamesContainer = document.getElementById('cflames');
-if (cflamesContainer) {
-  candleCoords.forEach(([x, y]) => {
-    const d = document.createElement('div');
-    d.className = 'cf';
-    d.style.cssText = `left:${x/10.24}%;top:${y/10.24}%;animation-duration:${1.5+R()*1.5}s;animation-delay:${-R()*3}s`;
-    cflamesContainer.appendChild(d);
-  });
-}
+candleCoords.forEach(([x, y]) => {
+  const d = document.createElement('div');
+  d.className = 'cf';
+  d.style.cssText = `left:${x/10.24}%;top:${y/10.24}%;animation-duration:${1.5+R()*1.5}s;animation-delay:${-R()*3}s`;
+  cflamesContainer.appendChild(d);
+});
 
-// Purple petals floating across entrance[cite: 1]
+// Purple petals floating across entrance
 const fx = document.getElementById('fxLayer');
-if (fx) {
-  for (let i = 0; i < 16; i++) {
-    const s = R() * 8 + 8, p = document.createElement('div');
-    p.className = 'fx petal';
-    p.style.cssText = `width:${s}px;height:${s*.7}px;left:${R()*90}%;animation-duration:${R()*8+10}s;animation-delay:${-R()*16}s`;
-    fx.appendChild(p);
-  }
+for (let i = 0; i < 16; i++) {
+  const s = R() * 8 + 8, p = document.createElement('div');
+  p.className = 'fx petal';
+  p.style.cssText = `width:${s}px;height:${s*.7}px;left:${R()*90}%;animation-duration:${R()*8+10}s;animation-delay:${-R()*16}s`;
+  fx.appendChild(p);
 }
 
-// Gate Opening Animation sequence[cite: 1]
+// Gate Opening Animation sequence
 let gateOpened = false;
 function openGate() {
   if (gateOpened) return;
@@ -1024,10 +1038,7 @@ function enterCelebration() { navigateToPage(1); }
 function updateCountdown(){
   const difference = targetDate - new Date().getTime();
   if(difference <= 0){
-    ['p1-days','p1-hours','p1-minutes','p1-seconds'].forEach(id => {
-      const el = document.getElementById(id);
-      if(el) el.innerText = "00";
-    });
+    ['p1-days','p1-hours','p1-minutes','p1-seconds'].forEach(id => document.getElementById(id).innerText="00");
     return;
   }
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
