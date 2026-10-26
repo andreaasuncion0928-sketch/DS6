@@ -21,6 +21,13 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 .bg-custom-3{background-image:url('3rd page b.jpg'), radial-gradient(circle at 60% 40%, #230d3a 0%, #0c0413 85%)}
 .bg-custom-4{background-image:url('4th page b.jpg'), radial-gradient(circle at 50% 50%, #1a082c 0%, #07020b 90%)}
 
+@media (max-width:768px){
+  .bg-custom-1{background-image:url('background p.jpg'), radial-gradient(circle at 50% 30%, #240b36 0%, #0f0617 80%)}
+  .bg-custom-2{background-image:url('2nd page p.jpg'), radial-gradient(circle at 40% 40%, #240b36 0%, #09030e 85%)}
+  .bg-custom-3{background-image:url('3rd page p.jpg'), radial-gradient(circle at 60% 40%, #230d3a 0%, #0c0413 85%)}
+  .bg-custom-4{background-image:url('4th page p.jpg'), radial-gradient(circle at 50% 50%, #1a082c 0%, #07020b 90%)}
+}
+
 /* ===== ENTRANCE GATE STYLES ===== */
 #gate {
   --S: 100vh;
@@ -85,7 +92,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   z-index: 1;
 }
 
-/* Hides closed gate upon opening */
 #archBackdropHider {
   position: absolute;
   left: 40.5%;
@@ -100,11 +106,8 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   filter: blur(6px);
   transition: opacity 0.8s ease 0.1s;
 }
-#gate.open #archBackdropHider {
-  opacity: 1;
-}
+#gate.open #archBackdropHider { opacity: 1; }
 
-/* Glowing purple portal mist */
 #portalMist {
   position: absolute;
   left: 36%;
@@ -129,7 +132,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   transform: scale(1.15);
 }
 
-/* Light portal glow */
 #gateGlow {
   left: 41.5%;
   top: 15.5%;
@@ -229,7 +231,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 }
 @keyframes veil { to { opacity: 0; visibility: hidden; } }
 
-/* Entrance text UI: appears right away without delay */
 #gateUI {
   position: absolute;
   left: 0;
@@ -307,14 +308,14 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 .vintage-invitation-btn {
   position: relative;
   border: 1px solid rgba(212,175,55,.65);
-  background: rgba(15,6,23,.45);
-  box-shadow: 0 0 15px rgba(92,45,145,.3), inset 0 0 10px rgba(212,175,55,.15);
+  background: rgba(15,6,23,.55);
+  box-shadow: 0 0 15px rgba(92,45,145,.4), inset 0 0 10px rgba(212,175,55,.2);
   transition: all .4s ease;
 }
 .vintage-invitation-btn:hover {
-  background: rgba(92,45,145,.55);
+  background: rgba(92,45,145,.65);
   border-color: rgba(243,229,171,.95);
-  box-shadow: 0 0 25px rgba(212,175,55,.45), inset 0 0 15px rgba(212,175,55,.3);
+  box-shadow: 0 0 25px rgba(212,175,55,.5), inset 0 0 15px rgba(212,175,55,.3);
   transform: translateY(-1px) scale(1.02);
 }
 
@@ -330,7 +331,56 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   transform: translateY(-1px);
 }
 
-/* ===== ENCHANTED TEXT ANIMATION (Page 1) ===== */
+/* ===== ENCHANTED ANIMATIONS ===== */
+
+/* Page 0 (Home): Franz's Eighteenth Enchanted Animations */
+.enchanted-home-title {
+  display: inline-block;
+  animation: enchantedHomeFloat 5s ease-in-out infinite alternate, enchantedHomeTitleGlow 4s ease-in-out infinite alternate;
+}
+
+.enchanted-home-script {
+  display: inline-block;
+  animation: enchantedHomeScriptFloat 6s ease-in-out infinite alternate, enchantedHomeScriptGlow 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes enchantedHomeFloat {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes enchantedHomeScriptFloat {
+  0% { transform: translateY(0px) rotate(-2deg); }
+  50% { transform: translateY(-7px) rotate(-1deg) scale(1.015); }
+  100% { transform: translateY(0px) rotate(-2deg); }
+}
+
+@keyframes enchantedHomeTitleGlow {
+  0% {
+    text-shadow: 0 4px 14px rgba(0,0,0,0.95), 0 0 18px rgba(168,85,247,0.4);
+  }
+  50% {
+    text-shadow: 0 4px 22px rgba(0,0,0,0.95), 0 0 35px rgba(212,175,55,0.6), 0 0 50px rgba(192,132,252,0.8);
+  }
+  100% {
+    text-shadow: 0 4px 14px rgba(0,0,0,0.95), 0 0 18px rgba(168,85,247,0.4);
+  }
+}
+
+@keyframes enchantedHomeScriptGlow {
+  0% {
+    text-shadow: 0 6px 20px rgba(0,0,0,0.95), 0 0 25px rgba(168,85,247,0.5);
+  }
+  50% {
+    text-shadow: 0 6px 28px rgba(0,0,0,0.98), 0 0 45px rgba(243,229,171,0.7), 0 0 65px rgba(192,132,252,0.9);
+  }
+  100% {
+    text-shadow: 0 6px 20px rgba(0,0,0,0.95), 0 0 25px rgba(168,85,247,0.5);
+  }
+}
+
+/* Page 1 (My Story) Enchanted Animations */
 .enchanted-title {
   animation: enchantedGlow 4s ease-in-out infinite alternate;
 }
@@ -345,15 +395,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 }
 
 @keyframes enchantedFloat {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
 }
 
 @keyframes enchantedGlow {
@@ -371,36 +415,36 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 </head>
 <body class="bg-plum-deep text-ivory font-sans antialiased overflow-hidden select-none">
 
-<!-- ===== ENTRANCE GATE (Page 0 Entrance) ===== -->
+<!-- ===== ENTRANCE GATE ===== -->
 <div id="gate" role="dialog" aria-label="Invitation entrance">
   <div id="gateWorld">
     <div class="g-side l"></div><div class="g-side r"></div>
     <div id="gateStage">
-      <!-- Full photograph base -->
+      <!-- Full photograph base[cite: 1] -->
       <img class="gate-photo-base" src="gate.jpg" alt="Franz's Garden Gate">
 
-      <!-- Hider mask: fades out the static closed gate on the base image -->
+      <!-- Hider mask: hides closed gate upon opening[cite: 1] -->
       <div id="archBackdropHider"></div>
 
-      <!-- Glowing purple portal mist -->
+      <!-- Glowing purple portal mist[cite: 1] -->
       <div id="portalMist"></div>
 
-      <!-- Golden portal glow -->
+      <!-- Golden portal glow[cite: 1] -->
       <div id="gateGlow"></div>
 
-      <!-- Left gate leaf (opens outward) -->
+      <!-- Left gate leaf[cite: 1] -->
       <img class="gate-leaf-crop l" src="gate.jpg" alt="" onclick="openGate()">
 
-      <!-- Right gate leaf (opens outward) -->
+      <!-- Right gate leaf[cite: 1] -->
       <img class="gate-leaf-crop r" src="gate.jpg" alt="" onclick="openGate()">
 
-      <!-- Candle flickers -->
+      <!-- Candle flickers[cite: 1] -->
       <div id="cflames"></div>
 
-      <!-- Path mist -->
+      <!-- Path mist[cite: 1] -->
       <div class="mist a"></div><div class="mist b"></div>
 
-      <!-- Glowing Lock Button -->
+      <!-- Glowing Lock Button[cite: 1] -->
       <button type="button" class="g-lock" onclick="openGate()" aria-label="Open the gate"></button>
     </div>
   </div>
@@ -447,16 +491,16 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
 <main class="perspective-container relative w-full h-screen overflow-hidden bg-black">
 
-  <!-- Page 0: Hero / Welcome -->
+  <!-- Page 0: Hero / Welcome (Background overlay removed + Enchanted animated Franz's Eighteenth) -->
   <section id="page-0" class="page-sheet active bg-custom-1 bg-cover bg-center">
-    <div class="absolute inset-0 bg-[#0f0617]/80 backdrop-brightness-[0.9]"></div>
+    <!-- REMOVED: dark overlay div so background image is fully clear and visible -->
     <div class="relative z-20 w-full h-full flex flex-col justify-between px-4 sm:px-8 md:px-14 pb-8">
       <div class="w-full flex-1 flex flex-col items-center justify-center text-center pt-32 sm:pt-36">
-        <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-purple-300 uppercase font-light mb-3 sm:mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">You Are Invited To</p>
-        <h2 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[0.22em] text-ivory font-light uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] mb-1 sm:mb-2">Franz’s</h2>
-        <div class="font-script text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] text-lilac-pale leading-[0.8] mb-4 sm:mb-6 drop-shadow-[0_6px_18px_rgba(0,0,0,0.95)] -rotate-2 select-none">Eighteenth</div>
-        <div class="flex items-center justify-center space-x-4 my-2 sm:my-3 text-gold-champagne/70"><span class="h-[1px] w-12 sm:w-24 bg-gradient-to-r from-transparent to-gold-champagne/60"></span><span class="text-xs sm:text-sm tracking-widest text-gold-light"><i class="fa-regular fa-gem"></i></span><span class="h-[1px] w-12 sm:w-24 bg-gradient-to-l from-transparent to-gold-champagne/60"></span></div>
-        <p class="font-cinzel text-xs sm:text-sm tracking-[0.28em] text-purple-200/90 uppercase font-medium mt-1 mb-8 sm:mb-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">A New Chapter Begins</p>
+        <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-purple-200 uppercase font-light mb-3 sm:mb-4 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">You Are Invited To</p>
+        <h2 class="enchanted-home-title font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[0.22em] text-ivory font-light uppercase mb-1 sm:mb-2">Franz’s</h2>
+        <div class="enchanted-home-script font-script text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] text-lilac-pale leading-[0.8] mb-4 sm:mb-6 select-none">Eighteenth</div>
+        <div class="flex items-center justify-center space-x-4 my-2 sm:my-3 text-gold-champagne/80 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"><span class="h-[1px] w-12 sm:w-24 bg-gradient-to-r from-transparent to-gold-champagne/80"></span><span class="text-xs sm:text-sm tracking-widest text-gold-light"><i class="fa-regular fa-gem"></i></span><span class="h-[1px] w-12 sm:w-24 bg-gradient-to-l from-transparent to-gold-champagne/80"></span></div>
+        <p class="font-cinzel text-xs sm:text-sm tracking-[0.28em] text-purple-200 uppercase font-medium mt-1 mb-8 sm:mb-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">A New Chapter Begins</p>
         <div><button onclick="enterCelebration()" class="vintage-invitation-btn group px-6 sm:px-9 py-2.5 sm:py-3 rounded-[3px] text-ivory font-cinzel text-[11px] sm:text-xs tracking-[0.25em] uppercase flex items-center space-x-2"><span class="text-gold-light group-hover:translate-x-0.5 transition-transform duration-300">Enter The Invitation</span></button></div>
       </div>
       <aside class="fixed right-3 sm:right-6 bottom-8 z-30 hidden md:flex flex-col items-center bg-plum-deep/80 backdrop-blur-md border border-purple-500/25 px-4 py-5 rounded-sm shadow-[0_10px_30px_rgba(0,0,0,0.8)] w-28">
@@ -474,9 +518,8 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     </div>
   </section>
 
-  <!-- Page 1: My Story (Background Overlay Removed + Enchanted Animated Text) -->
+  <!-- Page 1: My Story -->
   <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center">
-    <!-- REMOVED: dark overlay div to showcase the raw background image -->
     <div class="relative min-h-full max-w-6xl mx-auto px-6 py-28 flex flex-col justify-center">
       <div class="text-center mb-12 relative z-20">
         <p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold mb-2 drop-shadow">Chapter I • My Story</p>
@@ -680,7 +723,7 @@ const targetDate = new Date('2028-09-22T18:00:00+08:00').getTime();
 
 const R = Math.random;
 
-// Candle flames accurately mapped onto the candles in gate.jpg
+// Candle flames accurately mapped onto the candles in gate.jpg[cite: 1]
 const candleCoords = [
   [300, 725],
   [665, 855],
@@ -702,7 +745,7 @@ candleCoords.forEach(([x, y]) => {
   cflamesContainer.appendChild(d);
 });
 
-// Purple petals floating gently across the entrance
+// Purple petals floating across entrance[cite: 1]
 const fx = document.getElementById('fxLayer');
 for (let i = 0; i < 16; i++) {
   const s = R() * 8 + 8, p = document.createElement('div');
