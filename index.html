@@ -106,9 +106,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   filter: blur(6px);
   transition: opacity 0.8s ease 0.1s;
 }
-#gate.open #archBackdropHider {
-  opacity: 1;
-}
+#gate.open #archBackdropHider { opacity: 1; }
 
 #portalMist {
   position: absolute;
@@ -307,20 +305,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   100% { transform: translateY(-8vh) translateX(28px) scale(1.25); opacity: 0; }
 }
 
-.vintage-invitation-btn {
-  position: relative;
-  border: 1px solid rgba(212,175,55,.65);
-  background: rgba(15,6,23,.55);
-  box-shadow: 0 0 15px rgba(92,45,145,.4), inset 0 0 10px rgba(212,175,55,.2);
-  transition: all .4s ease;
-}
-.vintage-invitation-btn:hover {
-  background: rgba(92,45,145,.65);
-  border-color: rgba(243,229,171,.95);
-  box-shadow: 0 0 25px rgba(212,175,55,.5), inset 0 0 15px rgba(212,175,55,.3);
-  transform: translateY(-1px) scale(1.02);
-}
-
 .btn-details-dark {
   background: #251239;
   border: 1px solid rgba(168,85,247,.4);
@@ -360,13 +344,69 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   }
 }
 
-/* Page 1: Translucent Purple Card Panel with High-Contrast Text */
+/* ========================================================
+   PAGE 1 (MY STORY) - STYLING & MOBILE PHOTO OVERLAY
+   ======================================================== */
 .purple-story-card {
   background: rgba(36, 11, 54, 0.65);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(168, 85, 247, 0.45);
   box-shadow: 0 20px 50px rgba(15, 6, 23, 0.8), inset 0 0 30px rgba(92, 45, 145, 0.25);
+}
+
+/* Mobile Photo Overlay Card (Instagram/Editorial Framed Card Style) */
+.mobile-story-frame {
+  position: relative;
+  width: 100%;
+  max-width: 22.5rem;
+  margin: 0 auto;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.95), 0 0 35px rgba(92, 45, 145, 0.45);
+  border: 2px solid rgba(168, 85, 247, 0.65);
+  background: #0f0617;
+  aspect-ratio: 9 / 16;
+}
+
+.mobile-story-frame img.portrait-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Scrim gradient so text over portrait is crisp and high-contrast */
+.mobile-story-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 6, 23, 0.2) 0%,
+    rgba(15, 6, 23, 0) 35%,
+    rgba(15, 6, 23, 0.75) 60%,
+    rgba(15, 6, 23, 0.96) 85%,
+    rgba(15, 6, 23, 0.99) 100%
+  );
+  z-index: 2;
+}
+
+/* Sparkle particles floating over the mobile card */
+.sparkle-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fde047 0%, #ca8a04 60%, transparent 100%);
+  box-shadow: 0 0 8px 1.5px rgba(250, 204, 21, 0.8);
+  pointer-events: none;
+  animation: sparkleTwinkle 3.2s ease-in-out infinite alternate;
+  z-index: 3;
+}
+@keyframes sparkleTwinkle {
+  0% { transform: scale(0.65); opacity: 0.35; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.65); opacity: 0.35; }
 }
 
 .enchanted-title {
@@ -461,21 +501,18 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
   <!-- ==================== Page 0: High-End Luxury Home ==================== -->
   <section id="page-0" class="page-sheet active bg-plum-deep flex flex-col justify-between">
-    <!-- Background layer with balanced luxury gradient scrim -->
     <div class="absolute inset-0 z-0">
       <div class="w-full h-full bg-custom-1 bg-cover bg-center"></div>
       <div class="absolute inset-0 bg-gradient-to-b from-[#0b0412]/75 via-[#0b0412]/45 to-[#0b0412]/85 backdrop-blur-[1px]"></div>
       <div class="absolute inset-0 bg-radial-gradient from-transparent via-[#0b0412]/40 to-[#0b0412]/80"></div>
     </div>
 
-    <!-- Top spacer for header -->
     <div class="w-full h-20 relative z-10"></div>
 
-    <!-- Central Restrained Luxury Card (Bigger, more emphasized) -->
+    <!-- Central Restrained Luxury Card -->
     <div class="relative z-10 max-w-3xl w-full mx-auto px-6 text-center my-auto">
       <div class="py-12 px-8 sm:px-16 md:px-20 rounded-3xl bg-[#0f0617]/45 backdrop-blur-md border border-white/15 shadow-[0_25px_60px_rgba(0,0,0,0.6)]">
 
-        <!-- Animated "Finally, 18!" -->
         <div class="enchanted-eighteen">
           <span class="block font-serif text-3xl sm:text-5xl md:text-6xl tracking-[0.25em] text-[#fcfbfa] font-light uppercase leading-tight mb-2">
             Finally,
@@ -535,18 +572,65 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     </div>
   </section>
 
-  <!-- ==================== Page 1: My Story (Updated: 4th.JPG, No Chapter 1, Purple Card Panel) ==================== -->
+  <!-- ==================== Page 1: My Story ==================== -->
   <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center">
-    <!-- Clean background without dark overlay tint -->
-    <div class="relative min-h-full max-w-6xl mx-auto px-6 py-28 flex flex-col justify-center">
-      <div class="text-center mb-12 relative z-20">
+    <div class="relative min-h-full max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-28 flex flex-col justify-center">
+      
+      <!-- Title Header: Just "My Story" (Chapter 1 removed) -->
+      <div class="text-center mb-8 sm:mb-12 relative z-20">
         <h2 class="enchanted-title font-serif text-3xl sm:text-5xl md:text-6xl text-purple-100 font-light drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">My Story</h2>
         <div class="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-purple-300/80 to-transparent mx-auto mt-4 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></div>
       </div>
       
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <!-- MOBILE VIEW: Text Overlaid directly on 4th.JPG (Matched to Reference Layout) -->
+      <div class="block lg:hidden relative z-20 w-full flex justify-center">
+        <div class="mobile-story-frame">
+          <!-- Background Portrait -->
+          <img class="portrait-bg" src="4th.JPG" alt="Franz - 4th Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';">
+          
+          <!-- Gradient Scrim for readable bottom text -->
+          <div class="mobile-story-scrim"></div>
+
+          <!-- Top-right Franz badge matching screenshot -->
+          <div class="absolute top-4 right-4 z-10 px-4 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-gold-champagne/80 shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+            <span class="font-script text-gold-light text-lg">Franz</span>
+          </div>
+
+          <!-- Enchanted Sparkle Dust matching screenshot -->
+          <span class="sparkle-dot" style="top: 58%; left: 18%; width: 4px; height: 4px;"></span>
+          <span class="sparkle-dot" style="top: 64%; left: 32%; width: 5px; height: 5px; animation-delay: 0.6s;"></span>
+          <span class="sparkle-dot" style="top: 60%; left: 62%; width: 4.5px; height: 4.5px; animation-delay: 1.2s;"></span>
+          <span class="sparkle-dot" style="top: 67%; left: 82%; width: 4px; height: 4px; animation-delay: 1.8s;"></span>
+
+          <!-- Overlaid Text Content at Bottom -->
+          <div class="absolute inset-x-0 bottom-0 z-10 p-6 flex flex-col justify-end text-left">
+            <div class="text-gold-light drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] text-2xl mb-2.5">
+              <i class="fa-solid fa-quote-left"></i>
+            </div>
+            
+            <p class="font-serif text-sm sm:text-base text-[#fcfbfa] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed italic font-light mb-3">
+              “It feels crazy to think that 18 years have already passed. From little moments to big memories every year has been part of the story that brought me here.”
+            </p>
+            
+            <p class="font-sans text-xs text-[#f0e6f6] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed font-light mb-3">
+              “Now, a new season begins — I'd love to celebrate it with you.”
+            </p>
+            
+            <p class="font-sans text-xs text-[#f3e5ab] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed font-medium mb-4">
+              “Come celebrate, have fun, and make a memory with me.”
+            </p>
+            
+            <button onclick="navigateToPage(2)" class="w-full py-2 text-center text-xs font-cinzel uppercase tracking-widest text-[#fcfbfa] bg-[#5c2d91]/80 hover:bg-[#5c2d91] backdrop-blur-md border border-gold-champagne/70 rounded-full shadow-[0_0_15px_rgba(212,175,55,0.25)] transition">
+              The Celebration <i class="fa-solid fa-arrow-right ml-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESKTOP VIEW: Side-by-Side Grid Layout -->
+      <div class="hidden lg:grid grid-cols-12 gap-10 items-center">
         <!-- Photo with 4th.JPG -->
-        <div class="lg:col-span-5 flex justify-center relative z-40">
+        <div class="col-span-5 flex justify-center relative z-40">
           <div class="relative p-2 rounded-2xl bg-gradient-to-tr from-purple-800/80 via-gold-champagne/40 to-purple-400/60 shadow-[0_20px_50px_rgba(0,0,0,0.95)] border border-purple-300/50 max-w-sm w-full bg-plum-deep/80 backdrop-blur-md">
             <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-purple-950">
               <img src="4th.JPG" alt="Franz - 4th Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';" class="w-full h-full object-cover filter contrast-[1.05] brightness-95">
@@ -558,19 +642,19 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           </div>
         </div>
 
-        <!-- Purple Translucent Card Panel with High-Contrast Readable Text (No -franz) -->
-        <div class="lg:col-span-7 relative z-10 purple-story-card p-8 sm:p-11 rounded-2xl">
+        <!-- Purple Translucent Card Panel -->
+        <div class="col-span-7 relative z-10 purple-story-card p-8 sm:p-11 rounded-2xl">
           <div class="text-[#e9d5ff] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-3xl mb-5"><i class="fa-solid fa-quote-left"></i></div>
           
-          <p class="enchanted-quote font-serif text-lg sm:text-xl md:text-2xl text-[#fcfbfa] drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] leading-relaxed font-light italic mb-6">
+          <p class="enchanted-quote font-serif text-lg sm:text-xl md:text-2xl text-[#fcfbfa] drop-shadow-[0_2px_8px_rgba(15,6,23,0.95)] leading-relaxed font-light italic mb-6">
             “It feels crazy to think that 18 years have already passed. From little moments to big memories every year has been part of the story that brought me here.”
           </p>
           
-          <p class="enchanted-body font-sans text-sm sm:text-base text-[#f0e6f6] drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] leading-relaxed font-light mb-6">
+          <p class="enchanted-body font-sans text-sm sm:text-base text-[#f0e6f6] drop-shadow-[0_2px_8px_rgba(15,6,23,0.95)] leading-relaxed font-light mb-6">
             “Now, a new season begins — I'd love to celebrate it with you.”
           </p>
           
-          <p class="enchanted-body font-sans text-sm sm:text-base text-[#f3e5ab] drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] leading-relaxed font-medium mb-8">
+          <p class="enchanted-body font-sans text-sm sm:text-base text-[#f3e5ab] drop-shadow-[0_2px_8px_rgba(15,6,23,0.95)] leading-relaxed font-medium mb-8">
             “Come celebrate, have fun, and make a memory with me.”
           </p>
           
@@ -581,6 +665,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           </div>
         </div>
       </div>
+
     </div>
     <div id="risingCirclesField" class="absolute inset-0 pointer-events-none z-30 overflow-hidden"></div>
   </section>
