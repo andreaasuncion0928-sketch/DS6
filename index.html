@@ -106,7 +106,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   filter: blur(6px);
   transition: opacity 0.8s ease 0.1s;
 }
-#gate.open #archBackdropHider { opacity: 1; }
+#gate.open #archBackdropHider {
+  opacity: 1;
+}
 
 #portalMist {
   position: absolute;
@@ -127,7 +129,10 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   transform: scale(0.85);
   transition: opacity 1.2s ease 0.15s, transform 2.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-#gate.open #portalMist { opacity: 1; transform: scale(1.15); }
+#gate.open #portalMist {
+  opacity: 1;
+  transform: scale(1.15);
+}
 
 #gateGlow {
   left: 41.5%;
@@ -288,7 +293,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 .page-sheet.peel-in-wait { transform: translate3d(25%,0,-180px) rotateY(25deg) scale(.92); opacity: 0; filter: blur(4px); pointer-events: none; z-index: 10; }
 
 /* ========================================================
-   REFINED SLOWER, GENTLE RISING EMBERS
+   REFINED SLOWER, GENTLE RISING EMBERS (ACROSS ALL PAGES)
    ======================================================== */
 .rising-circles-layer {
   position: absolute;
@@ -404,7 +409,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   aspect-ratio: 9 / 16;
 }
 
-/* Photo shifted upward cleanly without clipping the face */
 .mobile-story-frame img.portrait-bg {
   position: absolute;
   inset: 0;
@@ -605,11 +609,11 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       </button>
     </div>
 
-    <!-- Background Rising Circles Layer -->
+    <!-- Background Slower Rising Yellow Circles Layer -->
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 1: My Story (Photo Shifted Upward, Clear Face, Generous Text Space) ==================== -->
+  <!-- ==================== Page 1: My Story ==================== -->
   <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center">
     <div class="relative min-h-full max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 flex flex-col justify-center">
       
@@ -619,25 +623,24 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         <div class="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-purple-300/80 to-transparent mx-auto mt-4 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></div>
       </div>
       
-      <!-- MOBILE VIEW: Text Overlaid directly on 4th.JPG with Photo Pushed Higher Up -->
+      <!-- MOBILE VIEW: Text Overlaid directly on 4th.JPG with Photo Pushed Higher Up[cite: 4] -->
       <div class="block lg:hidden relative z-20 w-full flex justify-center">
         <div class="mobile-story-frame" style="aspect-ratio: 9/16; max-height: 78vh;">
-          <!-- Portrait shifted upward cleanly so the face is fully open and uncropped -->
           <img class="portrait-bg" src="4th.JPG" alt="Franz - 4th Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';">
           <div class="mobile-story-scrim"></div>
 
-          <!-- Top-right Franz badge -->
+          <!-- Top-right Franz badge[cite: 4] -->
           <div class="absolute top-4 right-4 z-10 px-3.5 py-1 rounded-full bg-black/65 backdrop-blur-md border border-gold-champagne/80 shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
             <span class="font-script text-gold-light text-base">Franz</span>
           </div>
 
-          <!-- Subtle Glow Dust -->
+          <!-- Subtle Glow Dust[cite: 4] -->
           <span class="sparkle-dot" style="top: 54%; left: 18%; width: 4px; height: 4px;"></span>
           <span class="sparkle-dot" style="top: 60%; left: 32%; width: 5px; height: 5px; animation-delay: 0.6s;"></span>
           <span class="sparkle-dot" style="top: 56%; left: 62%; width: 4.5px; height: 4.5px; animation-delay: 1.2s;"></span>
           <span class="sparkle-dot" style="top: 62%; left: 82%; width: 4px; height: 4px; animation-delay: 1.8s;"></span>
 
-          <!-- Overlaid Text Content at Bottom with Expanded Breathing Room -->
+          <!-- Overlaid Text Content at Bottom[cite: 4] -->
           <div class="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-6 flex flex-col justify-end text-left">
             <div class="text-gold-light drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] text-xl sm:text-2xl mb-2">
               <i class="fa-solid fa-quote-left"></i>
@@ -707,9 +710,8 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 2: The Celebration (Expanded Browser Line, Simplified Mobile, Clean Glass) ==================== -->
+  <!-- ==================== Page 2: The Celebration (Centered Text on Desktop, Clean Glass) ==================== -->
   <section id="page-2" class="page-sheet peel-in-wait bg-custom-3 bg-cover bg-center">
-    <!-- Subtle gradient wash to gently anchor the card while keeping the artwork clean -->
     <div class="absolute inset-0 bg-[#0f0617]/35 backdrop-brightness-[0.95]"></div>
 
     <div class="relative z-20 min-h-full max-w-5xl mx-auto px-4 sm:px-8 py-24 sm:py-28 flex flex-col justify-center">
@@ -720,8 +722,8 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         </p>
       </div>
 
-      <!-- Centered See-Through Glassmorphic Card (Rising embers pass directly through here) -->
-      <div class="celebration-glass-card rounded-3xl p-6 sm:p-12 md:p-14 relative">
+      <!-- Centered See-Through Glassmorphic Card -->
+      <div class="celebration-glass-card rounded-3xl p-6 sm:p-12 md:p-14 relative text-center">
         <div class="text-center mb-8 sm:mb-10">
           <p class="font-cinzel text-xs sm:text-[13px] tracking-[0.35em] text-gold-light uppercase font-semibold mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             The Celebration
@@ -732,13 +734,13 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           <div class="w-16 h-[1px] bg-gradient-to-r from-transparent via-gold-champagne/80 to-transparent mx-auto mt-2.5"></div>
         </div>
 
-        <!-- DESKTOP / BROWSER VIEW: Date, Time & Location on ONE LINE; Dress Code Below -->
-        <div class="hidden md:flex flex-col gap-9">
-          <!-- Row 1: Date & Time + Location Side-by-Side in One Balanced Line -->
-          <div class="grid grid-cols-2 gap-8 items-start pb-8 border-b border-purple-300/20">
-            <!-- Left Column: Date & Time -->
-            <div class="flex items-start space-x-4">
-              <div class="text-gold-light text-3xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+        <!-- DESKTOP / BROWSER VIEW: Fully Centered Layout (Date/Time & Location on One Line) -->
+        <div class="hidden md:flex flex-col gap-9 text-center">
+          <!-- Row 1: Date & Time + Location Side-by-Side Centered -->
+          <div class="grid grid-cols-2 gap-8 items-start pb-8 border-b border-purple-300/20 text-center">
+            <!-- Left Column: Date & Time Centered -->
+            <div class="flex flex-col items-center text-center">
+              <div class="text-gold-light text-3xl mb-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                 <i class="fa-regular fa-calendar-check"></i>
               </div>
               <div>
@@ -746,18 +748,18 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
                 <p class="font-serif text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                   September 22, 2028
                 </p>
-                <p class="font-sans text-sm text-[#d4bbf3] flex items-center mt-1 drop-shadow">
+                <p class="font-sans text-sm text-[#d4bbf3] flex items-center justify-center mt-1 drop-shadow">
                   <i class="fa-regular fa-clock mr-1.5 text-xs text-gold-champagne"></i> 6:00 PM
                 </p>
               </div>
             </div>
 
-            <!-- Right Column: Location & View Directions -->
-            <div class="flex items-start space-x-4">
-              <div class="text-gold-light text-3xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+            <!-- Right Column: Location & Directions Centered -->
+            <div class="flex flex-col items-center text-center">
+              <div class="text-gold-light text-3xl mb-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                 <i class="fa-solid fa-location-dot"></i>
               </div>
-              <div class="flex-1">
+              <div>
                 <p class="font-cinzel text-[11px] tracking-widest text-[#d4bbf3]/80 uppercase font-medium mb-1">Venue Location</p>
                 <p class="font-serif text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                   Narra Hill
@@ -775,12 +777,12 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
             </div>
           </div>
 
-          <!-- Row 2: Dress Code Below Across Full Width -->
-          <div class="flex items-start space-x-4">
-            <div class="text-gold-light text-3xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+          <!-- Row 2: Dress Code Below Centered -->
+          <div class="flex flex-col items-center text-center">
+            <div class="text-gold-light text-3xl mb-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
               <i class="fa-solid fa-vest-patches"></i>
             </div>
-            <div class="flex-1">
+            <div>
               <p class="font-cinzel text-[11px] tracking-widest text-[#d4bbf3]/80 uppercase font-medium mb-1">Attire Guidelines</p>
               <p class="font-serif text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                 Dress Code: Strictly White
@@ -849,7 +851,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       </div>
     </div>
     
-    <!-- Rising Yellow Circles Layer (Rises throughout and behind the glass card) -->
+    <!-- Rising Yellow Circles Layer -->
     <div class="rising-circles-layer"></div>
   </section>
 
@@ -955,7 +957,7 @@ const targetDate = new Date('2028-09-22T18:00:00+08:00').getTime();
 
 const R = Math.random;
 
-// Candle flames accurately mapped onto the candles in gate.jpg
+// Candle flames accurately mapped onto the candles in gate.jpg[cite: 1]
 const candleCoords = [
   [300, 725],
   [665, 855],
@@ -977,7 +979,7 @@ candleCoords.forEach(([x, y]) => {
   cflamesContainer.appendChild(d);
 });
 
-// Purple petals floating across entrance
+// Purple petals floating across entrance[cite: 1]
 const fx = document.getElementById('fxLayer');
 for (let i = 0; i < 16; i++) {
   const s = R() * 8 + 8, p = document.createElement('div');
@@ -986,7 +988,7 @@ for (let i = 0; i < 16; i++) {
   fx.appendChild(p);
 }
 
-// Gate Opening Animation sequence
+// Gate Opening Animation sequence[cite: 1]
 let gateOpened = false;
 function openGate() {
   if (gateOpened) return;
