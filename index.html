@@ -63,7 +63,7 @@
       .bg-custom-4 { background-image: url('4th page p.jpg'); }
     }
 
-    /* 3D Page Peel / Depth Morph Animation Setup */
+    /* 3D Container Setup */
     .perspective-container {
       perspective: 1800px;
       perspective-origin: center center;
@@ -107,6 +107,63 @@
       z-index: 10;
     }
 
+    /* ========================================================
+       GRAND ENCHANTED GATE ANIMATION STYLES
+       ======================================================== */
+    .gate-scene {
+      perspective: 1600px;
+      perspective-origin: 50% 50%;
+    }
+
+    .gate-wing {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      transform-style: preserve-3d;
+      transition: transform 2.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 2.6s ease;
+      background: radial-gradient(circle at 50% 50%, #200936 0%, #0d0416 90%);
+      box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.95);
+    }
+
+    .gate-wing-left {
+      left: 0;
+      transform-origin: left center;
+      border-right: 2px solid rgba(212, 175, 55, 0.4);
+    }
+
+    .gate-wing-right {
+      right: 0;
+      transform-origin: right center;
+      border-left: 2px solid rgba(212, 175, 55, 0.4);
+    }
+
+    /* Gates Swing Open */
+    .gate-open .gate-wing-left {
+      transform: rotateY(-110deg) translateZ(40px);
+      opacity: 0;
+    }
+
+    .gate-open .gate-wing-right {
+      transform: rotateY(110deg) translateZ(40px);
+      opacity: 0;
+    }
+
+    .gate-open .gate-lock-crest {
+      transform: scale(1.35);
+      opacity: 0;
+      filter: blur(10px);
+      pointer-events: none;
+    }
+
+    /* Wrought-Iron Gate Filigree Texture */
+    .iron-filigree {
+      background-image: 
+        radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.22) 0%, transparent 45%),
+        repeating-linear-gradient(45deg, rgba(147, 51, 234, 0.08) 0px, rgba(147, 51, 234, 0.08) 2px, transparent 2px, transparent 40px),
+        repeating-linear-gradient(-45deg, rgba(212, 175, 55, 0.08) 0px, rgba(212, 175, 55, 0.08) 2px, transparent 2px, transparent 40px);
+    }
+
     /* Hero Particles */
     .particle {
       position: absolute;
@@ -122,7 +179,7 @@
       100% { transform: translateY(-120px) translateX(30px) scale(1.2); opacity: 0; }
     }
 
-    /* Rising Yellow Small Circles (Frequent, noticeble, floating through text panels) */
+    /* Rising Yellow Small Circles */
     .rising-circle {
       position: absolute;
       border-radius: 50%;
@@ -132,23 +189,12 @@
       animation: riseSlowly linear infinite;
     }
     @keyframes riseSlowly {
-      0% {
-        transform: translateY(105vh) translateX(0px) scale(0.65);
-        opacity: 0;
-      }
-      10% {
-        opacity: 0.85;
-      }
-      85% {
-        opacity: 0.75;
-      }
-      100% {
-        transform: translateY(-8vh) translateX(28px) scale(1.25);
-        opacity: 0;
-      }
+      0% { transform: translateY(105vh) translateX(0px) scale(0.65); opacity: 0; }
+      10% { opacity: 0.85; }
+      85% { opacity: 0.75; }
+      100% { transform: translateY(-8vh) translateX(28px) scale(1.25); opacity: 0; }
     }
 
-    /* Vintage Button Cutout Borders */
     .vintage-invitation-btn {
       position: relative;
       border: 1px solid rgba(212, 175, 55, 0.65);
@@ -163,7 +209,6 @@
       transform: translateY(-1px) scale(1.02);
     }
 
-    /* Celebration Card Button Styles */
     .btn-details-dark {
       background: #251239;
       border: 1px solid rgba(139, 92, 246, 0.4);
@@ -180,21 +225,86 @@
 <body class="bg-plum-deep text-ivory font-sans antialiased overflow-hidden select-none">
 
   <!-- ========================================================
+       GRAND ENCHANTED GATE ANIMATED ENTRANCE OVERLAY
+       ======================================================== -->
+  <div id="enchantedGateOverlay" class="fixed inset-0 z-[100] gate-scene overflow-hidden transition-all duration-1000">
+    
+    <!-- Left Wing of the Enchanted Gate -->
+    <div class="gate-wing gate-wing-left iron-filigree flex items-center justify-end pr-4 sm:pr-8">
+      <!-- Ornate Gate Ironwork SVG -->
+      <svg class="h-[80%] max-h-[650px] w-auto text-gold-champagne/40" viewBox="0 0 300 700" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M 280,30 C 200,30 80,120 70,300 C 60,450 150,600 280,670" />
+        <path d="M 280,90 C 220,100 120,180 110,320 C 100,450 180,560 280,610" stroke-dasharray="6,4" />
+        <circle cx="190" cy="220" r="45" stroke-width="2" />
+        <circle cx="190" cy="420" r="45" stroke-width="2" />
+        <path d="M 280,150 L 190,220 L 280,290" />
+        <path d="M 280,350 L 190,420 L 280,490" />
+        <line x1="285" y1="20" x2="285" y2="680" stroke-width="4" stroke="rgba(212,175,55,0.7)" />
+      </svg>
+    </div>
+
+    <!-- Right Wing of the Enchanted Gate -->
+    <div class="gate-wing gate-wing-right iron-filigree flex items-center justify-start pl-4 sm:pl-8">
+      <!-- Symmetrical Ornate Gate Ironwork SVG -->
+      <svg class="h-[80%] max-h-[650px] w-auto text-gold-champagne/40 transform -scale-x-100" viewBox="0 0 300 700" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M 280,30 C 200,30 80,120 70,300 C 60,450 150,600 280,670" />
+        <path d="M 280,90 C 220,100 120,180 110,320 C 100,450 180,560 280,610" stroke-dasharray="6,4" />
+        <circle cx="190" cy="220" r="45" stroke-width="2" />
+        <circle cx="190" cy="420" r="45" stroke-width="2" />
+        <path d="M 280,150 L 190,220 L 280,290" />
+        <path d="M 280,350 L 190,420 L 280,490" />
+        <line x1="285" y1="20" x2="285" y2="680" stroke-width="4" stroke="rgba(212,175,55,0.7)" />
+      </svg>
+    </div>
+
+    <!-- Center Crest: "You Are Invited" & Unlock Action -->
+    <div class="gate-lock-crest absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-auto transition-all duration-1000 px-4">
+      <div class="bg-plum-deep/85 border border-gold-champagne/60 p-8 sm:p-12 rounded-3xl backdrop-blur-xl shadow-[0_0_60px_rgba(92,45,145,0.7)] text-center max-w-md w-full relative">
+        
+        <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-purple-900/50 border border-gold-champagne/60 flex items-center justify-center text-gold-champagne shadow-lg">
+          <i class="fa-solid fa-key text-xl animate-pulse"></i>
+        </div>
+
+        <p class="font-cinzel text-xs tracking-[0.35em] text-purple-200 uppercase font-light mb-2">
+          You Are Cordially Invited
+        </p>
+
+        <h1 class="font-serif text-3xl sm:text-4xl text-ivory font-light mb-1">
+          Franz’s 18th
+        </h1>
+        <p class="font-script text-3xl text-gold-light mb-6">Amethyst Reverie</p>
+
+        <button onclick="openEnchantedGates()" class="w-full py-3.5 bg-gradient-to-r from-purple-800 via-amethyst to-purple-900 border border-gold-champagne/80 hover:border-gold-champagne rounded-full text-xs font-cinzel uppercase tracking-[0.25em] text-ivory shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:shadow-[0_0_35px_rgba(212,175,55,0.7)] transition-all duration-300">
+          Open The Enchanted Gate
+        </button>
+
+        <p class="font-sans text-[10px] text-purple-300/70 uppercase tracking-widest mt-4">
+          Tap to enter the twilight sanctuary
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ========================================================
        TOP BROWSER-LIKE NAVIGATION BAR
-       - Amethyst Reverie title & yellow blinking dot removed
-       - "Dress Code" item removed
        ======================================================== -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-plum-deep/95 via-plum-deep/85 to-transparent backdrop-blur-md border-b border-purple-500/15 py-3 px-4 sm:px-8 transition-all duration-300">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       
       <!-- Left: Mobile Menu Toggle Button -->
-      <div class="flex items-center">
+      <div class="flex items-center space-x-3">
         <button id="mobileMenuBtn" class="lg:hidden text-lavender-soft/80 hover:text-white p-1 text-sm focus:outline-none" aria-label="Open Navigation">
           <i class="fa-solid fa-bars"></i>
         </button>
+        <!-- Re-lock / Replay Gate Entrance Button -->
+        <button onclick="relockGates()" class="hidden sm:inline-flex items-center space-x-1 text-[10px] font-cinzel text-purple-300/80 hover:text-gold-light transition uppercase tracking-wider">
+          <i class="fa-solid fa-dungeon text-xs"></i>
+          <span>Gate Entrance</span>
+        </button>
       </div>
 
-      <!-- Center: Refined Navigation Menu List -->
+      <!-- Center: Navigation Menu List -->
       <nav class="hidden lg:flex items-center space-x-7 xl:space-x-9">
         <button onclick="navigateToPage(0)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-gold-light font-semibold hover:text-gold-light transition duration-200" data-page="0">Home</button>
         <button onclick="navigateToPage(1)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="1">My Story</button>
@@ -221,6 +331,7 @@
       <button onclick="navigateToPage(2); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">The Celebration</button>
       <button onclick="navigateToPage(3); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">The 18s (Find Your Role)</button>
       <button onclick="navigateToPage(4); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-gold-champagne py-1 font-semibold">Gallery & RSVP</button>
+      <button onclick="relockGates(); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-purple-300 py-1 border-t border-purple-500/20 pt-2">Replay Gate Entrance</button>
     </div>
   </header>
 
@@ -305,8 +416,6 @@
 
     <!-- ----------------------------------------------------
          PAGE 2: MY STORY
-         - Frequent rising yellow circles float through text panels
-         - Circles do NOT cover portrait image (image has higher z-index / isolation)
          ---------------------------------------------------- -->
     <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center">
       <div class="absolute inset-0 bg-[#0f0617]/85 backdrop-brightness-[0.9]"></div>
@@ -325,7 +434,7 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
-          <!-- Franz's Portrait (Isolated with highest z-index 40 so particles don't pass over it) -->
+          <!-- Portrait (z-40 so rising yellow circles don't pass over it) -->
           <div class="lg:col-span-5 flex justify-center relative z-40">
             <div class="relative p-2 rounded-2xl bg-gradient-to-tr from-purple-800/60 via-gold-champagne/30 to-purple-400/40 shadow-[0_20px_50px_rgba(0,0,0,0.95)] border border-purple-400/30 max-w-sm w-full bg-plum-deep">
               <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-purple-950">
@@ -338,7 +447,7 @@
             </div>
           </div>
 
-          <!-- Story Text Content (Particles flow behind and through this layer) -->
+          <!-- Story Text Content -->
           <div class="lg:col-span-7 relative z-10 bg-plum-deep/60 backdrop-blur-sm p-8 sm:p-10 rounded-2xl border border-purple-500/20 shadow-2xl">
             <div class="text-purple-300 text-3xl mb-4"><i class="fa-solid fa-quote-left"></i></div>
             
@@ -362,33 +471,27 @@
 
       </div>
 
-      <!-- Rising Yellow Small Circles Field (z-index 30: flows across background & text card, but below portrait's z-40) -->
+      <!-- Rising Yellow Circles Field -->
       <div id="risingCirclesField" class="absolute inset-0 pointer-events-none z-30 overflow-hidden"></div>
     </section>
 
     <!-- ----------------------------------------------------
-         PAGE 3: THE CELEBRATION
-         - Updated Tagaytay garden overlook setup image
-         - Exactly 3 bullet items (Date/Time, Location with View Direction, Dress Code with Shades & Sketches)
-         - "Add to calendar" removed
-         - Clean typography with no citation markers
+         PAGE 3: THE CELEBRATION (Tagaytay Garden Setup, 3 Bullets)
          ---------------------------------------------------- -->
     <section id="page-2" class="page-sheet peel-in-wait bg-custom-3 bg-cover bg-center">
       <div class="absolute inset-0 bg-[#0f0617]/80 backdrop-brightness-[0.9]"></div>
 
       <div class="relative z-20 min-h-full max-w-6xl mx-auto px-4 sm:px-6 py-28 flex flex-col justify-center">
         
-        <!-- Breadcrumb Header -->
         <div class="mb-4">
           <p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold">
             3. The Celebration
           </p>
         </div>
 
-        <!-- Celebration Two-Column Feature Card -->
         <div class="rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.85)] border border-purple-400/20 grid grid-cols-1 lg:grid-cols-12 bg-white">
           
-          <!-- Left Column: Tagaytay Overlook Garden Setup Imagery -->
+          <!-- Left: Tagaytay Overlook Setup -->
           <div class="lg:col-span-6 relative min-h-[360px] lg:min-h-[500px] overflow-hidden bg-purple-950">
             <img 
               src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" 
@@ -402,10 +505,9 @@
             </div>
           </div>
 
-          <!-- Right Column: Details Panel -->
+          <!-- Right: Details Panel -->
           <div class="lg:col-span-6 relative bg-gradient-to-br from-[#faf8fc] to-[#f4eef9] p-7 sm:p-10 md:p-12 flex flex-col justify-between text-[#3b1d5a]">
             
-            <!-- Floral Corner Accent -->
             <div class="absolute top-0 right-0 w-32 h-32 sm:w-40 sm:h-40 pointer-events-none opacity-20">
               <svg viewBox="0 0 100 100" fill="none" class="w-full h-full text-purple-700">
                 <path d="M100 0 C70 10, 50 30, 40 60 C35 75, 20 85, 0 100 L100 100 Z" fill="currentColor"/>
@@ -420,7 +522,6 @@
                 Details
               </h2>
 
-              <!-- Exactly 3 Bullet Sections -->
               <div class="space-y-6">
                 
                 <!-- Bullet 1: Date & Time -->
@@ -450,7 +551,6 @@
                     <p class="font-sans text-xs sm:text-sm text-[#664b7d] mt-0.5">
                       Tagaytay City, Cavite
                     </p>
-                    <!-- View Direction Button & Note -->
                     <div class="mt-2.5">
                       <a 
                         href="https://maps.google.com/?q=Narra+Hill+Tagaytay" 
@@ -465,7 +565,7 @@
                   </div>
                 </div>
 
-                <!-- Bullet 3: Dress Code, Shades of White & Sketches -->
+                <!-- Bullet 3: Dress Code with Shades & Minimal Sketches -->
                 <div class="flex items-start space-x-4">
                   <div class="text-[#5c2d91] text-2xl mt-0.5">
                     <i class="fa-solid fa-vest-patches"></i>
@@ -478,7 +578,7 @@
                       Formal / Semi-Formal Evening Wear
                     </p>
 
-                    <!-- Illustration: Shades of White Palette -->
+                    <!-- Shades of White Palette -->
                     <div class="mt-3">
                       <p class="font-cinzel text-[10px] uppercase tracking-wider text-[#7a599b] mb-1.5 font-medium">Permitted Shades of White</p>
                       <div class="flex items-center space-x-2">
@@ -501,9 +601,8 @@
                       </div>
                     </div>
 
-                    <!-- Minimalist Fashion Sketches (Gown & Barong/Suit) -->
+                    <!-- Minimalist Fashion Sketches -->
                     <div class="mt-3.5 pt-3 border-t border-purple-200/60 flex items-center space-x-6">
-                      <!-- Female Formal Sketch -->
                       <div class="flex items-center space-x-2">
                         <svg class="w-6 h-9 text-[#5c2d91]" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="1.8">
                           <path d="M16 10 C16 6, 24 6, 24 10 C24 14, 20 16, 20 18" />
@@ -517,7 +616,6 @@
                         </div>
                       </div>
 
-                      <!-- Male Formal Sketch -->
                       <div class="flex items-center space-x-2">
                         <svg class="w-6 h-9 text-[#5c2d91]" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="1.8">
                           <circle cx="20" cy="8" r="4" />
@@ -538,7 +636,7 @@
               </div>
             </div>
 
-            <!-- Bottom Action: Map Only (Add to Calendar removed) -->
+            <!-- Bottom Action: Map Only -->
             <div class="flex items-center pt-8 mt-4 border-t border-purple-200/60">
               <a 
                 href="https://maps.google.com/?q=Narra+Hill+Tagaytay" 
@@ -560,21 +658,13 @@
 
     <!-- ----------------------------------------------------
          PAGE 4: THE 18s (Find Your Role)
-         - Uses 4th page background WITHOUT dim overlay (clean & vibrant)
-         - Chapter, "Find your place", 18 roses/candles/symbols removed
-         - No card panels; only clean floating role lookup input
-         - Preloaded names:
-           * "Mavis Godani" -> 18 Candles + note
-           * "Oreo" -> Guest + note
+         - Clean background WITHOUT dark overlay
+         - Clean floating lookup: Mavis Godani & Oreo supported
          ---------------------------------------------------- -->
     <section id="page-3" class="page-sheet peel-in-wait bg-custom-4 bg-cover bg-center">
-      <!-- Overlay removed as requested -->
-
       <div class="relative z-20 min-h-full max-w-xl mx-auto px-6 py-32 flex flex-col justify-center items-center">
         
-        <!-- Minimalist Role Lookup Interface -->
         <div class="w-full text-center">
-          
           <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-gold-light uppercase font-semibold mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
             Guest Role Lookup
           </p>
@@ -583,7 +673,6 @@
             Enter Your Name
           </h3>
 
-          <!-- Single Clean Input & Button -->
           <form onsubmit="handle18sLookup(event)" class="w-full flex flex-col sm:flex-row gap-3 shadow-[0_15px_35px_rgba(0,0,0,0.7)]">
             <input 
               type="text" 
@@ -597,16 +686,13 @@
             </button>
           </form>
 
-          <!-- Result Area (Appears cleanly below input without heavy card container) -->
           <div id="lookupResult" class="w-full mt-6 transition-all duration-300 hidden"></div>
 
-          <!-- Bottom Navigation to next page -->
           <div class="mt-12">
             <button onclick="navigateToPage(4)" class="px-5 py-2 text-xs font-cinzel uppercase tracking-widest text-gold-light bg-black/40 backdrop-blur-sm border border-purple-400/30 hover:border-gold-champagne rounded transition">
               Continue to Gallery & RSVP <i class="fa-solid fa-arrow-right ml-1"></i>
             </button>
           </div>
-
         </div>
 
       </div>
@@ -695,7 +781,6 @@
           <div id="rsvpFeedback" class="mt-4 text-center hidden"></div>
         </div>
 
-        <!-- Section Closing -->
         <div class="text-center mt-16 pt-8 border-t border-purple-500/20">
           <h4 class="font-serif text-2xl text-purple-200">Until We Meet in Bloom</h4>
           <p class="font-sans text-xs text-purple-300/70 mt-2 max-w-md mx-auto">
@@ -725,6 +810,44 @@
 
     // Target Event Date: September 22, 2028 at 6:00 PM PHT (UTC+8)
     const targetDate = new Date('2028-09-22T18:00:00+08:00').getTime();
+
+    // ----------------------------------------------------
+    // Grand Enchanted Gate Opening
+    // ----------------------------------------------------
+    function openEnchantedGates() {
+      const gateOverlay = document.getElementById('enchantedGateOverlay');
+      if (!gateOverlay) return;
+
+      // Start melodic twilight chime tone upon gate opening
+      if (!isPlayingAudio) {
+        toggleAudio();
+      }
+
+      // Add gate-open class to swing 3D doors
+      gateOverlay.classList.add('gate-open');
+
+      // Dissolve container once fully swung open
+      setTimeout(() => {
+        gateOverlay.style.opacity = '0';
+        gateOverlay.style.pointerEvents = 'none';
+      }, 1800);
+
+      setTimeout(() => {
+        gateOverlay.classList.add('hidden');
+      }, 2900);
+    }
+
+    function relockGates() {
+      const gateOverlay = document.getElementById('enchantedGateOverlay');
+      if (!gateOverlay) return;
+      gateOverlay.classList.remove('hidden');
+      gateOverlay.style.opacity = '1';
+      gateOverlay.style.pointerEvents = 'auto';
+      setTimeout(() => {
+        gateOverlay.classList.remove('gate-open');
+      }, 50);
+      navigateToPage(0);
+    }
 
     // ----------------------------------------------------
     // 3D Cubic-Bezier Page Transition Engine
@@ -859,10 +982,9 @@
       resultArea.classList.remove('hidden');
 
       if (!input) return;
-
       const lower = input.toLowerCase();
 
-      // Check for Mavis Godani
+      // Mavis Godani -> 18 Candles
       if (lower.includes('mavis') || lower.includes('godani')) {
         resultArea.innerHTML = `
           <div class="p-5 rounded-xl bg-black/75 backdrop-blur-md border border-gold-champagne/80 text-center shadow-2xl">
@@ -879,7 +1001,7 @@
         return;
       }
 
-      // Check for Oreo
+      // Oreo -> Honored Guest
       if (lower.includes('oreo')) {
         resultArea.innerHTML = `
           <div class="p-5 rounded-xl bg-black/75 backdrop-blur-md border border-purple-400/60 text-center shadow-2xl">
@@ -896,7 +1018,7 @@
         return;
       }
 
-      // Generic / Not Found Feedback
+      // Generic Feedback
       resultArea.innerHTML = `
         <div class="p-4 rounded-xl bg-black/75 backdrop-blur-md border border-purple-500/40 text-center shadow-xl">
           <p class="font-cinzel text-xs text-gold-light uppercase tracking-wider mb-1">Inquiry Result</p>
@@ -964,22 +1086,21 @@
 
     // ----------------------------------------------------
     // Frequent Rising Yellow Circles (My Story Page)
-    // Noticeable, flowing across background and through text card
     // ----------------------------------------------------
     function createRisingCircles() {
       const container = document.getElementById('risingCirclesField');
       if (!container) return;
-      const count = 48; // Increased frequency for a noticeable yet graceful ambient rise
+      const count = 48;
       for (let i = 0; i < count; i++) {
         const circle = document.createElement('div');
         circle.className = 'rising-circle';
         
-        const size = Math.random() * 4.5 + 2.5; // Small, refined particle size (2.5px to 7px)
+        const size = Math.random() * 4.5 + 2.5;
         circle.style.width = `${size}px`;
         circle.style.height = `${size}px`;
         circle.style.left = `${Math.random() * 99}%`;
         
-        const duration = Math.random() * 7 + 7; // Smooth 7s to 14s rise
+        const duration = Math.random() * 7 + 7;
         const delay = Math.random() * 10;
         circle.style.animationDuration = `${duration}s`;
         circle.style.animationDelay = `${delay}s`;
