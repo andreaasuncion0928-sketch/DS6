@@ -106,7 +106,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   filter: blur(6px);
   transition: opacity 0.8s ease 0.1s;
 }
-#gate.open #archBackdropHider { opacity: 1; }
+#gate.open #archBackdropHider {
+  opacity: 1;
+}
 
 #portalMist {
   position: absolute;
@@ -290,19 +292,48 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 .page-sheet.peel-out { transform: translate3d(-35%,0,-250px) rotateY(-38deg) rotateZ(-3deg); opacity: 0; filter: blur(4px); pointer-events: none; z-index: 10; }
 .page-sheet.peel-in-wait { transform: translate3d(25%,0,-180px) rotateY(25deg) scale(.92); opacity: 0; filter: blur(4px); pointer-events: none; z-index: 10; }
 
+/* ========================================================
+   REFINED SLOWER, GENTLE RISING EMBERS (PAGE 1)
+   ======================================================== */
 .rising-circle {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(254,240,138,.95) 0%, rgba(250,204,21,.65) 55%, rgba(202,138,4,0) 100%);
-  box-shadow: 0 0 8px 1.5px rgba(250,204,21,.7);
+  background: radial-gradient(circle, rgba(254, 240, 138, 0.85) 0%, rgba(250, 204, 21, 0.45) 55%, rgba(202, 138, 4, 0) 100%);
+  box-shadow: 0 0 6px 1px rgba(250, 204, 21, 0.45);
   pointer-events: none;
   animation: riseSlowly linear infinite;
+  will-change: transform, opacity;
 }
+
 @keyframes riseSlowly {
-  0% { transform: translateY(105vh) translateX(0) scale(.65); opacity: 0; }
-  10% { opacity: .85; }
-  85% { opacity: .75; }
-  100% { transform: translateY(-8vh) translateX(28px) scale(1.25); opacity: 0; }
+  0% {
+    transform: translateY(105vh) translateX(0) scale(0.7);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.65;
+  }
+  80% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(-10vh) translateX(16px) scale(1.15);
+    opacity: 0;
+  }
+}
+
+.vintage-invitation-btn {
+  position: relative;
+  border: 1px solid rgba(212,175,55,.65);
+  background: rgba(15,6,23,.55);
+  box-shadow: 0 0 15px rgba(92,45,145,.4), inset 0 0 10px rgba(212,175,55,.2);
+  transition: all .4s ease;
+}
+.vintage-invitation-btn:hover {
+  background: rgba(92,45,145,.65);
+  border-color: rgba(243,229,171,.95);
+  box-shadow: 0 0 25px rgba(212,175,55,.5), inset 0 0 15px rgba(212,175,55,.3);
+  transform: translateY(-1px) scale(1.02);
 }
 
 .btn-details-dark {
@@ -355,7 +386,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   box-shadow: 0 20px 50px rgba(15, 6, 23, 0.8), inset 0 0 30px rgba(92, 45, 145, 0.25);
 }
 
-/* Mobile Photo Overlay Card (Instagram/Editorial Framed Card Style) */
 .mobile-story-frame {
   position: relative;
   width: 100%;
@@ -378,7 +408,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   object-position: center top;
 }
 
-/* Scrim gradient so text over portrait is crisp and high-contrast */
 .mobile-story-scrim {
   position: absolute;
   inset: 0;
@@ -393,7 +422,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   z-index: 2;
 }
 
-/* Sparkle particles floating over the mobile card */
 .sparkle-dot {
   position: absolute;
   border-radius: 50%;
@@ -576,33 +604,30 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center">
     <div class="relative min-h-full max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-28 flex flex-col justify-center">
       
-      <!-- Title Header: Just "My Story" (Chapter 1 removed) -->
+      <!-- Title Header: Just "My Story" -->
       <div class="text-center mb-8 sm:mb-12 relative z-20">
         <h2 class="enchanted-title font-serif text-3xl sm:text-5xl md:text-6xl text-purple-100 font-light drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">My Story</h2>
         <div class="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-purple-300/80 to-transparent mx-auto mt-4 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></div>
       </div>
       
-      <!-- MOBILE VIEW: Text Overlaid directly on 4th.JPG (Matched to Reference Layout) -->
+      <!-- MOBILE VIEW: Text Overlaid directly on 4th.JPG[cite: 4] -->
       <div class="block lg:hidden relative z-20 w-full flex justify-center">
         <div class="mobile-story-frame">
-          <!-- Background Portrait -->
           <img class="portrait-bg" src="4th.JPG" alt="Franz - 4th Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';">
-          
-          <!-- Gradient Scrim for readable bottom text -->
           <div class="mobile-story-scrim"></div>
 
-          <!-- Top-right Franz badge matching screenshot -->
+          <!-- Top-right Franz badge[cite: 4] -->
           <div class="absolute top-4 right-4 z-10 px-4 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-gold-champagne/80 shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
             <span class="font-script text-gold-light text-lg">Franz</span>
           </div>
 
-          <!-- Enchanted Sparkle Dust matching screenshot -->
+          <!-- Subtle Glow Dust[cite: 4] -->
           <span class="sparkle-dot" style="top: 58%; left: 18%; width: 4px; height: 4px;"></span>
           <span class="sparkle-dot" style="top: 64%; left: 32%; width: 5px; height: 5px; animation-delay: 0.6s;"></span>
           <span class="sparkle-dot" style="top: 60%; left: 62%; width: 4.5px; height: 4.5px; animation-delay: 1.2s;"></span>
           <span class="sparkle-dot" style="top: 67%; left: 82%; width: 4px; height: 4px; animation-delay: 1.8s;"></span>
 
-          <!-- Overlaid Text Content at Bottom -->
+          <!-- Overlaid Text Content at Bottom[cite: 4] -->
           <div class="absolute inset-x-0 bottom-0 z-10 p-6 flex flex-col justify-end text-left">
             <div class="text-gold-light drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] text-2xl mb-2.5">
               <i class="fa-solid fa-quote-left"></i>
@@ -667,7 +692,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       </div>
 
     </div>
-    <div id="risingCirclesField" class="absolute inset-0 pointer-events-none z-30 overflow-hidden"></div>
+
+    <!-- Background Slower Rising Yellow Circles -->
+    <div id="risingCirclesField" class="absolute inset-0 pointer-events-none z-10 overflow-hidden"></div>
   </section>
 
   <!-- ==================== Page 2: The Celebration ==================== -->
@@ -1036,18 +1063,23 @@ const mobileBtn = document.getElementById('mobileMenuBtn'), mobileMenu = documen
 if(mobileBtn) mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
 function closeMobileMenu(){ if(mobileMenu) mobileMenu.classList.add('hidden'); }
 
+// ========================================================
+// SLOW, GENTLE RISING EMBERS LOGIC
+// ========================================================
 function createRisingCircles(){
   const container = document.getElementById('risingCirclesField');
   if(!container) return;
-  for(let i = 0; i < 48; i++){
+  for(let i = 0; i < 36; i++){
     const c = document.createElement('div');
     c.className = 'rising-circle';
-    const size = Math.random() * 4.5 + 2.5;
+    const size = Math.random() * 3.5 + 2.5; // delicate circle sizes
     c.style.width = `${size}px`;
     c.style.height = `${size}px`;
     c.style.left = `${Math.random() * 99}%`;
-    c.style.animationDuration = `${Math.random() * 7 + 7}s`;
-    c.style.animationDelay = `${Math.random() * 10}s`;
+    // Slower, average-to-slow movement between 18s and 26s
+    const duration = Math.random() * 8 + 18; 
+    c.style.animationDuration = `${duration}s`;
+    c.style.animationDelay = `${Math.random() * 16}s`;
     container.appendChild(c);
   }
 }
