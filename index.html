@@ -18,13 +18,13 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 /* Ambient / Page Backgrounds */
 .bg-custom-1{background-image:url('background b.jpg'), radial-gradient(circle at 50% 30%, #240b36 0%, #0f0617 80%)}
 .bg-custom-2{background-image:url('2nd page b.jpg'), radial-gradient(circle at 40% 40%, #240b36 0%, #09030e 85%)}
-.bg-custom-3{background-image:url('3rd page b.jpg'), radial-gradient(circle at 60% 40%, #230d3a 0%, #0c0413 85%)}
+.bg-custom-3{background-image:url('celeb b.jpeg'), radial-gradient(circle at 60% 40%, #230d3a 0%, #0c0413 85%)}
 .bg-custom-4{background-image:url('4th page b.jpg'), radial-gradient(circle at 50% 50%, #1a082c 0%, #07020b 90%)}
 
 @media (max-width:768px){
   .bg-custom-1{background-image:url('background p.jpg'), radial-gradient(circle at 50% 30%, #240b36 0%, #0f0617 80%)}
   .bg-custom-2{background-image:url('2nd page p.jpg'), radial-gradient(circle at 40% 40%, #240b36 0%, #09030e 85%)}
-  .bg-custom-3{background-image:url('3rd page p.jpg'), radial-gradient(circle at 60% 40%, #230d3a 0%, #0c0413 85%)}
+  .bg-custom-3{background-image:url('celeb p.jpeg'), radial-gradient(circle at 60% 40%, #230d3a 0%, #0c0413 85%)}
   .bg-custom-4{background-image:url('4th page p.jpg'), radial-gradient(circle at 50% 50%, #1a082c 0%, #07020b 90%)}
 }
 
@@ -293,8 +293,16 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 .page-sheet.peel-in-wait { transform: translate3d(25%,0,-180px) rotateY(25deg) scale(.92); opacity: 0; filter: blur(4px); pointer-events: none; z-index: 10; }
 
 /* ========================================================
-   REFINED SLOWER, GENTLE RISING EMBERS (PAGE 1)
+   REFINED SLOWER, GENTLE RISING EMBERS (ACROSS ALL PAGES)
    ======================================================== */
+.rising-circles-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 12;
+  overflow: hidden;
+}
+
 .rising-circle {
   position: absolute;
   border-radius: 50%;
@@ -598,6 +606,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         <i id="heroMusicIcon" class="fa-solid fa-volume-high text-[8px]"></i>
       </button>
     </div>
+
+    <!-- Background Slower Rising Yellow Circles for Home Page -->
+    <div class="rising-circles-layer"></div>
   </section>
 
   <!-- ==================== Page 1: My Story ==================== -->
@@ -693,13 +704,13 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
     </div>
 
-    <!-- Background Slower Rising Yellow Circles -->
-    <div id="risingCirclesField" class="absolute inset-0 pointer-events-none z-10 overflow-hidden"></div>
+    <!-- Background Slower Rising Yellow Circles Layer -->
+    <div class="rising-circles-layer"></div>
   </section>
 
   <!-- ==================== Page 2: The Celebration ==================== -->
   <section id="page-2" class="page-sheet peel-in-wait bg-custom-3 bg-cover bg-center">
-    <div class="absolute inset-0 bg-[#0f0617]/80 backdrop-brightness-[0.9]"></div>
+    <div class="absolute inset-0 bg-[#0f0617]/75 backdrop-brightness-[0.9]"></div>
     <div class="relative z-20 min-h-full max-w-6xl mx-auto px-4 sm:px-6 py-28 flex flex-col justify-center">
       <div class="mb-4"><p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold">3. The Celebration</p></div>
       <div class="rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.85)] border border-purple-400/20 grid grid-cols-1 lg:grid-cols-12 bg-white">
@@ -772,6 +783,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         </div>
       </div>
     </div>
+    
+    <!-- Rising Yellow Circles Layer -->
+    <div class="rising-circles-layer"></div>
   </section>
 
   <!-- ==================== Page 3: The 18s / Guest Finder ==================== -->
@@ -790,6 +804,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         </div>
       </div>
     </div>
+    
+    <!-- Rising Yellow Circles Layer -->
+    <div class="rising-circles-layer"></div>
   </section>
 
   <!-- ==================== Page 4: Gallery & RSVP ==================== -->
@@ -856,6 +873,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         <button onclick="navigateToPage(0)" class="mt-6 text-[10px] font-cinzel uppercase tracking-widest text-purple-300 hover:text-white transition"><i class="fa-solid fa-arrow-up mr-1"></i> Return to Welcome</button>
       </div>
     </div>
+    
+    <!-- Rising Yellow Circles Layer -->
+    <div class="rising-circles-layer"></div>
   </section>
 
 </main>
@@ -1064,26 +1084,26 @@ if(mobileBtn) mobileBtn.addEventListener('click', () => mobileMenu.classList.tog
 function closeMobileMenu(){ if(mobileMenu) mobileMenu.classList.add('hidden'); }
 
 // ========================================================
-// SLOW, GENTLE RISING EMBERS LOGIC
+// SLOW, GENTLE RISING EMBERS LOGIC ON ALL PAGES
 // ========================================================
-function createRisingCircles(){
-  const container = document.getElementById('risingCirclesField');
-  if(!container) return;
-  for(let i = 0; i < 36; i++){
-    const c = document.createElement('div');
-    c.className = 'rising-circle';
-    const size = Math.random() * 3.5 + 2.5; // delicate circle sizes
-    c.style.width = `${size}px`;
-    c.style.height = `${size}px`;
-    c.style.left = `${Math.random() * 99}%`;
-    // Slower, average-to-slow movement between 18s and 26s
-    const duration = Math.random() * 8 + 18; 
-    c.style.animationDuration = `${duration}s`;
-    c.style.animationDelay = `${Math.random() * 16}s`;
-    container.appendChild(c);
-  }
+function createRisingCirclesOnAllPages(){
+  const layers = document.querySelectorAll('.rising-circles-layer');
+  layers.forEach(layer => {
+    for(let i = 0; i < 28; i++){
+      const c = document.createElement('div');
+      c.className = 'rising-circle';
+      const size = Math.random() * 3.5 + 2.5;
+      c.style.width = `${size}px`;
+      c.style.height = `${size}px`;
+      c.style.left = `${Math.random() * 99}%`;
+      const duration = Math.random() * 8 + 18; 
+      c.style.animationDuration = `${duration}s`;
+      c.style.animationDelay = `${Math.random() * 16}s`;
+      layer.appendChild(c);
+    }
+  });
 }
-createRisingCircles();
+createRisingCirclesOnAllPages();
 </script>
 </body>
 </html>
