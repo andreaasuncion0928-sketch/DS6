@@ -64,7 +64,7 @@
 }
 
 /* ========================================================
-   3D REALISTIC SWINGING GATE (NO FLAT STRETCH)
+   ENTRANCE GATE - FOG & BLUR MASKING SYSTEM
    ======================================================== */
 #gate {
   --S: 100vh;
@@ -81,9 +81,12 @@
 #gateWorld {
   position: absolute;
   inset: 0;
-  transition: opacity 0.7s ease;
+  transition: opacity 0.8s ease, transform 1.2s ease;
 }
-#gate.fade #gateWorld { opacity: 0; }
+#gate.fade #gateWorld { 
+  opacity: 0; 
+  transform: scale(1.06);
+}
 
 .g-side {
   position: absolute;
@@ -110,38 +113,87 @@
 }
 #gateStage > * { position: absolute; }
 
-/* Background arch behind the swinging gates */
+/* The background visual: Heavily blurs out upon opening */
 .g-base {
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 1;
   pointer-events: none;
+  transition: filter 0.8s cubic-bezier(0.2, 0.8, 0.3, 1), transform 1.2s ease;
+}
+#gate.open .g-base {
+  filter: blur(24px) brightness(0.6);
+  transform: scale(1.04);
 }
 
-/* Light spill that floods through when the doors swing open */
+/* Dense Rolling Mystical Fog/Smoke covering the archway */
+#archFog {
+  position: absolute;
+  left: 32%;
+  top: 11%;
+  width: 40%;
+  height: 48%;
+  border-radius: 50% 50% 0 0;
+  overflow: hidden;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+#gate.open #archFog {
+  opacity: 1;
+}
+
+.fog-cloud {
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+}
+.fog-cloud.layer-1 {
+  background: radial-gradient(circle at 50% 60%, rgba(254, 240, 190, 0.98) 0%, rgba(195, 140, 255, 0.9) 38%, rgba(65, 20, 95, 0.85) 65%, transparent 80%);
+  filter: blur(20px);
+  animation: billowSmoke 3.5s ease-in-out infinite alternate;
+}
+.fog-cloud.layer-2 {
+  background: radial-gradient(circle at 45% 45%, rgba(225, 185, 255, 0.9) 0%, rgba(120, 50, 180, 0.85) 45%, rgba(15, 6, 23, 0.95) 75%);
+  filter: blur(28px);
+  animation: billowSmoke 4.5s ease-in-out infinite alternate-reverse;
+}
+@keyframes billowSmoke {
+  0% { transform: scale(0.95) translate(-3%, 2%); }
+  100% { transform: scale(1.2) translate(4%, -4%); }
+}
+
+/* Extra billowing mist overlay right at the gate aperture */
 #gateGlow {
-  left: 36%;
-  top: 14%;
-  width: 32%;
-  height: 42%;
+  left: 32%;
+  top: 10%;
+  width: 40%;
+  height: 50%;
   opacity: 0;
   border-radius: 50% 50% 0 0;
   mix-blend-mode: screen;
-  z-index: 1;
-  background: radial-gradient(ellipse at 50% 65%, rgba(255,238,180,1) 0%, rgba(190,140,255,0.7) 45%, transparent 75%);
-  transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.3, 1);
+  z-index: 4;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 65%, rgba(255, 245, 210, 1) 0%, rgba(210, 160, 255, 0.8) 42%, transparent 75%);
+  filter: blur(14px);
+  transition: opacity 0.8s ease, transform 1.2s ease;
+  transform: scale(0.9);
 }
-#gate.open #gateGlow { opacity: 1; }
+#gate.open #gateGlow { 
+  opacity: 1;
+  transform: scale(1.15);
+}
 
-/* 3D Hinged Leaves created from the actual gate visual */
+/* 3D Hinged Door Leaves that physically swing open */
 .gate-portal-container {
   position: absolute;
   left: 38%;
   top: 14.5%;
   width: 28%;
   height: 38%;
-  z-index: 3;
+  z-index: 5;
   perspective: 1200px;
   display: flex;
 }
@@ -151,7 +203,7 @@
   height: 100%;
   overflow: hidden;
   position: relative;
-  transition: transform 1.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.9s ease;
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
@@ -163,6 +215,7 @@
   top: calc(var(--S) * -0.145);
   pointer-events: none;
   max-width: none;
+  transition: filter 0.8s ease;
 }
 
 .gate-portal-leaf.left {
@@ -179,19 +232,22 @@
   left: calc(var(--S) * -0.52);
 }
 
-/* Gate Leaves Physically Swing Open like Real Doors */
+/* Leaves Swing Open inward and fog up */
 #gate.open .gate-portal-leaf.left {
-  transform: rotateY(-85deg);
-  box-shadow: 10px 0 30px rgba(0,0,0,0.9);
+  transform: rotateY(-88deg);
+  opacity: 0.3;
 }
 #gate.open .gate-portal-leaf.right {
-  transform: rotateY(85deg);
-  box-shadow: -10px 0 30px rgba(0,0,0,0.9);
+  transform: rotateY(88deg);
+  opacity: 0.3;
+}
+#gate.open .gate-portal-leaf img {
+  filter: blur(10px);
 }
 
 /* Living Candle Flames */
 .cf {
-  z-index: 4;
+  z-index: 6;
   width: 9%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
@@ -208,9 +264,9 @@
   80% { opacity: .95; }
 }
 
-/* Drifting Mist */
+/* Drifting Base Mist */
 .mist {
-  z-index: 4;
+  z-index: 6;
   left: -30%;
   width: 160%;
   height: 26%;
@@ -227,7 +283,7 @@
 
 /* Glowing Lock Button */
 .g-lock {
-  z-index: 5;
+  z-index: 7;
   left: calc(543 / 1024 * 100% - 4.2%);
   top: calc(385 / 1024 * 100% - 4.2%);
   width: 8.4%;
@@ -263,7 +319,7 @@
   right: 0;
   bottom: 0;
   height: 44%;
-  z-index: 6;
+  z-index: 8;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -287,7 +343,7 @@
 }
 
 /* Lilac Petals */
-.fx { position: absolute; z-index: 7; pointer-events: none; }
+.fx { position: absolute; z-index: 9; pointer-events: none; }
 .petal {
   top: -5vh;
   border-radius: 80% 0 80% 0;
@@ -387,19 +443,26 @@
 <body class="bg-plum-deep text-ivory font-sans antialiased overflow-hidden select-none">
 
   <!-- ========================================================
-       ENTRANCE GATE - REALISTIC OPENING ANIMATION
+       ENTRANCE GATE - FOGGY OPENING EFFECT
        ======================================================== -->
   <div id="gate" role="dialog" aria-label="Invitation entrance">
     <div id="gateWorld">
       <div class="g-side l"></div>
       <div class="g-side r"></div>
       <div id="gateStage">
-        <div id="gateGlow"></div>
         
-        <!-- Base Arch Image -->
+        <!-- Base Arch Image: Blurs heavily when opened -->
         <img class="g-base" src="gate.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=1600&q=80';" alt="Enchanted Twilight Gate">
         
-        <!-- Perspective Door Leaves created from the actual visual gate -->
+        <!-- Billowing Arch Fog/Smoke that covers and conceals the original gate -->
+        <div id="archFog">
+          <div class="fog-cloud layer-1"></div>
+          <div class="fog-cloud layer-2"></div>
+        </div>
+
+        <div id="gateGlow"></div>
+
+        <!-- 3D Hinged Leaves created from the actual gate visual -->
         <div class="gate-portal-container" onclick="openGate()">
           <div class="gate-portal-leaf left">
             <img src="gate.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=1600&q=80';" alt="Gate Door Left">
@@ -478,7 +541,7 @@
   <main class="perspective-container relative w-full h-screen overflow-hidden bg-black">
 
     <!-- ----------------------------------------------------
-         PAGE 1: HOME / WELCOME (Clean - No circles or dots)
+         PAGE 1: HOME / WELCOME
          ---------------------------------------------------- -->
     <section id="page-0" class="page-sheet active bg-custom-1 bg-cover bg-center">
       <div class="absolute inset-0 bg-[#0f0617]/80 backdrop-brightness-[0.9]"></div>
@@ -948,7 +1011,7 @@
       if (cflames) cflames.appendChild(d);
     });
 
-    // Lilac petals only
+    // Lilac petals
     const fx = document.getElementById('fxLayer');
     if (fx) {
       for (let i = 0; i < 14; i++) {
@@ -960,7 +1023,7 @@
     }
 
     // ----------------------------------------------------
-    // Open Gate Animation Flow - REAL 3D DOOR SWING
+    // Open Gate: Blurs original gate & rolls fog into invitation
     // ----------------------------------------------------
     let gateOpened = false;
     function openGate() {
@@ -973,17 +1036,17 @@
         toggleAudio();
       }
 
-      // Swing open the gate leaves
+      // Doors swing open, original gate blurs, fog rolls into view
       g.classList.add('open');
 
-      // Seamlessly dissolve and reveal invitation
+      // Fog swells up and dissolves into the invitation page
       setTimeout(() => { 
         g.classList.add('fade'); 
-      }, 1000);
+      }, 1100);
 
       setTimeout(() => { 
         g.classList.add('done'); 
-      }, 1700);
+      }, 1900);
     }
 
     function relockGates() {
