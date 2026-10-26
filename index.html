@@ -64,7 +64,7 @@
 }
 
 /* ========================================================
-   EXACT ENTRANCE GATE STYLES (from entrance.html)
+   3D REALISTIC SWINGING GATE (NO FLAT STRETCH)
    ======================================================== */
 #gate {
   --S: 100vh;
@@ -75,15 +75,14 @@
   user-select: none;
   -webkit-user-select: none;
   background: #0b0412;
+  transition: opacity 0.8s ease;
 }
 #gate.done { display: none; }
 #gateWorld {
   position: absolute;
   inset: 0;
-  transform-origin: calc(50% + var(--S) * .03) calc(var(--S) * .34);
-  transition: transform 2.2s cubic-bezier(.22, 1, .36, 1), opacity 0.8s ease;
+  transition: opacity 0.7s ease;
 }
-#gate.zoom #gateWorld { transform: scale(9); }
 #gate.fade #gateWorld { opacity: 0; }
 
 .g-side {
@@ -105,32 +104,89 @@
   width: var(--S);
   height: var(--S);
   margin-left: calc(var(--S) / -2);
-  perspective: calc(var(--S) * 1.1);
-  perspective-origin: 53% 34%;
+  perspective: 1400px;
+  perspective-origin: 52% 38%;
   transform-origin: 53% 40%;
 }
 #gateStage > * { position: absolute; }
 
-#gateGlow {
-  left: 39%;
-  top: 14%;
-  width: 28%;
-  height: 38%;
-  opacity: 0;
-  border-radius: 50% 50% 0 0;
-  mix-blend-mode: screen;
-  z-index: 1;
-  background: radial-gradient(ellipse at 50% 70%, rgba(255,232,170,.95), rgba(190,140,255,.5) 45%, transparent 72%);
-  transition: opacity 1.2s ease;
-}
-#gate.open #gateGlow { opacity: 1; }
-
+/* Background arch behind the swinging gates */
 .g-base {
   inset: 0;
   width: 100%;
   height: 100%;
   z-index: 2;
   pointer-events: none;
+}
+
+/* Light spill that floods through when the doors swing open */
+#gateGlow {
+  left: 36%;
+  top: 14%;
+  width: 32%;
+  height: 42%;
+  opacity: 0;
+  border-radius: 50% 50% 0 0;
+  mix-blend-mode: screen;
+  z-index: 1;
+  background: radial-gradient(ellipse at 50% 65%, rgba(255,238,180,1) 0%, rgba(190,140,255,0.7) 45%, transparent 75%);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+#gate.open #gateGlow { opacity: 1; }
+
+/* 3D Hinged Leaves created from the actual gate visual */
+.gate-portal-container {
+  position: absolute;
+  left: 38%;
+  top: 14.5%;
+  width: 28%;
+  height: 38%;
+  z-index: 3;
+  perspective: 1200px;
+  display: flex;
+}
+
+.gate-portal-leaf {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  transition: transform 1.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.gate-portal-leaf img {
+  position: absolute;
+  width: calc(var(--S));
+  height: calc(var(--S));
+  top: calc(var(--S) * -0.145);
+  pointer-events: none;
+  max-width: none;
+}
+
+.gate-portal-leaf.left {
+  transform-origin: left center;
+}
+.gate-portal-leaf.left img {
+  left: calc(var(--S) * -0.38);
+}
+
+.gate-portal-leaf.right {
+  transform-origin: right center;
+}
+.gate-portal-leaf.right img {
+  left: calc(var(--S) * -0.52);
+}
+
+/* Gate Leaves Physically Swing Open like Real Doors */
+#gate.open .gate-portal-leaf.left {
+  transform: rotateY(-85deg);
+  box-shadow: 10px 0 30px rgba(0,0,0,0.9);
+}
+#gate.open .gate-portal-leaf.right {
+  transform: rotateY(85deg);
+  box-shadow: -10px 0 30px rgba(0,0,0,0.9);
 }
 
 /* Living Candle Flames */
@@ -220,7 +276,6 @@
 }
 #gate.open #gateUI { opacity: 0; transform: translateY(20px); }
 
-/* Immediate Text Entry */
 #gateUI > * {
   opacity: 1;
   transform: none;
@@ -231,7 +286,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Falling Petals Only (No yellow circles on entrance) */
+/* Lilac Petals */
 .fx { position: absolute; z-index: 7; pointer-events: none; }
 .petal {
   top: -5vh;
@@ -286,7 +341,7 @@
   z-index: 10;
 }
 
-/* Rising Yellow Circles (Kept strictly on My Story page) */
+/* Rising Yellow Circles (My Story Page Only) */
 .rising-circle {
   position: absolute;
   border-radius: 50%;
@@ -332,7 +387,7 @@
 <body class="bg-plum-deep text-ivory font-sans antialiased overflow-hidden select-none">
 
   <!-- ========================================================
-       EXACT INTEGRATED GATE ENTRANCE (from entrance.html)
+       ENTRANCE GATE - REALISTIC OPENING ANIMATION
        ======================================================== -->
   <div id="gate" role="dialog" aria-label="Invitation entrance">
     <div id="gateWorld">
@@ -340,7 +395,20 @@
       <div class="g-side r"></div>
       <div id="gateStage">
         <div id="gateGlow"></div>
+        
+        <!-- Base Arch Image -->
         <img class="g-base" src="gate.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=1600&q=80';" alt="Enchanted Twilight Gate">
+        
+        <!-- Perspective Door Leaves created from the actual visual gate -->
+        <div class="gate-portal-container" onclick="openGate()">
+          <div class="gate-portal-leaf left">
+            <img src="gate.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=1600&q=80';" alt="Gate Door Left">
+          </div>
+          <div class="gate-portal-leaf right">
+            <img src="gate.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=1600&q=80';" alt="Gate Door Right">
+          </div>
+        </div>
+
         <div id="cflames"></div>
         <div class="mist a"></div>
         <div class="mist b"></div>
@@ -539,7 +607,7 @@
 
       </div>
 
-      <!-- Rising Yellow Circles Field (Kept on Chapter I) -->
+      <!-- Rising Yellow Circles Field (Strictly on My Story page) -->
       <div id="risingCirclesField" class="absolute inset-0 pointer-events-none z-30 overflow-hidden"></div>
     </section>
 
@@ -854,7 +922,7 @@
   </main>
 
   <!-- ========================================================
-       JAVASCRIPT LOGIC & IMMEDIATE TRANSITION CONTROLS
+       JAVASCRIPT LOGIC & GATE CONTROL
        ======================================================== -->
   <script>
     let currentPageIndex = 0;
@@ -880,7 +948,7 @@
       if (cflames) cflames.appendChild(d);
     });
 
-    // Lilac petals only (No yellow circles on entrance)
+    // Lilac petals only
     const fx = document.getElementById('fxLayer');
     if (fx) {
       for (let i = 0; i < 14; i++) {
@@ -892,7 +960,7 @@
     }
 
     // ----------------------------------------------------
-    // Open Gate Animation Flow - INSTANT, NO BLOCKERS OR DELAYS
+    // Open Gate Animation Flow - REAL 3D DOOR SWING
     // ----------------------------------------------------
     let gateOpened = false;
     function openGate() {
@@ -901,29 +969,28 @@
       const g = document.getElementById('gate');
       if (!g) return;
 
-      // Start music immediately
       if (!isPlayingAudio) {
         toggleAudio();
       }
 
-      // Zoom straight into visual gate arch without delay
+      // Swing open the gate leaves
       g.classList.add('open');
-      g.classList.add('zoom');
 
+      // Seamlessly dissolve and reveal invitation
       setTimeout(() => { 
         g.classList.add('fade'); 
-      }, 700);
+      }, 1000);
 
       setTimeout(() => { 
         g.classList.add('done'); 
-      }, 1300);
+      }, 1700);
     }
 
     function relockGates() {
       const g = document.getElementById('gate');
       if (!g) return;
       gateOpened = false;
-      g.classList.remove('done', 'fade', 'zoom', 'open');
+      g.classList.remove('done', 'fade', 'open');
       navigateToPage(0);
     }
 
@@ -1138,7 +1205,7 @@
     }
 
     // ----------------------------------------------------
-    // Frequent Rising Yellow Circles (Kept strictly on My Story page)
+    // Frequent Rising Yellow Circles (My Story page)
     // ----------------------------------------------------
     function createRisingCircles() {
       const container = document.getElementById('risingCirclesField');
