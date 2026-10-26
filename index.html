@@ -1,26 +1,993 @@
-// ---------- Gate Intro ----------
-(function(){
-  const f = document.getElementById('gateFireflies');
-  if (!f) return;
-  for (let i = 0; i < 26; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const s = Math.random() * 5 + 2;
-    p.style.cssText = `width:${s}px;height:${s}px;left:${Math.random()*100}%;top:${Math.random()*100}%;` +
-      `animation-delay:${Math.random()*8}s;animation-duration:${Math.random()*8+8}s`;
-    f.appendChild(p);
-  }
-})();
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Franz’s 18th Birthday — Amethyst Reverie</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-function openGate() {
-  const g = document.getElementById('gateIntro');
-  if (!g || g.classList.contains('opening')) return;
-  g.classList.add('opening');                       // doors swing open
-  // toggleAudio();                                 // uncomment to start music on tap
-  setTimeout(() => g.classList.add('zoom'), 1700);  // camera pushes through the gate
-  setTimeout(() => {                                // fade into your Home page
-    g.classList.add('done');
-    document.body.classList.add('revealed');
-  }, 3300);
-  setTimeout(() => g.remove(), 5200);
-}
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'plum-deep': '#0f0617',
+            'royal-purple': '#240b36',
+            'amethyst': '#5c2d91',
+            'lavender-soft': '#d4bbf3',
+            'lilac-pale': '#f0e6f6',
+            'ivory': '#fcfbfa',
+            'gold-champagne': '#d4af37',
+            'gold-light': '#f3e5ab'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            display: ['"Playfair Display"', 'serif'],
+            script: ['"Great Vibes"', 'cursive'],
+            allura: ['"Allura"', 'cursive'],
+            cinzel: ['"Cinzel"', 'serif'],
+            sans: ['"Montserrat"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0f0617; }
+    ::-webkit-scrollbar-thumb { background: #3b1d5a; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #5c2d91; }
+
+    /* Custom Responsive Backgrounds */
+    .bg-custom-1 { background-image: url('background b.jpg'); }
+    .bg-custom-2 { background-image: url('2nd page b.jpg'); }
+    .bg-custom-3 { background-image: url('3rd page b.jpg'); }
+    .bg-custom-4 { background-image: url('4th page b.jpg'); }
+
+    @media (max-width: 768px) {
+      .bg-custom-1 { background-image: url('background p.jpg'); }
+      .bg-custom-2 { background-image: url('2nd page p.jpg'); }
+      .bg-custom-3 { background-image: url('3rd page p.jpg'); }
+      .bg-custom-4 { background-image: url('4th page p.jpg'); }
+    }
+
+    /* 3D Page Peel / Depth Morph Animation Setup */
+    .perspective-container {
+      perspective: 1800px;
+      perspective-origin: center center;
+    }
+
+    .page-sheet {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+      transition: transform 1.6s cubic-bezier(0.65, 0, 0.15, 1), 
+                  opacity 1.4s cubic-bezier(0.65, 0, 0.15, 1),
+                  filter 1.4s cubic-bezier(0.65, 0, 0.15, 1);
+    }
+
+    .page-sheet.active {
+      transform: translate3d(0, 0, 0) scale(1) rotateY(0deg);
+      opacity: 1;
+      filter: blur(0px);
+      pointer-events: auto;
+      z-index: 20;
+    }
+
+    .page-sheet.peel-out {
+      transform: translate3d(-35%, 0, -250px) rotateY(-38deg) rotateZ(-3deg);
+      opacity: 0;
+      filter: blur(4px);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .page-sheet.peel-in-wait {
+      transform: translate3d(25%, 0, -180px) rotateY(25deg) scale(0.92);
+      opacity: 0;
+      filter: blur(4px);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* Hero Particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(243, 229, 171, 0.8) 0%, rgba(212, 175, 55, 0) 70%);
+      pointer-events: none;
+      animation: floatParticle 14s infinite ease-in-out;
+    }
+    @keyframes floatParticle {
+      0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
+      20% { opacity: 0.6; }
+      80% { opacity: 0.6; }
+      100% { transform: translateY(-120px) translateX(30px) scale(1.2); opacity: 0; }
+    }
+
+    /* Rising Yellow Small Circles (Frequent, noticeble, floating through text panels) */
+    .rising-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(254, 240, 138, 0.95) 0%, rgba(250, 204, 21, 0.65) 55%, rgba(202, 138, 4, 0) 100%);
+      box-shadow: 0 0 8px 1.5px rgba(250, 204, 21, 0.7);
+      pointer-events: none;
+      animation: riseSlowly linear infinite;
+    }
+    @keyframes riseSlowly {
+      0% {
+        transform: translateY(105vh) translateX(0px) scale(0.65);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.85;
+      }
+      85% {
+        opacity: 0.75;
+      }
+      100% {
+        transform: translateY(-8vh) translateX(28px) scale(1.25);
+        opacity: 0;
+      }
+    }
+
+    /* Vintage Button Cutout Borders */
+    .vintage-invitation-btn {
+      position: relative;
+      border: 1px solid rgba(212, 175, 55, 0.65);
+      background: rgba(15, 6, 23, 0.45);
+      box-shadow: 0 0 15px rgba(92, 45, 145, 0.3), inset 0 0 10px rgba(212, 175, 55, 0.15);
+      transition: all 0.4s ease;
+    }
+    .vintage-invitation-btn:hover {
+      background: rgba(92, 45, 145, 0.55);
+      border-color: rgba(243, 229, 171, 0.95);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.45), inset 0 0 15px rgba(212, 175, 55, 0.3);
+      transform: translateY(-1px) scale(1.02);
+    }
+
+    /* Celebration Card Button Styles */
+    .btn-details-dark {
+      background: #251239;
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+    }
+    .btn-details-dark:hover {
+      background: #3b1d5a;
+      border-color: rgba(212, 175, 55, 0.85);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body class="bg-plum-deep text-ivory font-sans antialiased overflow-hidden select-none">
+
+  <!-- ========================================================
+       TOP BROWSER-LIKE NAVIGATION BAR
+       - Amethyst Reverie title & yellow blinking dot removed
+       - "Dress Code" item removed
+       ======================================================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-plum-deep/95 via-plum-deep/85 to-transparent backdrop-blur-md border-b border-purple-500/15 py-3 px-4 sm:px-8 transition-all duration-300">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Left: Mobile Menu Toggle Button -->
+      <div class="flex items-center">
+        <button id="mobileMenuBtn" class="lg:hidden text-lavender-soft/80 hover:text-white p-1 text-sm focus:outline-none" aria-label="Open Navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+
+      <!-- Center: Refined Navigation Menu List -->
+      <nav class="hidden lg:flex items-center space-x-7 xl:space-x-9">
+        <button onclick="navigateToPage(0)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-gold-light font-semibold hover:text-gold-light transition duration-200" data-page="0">Home</button>
+        <button onclick="navigateToPage(1)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="1">My Story</button>
+        <button onclick="navigateToPage(2)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="2">The Celebration</button>
+        <button onclick="navigateToPage(3)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="3">The 18s</button>
+        <button onclick="navigateToPage(4)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="4">Gallery</button>
+        <button onclick="navigateToPage(3)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="3">Find Your Name</button>
+        <button onclick="navigateToPage(2)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="2">FAQs</button>
+        <button onclick="navigateToPage(4)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200 text-gold-champagne/90 font-semibold" data-page="4">RSVP</button>
+      </nav>
+
+      <!-- Right: Compact Audio Note Status -->
+      <div class="flex items-center space-x-3">
+        <button id="navMusicBtn" onclick="toggleAudio()" class="text-lavender-soft/75 hover:text-gold-champagne transition text-xs p-1.5 rounded-full hover:bg-white/5" title="Toggle Twilight Melody">
+          <i id="navMusicIcon" class="fa-solid fa-music"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobileMenu" class="hidden lg:hidden pt-4 pb-2 border-t border-purple-500/20 mt-2 bg-plum-deep/95 backdrop-blur-xl px-4 rounded-b-xl flex flex-col space-y-3">
+      <button onclick="navigateToPage(0); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">Home</button>
+      <button onclick="navigateToPage(1); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">My Story</button>
+      <button onclick="navigateToPage(2); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">The Celebration</button>
+      <button onclick="navigateToPage(3); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">The 18s (Find Your Role)</button>
+      <button onclick="navigateToPage(4); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-gold-champagne py-1 font-semibold">Gallery & RSVP</button>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       MAIN 3D MULTI-SHEET CONTAINER
+       ======================================================== -->
+  <main class="perspective-container relative w-full h-screen overflow-hidden bg-black">
+
+    <!-- ----------------------------------------------------
+         PAGE 1: HOME / WELCOME
+         ---------------------------------------------------- -->
+    <section id="page-0" class="page-sheet active bg-custom-1 bg-cover bg-center">
+      <div class="absolute inset-0 bg-[#0f0617]/80 backdrop-brightness-[0.9]"></div>
+      <div id="particleField" class="absolute inset-0 pointer-events-none z-10"></div>
+
+      <div class="relative z-20 w-full h-full flex flex-col justify-between px-4 sm:px-8 md:px-14 pb-8">
+        <div class="w-full flex-1 flex flex-col items-center justify-center text-center pt-32 sm:pt-36">
+          
+          <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-purple-200/90 uppercase font-light mb-3 sm:mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            You Are Invited To
+          </p>
+
+          <h2 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[0.22em] text-ivory font-light uppercase drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] mb-1 sm:mb-2">
+            Franz’s
+          </h2>
+
+          <div class="font-script text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] text-lilac-pale leading-[0.8] mb-4 sm:mb-6 drop-shadow-[0_6px_18px_rgba(0,0,0,0.95)] -rotate-2 select-none">
+            Eighteenth
+          </div>
+
+          <div class="flex items-center justify-center space-x-4 my-2 sm:my-3 text-gold-champagne/70">
+            <span class="h-[1px] w-12 sm:w-24 bg-gradient-to-r from-transparent to-gold-champagne/60"></span>
+            <span class="text-xs sm:text-sm tracking-widest text-gold-light"><i class="fa-regular fa-gem"></i></span>
+            <span class="h-[1px] w-12 sm:w-24 bg-gradient-to-l from-transparent to-gold-champagne/60"></span>
+          </div>
+
+          <p class="font-cinzel text-xs sm:text-sm tracking-[0.28em] text-purple-200/85 uppercase font-medium mt-1 mb-8 sm:mb-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">
+            A New Chapter Begins
+          </p>
+
+          <div>
+            <button onclick="enterCelebration()" class="vintage-invitation-btn group px-6 sm:px-9 py-2.5 sm:py-3 rounded-[3px] text-ivory font-cinzel text-[11px] sm:text-xs tracking-[0.25em] uppercase flex items-center space-x-2">
+              <span class="text-gold-light group-hover:translate-x-0.5 transition-transform duration-300">Enter The Invitation</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Vertical Countdown Pillar -->
+        <aside class="fixed right-3 sm:right-6 bottom-8 z-30 hidden md:flex flex-col items-center bg-plum-deep/80 backdrop-blur-md border border-purple-500/25 px-4 py-5 rounded-sm shadow-[0_10px_30px_rgba(0,0,0,0.8)] w-28">
+          <div class="flex flex-col items-center text-center space-y-3 font-cinzel">
+            <div>
+              <span id="p1-days" class="text-2xl font-light text-ivory block leading-none">000</span>
+              <span class="text-[9px] tracking-widest text-purple-300 uppercase">Days</span>
+            </div>
+            <div class="w-8 h-[1px] bg-purple-500/30"></div>
+            <div>
+              <span id="p1-hours" class="text-2xl font-light text-ivory block leading-none">00</span>
+              <span class="text-[9px] tracking-widest text-purple-300 uppercase">Hours</span>
+            </div>
+            <div class="w-8 h-[1px] bg-purple-500/30"></div>
+            <div>
+              <span id="p1-minutes" class="text-2xl font-light text-ivory block leading-none">00</span>
+              <span class="text-[9px] tracking-widest text-purple-300 uppercase">Minutes</span>
+            </div>
+            <div class="w-8 h-[1px] bg-purple-500/30"></div>
+            <div>
+              <span id="p1-seconds" class="text-2xl font-light text-ivory block leading-none">00</span>
+              <span class="text-[9px] tracking-widest text-purple-300 uppercase">Seconds</span>
+            </div>
+          </div>
+
+          <div class="mt-5 pt-3 border-t border-purple-500/30 w-full text-center">
+            <button onclick="toggleAudio()" class="w-full text-[9px] font-cinzel uppercase tracking-widest text-gold-champagne/90 hover:text-white flex items-center justify-center space-x-1 transition">
+              <span id="heroMusicStatus">MUSIC ON</span>
+              <i id="heroMusicIcon" class="fa-solid fa-music text-[9px]"></i>
+            </button>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------
+         PAGE 2: MY STORY
+         - Frequent rising yellow circles float through text panels
+         - Circles do NOT cover portrait image (image has higher z-index / isolation)
+         ---------------------------------------------------- -->
+    <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center">
+      <div class="absolute inset-0 bg-[#0f0617]/85 backdrop-brightness-[0.9]"></div>
+
+      <div class="relative min-h-full max-w-6xl mx-auto px-6 py-28 flex flex-col justify-center">
+        
+        <div class="text-center mb-12 relative z-20">
+          <p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold mb-2 drop-shadow">
+            Chapter I • My Story
+          </p>
+          <h2 class="font-serif text-3xl sm:text-5xl text-purple-200 font-light drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+            The Girl Behind the Bloom
+          </h2>
+          <div class="w-16 h-[1px] bg-purple-400/50 mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          <!-- Franz's Portrait (Isolated with highest z-index 40 so particles don't pass over it) -->
+          <div class="lg:col-span-5 flex justify-center relative z-40">
+            <div class="relative p-2 rounded-2xl bg-gradient-to-tr from-purple-800/60 via-gold-champagne/30 to-purple-400/40 shadow-[0_20px_50px_rgba(0,0,0,0.95)] border border-purple-400/30 max-w-sm w-full bg-plum-deep">
+              <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-purple-950">
+                <img src="me.jpg" alt="Franz - Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';" class="w-full h-full object-cover filter contrast-[1.05] brightness-95">
+                <div class="absolute inset-0 bg-gradient-to-t from-plum-deep/80 via-transparent to-transparent"></div>
+              </div>
+              <div class="absolute -bottom-3 -right-3 bg-plum-deep/95 border border-gold-champagne/60 px-4 py-1.5 rounded-full shadow-lg">
+                <span class="font-script text-gold-light text-xl">Franz</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Story Text Content (Particles flow behind and through this layer) -->
+          <div class="lg:col-span-7 relative z-10 bg-plum-deep/60 backdrop-blur-sm p-8 sm:p-10 rounded-2xl border border-purple-500/20 shadow-2xl">
+            <div class="text-purple-300 text-3xl mb-4"><i class="fa-solid fa-quote-left"></i></div>
+            
+            <p class="font-serif text-lg sm:text-xl md:text-2xl text-purple-100/90 leading-relaxed font-light italic mb-6">
+              “There is a quiet beauty in the pages of a classic novel, the rhythm of a jazz melody, and the artistry of makeup. In these little things, I find inspiration and pieces of myself.”
+            </p>
+            
+            <p class="font-sans text-sm sm:text-base text-purple-200/80 leading-relaxed font-light mb-8">
+              “As I turn eighteen, I look forward to the experiences, memories, and possibilities that lie ahead. It would mean so much to have you with me as I celebrate this new chapter of my story.”
+            </p>
+
+            <div class="flex items-center justify-between pt-6 border-t border-purple-500/25">
+              <span class="font-script text-3xl sm:text-4xl text-purple-200">— Franz</span>
+              <button onclick="navigateToPage(2)" class="px-5 py-2 text-xs font-cinzel uppercase tracking-widest text-gold-light border border-gold-champagne/50 hover:bg-gold-champagne/20 transition rounded">
+                The Celebration <i class="fa-solid fa-arrow-right ml-1"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Rising Yellow Small Circles Field (z-index 30: flows across background & text card, but below portrait's z-40) -->
+      <div id="risingCirclesField" class="absolute inset-0 pointer-events-none z-30 overflow-hidden"></div>
+    </section>
+
+    <!-- ----------------------------------------------------
+         PAGE 3: THE CELEBRATION
+         - Updated Tagaytay garden overlook setup image
+         - Exactly 3 bullet items (Date/Time, Location with View Direction, Dress Code with Shades & Sketches)
+         - "Add to calendar" removed
+         - Clean typography with no citation markers
+         ---------------------------------------------------- -->
+    <section id="page-2" class="page-sheet peel-in-wait bg-custom-3 bg-cover bg-center">
+      <div class="absolute inset-0 bg-[#0f0617]/80 backdrop-brightness-[0.9]"></div>
+
+      <div class="relative z-20 min-h-full max-w-6xl mx-auto px-4 sm:px-6 py-28 flex flex-col justify-center">
+        
+        <!-- Breadcrumb Header -->
+        <div class="mb-4">
+          <p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold">
+            3. The Celebration
+          </p>
+        </div>
+
+        <!-- Celebration Two-Column Feature Card -->
+        <div class="rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.85)] border border-purple-400/20 grid grid-cols-1 lg:grid-cols-12 bg-white">
+          
+          <!-- Left Column: Tagaytay Overlook Garden Setup Imagery -->
+          <div class="lg:col-span-6 relative min-h-[360px] lg:min-h-[500px] overflow-hidden bg-purple-950">
+            <img 
+              src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" 
+              alt="Tagaytay Garden Celebration Overlook" 
+              class="w-full h-full object-cover"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-purple-950/60 via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4 bg-plum-deep/80 backdrop-blur-md p-3 rounded-lg border border-purple-400/30">
+              <p class="font-cinzel text-[10px] tracking-widest text-gold-light uppercase font-semibold">Narra Hill Sanctuary</p>
+              <p class="font-sans text-[11px] text-purple-200">Lush Tagaytay ridge gardens overlooking the serene lake horizon.</p>
+            </div>
+          </div>
+
+          <!-- Right Column: Details Panel -->
+          <div class="lg:col-span-6 relative bg-gradient-to-br from-[#faf8fc] to-[#f4eef9] p-7 sm:p-10 md:p-12 flex flex-col justify-between text-[#3b1d5a]">
+            
+            <!-- Floral Corner Accent -->
+            <div class="absolute top-0 right-0 w-32 h-32 sm:w-40 sm:h-40 pointer-events-none opacity-20">
+              <svg viewBox="0 0 100 100" fill="none" class="w-full h-full text-purple-700">
+                <path d="M100 0 C70 10, 50 30, 40 60 C35 75, 20 85, 0 100 L100 100 Z" fill="currentColor"/>
+              </svg>
+            </div>
+
+            <div>
+              <p class="font-cinzel text-xs sm:text-[13px] tracking-[0.35em] text-[#5c2d91] uppercase font-semibold mb-1">
+                The Celebration
+              </p>
+              <h2 class="font-script text-5xl sm:text-6xl text-[#3b1d5a] -rotate-1 select-none leading-tight mb-6">
+                Details
+              </h2>
+
+              <!-- Exactly 3 Bullet Sections -->
+              <div class="space-y-6">
+                
+                <!-- Bullet 1: Date & Time -->
+                <div class="flex items-start space-x-4">
+                  <div class="text-[#5c2d91] text-2xl mt-0.5">
+                    <i class="fa-regular fa-calendar-check"></i>
+                  </div>
+                  <div>
+                    <p class="font-serif text-lg sm:text-xl text-[#240b36] font-semibold leading-snug">
+                      September 22, 2028
+                    </p>
+                    <p class="font-sans text-xs sm:text-sm text-[#664b7d] flex items-center mt-1">
+                      <i class="fa-regular fa-clock mr-1.5 text-xs"></i> 6:00 PM (Philippine Standard Time)
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Bullet 2: Location & View Direction -->
+                <div class="flex items-start space-x-4">
+                  <div class="text-[#5c2d91] text-2xl mt-0.5">
+                    <i class="fa-solid fa-location-dot"></i>
+                  </div>
+                  <div class="flex-1">
+                    <p class="font-serif text-lg sm:text-xl text-[#240b36] font-semibold leading-snug">
+                      Narra Hill
+                    </p>
+                    <p class="font-sans text-xs sm:text-sm text-[#664b7d] mt-0.5">
+                      Tagaytay City, Cavite
+                    </p>
+                    <!-- View Direction Button & Note -->
+                    <div class="mt-2.5">
+                      <a 
+                        href="https://maps.google.com/?q=Narra+Hill+Tagaytay" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="inline-flex items-center space-x-1.5 text-[11px] font-cinzel font-semibold tracking-wider text-[#5c2d91] hover:text-[#240b36] underline underline-offset-4 decoration-purple-300 transition"
+                      >
+                        <i class="fa-solid fa-diamond-turn-right text-xs"></i>
+                        <span>View Direction (Google Maps)</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bullet 3: Dress Code, Shades of White & Sketches -->
+                <div class="flex items-start space-x-4">
+                  <div class="text-[#5c2d91] text-2xl mt-0.5">
+                    <i class="fa-solid fa-vest-patches"></i>
+                  </div>
+                  <div class="flex-1">
+                    <p class="font-serif text-lg sm:text-xl text-[#240b36] font-semibold leading-snug">
+                      Dress Code: Strictly White
+                    </p>
+                    <p class="font-sans text-xs sm:text-sm text-[#664b7d] mt-0.5">
+                      Formal / Semi-Formal Evening Wear
+                    </p>
+
+                    <!-- Illustration: Shades of White Palette -->
+                    <div class="mt-3">
+                      <p class="font-cinzel text-[10px] uppercase tracking-wider text-[#7a599b] mb-1.5 font-medium">Permitted Shades of White</p>
+                      <div class="flex items-center space-x-2">
+                        <div class="flex flex-col items-center">
+                          <span class="w-6 h-6 rounded-full bg-[#FFFFFF] border border-gray-300 shadow-sm"></span>
+                          <span class="text-[9px] font-sans text-[#5c2d91] mt-0.5">Pure</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                          <span class="w-6 h-6 rounded-full bg-[#FCFBF7] border border-gray-300 shadow-sm"></span>
+                          <span class="text-[9px] font-sans text-[#5c2d91] mt-0.5">Ivory</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                          <span class="w-6 h-6 rounded-full bg-[#F7F5F0] border border-gray-300 shadow-sm"></span>
+                          <span class="text-[9px] font-sans text-[#5c2d91] mt-0.5">Cream</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                          <span class="w-6 h-6 rounded-full bg-[#EAE6DF] border border-gray-300 shadow-sm"></span>
+                          <span class="text-[9px] font-sans text-[#5c2d91] mt-0.5">Alabaster</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Minimalist Fashion Sketches (Gown & Barong/Suit) -->
+                    <div class="mt-3.5 pt-3 border-t border-purple-200/60 flex items-center space-x-6">
+                      <!-- Female Formal Sketch -->
+                      <div class="flex items-center space-x-2">
+                        <svg class="w-6 h-9 text-[#5c2d91]" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="1.8">
+                          <path d="M16 10 C16 6, 24 6, 24 10 C24 14, 20 16, 20 18" />
+                          <path d="M15 18 L25 18 L27 26 L13 26 Z" />
+                          <path d="M13 26 Q10 45 4 56 L36 56 Q30 45 27 26 Z" />
+                          <line x1="20" y1="26" x2="20" y2="56" stroke-dasharray="2 2" stroke-width="1" />
+                        </svg>
+                        <div class="text-[10px] font-sans text-[#4a2472] leading-tight">
+                          <span class="font-medium block">Ladies</span>
+                          <span class="text-[9px] text-[#7a599b]">White Evening Gown</span>
+                        </div>
+                      </div>
+
+                      <!-- Male Formal Sketch -->
+                      <div class="flex items-center space-x-2">
+                        <svg class="w-6 h-9 text-[#5c2d91]" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="1.8">
+                          <circle cx="20" cy="8" r="4" />
+                          <path d="M14 16 L26 16 L28 34 L12 34 Z" />
+                          <path d="M20 16 L20 34" stroke-dasharray="2 2" stroke-width="1" />
+                          <path d="M15 34 L14 56 M25 34 L26 56" />
+                        </svg>
+                        <div class="text-[10px] font-sans text-[#4a2472] leading-tight">
+                          <span class="font-medium block">Gentlemen</span>
+                          <span class="text-[9px] text-[#7a599b]">White Barong / Suit</span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Bottom Action: Map Only (Add to Calendar removed) -->
+            <div class="flex items-center pt-8 mt-4 border-t border-purple-200/60">
+              <a 
+                href="https://maps.google.com/?q=Narra+Hill+Tagaytay" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="btn-details-dark px-7 py-2.5 text-white font-cinzel text-xs uppercase tracking-[0.2em] shadow-md flex items-center space-x-2"
+              >
+                <span>View Map</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------
+         PAGE 4: THE 18s (Find Your Role)
+         - Uses 4th page background WITHOUT dim overlay (clean & vibrant)
+         - Chapter, "Find your place", 18 roses/candles/symbols removed
+         - No card panels; only clean floating role lookup input
+         - Preloaded names:
+           * "Mavis Godani" -> 18 Candles + note
+           * "Oreo" -> Guest + note
+         ---------------------------------------------------- -->
+    <section id="page-3" class="page-sheet peel-in-wait bg-custom-4 bg-cover bg-center">
+      <!-- Overlay removed as requested -->
+
+      <div class="relative z-20 min-h-full max-w-xl mx-auto px-6 py-32 flex flex-col justify-center items-center">
+        
+        <!-- Minimalist Role Lookup Interface -->
+        <div class="w-full text-center">
+          
+          <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-gold-light uppercase font-semibold mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            Guest Role Lookup
+          </p>
+
+          <h3 class="font-serif text-3xl sm:text-4xl text-ivory font-light mb-6 drop-shadow-[0_3px_10px_rgba(0,0,0,0.9)]">
+            Enter Your Name
+          </h3>
+
+          <!-- Single Clean Input & Button -->
+          <form onsubmit="handle18sLookup(event)" class="w-full flex flex-col sm:flex-row gap-3 shadow-[0_15px_35px_rgba(0,0,0,0.7)]">
+            <input 
+              type="text" 
+              id="guestSearchInput" 
+              placeholder="e.g. Mavis Godani or Oreo" 
+              required
+              class="flex-1 px-5 py-3.5 bg-black/60 backdrop-blur-md border border-purple-300/40 rounded text-sm text-ivory placeholder-purple-300/60 focus:outline-none focus:border-gold-champagne transition shadow-inner"
+            >
+            <button type="submit" class="px-7 py-3.5 bg-purple-900/90 hover:bg-purple-800 backdrop-blur-md border border-gold-champagne/60 hover:border-gold-champagne text-xs font-cinzel uppercase tracking-widest text-ivory rounded transition shadow-lg">
+              Find My Role
+            </button>
+          </form>
+
+          <!-- Result Area (Appears cleanly below input without heavy card container) -->
+          <div id="lookupResult" class="w-full mt-6 transition-all duration-300 hidden"></div>
+
+          <!-- Bottom Navigation to next page -->
+          <div class="mt-12">
+            <button onclick="navigateToPage(4)" class="px-5 py-2 text-xs font-cinzel uppercase tracking-widest text-gold-light bg-black/40 backdrop-blur-sm border border-purple-400/30 hover:border-gold-champagne rounded transition">
+              Continue to Gallery & RSVP <i class="fa-solid fa-arrow-right ml-1"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------
+         PAGE 5: EDITORIAL GALLERY & RSVP
+         ---------------------------------------------------- -->
+    <section id="page-4" class="page-sheet peel-in-wait bg-custom-4 bg-cover bg-center">
+      <div class="absolute inset-0 bg-[#0f0617]/85 backdrop-brightness-[0.9]"></div>
+
+      <div class="relative z-20 min-h-full max-w-6xl mx-auto px-6 py-28">
+        
+        <div class="text-center mb-12">
+          <p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold mb-2">
+            Chapter IV • Memories & Attendance
+          </p>
+          <h2 class="font-serif text-3xl sm:text-5xl text-purple-100 font-light">
+            Chapters in Bloom & RSVP
+          </h2>
+          <div class="w-16 h-[1px] bg-purple-400/50 mx-auto mt-4"></div>
+        </div>
+
+        <!-- 3 Editorial Photos -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <div class="relative group overflow-hidden rounded-xl border border-purple-500/20 aspect-[3/4] bg-purple-950">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=700&q=80" alt="Editorial 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-plum-deep/80 via-transparent to-transparent flex items-end p-4">
+              <span class="font-cinzel text-[11px] tracking-widest text-purple-200 uppercase">Editorial Series I</span>
+            </div>
+          </div>
+          <div class="relative group overflow-hidden rounded-xl border border-purple-500/20 aspect-[3/4] bg-purple-950">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=700&q=80" alt="Editorial 2" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-plum-deep/80 via-transparent to-transparent flex items-end p-4">
+              <span class="font-cinzel text-[11px] tracking-widest text-purple-200 uppercase">Editorial Series II</span>
+            </div>
+          </div>
+          <div class="relative group overflow-hidden rounded-xl border border-purple-500/20 aspect-[3/4] bg-purple-950">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=700&q=80" alt="Editorial 3" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-plum-deep/80 via-transparent to-transparent flex items-end p-4">
+              <span class="font-cinzel text-[11px] tracking-widest text-purple-200 uppercase">Editorial Series III</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RSVP Form Section -->
+        <div class="max-w-2xl mx-auto bg-plum-deep/85 backdrop-blur-md p-8 sm:p-12 rounded-2xl border border-purple-500/30 shadow-2xl">
+          <div class="text-center mb-8">
+            <span class="font-cinzel text-xs tracking-widest text-gold-light uppercase">Confirmation of Attendance</span>
+            <h3 class="font-serif text-2xl sm:text-3xl text-purple-100 font-light mt-1">A Place for You</h3>
+            <p class="font-sans text-xs text-purple-300/80 mt-2">
+              Kindly confirm your attendance by <span class="text-gold-light font-semibold">September 1, 2028</span>.
+            </p>
+          </div>
+
+          <form onsubmit="handleRSVPSubmit(event)" class="space-y-5">
+            <div>
+              <label class="block font-cinzel text-[10px] uppercase tracking-widest text-purple-200 mb-1">Full Name</label>
+              <input type="text" id="rsvpName" required placeholder="e.g., Sophia Montgomery" class="w-full px-4 py-2.5 bg-white/5 border border-purple-400/30 rounded text-sm text-ivory placeholder-purple-400/40 focus:outline-none focus:border-gold-champagne">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block font-cinzel text-[10px] uppercase tracking-widest text-purple-200 mb-1">Attendance Status</label>
+                <select id="rsvpStatus" class="w-full px-4 py-2.5 bg-purple-950/90 border border-purple-400/30 rounded text-sm text-ivory focus:outline-none focus:border-gold-champagne">
+                  <option value="attending">Joyfully Accept</option>
+                  <option value="declining">Regretfully Decline</option>
+                </select>
+              </div>
+              <div>
+                <label class="block font-cinzel text-[10px] uppercase tracking-widest text-purple-200 mb-1">Dietary Preferences</label>
+                <input type="text" id="rsvpDietary" placeholder="None / Vegetarian / etc." class="w-full px-4 py-2.5 bg-white/5 border border-purple-400/30 rounded text-sm text-ivory placeholder-purple-400/40 focus:outline-none focus:border-gold-champagne">
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-cinzel text-[10px] uppercase tracking-widest text-purple-200 mb-1">Message for Franz</label>
+              <textarea id="rsvpMessage" rows="3" placeholder="Leave a warm birthday wish..." class="w-full px-4 py-2 bg-white/5 border border-purple-400/30 rounded text-sm text-ivory placeholder-purple-400/40 focus:outline-none focus:border-gold-champagne"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-gradient-to-r from-purple-800 to-purple-900 border border-gold-champagne/50 hover:border-gold-champagne text-xs font-cinzel uppercase tracking-[0.25em] text-ivory rounded shadow-lg transition">
+              Confirm My RSVP
+            </button>
+          </form>
+
+          <div id="rsvpFeedback" class="mt-4 text-center hidden"></div>
+        </div>
+
+        <!-- Section Closing -->
+        <div class="text-center mt-16 pt-8 border-t border-purple-500/20">
+          <h4 class="font-serif text-2xl text-purple-200">Until We Meet in Bloom</h4>
+          <p class="font-sans text-xs text-purple-300/70 mt-2 max-w-md mx-auto">
+            “Thank you for being part of my story. I look forward to celebrating this beautiful beginning with you.”
+          </p>
+          <p class="font-script text-3xl text-gold-light mt-3">With love, Franz</p>
+          
+          <button onclick="navigateToPage(0)" class="mt-6 text-[10px] font-cinzel uppercase tracking-widest text-purple-300 hover:text-white transition">
+            <i class="fa-solid fa-arrow-up mr-1"></i> Return to Welcome
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================
+       JAVASCRIPT LOGIC & 3D INTERACTION CONTROLS
+       ======================================================== -->
+  <script>
+    let currentPageIndex = 0;
+    const totalPages = 5;
+    let isTransitioning = false;
+    let audioContext = null;
+    let isPlayingAudio = false;
+
+    // Target Event Date: September 22, 2028 at 6:00 PM PHT (UTC+8)
+    const targetDate = new Date('2028-09-22T18:00:00+08:00').getTime();
+
+    // ----------------------------------------------------
+    // 3D Cubic-Bezier Page Transition Engine
+    // ----------------------------------------------------
+    function navigateToPage(targetIndex) {
+      if (targetIndex === currentPageIndex || isTransitioning) return;
+      isTransitioning = true;
+
+      const currentSheet = document.getElementById(`page-${currentPageIndex}`);
+      const nextSheet = document.getElementById(`page-${targetIndex}`);
+
+      if (!currentSheet || !nextSheet) {
+        isTransitioning = false;
+        return;
+      }
+
+      currentSheet.classList.remove('active');
+      currentSheet.classList.add('peel-out');
+
+      nextSheet.classList.remove('peel-out', 'peel-in-wait');
+      nextSheet.classList.add('active');
+
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        const pageAttr = parseInt(btn.getAttribute('data-page'));
+        if (pageAttr === targetIndex) {
+          btn.classList.add('text-gold-light', 'font-semibold');
+        } else {
+          btn.classList.remove('text-gold-light', 'font-semibold');
+        }
+      });
+
+      setTimeout(() => {
+        currentSheet.classList.remove('peel-out');
+        currentSheet.classList.add('peel-in-wait');
+        currentPageIndex = targetIndex;
+        isTransitioning = false;
+      }, 1600);
+    }
+
+    function enterCelebration() {
+      navigateToPage(1);
+    }
+
+    // ----------------------------------------------------
+    // Live Countdown Timer (Philippine Standard Time)
+    // ----------------------------------------------------
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference <= 0) {
+        document.getElementById('p1-days').innerText = "00";
+        document.getElementById('p1-hours').innerText = "00";
+        document.getElementById('p1-minutes').innerText = "00";
+        document.getElementById('p1-seconds').innerText = "00";
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      const daysElem = document.getElementById('p1-days');
+      if (daysElem) {
+        daysElem.innerText = String(days).padStart(3, '0');
+        document.getElementById('p1-hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('p1-minutes').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('p1-seconds').innerText = String(seconds).padStart(2, '0');
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ----------------------------------------------------
+    // Web Audio Synthesizer (Ambient Twilight Harmony)
+    // ----------------------------------------------------
+    function toggleAudio() {
+      const heroText = document.getElementById('heroMusicStatus');
+      const heroIcon = document.getElementById('heroMusicIcon');
+      const navIcon = document.getElementById('navMusicIcon');
+
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+
+      if (!isPlayingAudio) {
+        if (audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+        playTwilightChords();
+        isPlayingAudio = true;
+        if (heroText) heroText.innerText = "MUSIC OFF";
+        if (heroIcon) heroIcon.className = "fa-solid fa-volume-high text-[9px]";
+        if (navIcon) navIcon.className = "fa-solid fa-volume-high text-gold-champagne";
+      } else {
+        if (audioContext.state === 'running') {
+          audioContext.suspend();
+        }
+        isPlayingAudio = false;
+        if (heroText) heroText.innerText = "MUSIC ON";
+        if (heroIcon) heroIcon.className = "fa-solid fa-music text-[9px]";
+        if (navIcon) navIcon.className = "fa-solid fa-music";
+      }
+    }
+
+    function playTwilightChords() {
+      if (!audioContext) return;
+      const freqs = [146.83, 185.00, 220.00, 277.18];
+      freqs.forEach(freq => {
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+
+        gain.gain.setValueAtTime(0.01, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.04, audioContext.currentTime + 3);
+
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.start();
+      });
+    }
+
+    // ----------------------------------------------------
+    // The 18s Name Lookup (Includes Mavis Godani & Oreo)
+    // ----------------------------------------------------
+    function handle18sLookup(e) {
+      e.preventDefault();
+      const input = document.getElementById('guestSearchInput').value.trim();
+      const resultArea = document.getElementById('lookupResult');
+      resultArea.classList.remove('hidden');
+
+      if (!input) return;
+
+      const lower = input.toLowerCase();
+
+      // Check for Mavis Godani
+      if (lower.includes('mavis') || lower.includes('godani')) {
+        resultArea.innerHTML = `
+          <div class="p-5 rounded-xl bg-black/75 backdrop-blur-md border border-gold-champagne/80 text-center shadow-2xl">
+            <div class="w-10 h-10 rounded-full bg-purple-900/60 border border-gold-champagne/50 flex items-center justify-center mx-auto mb-2 text-gold-light">
+              <i class="fa-solid fa-fire-flame-simple text-base"></i>
+            </div>
+            <p class="font-cinzel text-xs text-gold-light uppercase tracking-widest font-semibold">18 Candles</p>
+            <h4 class="font-serif text-2xl text-ivory font-normal my-1">Mavis Godani</h4>
+            <p class="font-sans text-xs text-purple-200/95 leading-relaxed max-w-md mx-auto mt-2 italic">
+              “Thank you for being a glowing light and a source of warmth, guidance, and wisdom in Franz’s journey into eighteen.”
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      // Check for Oreo
+      if (lower.includes('oreo')) {
+        resultArea.innerHTML = `
+          <div class="p-5 rounded-xl bg-black/75 backdrop-blur-md border border-purple-400/60 text-center shadow-2xl">
+            <div class="w-10 h-10 rounded-full bg-purple-900/60 border border-purple-300/50 flex items-center justify-center mx-auto mb-2 text-purple-200">
+              <i class="fa-solid fa-heart text-base"></i>
+            </div>
+            <p class="font-cinzel text-xs text-purple-300 uppercase tracking-widest font-semibold">Honored Guest</p>
+            <h4 class="font-serif text-2xl text-ivory font-normal my-1">Oreo</h4>
+            <p class="font-sans text-xs text-purple-200/95 leading-relaxed max-w-md mx-auto mt-2 italic">
+              “A truly cherished presence in Franz’s life. Your love, cheer, and companionship bring boundless joy to this celebration.”
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      // Generic / Not Found Feedback
+      resultArea.innerHTML = `
+        <div class="p-4 rounded-xl bg-black/75 backdrop-blur-md border border-purple-500/40 text-center shadow-xl">
+          <p class="font-cinzel text-xs text-gold-light uppercase tracking-wider mb-1">Inquiry Result</p>
+          <p class="font-serif text-base text-purple-200">Searched for "<span class="text-ivory font-semibold">${input}</span>"</p>
+          <p class="font-sans text-[11px] text-purple-300/80 mt-2">
+            No matching role record found under this spelling. Please verify your formal name or check with Franz.
+          </p>
+        </div>
+      `;
+    }
+
+    // ----------------------------------------------------
+    // RSVP Submission Handler
+    // ----------------------------------------------------
+    function handleRSVPSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('rsvpName').value;
+      const status = document.getElementById('rsvpStatus').value;
+      const feedback = document.getElementById('rsvpFeedback');
+
+      feedback.classList.remove('hidden');
+      feedback.innerHTML = `
+        <div class="p-3 bg-purple-900/60 border border-gold-champagne/40 rounded text-xs text-purple-200">
+          <i class="fa-solid fa-circle-check text-gold-champagne mr-1"></i>
+          Thank you, <strong class="text-white">${name}</strong>. Your confirmation (${status === 'attending' ? 'Attending' : 'Declining'}) has been noted!
+        </div>
+      `;
+    }
+
+    // ----------------------------------------------------
+    // Mobile Menu Controls
+    // ----------------------------------------------------
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileBtn) {
+      mobileBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+    function closeMobileMenu() {
+      if (mobileMenu) mobileMenu.classList.add('hidden');
+    }
+
+    // ----------------------------------------------------
+    // Hero Particles Generator
+    // ----------------------------------------------------
+    function createParticles() {
+      const container = document.getElementById('particleField');
+      if (!container) return;
+      const count = 18;
+      for (let i = 0; i < count; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        const size = Math.random() * 5 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.animationDelay = `${Math.random() * 8}s`;
+        particle.style.animationDuration = `${Math.random() * 8 + 8}s`;
+        container.appendChild(particle);
+      }
+    }
+    createParticles();
+
+    // ----------------------------------------------------
+    // Frequent Rising Yellow Circles (My Story Page)
+    // Noticeable, flowing across background and through text card
+    // ----------------------------------------------------
+    function createRisingCircles() {
+      const container = document.getElementById('risingCirclesField');
+      if (!container) return;
+      const count = 48; // Increased frequency for a noticeable yet graceful ambient rise
+      for (let i = 0; i < count; i++) {
+        const circle = document.createElement('div');
+        circle.className = 'rising-circle';
+        
+        const size = Math.random() * 4.5 + 2.5; // Small, refined particle size (2.5px to 7px)
+        circle.style.width = `${size}px`;
+        circle.style.height = `${size}px`;
+        circle.style.left = `${Math.random() * 99}%`;
+        
+        const duration = Math.random() * 7 + 7; // Smooth 7s to 14s rise
+        const delay = Math.random() * 10;
+        circle.style.animationDuration = `${duration}s`;
+        circle.style.animationDelay = `${delay}s`;
+
+        container.appendChild(circle);
+      }
+    }
+    createRisingCircles();
+  </script>
+</body>
+</html>
