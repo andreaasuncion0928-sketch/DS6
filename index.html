@@ -64,7 +64,7 @@
 }
 
 /* ========================================================
-   GATE ENTRANCE ENGINE STYLES (Realistic 3D Opening)
+   EXACT ENTRANCE GATE STYLES (from entrance.html)
    ======================================================== */
 #gate {
   --S: 100vh;
@@ -75,21 +75,16 @@
   user-select: none;
   -webkit-user-select: none;
   background: #0b0412;
-  transition: opacity 0.8s ease;
 }
 #gate.done { display: none; }
 #gateWorld {
   position: absolute;
   inset: 0;
-  transform-origin: 50% 40%;
-  transition: transform 1.5s cubic-bezier(.22, 1, .36, 1), opacity 0.7s ease;
+  transform-origin: calc(50% + var(--S) * .03) calc(var(--S) * .34);
+  transition: transform 2.2s cubic-bezier(.22, 1, .36, 1), opacity 0.8s ease;
 }
-#gate.zoom #gateWorld { 
-  transform: scale(7.5); 
-}
-#gate.fade #gateWorld { 
-  opacity: 0; 
-}
+#gate.zoom #gateWorld { transform: scale(9); }
+#gate.fade #gateWorld { opacity: 0; }
 
 .g-side {
   position: absolute;
@@ -110,68 +105,32 @@
   width: var(--S);
   height: var(--S);
   margin-left: calc(var(--S) / -2);
-  perspective: 1200px;
-  perspective-origin: 50% 42%;
-  transform-origin: 50% 40%;
+  perspective: calc(var(--S) * 1.1);
+  perspective-origin: 53% 34%;
+  transform-origin: 53% 40%;
 }
 #gateStage > * { position: absolute; }
 
-/* Gate Background Arch */
-.g-base { 
-  inset: 0; 
-  width: 100%; 
-  height: 100%; 
-  z-index: 1; 
-  pointer-events: none; 
-}
-
-/* Light Spill Glow Behind Opened Gates */
 #gateGlow {
-  left: 36%;
-  top: 18%;
+  left: 39%;
+  top: 14%;
   width: 28%;
-  height: 48%;
+  height: 38%;
   opacity: 0;
   border-radius: 50% 50% 0 0;
   mix-blend-mode: screen;
-  z-index: 2;
-  background: radial-gradient(ellipse at 50% 65%, rgba(255,232,170,.95), rgba(190,140,255,.6) 45%, transparent 75%);
-  transition: opacity 0.8s ease;
+  z-index: 1;
+  background: radial-gradient(ellipse at 50% 70%, rgba(255,232,170,.95), rgba(190,140,255,.5) 45%, transparent 72%);
+  transition: opacity 1.2s ease;
 }
 #gate.open #gateGlow { opacity: 1; }
 
-/* 3D Realistic Swinging Gate Leaves */
-.gate-doors-container {
-  position: absolute;
-  left: 35%;
-  top: 18%;
-  width: 30%;
-  height: 52%;
-  z-index: 3;
-  perspective: 1000px;
-  display: flex;
-  pointer-events: auto;
-}
-
-.g-gate-leaf {
-  width: 50%;
+.g-base {
+  inset: 0;
+  width: 100%;
   height: 100%;
-  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transform-style: preserve-3d;
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.8));
-}
-.g-gate-leaf.left {
-  transform-origin: left center;
-}
-.g-gate-leaf.right {
-  transform-origin: right center;
-}
-
-#gate.open .g-gate-leaf.left {
-  transform: rotateY(-92deg);
-}
-#gate.open .g-gate-leaf.right {
-  transform: rotateY(92deg);
+  z-index: 2;
+  pointer-events: none;
 }
 
 /* Living Candle Flames */
@@ -212,35 +171,26 @@
 
 /* Glowing Lock Button */
 .g-lock {
-  position: absolute;
   z-index: 5;
-  left: 50%;
-  top: 48%;
-  transform: translate(-50%, -50%);
-  width: 54px;
-  height: 54px;
+  left: calc(543 / 1024 * 100% - 4.2%);
+  top: calc(385 / 1024 * 100% - 4.2%);
+  width: 8.4%;
+  height: 8.4%;
   border-radius: 50%;
-  border: 2px solid rgba(255, 230, 160, .95);
-  background: radial-gradient(circle, rgba(255, 225, 150, .45), rgba(92, 45, 145, .7));
+  border: 2px solid rgba(255, 230, 160, .9);
+  background: radial-gradient(circle, rgba(255, 225, 150, .35), transparent 70%);
   cursor: pointer;
   animation: lockPulse 2.4s ease-in-out infinite;
-  transition: opacity .3s, transform .2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff2c4;
-}
-.g-lock:hover {
-  transform: translate(-50%, -50%) scale(1.08);
+  transition: opacity .4s;
 }
 .g-lock:focus-visible { outline: 2px solid #fff; outline-offset: 6px; }
 @keyframes lockPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255,215,120,.6), 0 0 16px rgba(255,215,120,.5); }
-  50% { box-shadow: 0 0 0 14px rgba(255,215,120,0), 0 0 32px rgba(255,225,150,.95); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,215,120,.55), 0 0 14px rgba(255,215,120,.5); }
+  50% { box-shadow: 0 0 0 14px rgba(255,215,120,0), 0 0 30px rgba(255,225,150,.95); }
 }
 #gate.open .g-lock { opacity: 0; pointer-events: none; animation: none; }
 
-/* Gate Initial Veil - quick subtle intro */
+/* Subtle Intro Veil */
 #veil {
   position: absolute;
   inset: 0;
@@ -274,26 +224,15 @@
 #gateUI > * {
   opacity: 1;
   transform: none;
-  animation: riseImmediate 0.5s ease-out forwards;
+  animation: riseQuick 0.6s ease-out forwards;
 }
-@keyframes riseImmediate { 
-  from { opacity: 0; transform: translateY(10px); } 
-  to { opacity: 1; transform: translateY(0); } 
+@keyframes riseQuick {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Fireflies & Petals */
+/* Falling Petals Only (No yellow circles on entrance) */
 .fx { position: absolute; z-index: 7; pointer-events: none; }
-.fly {
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(254,240,138,.95), rgba(250,204,21,0) 70%);
-  animation: flyUp linear infinite;
-}
-@keyframes flyUp {
-  0% { transform: translateY(0); opacity: 0; }
-  15% { opacity: .9; }
-  85% { opacity: .7; }
-  100% { transform: translateY(-55vh) translateX(26px); opacity: 0; }
-}
 .petal {
   top: -5vh;
   border-radius: 80% 0 80% 0;
@@ -347,7 +286,7 @@
   z-index: 10;
 }
 
-/* Rising Yellow Circles (My Story Only) */
+/* Rising Yellow Circles (Kept strictly on My Story page) */
 .rising-circle {
   position: absolute;
   border-radius: 50%;
@@ -393,7 +332,7 @@
 <body class="bg-plum-deep text-ivory font-sans antialiased overflow-hidden select-none">
 
   <!-- ========================================================
-       INTEGRATED ANIMATED GATE OVERLAY
+       EXACT INTEGRATED GATE ENTRANCE (from entrance.html)
        ======================================================== -->
   <div id="gate" role="dialog" aria-label="Invitation entrance">
     <div id="gateWorld">
@@ -402,46 +341,10 @@
       <div id="gateStage">
         <div id="gateGlow"></div>
         <img class="g-base" src="gate.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=1600&q=80';" alt="Enchanted Twilight Gate">
-        
-        <!-- Functional 3D Realistic Swinging Iron Gates -->
-        <div class="gate-doors-container" onclick="openGate()">
-          <!-- Left Gate Leaf -->
-          <svg class="g-gate-leaf left" viewBox="0 0 140 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="2" width="136" height="276" rx="4" stroke="#d4af37" stroke-width="2.5" fill="rgba(15, 6, 23, 0.55)"/>
-            <path d="M10 20 Q70 5 130 20" stroke="#f3e5ab" stroke-width="2"/>
-            <path d="M10 260 Q70 275 130 260" stroke="#f3e5ab" stroke-width="2"/>
-            <line x1="28" y1="15" x2="28" y2="265" stroke="#d4af37" stroke-width="1.8"/>
-            <line x1="56" y1="12" x2="56" y2="268" stroke="#d4af37" stroke-width="1.8"/>
-            <line x1="84" y1="12" x2="84" y2="268" stroke="#d4af37" stroke-width="1.8"/>
-            <line x1="112" y1="15" x2="112" y2="265" stroke="#d4af37" stroke-width="1.8"/>
-            <!-- Floral / Baroque Ornate Scrollwork -->
-            <path d="M70 70 C40 90 40 130 70 140 C100 130 100 90 70 70 Z" stroke="#f3e5ab" stroke-width="1.5" fill="none"/>
-            <path d="M70 140 C40 160 40 200 70 210 C100 200 100 160 70 140 Z" stroke="#f3e5ab" stroke-width="1.5" fill="none"/>
-            <circle cx="70" cy="140" r="5" fill="#d4af37"/>
-          </svg>
-
-          <!-- Right Gate Leaf -->
-          <svg class="g-gate-leaf right" viewBox="0 0 140 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="2" width="136" height="276" rx="4" stroke="#d4af37" stroke-width="2.5" fill="rgba(15, 6, 23, 0.55)"/>
-            <path d="M10 20 Q70 5 130 20" stroke="#f3e5ab" stroke-width="2"/>
-            <path d="M10 260 Q70 275 130 260" stroke="#f3e5ab" stroke-width="2"/>
-            <line x1="28" y1="15" x2="28" y2="265" stroke="#d4af37" stroke-width="1.8"/>
-            <line x1="56" y1="12" x2="56" y2="268" stroke="#d4af37" stroke-width="1.8"/>
-            <line x1="84" y1="12" x2="84" y2="268" stroke="#d4af37" stroke-width="1.8"/>
-            <line x1="112" y1="15" x2="112" y2="265" stroke="#d4af37" stroke-width="1.8"/>
-            <!-- Floral / Baroque Ornate Scrollwork -->
-            <path d="M70 70 C40 90 40 130 70 140 C100 130 100 90 70 70 Z" stroke="#f3e5ab" stroke-width="1.5" fill="none"/>
-            <path d="M70 140 C40 160 40 200 70 210 C100 200 100 160 70 140 Z" stroke="#f3e5ab" stroke-width="1.5" fill="none"/>
-            <circle cx="70" cy="140" r="5" fill="#d4af37"/>
-          </svg>
-        </div>
-
         <div id="cflames"></div>
         <div class="mist a"></div>
         <div class="mist b"></div>
-        <button type="button" class="g-lock" onclick="openGate()" aria-label="Open the gate">
-          <i class="fa-solid fa-key text-lg"></i>
-        </button>
+        <button type="button" class="g-lock" onclick="openGate()" aria-label="Open the gate"></button>
       </div>
     </div>
     <div id="fxLayer"></div>
@@ -507,7 +410,7 @@
   <main class="perspective-container relative w-full h-screen overflow-hidden bg-black">
 
     <!-- ----------------------------------------------------
-         PAGE 1: HOME / WELCOME (Clean - No circles)
+         PAGE 1: HOME / WELCOME (Clean - No circles or dots)
          ---------------------------------------------------- -->
     <section id="page-0" class="page-sheet active bg-custom-1 bg-cover bg-center">
       <div class="absolute inset-0 bg-[#0f0617]/80 backdrop-brightness-[0.9]"></div>
@@ -636,7 +539,7 @@
 
       </div>
 
-      <!-- Rising Yellow Circles Field (Retained exclusively for Chapter I) -->
+      <!-- Rising Yellow Circles Field (Kept on Chapter I) -->
       <div id="risingCirclesField" class="absolute inset-0 pointer-events-none z-30 overflow-hidden"></div>
     </section>
 
@@ -964,7 +867,7 @@
     const targetDate = new Date('2028-09-22T18:00:00+08:00').getTime();
 
     // ----------------------------------------------------
-    // Embedded Gate Lighting, Fireflies & Petals Setup
+    // Embedded Gate Lighting & Petals Setup
     // ----------------------------------------------------
     const R = Math.random;
 
@@ -977,15 +880,9 @@
       if (cflames) cflames.appendChild(d);
     });
 
-    // Fireflies and petals
+    // Lilac petals only (No yellow circles on entrance)
     const fx = document.getElementById('fxLayer');
     if (fx) {
-      for (let i = 0; i < 26; i++) {
-        const s = R() * 5 + 3, f = document.createElement('div');
-        f.className = 'fx fly';
-        f.style.cssText = `width:${s}px;height:${s}px;left:${R()*100}%;top:${45+R()*55}%;animation-duration:${R()*8+8}s;animation-delay:${R()*8}s`;
-        fx.appendChild(f);
-      }
       for (let i = 0; i < 14; i++) {
         const s = R() * 8 + 8, p = document.createElement('div');
         p.className = 'fx petal';
@@ -995,7 +892,7 @@
     }
 
     // ----------------------------------------------------
-    // Open Gate Animation Flow - INSTANT, NO DELAYS OR BLOCKERS
+    // Open Gate Animation Flow - INSTANT, NO BLOCKERS OR DELAYS
     // ----------------------------------------------------
     let gateOpened = false;
     function openGate() {
@@ -1009,18 +906,17 @@
         toggleAudio();
       }
 
-      // Swing gate and zoom right away simultaneously
+      // Zoom straight into visual gate arch without delay
       g.classList.add('open');
       g.classList.add('zoom');
 
-      // Seamlessly fade and reveal Page 1
       setTimeout(() => { 
         g.classList.add('fade'); 
       }, 700);
 
       setTimeout(() => { 
         g.classList.add('done'); 
-      }, 1250);
+      }, 1300);
     }
 
     function relockGates() {
@@ -1242,7 +1138,7 @@
     }
 
     // ----------------------------------------------------
-    // Frequent Rising Yellow Circles (Kept for My Story page)
+    // Frequent Rising Yellow Circles (Kept strictly on My Story page)
     // ----------------------------------------------------
     function createRisingCircles() {
       const container = document.getElementById('risingCirclesField');
