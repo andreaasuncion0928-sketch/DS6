@@ -1,363 +1,402 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Franz’s 18th Birthday — Amethyst Reverie</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
-  
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Franz’s 18th Birthday — Amethyst Reverie</title>
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'plum-deep': '#0f0617',
-            'royal-purple': '#240b36',
-            'amethyst': '#5c2d91',
-            'lavender-soft': '#d4bbf3',
-            'lilac-pale': '#f0e6f6',
-            'ivory': '#fcfbfa',
-            'gold-champagne': '#d4af37',
-            'gold-light': '#f3e5ab'
-          },
-          fontFamily: {
-            serif: ['"Cormorant Garamond"', 'serif'],
-            display: ['"Playfair Display"', 'serif'],
-            script: ['"Great Vibes"', 'cursive'],
-            allura: ['"Allura"', 'cursive'],
-            cinzel: ['"Cinzel"', 'serif'],
-            sans: ['"Montserrat"', 'sans-serif'],
-          }
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'plum-deep': '#0f0617',
+          'royal-purple': '#240b36',
+          'amethyst': '#5c2d91',
+          'lavender-soft': '#d4bbf3',
+          'lilac-pale': '#f0e6f6',
+          'ivory': '#fcfbfa',
+          'gold-champagne': '#d4af37',
+          'gold-light': '#f3e5ab'
+        },
+        fontFamily: {
+          serif: ['"Cormorant Garamond"', 'serif'],
+          display: ['"Playfair Display"', 'serif'],
+          script: ['"Great Vibes"', 'cursive'],
+          allura: ['"Allura"', 'cursive'],
+          cinzel: ['"Cinzel"', 'serif'],
+          sans: ['"Montserrat"', 'sans-serif'],
         }
       }
     }
-  </script>
+  }
+</script>
 
-  <style>
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0f0617; }
-    ::-webkit-scrollbar-thumb { background: #3b1d5a; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #5c2d91; }
+<style>
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0f0617; }
+::-webkit-scrollbar-thumb { background: #3b1d5a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #5c2d91; }
 
-    /* Custom Responsive Backgrounds */
-    .bg-custom-1 { background-image: url('background b.jpg'); }
-    .bg-custom-2 { background-image: url('2nd page b.jpg'); }
-    .bg-custom-3 { background-image: url('3rd page b.jpg'); }
-    .bg-custom-4 { background-image: url('4th page b.jpg'); }
+/* Custom Responsive Backgrounds */
+.bg-custom-1 { background-image: url('background b.jpg'); }
+.bg-custom-2 { background-image: url('2nd page b.jpg'); }
+.bg-custom-3 { background-image: url('3rd page b.jpg'); }
+.bg-custom-4 { background-image: url('4th page b.jpg'); }
 
-    @media (max-width: 768px) {
-      .bg-custom-1 { background-image: url('background p.jpg'); }
-      .bg-custom-2 { background-image: url('2nd page p.jpg'); }
-      .bg-custom-3 { background-image: url('3rd page p.jpg'); }
-      .bg-custom-4 { background-image: url('4th page p.jpg'); }
-    }
+@media (max-width: 768px) {
+  .bg-custom-1 { background-image: url('background p.jpg'); }
+  .bg-custom-2 { background-image: url('2nd page p.jpg'); }
+  .bg-custom-3 { background-image: url('3rd page p.jpg'); }
+  .bg-custom-4 { background-image: url('4th page p.jpg'); }
+}
 
-    /* 3D Container Setup */
-    .perspective-container {
-      perspective: 1800px;
-      perspective-origin: center center;
-    }
+/* ========================================================
+   EMBEDDED GATE ENTRANCE ENGINE STYLES
+   ======================================================== */
+#gate {
+  --S: 100vh;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  background: #0b0412;
+}
+#gate.done { display: none; }
+#gateWorld {
+  position: absolute;
+  inset: 0;
+  transform-origin: calc(50% + var(--S) * .03) calc(var(--S) * .34);
+  transition: transform 2.8s cubic-bezier(.65, 0, .9, .4), opacity 1.1s ease;
+}
+#gate.zoom #gateWorld { transform: scale(9); }
+#gate.fade #gateWorld { opacity: 0; }
 
-    .page-sheet {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-      overflow-x: hidden;
-      backface-visibility: hidden;
-      transform-style: preserve-3d;
-      transition: transform 1.6s cubic-bezier(0.65, 0, 0.15, 1), 
-                  opacity 1.4s cubic-bezier(0.65, 0, 0.15, 1),
-                  filter 1.4s cubic-bezier(0.65, 0, 0.15, 1);
-    }
+.g-side {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: max(0px, calc((100vw - var(--S)) / 2));
+  background: inherit;
+  transform: scaleX(-1);
+  filter: blur(5px) brightness(.7);
+}
+.g-side.l { left: 0; background-position: left center; }
+.g-side.r { right: 0; background-position: right center; }
 
-    .page-sheet.active {
-      transform: translate3d(0, 0, 0) scale(1) rotateY(0deg);
-      opacity: 1;
-      filter: blur(0px);
-      pointer-events: auto;
-      z-index: 20;
-    }
+#gateStage {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--S);
+  height: var(--S);
+  margin-left: calc(var(--S) / -2);
+  perspective: calc(var(--S) * 1.1);
+  perspective-origin: 53% 34%;
+  animation: breathe 16s ease-in-out infinite alternate;
+  transform-origin: 53% 40%;
+}
+@keyframes breathe { from { transform: scale(1); } to { transform: scale(1.045); } }
+#gate.open #gateStage { animation: none; }
+#gateStage > * { position: absolute; }
 
-    .page-sheet.peel-out {
-      transform: translate3d(-35%, 0, -250px) rotateY(-38deg) rotateZ(-3deg);
-      opacity: 0;
-      filter: blur(4px);
-      pointer-events: none;
-      z-index: 10;
-    }
+#gateGlow {
+  left: 39%;
+  top: 14%;
+  width: 28%;
+  height: 38%;
+  opacity: 0;
+  border-radius: 50% 50% 0 0;
+  mix-blend-mode: screen;
+  z-index: 1;
+  background: radial-gradient(ellipse at 50% 70%, rgba(255,232,170,.95), rgba(190,140,255,.5) 45%, transparent 72%);
+  transition: opacity 1.6s ease .4s;
+}
+#gate.open #gateGlow { opacity: 1; }
+.g-base { inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+.g-leaf {
+  z-index: 3;
+  height: calc(373 / 1024 * 100%);
+  top: calc(148 / 1024 * 100%);
+  cursor: pointer;
+  transition: transform 2.7s cubic-bezier(.55, .03, .25, 1);
+}
+.g-leaf.l { left: calc(405 / 1024 * 100%); width: calc(141 / 1024 * 100%); transform-origin: 0 50%; }
+.g-leaf.r { left: calc(541 / 1024 * 100%); width: calc(121 / 1024 * 100%); transform-origin: 100% 50%; }
+#gate.open .g-leaf.l { transform: rotateY(80deg); }
+#gate.open .g-leaf.r { transform: rotateY(-80deg); }
 
-    .page-sheet.peel-in-wait {
-      transform: translate3d(25%, 0, -180px) rotateY(25deg) scale(0.92);
-      opacity: 0;
-      filter: blur(4px);
-      pointer-events: none;
-      z-index: 10;
-    }
+/* Living Candle Flames */
+.cf {
+  z-index: 4;
+  width: 9%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: radial-gradient(circle, rgba(255,190,120,.7), rgba(255,120,150,.25) 40%, transparent 70%);
+  animation: flick 2.2s ease-in-out infinite;
+}
+@keyframes flick {
+  0%, 100% { opacity: .75; transform: translate(-50%, -50%) scale(1); }
+  30% { opacity: 1; transform: translate(-50%, -50%) scale(1.12); }
+  60% { opacity: .62; transform: translate(-50%, -50%) scale(.94); }
+  80% { opacity: .95; }
+}
 
-    /* ========================================================
-       GRAND ANIMATED TWILIGHT GARDEN GATE
-       ======================================================== */
-    .gate-scene-wrapper {
-      perspective: 1300px;
-      perspective-origin: 50% 38%;
-      transition: transform 2.8s cubic-bezier(0.65, 0, 0.25, 1), opacity 1.8s ease;
-    }
+/* Drifting Mist */
+.mist {
+  z-index: 4;
+  left: -30%;
+  width: 160%;
+  height: 26%;
+  pointer-events: none;
+  filter: blur(14px);
+  background: radial-gradient(ellipse 18% 50% at 20% 60%, rgba(200,175,255,.38), transparent),
+              radial-gradient(ellipse 22% 45% at 55% 50%, rgba(190,160,255,.3), transparent),
+              radial-gradient(ellipse 16% 55% at 85% 65%, rgba(210,185,255,.34), transparent);
+  animation: drift 26s ease-in-out infinite alternate;
+}
+.mist.a { top: 56%; }
+.mist.b { top: 74%; animation-duration: 34s; animation-direction: alternate-reverse; opacity: .8; }
+@keyframes drift { from { transform: translateX(-9%); } to { transform: translateX(9%); } }
 
-    /* Archway Portal & 3D Double Gate Doors */
-    .arch-portal-container {
-      position: absolute;
-      top: 15.5%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
-      height: 345px;
-      perspective: 1000px;
-      pointer-events: none;
-    }
+/* Glowing Lock Button */
+.g-lock {
+  z-index: 5;
+  left: calc(543 / 1024 * 100% - 4.2%);
+  top: calc(385 / 1024 * 100% - 4.2%);
+  width: 8.4%;
+  height: 8.4%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 230, 160, .9);
+  background: radial-gradient(circle, rgba(255, 225, 150, .35), transparent 70%);
+  cursor: pointer;
+  animation: lockPulse 2.4s ease-in-out infinite;
+  transition: opacity .5s;
+}
+.g-lock:focus-visible { outline: 2px solid #fff; outline-offset: 6px; }
+@keyframes lockPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,215,120,.55), 0 0 14px rgba(255,215,120,.5); }
+  50% { box-shadow: 0 0 0 14px rgba(255,215,120,0), 0 0 30px rgba(255,225,150,.95); }
+}
+#gate.open .g-lock { opacity: 0; pointer-events: none; animation: none; }
 
-    @media (min-width: 768px) {
-      .arch-portal-container {
-        top: 16%;
-        width: 310px;
-        height: 420px;
-      }
-    }
+/* Gate Initial Veil */
+#veil {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: #0b0412;
+  pointer-events: none;
+  animation: veil 2.6s ease .2s forwards;
+}
+@keyframes veil { to { opacity: 0; visibility: hidden; } }
 
-    .gate-door {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 50%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transition: transform 2.8s cubic-bezier(0.75, 0.05, 0.2, 1), filter 2.5s ease;
-      filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.8));
-    }
+#gateUI {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 46%;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  padding: 0 1.5rem 5vh;
+  pointer-events: none;
+  background: linear-gradient(0deg, rgba(8,3,16,.92), rgba(8,3,16,.55) 55%, transparent);
+  transition: opacity .9s ease, transform 1.2s ease;
+}
+#gate.open #gateUI { opacity: 0; transform: translateY(24px); }
+#gateUI > * {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: rise 1.6s ease forwards;
+}
+#gateUI > :nth-child(1) { animation-delay: 1.6s; }
+#gateUI > :nth-child(2) { animation-delay: 2.1s; }
+#gateUI > :nth-child(3) { animation-delay: 2.7s; }
+#gateUI > :nth-child(4) { animation-delay: 3.4s; }
+@keyframes rise { to { opacity: 1; transform: none; } }
 
-    .gate-door-left {
-      left: 0;
-      transform-origin: left center;
-    }
+/* Fireflies & Petals */
+.fx { position: absolute; z-index: 7; pointer-events: none; }
+.fly {
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(254,240,138,.95), rgba(250,204,21,0) 70%);
+  animation: flyUp linear infinite;
+}
+@keyframes flyUp {
+  0% { transform: translateY(0); opacity: 0; }
+  15% { opacity: .9; }
+  85% { opacity: .7; }
+  100% { transform: translateY(-55vh) translateX(26px); opacity: 0; }
+}
+.petal {
+  top: -5vh;
+  border-radius: 80% 0 80% 0;
+  background: linear-gradient(135deg, #e9dcff, #a77be0);
+  opacity: .85;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  0% { transform: translate(0, -5vh) rotate(0); }
+  100% { transform: translate(18vw, 108vh) rotate(540deg); }
+}
+#gate.open .fx { opacity: 0; transition: opacity 1s; }
 
-    .gate-door-right {
-      right: 0;
-      transform-origin: right center;
-    }
+/* 3D Multi-Sheet Perspectives */
+.perspective-container {
+  perspective: 1800px;
+  perspective-origin: center center;
+}
+.page-sheet {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: transform 1.6s cubic-bezier(0.65, 0, 0.15, 1), 
+              opacity 1.4s cubic-bezier(0.65, 0, 0.15, 1),
+              filter 1.4s cubic-bezier(0.65, 0, 0.15, 1);
+}
+.page-sheet.active {
+  transform: translate3d(0, 0, 0) scale(1) rotateY(0deg);
+  opacity: 1;
+  filter: blur(0px);
+  pointer-events: auto;
+  z-index: 20;
+}
+.page-sheet.peel-out {
+  transform: translate3d(-35%, 0, -250px) rotateY(-38deg) rotateZ(-3deg);
+  opacity: 0;
+  filter: blur(4px);
+  pointer-events: none;
+  z-index: 10;
+}
+.page-sheet.peel-in-wait {
+  transform: translate3d(25%, 0, -180px) rotateY(25deg) scale(0.92);
+  opacity: 0;
+  filter: blur(4px);
+  pointer-events: none;
+  z-index: 10;
+}
 
-    /* Active Gate Swing Animation */
-    .gates-swinging .gate-door-left {
-      transform: rotateY(-115deg) translateZ(10px);
-    }
+/* Ambient Dust Particles */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(243, 229, 171, 0.8) 0%, rgba(212, 175, 55, 0) 70%);
+  pointer-events: none;
+  animation: floatParticle 14s infinite ease-in-out;
+}
+@keyframes floatParticle {
+  0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
+  20% { opacity: 0.6; }
+  80% { opacity: 0.6; }
+  100% { transform: translateY(-120px) translateX(30px) scale(1.2); opacity: 0; }
+}
 
-    .gates-swinging .gate-door-right {
-      transform: rotateY(115deg) translateZ(10px);
-    }
+/* Rising Yellow Circles (My Story) */
+.rising-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(254, 240, 138, 0.95) 0%, rgba(250, 204, 21, 0.65) 55%, rgba(202, 138, 4, 0) 100%);
+  box-shadow: 0 0 8px 1.5px rgba(250, 204, 21, 0.7);
+  pointer-events: none;
+  animation: riseSlowly linear infinite;
+}
+@keyframes riseSlowly {
+  0% { transform: translateY(105vh) translateX(0px) scale(0.65); opacity: 0; }
+  10% { opacity: 0.85; }
+  85% { opacity: 0.75; }
+  100% { transform: translateY(-8vh) translateX(28px) scale(1.25); opacity: 0; }
+}
 
-    .gates-swinging .gate-scene-wrapper {
-      transform: scale(1.35) translateY(12%);
-    }
+.vintage-invitation-btn {
+  position: relative;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  background: rgba(15, 6, 23, 0.45);
+  box-shadow: 0 0 15px rgba(92, 45, 145, 0.3), inset 0 0 10px rgba(212, 175, 55, 0.15);
+  transition: all 0.4s ease;
+}
+.vintage-invitation-btn:hover {
+  background: rgba(92, 45, 145, 0.55);
+  border-color: rgba(243, 229, 171, 0.95);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.45), inset 0 0 15px rgba(212, 175, 55, 0.3);
+  transform: translateY(-1px) scale(1.02);
+}
 
-    .gates-swinging .gate-invitation-crest {
-      transform: scale(0.85);
-      opacity: 0;
-      filter: blur(12px);
-      pointer-events: none;
-    }
-
-    .gates-swinging .gate-light-bloom {
-      opacity: 1;
-      transform: scale(2.2);
-    }
-
-    /* Candle Flame Flickering */
-    @keyframes candleFlicker {
-      0%, 100% { opacity: 0.85; transform: scale(1); filter: drop-shadow(0 0 8px rgba(254, 215, 170, 0.8)); }
-      25% { opacity: 1; transform: scale(1.12); filter: drop-shadow(0 0 14px rgba(251, 146, 60, 0.95)); }
-      50% { opacity: 0.78; transform: scale(0.94); filter: drop-shadow(0 0 6px rgba(254, 215, 170, 0.7)); }
-      75% { opacity: 0.95; transform: scale(1.08); filter: drop-shadow(0 0 12px rgba(251, 146, 60, 0.9)); }
-    }
-    .flicker-candle {
-      animation: candleFlicker 2.5s infinite ease-in-out;
-    }
-
-    /* Ambient Dust & Rising Circles */
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(243, 229, 171, 0.8) 0%, rgba(212, 175, 55, 0) 70%);
-      pointer-events: none;
-      animation: floatParticle 14s infinite ease-in-out;
-    }
-    @keyframes floatParticle {
-      0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
-      20% { opacity: 0.6; }
-      80% { opacity: 0.6; }
-      100% { transform: translateY(-120px) translateX(30px) scale(1.2); opacity: 0; }
-    }
-
-    .rising-circle {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(254, 240, 138, 0.95) 0%, rgba(250, 204, 21, 0.65) 55%, rgba(202, 138, 4, 0) 100%);
-      box-shadow: 0 0 8px 1.5px rgba(250, 204, 21, 0.7);
-      pointer-events: none;
-      animation: riseSlowly linear infinite;
-    }
-    @keyframes riseSlowly {
-      0% { transform: translateY(105vh) translateX(0px) scale(0.65); opacity: 0; }
-      10% { opacity: 0.85; }
-      85% { opacity: 0.75; }
-      100% { transform: translateY(-8vh) translateX(28px) scale(1.25); opacity: 0; }
-    }
-
-    .vintage-invitation-btn {
-      position: relative;
-      border: 1px solid rgba(212, 175, 55, 0.65);
-      background: rgba(15, 6, 23, 0.45);
-      box-shadow: 0 0 15px rgba(92, 45, 145, 0.3), inset 0 0 10px rgba(212, 175, 55, 0.15);
-      transition: all 0.4s ease;
-    }
-    .vintage-invitation-btn:hover {
-      background: rgba(92, 45, 145, 0.55);
-      border-color: rgba(243, 229, 171, 0.95);
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.45), inset 0 0 15px rgba(212, 175, 55, 0.3);
-      transform: translateY(-1px) scale(1.02);
-    }
-
-    .btn-details-dark {
-      background: #251239;
-      border: 1px solid rgba(139, 92, 246, 0.4);
-      border-radius: 9999px;
-      transition: all 0.3s ease;
-    }
-    .btn-details-dark:hover {
-      background: #3b1d5a;
-      border-color: rgba(212, 175, 55, 0.85);
-      transform: translateY(-1px);
-    }
-  </style>
+.btn-details-dark {
+  background: #251239;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+}
+.btn-details-dark:hover {
+  background: #3b1d5a;
+  border-color: rgba(212, 175, 55, 0.85);
+  transform: translateY(-1px);
+}
+</style>
 </head>
 <body class="bg-plum-deep text-ivory font-sans antialiased overflow-hidden select-none">
 
   <!-- ========================================================
-       GRAND ENCHANTED GATE ANIMATED ENTRANCE OVERLAY
-       (Uses user's uploaded gate image + 3D swinging iron gate wings)
+       INTEGRATED ANIMATED GATE OVERLAY
        ======================================================== -->
-  <div id="enchantedGateOverlay" class="fixed inset-0 z-[100] bg-black overflow-hidden select-none transition-opacity duration-1000">
-    
-    <!-- 3D Perspective Scene Wrapper -->
-    <div id="gateSceneWrapper" class="gate-scene-wrapper relative w-full h-full">
-      
-      <!-- Photo Garden Background -->
-      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('gate.jpg'), url('https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=1600&q=80');">
-        <!-- Twilight Purple Vignette Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-t from-plum-deep via-transparent to-purple-950/40"></div>
-      </div>
-
-      <!-- Glowing Candle Flickers Positioned on Path -->
-      <div class="absolute inset-0 pointer-events-none z-10">
-        <span class="flicker-candle absolute bottom-[6%] left-[64%] w-3.5 h-6 rounded-full bg-orange-300"></span>
-        <span class="flicker-candle absolute bottom-[21%] left-[28%] w-3.5 h-6 rounded-full bg-orange-300"></span>
-        <span class="flicker-candle absolute bottom-[35%] left-[36%] w-3 h-5 rounded-full bg-orange-200"></span>
-        <span class="flicker-candle absolute bottom-[40%] left-[55%] w-3 h-5 rounded-full bg-orange-200"></span>
-        <span class="flicker-candle absolute bottom-[46%] left-[43%] w-2.5 h-4 rounded-full bg-orange-100"></span>
-      </div>
-
-      <!-- Ambient Golden Fairy Dust Particles -->
-      <div id="gateParticleField" class="absolute inset-0 pointer-events-none z-10"></div>
-
-      <!-- Center Archway Portal with 3D Wrought-Iron Double Gates -->
-      <div class="arch-portal-container z-20">
-        
-        <!-- Radiant Twilight Light Bloom Behind Gates -->
-        <div class="gate-light-bloom absolute inset-0 bg-radial from-amber-100 via-purple-300/40 to-transparent opacity-0 transition-all duration-1000 pointer-events-none"></div>
-
-        <!-- Left Gate Door -->
-        <div class="gate-door gate-door-left">
-          <svg class="w-full h-full text-[#140b22]" viewBox="0 0 150 400" fill="none" stroke="#25163b" stroke-width="3">
-            <!-- Curved Arch Top -->
-            <path d="M 148,5 C 90,8 15,45 8,100 L 8,395 L 148,395" stroke="#12061e" fill="rgba(10,3,18,0.7)" />
-            <!-- Ornate Iron Scrollwork -->
-            <path d="M 145,20 C 110,30 35,70 25,120 C 18,170 80,180 145,200" stroke="#d4af37" stroke-width="1.8" />
-            <path d="M 145,200 C 70,220 20,250 25,310 C 30,360 90,380 145,390" stroke="#d4af37" stroke-width="1.8" />
-            <!-- Vertical Spear Bars -->
-            <line x1="35" y1="80" x2="35" y2="395" stroke="#3b1d5a" stroke-width="3" />
-            <line x1="65" y1="50" x2="65" y2="395" stroke="#3b1d5a" stroke-width="3" />
-            <line x1="95" y1="30" x2="95" y2="395" stroke="#3b1d5a" stroke-width="3" />
-            <line x1="125" y1="18" x2="125" y2="395" stroke="#3b1d5a" stroke-width="3" />
-            <!-- Left Half Lock Handle -->
-            <circle cx="145" cy="210" r="14" stroke="#d4af37" stroke-width="2.5" fill="#1f0d33" />
-          </svg>
-        </div>
-
-        <!-- Right Gate Door -->
-        <div class="gate-door gate-door-right">
-          <svg class="w-full h-full text-[#140b22] transform -scale-x-100" viewBox="0 0 150 400" fill="none" stroke="#25163b" stroke-width="3">
-            <!-- Curved Arch Top -->
-            <path d="M 148,5 C 90,8 15,45 8,100 L 8,395 L 148,395" stroke="#12061e" fill="rgba(10,3,18,0.7)" />
-            <!-- Ornate Iron Scrollwork -->
-            <path d="M 145,20 C 110,30 35,70 25,120 C 18,170 80,180 145,200" stroke="#d4af37" stroke-width="1.8" />
-            <path d="M 145,200 C 70,220 20,250 25,310 C 30,360 90,380 145,390" stroke="#d4af37" stroke-width="1.8" />
-            <!-- Vertical Spear Bars -->
-            <line x1="35" y1="80" x2="35" y2="395" stroke="#3b1d5a" stroke-width="3" />
-            <line x1="65" y1="50" x2="65" y2="395" stroke="#3b1d5a" stroke-width="3" />
-            <line x1="95" y1="30" x2="95" y2="395" stroke="#3b1d5a" stroke-width="3" />
-            <line x1="125" y1="18" x2="125" y2="395" stroke="#3b1d5a" stroke-width="3" />
-            <!-- Right Half Lock Handle -->
-            <circle cx="145" cy="210" r="14" stroke="#d4af37" stroke-width="2.5" fill="#1f0d33" />
-          </svg>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- Foreground Floating Invitation Crest (Click to Swing Open Gates) -->
-    <div id="gateCrest" class="gate-invitation-crest absolute inset-0 z-30 flex flex-col items-center justify-end pb-12 sm:pb-16 px-4 pointer-events-auto transition-all duration-700">
-      <div class="bg-plum-deep/85 border border-gold-champagne/60 p-6 sm:p-9 rounded-2xl backdrop-blur-xl shadow-[0_0_50px_rgba(92,45,145,0.8)] text-center max-w-sm w-full relative">
-        
-        <p class="font-cinzel text-[11px] tracking-[0.35em] text-purple-200 uppercase font-light mb-1 drop-shadow">
-          You Are Invited To
-        </p>
-
-        <h1 class="font-serif text-3xl sm:text-4xl text-ivory font-light mb-0.5">
-          Franz’s 18th
-        </h1>
-        <p class="font-script text-3xl text-gold-light mb-5">Amethyst Reverie</p>
-
-        <!-- Button that Triggers Gate Opening Animation -->
-        <button onclick="openEnchantedGates()" class="w-full py-3 bg-gradient-to-r from-purple-900 via-amethyst to-purple-900 border border-gold-champagne/80 hover:border-gold-champagne rounded-full text-xs font-cinzel uppercase tracking-[0.25em] text-ivory shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_35px_rgba(212,175,55,0.7)] transition-all duration-300">
-          Open The Enchanted Gate
-        </button>
-
-        <p class="font-sans text-[9px] text-purple-300/80 uppercase tracking-widest mt-3">
-          Step along the candlelit stone path
-        </p>
+  <div id="gate" role="dialog" aria-label="Invitation entrance">
+    <div id="gateWorld">
+      <div class="g-side l"></div>
+      <div class="g-side r"></div>
+      <div id="gateStage">
+        <div id="gateGlow"></div>
+        <img class="g-base" src="gate.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=1600&q=80';" alt="Enchanted Twilight Gate">
+        <img class="g-leaf l" src="data:image/webp;base64,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" alt="" onclick="openGate()">
+        <div id="cflames"></div>
+        <div class="mist a"></div>
+        <div class="mist b"></div>
+        <button type="button" class="g-lock" onclick="openGate()" aria-label="Open the gate"></button>
       </div>
     </div>
-
+    <div id="fxLayer"></div>
+    <div id="gateUI">
+      <p style="font-family:'Cinzel',serif;letter-spacing:.4em;font-size:.7rem;color:#d4bbf3;text-transform:uppercase;margin:0 0 .2rem">An evening in violet awaits</p>
+      <h1 style="font-family:'Great Vibes',cursive;font-weight:400;font-size:clamp(3.2rem,9vw,6.4rem);line-height:1;color:#f0e6f6;text-shadow:0 6px 24px rgba(0,0,0,.95),0 0 40px rgba(167,119,255,.6);margin:0 0 .1rem">You Are Invited</h1>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.25rem;color:#d4bbf3;margin:0 0 1rem">to Franz’s eighteenth</p>
+      <p style="font-family:'Cinzel',serif;letter-spacing:.3em;font-size:.62rem;color:#f3e5ab;text-transform:uppercase;margin:0">Tap the glowing lock to open the gate</p>
+    </div>
+    <div id="veil"></div>
   </div>
 
   <!-- ========================================================
-       TOP BROWSER-LIKE NAVIGATION BAR
+       TOP BROWSER NAVIGATION BAR
        ======================================================== -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-plum-deep/95 via-plum-deep/85 to-transparent backdrop-blur-md border-b border-purple-500/15 py-3 px-4 sm:px-8 transition-all duration-300">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       
-      <!-- Left: Mobile Menu Toggle Button & Re-lock Gate -->
+      <!-- Left: Mobile Menu Toggle & Replay Gate Action -->
       <div class="flex items-center space-x-3">
         <button id="mobileMenuBtn" class="lg:hidden text-lavender-soft/80 hover:text-white p-1 text-sm focus:outline-none" aria-label="Open Navigation">
           <i class="fa-solid fa-bars"></i>
@@ -368,7 +407,7 @@
         </button>
       </div>
 
-      <!-- Center: Refined Navigation Menu List -->
+      <!-- Center: Refined Menu List -->
       <nav class="hidden lg:flex items-center space-x-7 xl:space-x-9">
         <button onclick="navigateToPage(0)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-gold-light font-semibold hover:text-gold-light transition duration-200" data-page="0">Home</button>
         <button onclick="navigateToPage(1)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="1">My Story</button>
@@ -395,17 +434,17 @@
       <button onclick="navigateToPage(2); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">The Celebration</button>
       <button onclick="navigateToPage(3); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">The 18s (Find Your Role)</button>
       <button onclick="navigateToPage(4); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-gold-champagne py-1 font-semibold">Gallery & RSVP</button>
-      <button onclick="relockGates(); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-purple-300 py-1 border-t border-purple-500/20 pt-2">Replay Gate Opening</button>
+      <button onclick="relockGates(); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-purple-300 py-1 border-t border-purple-500/20 pt-2">Replay Gate Entrance</button>
     </div>
   </header>
 
   <!-- ========================================================
-       MAIN 3D MULTI-SHEET CONTAINER
+       MAIN 3D MULTI-SHEET APPLICATION CONTAINER
        ======================================================== -->
   <main class="perspective-container relative w-full h-screen overflow-hidden bg-black">
 
     <!-- ----------------------------------------------------
-         PAGE 1: HOME / WELCOME[cite: 1]
+         PAGE 1: HOME / WELCOME
          ---------------------------------------------------- -->
     <section id="page-0" class="page-sheet active bg-custom-1 bg-cover bg-center">
       <div class="absolute inset-0 bg-[#0f0617]/80 backdrop-brightness-[0.9]"></div>
@@ -443,7 +482,7 @@
           </div>
         </div>
 
-        <!-- Right Vertical Countdown Pillar[cite: 1] -->
+        <!-- Right Vertical Countdown Pillar -->
         <aside class="fixed right-3 sm:right-6 bottom-8 z-30 hidden md:flex flex-col items-center bg-plum-deep/80 backdrop-blur-md border border-purple-500/25 px-4 py-5 rounded-sm shadow-[0_10px_30px_rgba(0,0,0,0.8)] w-28">
           <div class="flex flex-col items-center text-center space-y-3 font-cinzel">
             <div>
@@ -498,7 +537,7 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
-          <!-- Franz's Portrait (z-40 to remain crisp above rising particles) -->
+          <!-- Portrait (z-40 so rising yellow circles don't pass over it) -->
           <div class="lg:col-span-5 flex justify-center relative z-40">
             <div class="relative p-2 rounded-2xl bg-gradient-to-tr from-purple-800/60 via-gold-champagne/30 to-purple-400/40 shadow-[0_20px_50px_rgba(0,0,0,0.95)] border border-purple-400/30 max-w-sm w-full bg-plum-deep">
               <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-purple-950">
@@ -540,7 +579,7 @@
     </section>
 
     <!-- ----------------------------------------------------
-         PAGE 3: THE CELEBRATION (3 Bullets & Minimal Sketches)[cite: 2]
+         PAGE 3: THE CELEBRATION (Tagaytay Overlook Setup, 3 Bullets)
          ---------------------------------------------------- -->
     <section id="page-2" class="page-sheet peel-in-wait bg-custom-3 bg-cover bg-center">
       <div class="absolute inset-0 bg-[#0f0617]/80 backdrop-brightness-[0.9]"></div>
@@ -549,13 +588,13 @@
         
         <div class="mb-4">
           <p class="font-cinzel text-xs tracking-[0.3em] text-purple-300 uppercase font-semibold">
-            3. The Celebration[cite: 2]
+            3. The Celebration
           </p>
         </div>
 
         <div class="rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.85)] border border-purple-400/20 grid grid-cols-1 lg:grid-cols-12 bg-white">
           
-          <!-- Tagaytay Overlook Setup[cite: 2] -->
+          <!-- Tagaytay Garden Setup Image -->
           <div class="lg:col-span-6 relative min-h-[360px] lg:min-h-[500px] overflow-hidden bg-purple-950">
             <img 
               src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" 
@@ -569,7 +608,7 @@
             </div>
           </div>
 
-          <!-- Details Panel[cite: 2] -->
+          <!-- Details Panel -->
           <div class="lg:col-span-6 relative bg-gradient-to-br from-[#faf8fc] to-[#f4eef9] p-7 sm:p-10 md:p-12 flex flex-col justify-between text-[#3b1d5a]">
             
             <div class="absolute top-0 right-0 w-32 h-32 sm:w-40 sm:h-40 pointer-events-none opacity-20">
@@ -580,37 +619,37 @@
 
             <div>
               <p class="font-cinzel text-xs sm:text-[13px] tracking-[0.35em] text-[#5c2d91] uppercase font-semibold mb-1">
-                The Celebration[cite: 2]
+                The Celebration
               </p>
               <h2 class="font-script text-5xl sm:text-6xl text-[#3b1d5a] -rotate-1 select-none leading-tight mb-6">
-                Details[cite: 2]
+                Details
               </h2>
 
               <div class="space-y-6">
                 
-                <!-- Bullet 1: Date & Time[cite: 2] -->
+                <!-- Bullet 1: Date & Time -->
                 <div class="flex items-start space-x-4">
                   <div class="text-[#5c2d91] text-2xl mt-0.5">
                     <i class="fa-regular fa-calendar-check"></i>
                   </div>
                   <div>
                     <p class="font-serif text-lg sm:text-xl text-[#240b36] font-semibold leading-snug">
-                      September 22, 2028[cite: 2]
+                      September 22, 2028
                     </p>
                     <p class="font-sans text-xs sm:text-sm text-[#664b7d] flex items-center mt-1">
-                      <i class="fa-regular fa-clock mr-1.5 text-xs"></i> 6:00 PM (Philippine Standard Time)[cite: 2]
+                      <i class="fa-regular fa-clock mr-1.5 text-xs"></i> 6:00 PM (Philippine Standard Time)
                     </p>
                   </div>
                 </div>
 
-                <!-- Bullet 2: Location & View Direction[cite: 2] -->
+                <!-- Bullet 2: Location & View Direction -->
                 <div class="flex items-start space-x-4">
                   <div class="text-[#5c2d91] text-2xl mt-0.5">
                     <i class="fa-solid fa-location-dot"></i>
                   </div>
                   <div class="flex-1">
                     <p class="font-serif text-lg sm:text-xl text-[#240b36] font-semibold leading-snug">
-                      Narra Hill[cite: 2]
+                      Narra Hill
                     </p>
                     <p class="font-sans text-xs sm:text-sm text-[#664b7d] mt-0.5">
                       Tagaytay City, Cavite
@@ -629,20 +668,20 @@
                   </div>
                 </div>
 
-                <!-- Bullet 3: Dress Code[cite: 2] -->
+                <!-- Bullet 3: Dress Code, Permitted Palette & Sketches -->
                 <div class="flex items-start space-x-4">
                   <div class="text-[#5c2d91] text-2xl mt-0.5">
                     <i class="fa-solid fa-vest-patches"></i>
                   </div>
                   <div class="flex-1">
                     <p class="font-serif text-lg sm:text-xl text-[#240b36] font-semibold leading-snug">
-                      Dress Code: Strictly White[cite: 2]
+                      Dress Code: Strictly White
                     </p>
                     <p class="font-sans text-xs sm:text-sm text-[#664b7d] mt-0.5">
                       Formal / Semi-Formal Evening Wear
                     </p>
 
-                    <!-- Shades of White Palette -->
+                    <!-- Permitted Shades of White Palette -->
                     <div class="mt-3">
                       <p class="font-cinzel text-[10px] uppercase tracking-wider text-[#7a599b] mb-1.5 font-medium">Permitted Shades of White</p>
                       <div class="flex items-center space-x-2">
@@ -700,7 +739,7 @@
               </div>
             </div>
 
-            <!-- Bottom Action: Map Only[cite: 2] -->
+            <!-- Bottom Action: Map Only -->
             <div class="flex items-center pt-8 mt-4 border-t border-purple-200/60">
               <a 
                 href="https://maps.google.com/?q=Narra+Hill+Tagaytay" 
@@ -708,7 +747,7 @@
                 rel="noopener noreferrer"
                 class="btn-details-dark px-7 py-2.5 text-white font-cinzel text-xs uppercase tracking-[0.2em] shadow-md flex items-center space-x-2"
               >
-                <span>View Map</span>[cite: 2]
+                <span>View Map</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
             </div>
@@ -722,6 +761,8 @@
 
     <!-- ----------------------------------------------------
          PAGE 4: THE 18s (Find Your Role)
+         - Clean background WITHOUT dark overlay
+         - Mavis Godani & Oreo pre-configured
          ---------------------------------------------------- -->
     <section id="page-3" class="page-sheet peel-in-wait bg-custom-4 bg-cover bg-center">
       <div class="relative z-20 min-h-full max-w-xl mx-auto px-6 py-32 flex flex-col justify-center items-center">
@@ -778,6 +819,7 @@
           <div class="w-16 h-[1px] bg-purple-400/50 mx-auto mt-4"></div>
         </div>
 
+        <!-- 3 Editorial Photos -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           <div class="relative group overflow-hidden rounded-xl border border-purple-500/20 aspect-[3/4] bg-purple-950">
             <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=700&q=80" alt="Editorial 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
@@ -873,40 +915,62 @@
     const targetDate = new Date('2028-09-22T18:00:00+08:00').getTime();
 
     // ----------------------------------------------------
-    // Grand Garden Gate Opening Experience
+    // Embedded Gate Lighting, Fireflies & Petals Setup
     // ----------------------------------------------------
-    function openEnchantedGates() {
-      const gateOverlay = document.getElementById('enchantedGateOverlay');
-      if (!gateOverlay) return;
+    const R = Math.random;
 
-      // Start melodic twilight chime tone upon gate opening
+    // Place candle flames at candle coordinates on photo
+    [[303,708],[378,612],[454,522],[572,596],[567,540],[682,838]].forEach(([x, y]) => {
+      const d = document.createElement('div');
+      d.className = 'cf';
+      d.style.cssText = `left:${x/10.24}%;top:${y/10.24}%;animation-duration:${1.6+R()*1.6}s;animation-delay:${-R()*3}s`;
+      const cflames = document.getElementById('cflames');
+      if (cflames) cflames.appendChild(d);
+    });
+
+    // Fireflies and petals
+    const fx = document.getElementById('fxLayer');
+    if (fx) {
+      for (let i = 0; i < 26; i++) {
+        const s = R() * 5 + 3, f = document.createElement('div');
+        f.className = 'fx fly';
+        f.style.cssText = `width:${s}px;height:${s}px;left:${R()*100}%;top:${45+R()*55}%;animation-duration:${R()*8+8}s;animation-delay:${R()*8}s`;
+        fx.appendChild(f);
+      }
+      for (let i = 0; i < 14; i++) {
+        const s = R() * 8 + 8, p = document.createElement('div');
+        p.className = 'fx petal';
+        p.style.cssText = `width:${s}px;height:${s*.7}px;left:${R()*70-10}%;animation-duration:${R()*8+10}s;animation-delay:${-R()*16}s`;
+        fx.appendChild(p);
+      }
+    }
+
+    // ----------------------------------------------------
+    // Open Gate Animation Flow
+    // ----------------------------------------------------
+    let gateOpened = false;
+    function openGate() {
+      if (gateOpened) return;
+      gateOpened = true;
+      const g = document.getElementById('gate');
+      if (!g) return;
+
+      // Start sound synthesis
       if (!isPlayingAudio) {
         toggleAudio();
       }
 
-      // Add swinging class: 3D gates swing back, camera pushes forward
-      gateOverlay.classList.add('gates-swinging');
-
-      // Dissolve overlay smoothly after gates clear the view
-      setTimeout(() => {
-        gateOverlay.style.opacity = '0';
-        gateOverlay.style.pointerEvents = 'none';
-      }, 2000);
-
-      setTimeout(() => {
-        gateOverlay.classList.add('hidden');
-      }, 3100);
+      g.classList.add('open'); // Gate swings open, light spills out
+      setTimeout(() => { g.classList.add('zoom'); }, 1900); // Scale zoom into arch
+      setTimeout(() => { g.classList.add('fade'); }, 3700); // Dissolve into invitation
+      setTimeout(() => { g.classList.add('done'); }, 4900);
     }
 
     function relockGates() {
-      const gateOverlay = document.getElementById('enchantedGateOverlay');
-      if (!gateOverlay) return;
-      gateOverlay.classList.remove('hidden');
-      gateOverlay.style.opacity = '1';
-      gateOverlay.style.pointerEvents = 'auto';
-      setTimeout(() => {
-        gateOverlay.classList.remove('gates-swinging');
-      }, 50);
+      const g = document.getElementById('gate');
+      if (!g) return;
+      gateOpened = false;
+      g.classList.remove('done', 'fade', 'zoom', 'open');
       navigateToPage(0);
     }
 
@@ -1124,30 +1188,24 @@
     }
 
     // ----------------------------------------------------
-    // Particle Generators (Hero & Gate)
+    // Hero Particles Generator
     // ----------------------------------------------------
     function createParticles() {
-      const heroContainer = document.getElementById('particleField');
-      const gateContainer = document.getElementById('gateParticleField');
-
-      function spawnIn(container, count) {
-        if (!container) return;
-        for (let i = 0; i < count; i++) {
-          const particle = document.createElement('div');
-          particle.className = 'particle';
-          const size = Math.random() * 4 + 2;
-          particle.style.width = `${size}px`;
-          particle.style.height = `${size}px`;
-          particle.style.left = `${Math.random() * 100}%`;
-          particle.style.top = `${Math.random() * 100}%`;
-          particle.style.animationDelay = `${Math.random() * 8}s`;
-          particle.style.animationDuration = `${Math.random() * 8 + 8}s`;
-          container.appendChild(particle);
-        }
+      const container = document.getElementById('particleField');
+      if (!container) return;
+      const count = 18;
+      for (let i = 0; i < count; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        const size = Math.random() * 4 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.animationDelay = `${Math.random() * 8}s`;
+        particle.style.animationDuration = `${Math.random() * 8 + 8}s`;
+        container.appendChild(particle);
       }
-
-      spawnIn(heroContainer, 18);
-      spawnIn(gateContainer, 24);
     }
     createParticles();
 
