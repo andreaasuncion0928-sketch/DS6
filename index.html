@@ -337,14 +337,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   100% { text-shadow: 0 4px 18px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4); }
 }
 
-.purple-story-card {
-  background: rgba(36, 11, 54, 0.68);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(168, 85, 247, 0.45);
-  box-shadow: 0 20px 50px rgba(15, 6, 23, 0.85), inset 0 0 30px rgba(92, 45, 145, 0.25);
-}
-
 .celebration-glass-card {
   background: rgba(20, 7, 33, 0.45);
   backdrop-filter: blur(14px);
@@ -353,90 +345,69 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   box-shadow: 0 25px 60px rgba(11, 4, 18, 0.7), inset 0 0 25px rgba(255, 255, 255, 0.08);
 }
 
-.mobile-story-frame {
+/* ========================================================
+   EXHIBITION / MUSEUM GALLERY FRAME (BASED ON IMAGE)
+   ======================================================== */
+.gallery-canvas-frame {
   position: relative;
-  width: 100%;
-  max-width: 23rem;
-  margin: 0 auto;
-  border-radius: 1.5rem;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.95), 0 0 35px rgba(92, 45, 145, 0.45);
-  border: 2px solid rgba(168, 85, 247, 0.65);
-  background: #0f0617;
-  aspect-ratio: 9 / 16;
+  background: #f4ede3;
+  padding: 14px;
+  border-radius: 4px;
+  box-shadow: 
+    -20px 25px 50px -10px rgba(0, 0, 0, 0.85),
+    0 10px 30px rgba(15, 6, 23, 0.9),
+    inset 0 0 10px rgba(0,0,0,0.15);
+  transform: perspective(1000px) rotateY(-8deg) rotateX(2deg);
+  transition: transform 0.6s ease;
 }
-
-.mobile-story-frame img.portrait-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 18%;
+.gallery-canvas-frame:hover {
+  transform: perspective(1000px) rotateY(-3deg) rotateX(1deg) translateY(-4px);
 }
-
-.mobile-story-scrim {
+.gallery-curved-plinth {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(15, 6, 23, 0.15) 0%,
-    rgba(15, 6, 23, 0.1) 25%,
-    rgba(15, 6, 23, 0.75) 55%,
-    rgba(15, 6, 23, 0.96) 80%,
-    rgba(15, 6, 23, 0.99) 100%
-  );
-  z-index: 2;
-}
-
-.sparkle-dot {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle, #fde047 0%, #ca8a04 60%, transparent 100%);
-  box-shadow: 0 0 8px 1.5px rgba(250, 204, 21, 0.8);
+  bottom: -40px;
+  left: -20%;
+  width: 140%;
+  height: 90px;
+  background: radial-gradient(ellipse at 50% 10%, rgba(92,45,145,0.45) 0%, rgba(15,6,23,0.95) 75%);
+  border-radius: 50% 50% 0 0;
+  border-top: 1px solid rgba(168,85,247,0.3);
   pointer-events: none;
-  animation: sparkleTwinkle 3.2s ease-in-out infinite alternate;
-  z-index: 3;
-}
-@keyframes sparkleTwinkle {
-  0% { transform: scale(0.65); opacity: 0.35; }
-  50% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(0.65); opacity: 0.35; }
+  z-index: 1;
 }
 
-.enchanted-title {
-  animation: enchantedGlow 4s ease-in-out infinite alternate;
-}
-@keyframes enchantedGlow {
-  0% { text-shadow: 0 2px 8px rgba(0,0,0,0.9), 0 0 15px rgba(168,85,247,0.3); }
-  50% { text-shadow: 0 4px 22px rgba(0,0,0,0.95), 0 0 28px rgba(212,175,55,0.5), 0 0 45px rgba(192,132,252,0.7); }
-  100% { text-shadow: 0 2px 8px rgba(0,0,0,0.9), 0 0 15px rgba(168,85,247,0.3); }
+.gallery-subframe {
+  position: absolute;
+  top: 15%;
+  right: 12%;
+  width: 280px;
+  height: 220px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 4px solid rgba(255,255,255,0.25);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+  filter: blur(1.5px) brightness(0.65);
+  transform: perspective(800px) rotateY(12deg);
+  z-index: 2;
+  pointer-events: none;
 }
 
-/* Audio Waveform Animation */
-.music-bar {
-  display: inline-block;
-  width: 2px;
-  background-color: #d4af37;
-  border-radius: 2px;
-  animation: audioWave 1.2s ease-in-out infinite alternate;
+.gallery-tab-active {
+  background: rgba(168, 85, 247, 0.28);
+  border: 1px solid rgba(212, 175, 55, 0.7);
+  color: #f3e5ab;
 }
-.music-bar:nth-child(2) { animation-delay: 0.2s; height: 10px; }
-.music-bar:nth-child(3) { animation-delay: 0.4s; height: 14px; }
-.music-bar:nth-child(4) { animation-delay: 0.1s; height: 8px; }
-.music-bar:nth-child(5) { animation-delay: 0.3s; height: 12px; }
-@keyframes audioWave {
-  0% { transform: scaleY(0.4); }
-  100% { transform: scaleY(1.3); }
+.gallery-tab-inactive {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #d4bbf3;
 }
-.music-bar.paused { animation-play-state: paused; transform: scaleY(0.4); }
 </style>
 </head>
 <body class="bg-plum-deep text-ivory font-sans antialiased overflow-hidden select-none">
 
-<!-- Native Audio Players -->
+<!-- Background Audio Only (No mystory.mp3) -->
 <audio id="bgAudio" src="background.mp3" loop preload="auto"></audio>
-<audio id="storyAudio" src="mystory.mp3" loop preload="auto"></audio>
 
 <!-- ===== ENTRANCE GATE ===== -->
 <div id="gate" role="dialog" aria-label="Invitation entrance">
@@ -537,7 +508,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       </div>
     </div>
 
-    <!-- Bottom Compact Minimalist Pill Countdown -->
+    <!-- Bottom Minimalist Countdown -->
     <div class="relative z-10 pt-1 pb-2 flex flex-col items-center justify-center gap-2">
       <div class="inline-flex items-center gap-4 sm:gap-6 px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-[#0b0412]/70 backdrop-blur-md border border-white/10 shadow-md text-center font-cinzel">
         <div>
@@ -567,137 +538,110 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       </button>
     </div>
 
-    <!-- Background Rising Circles Layer -->
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 1: My Story (Background: 2nd page.jpg) ==================== -->
-  <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center">
-    <div class="relative min-h-full max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-24 flex flex-col justify-center">
-      
-      <!-- Section Header -->
-      <div class="text-center mb-6 sm:mb-10 relative z-20">
-        <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-[#d4bbf3] uppercase font-medium mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-          A LITTLE ABOUT ME
-        </p>
-        <h2 class="enchanted-title font-serif text-3xl sm:text-5xl md:text-6xl text-purple-100 font-light drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
-          My Story
-        </h2>
-        <div class="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-purple-300/80 to-transparent mx-auto mt-3 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></div>
-      </div>
-      
-      <!-- MOBILE VIEW: Text Overlaid directly on portrait with custom music trigger -->
-      <div class="block lg:hidden relative z-20 w-full flex justify-center">
-        <div class="mobile-story-frame" style="aspect-ratio: 9/16; max-height: 80vh;">
-          <img class="portrait-bg" src="4th.JPG" alt="Franz - 4th Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';">
-          <div class="mobile-story-scrim"></div>
+  <!-- ==================== Page 1: My Story (Exhibition Gallery Architecture Layout) ==================== -->
+  <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center overflow-x-hidden">
+    <!-- Ambient Depth Gradients Matching Image Lighting -->
+    <div class="absolute inset-0 bg-gradient-to-r from-[#170627]/95 via-[#230b3d]/85 to-[#3b125f]/70 pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_35%,rgba(168,85,247,0.35)_0%,transparent_60%)] pointer-events-none"></div>
 
-          <!-- Top Franz badge & Story Music Button -->
-          <div class="absolute top-4 left-4 right-4 z-10 flex items-center justify-between">
-            <button onclick="playStoryMusic()" class="flex items-center space-x-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-gold-champagne/70 text-gold-light shadow-md active:scale-95 transition" title="Play Story Melody">
-              <i class="fa-solid fa-music text-xs"></i>
-              <span class="font-cinzel text-[10px] tracking-wider uppercase" id="storyMobileAudioLabel">Play Music</span>
-            </button>
-            <div class="px-3.5 py-1 rounded-full bg-black/65 backdrop-blur-md border border-gold-champagne/80 shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-              <span class="font-script text-gold-light text-base">Franz</span>
-            </div>
+    <!-- Recessed Secondary Gallery Art in the Background (from attached layout) -->
+    <div class="hidden lg:block gallery-subframe">
+      <img src="4th.JPG" alt="Exhibition Art Background" class="w-full h-full object-cover">
+    </div>
+
+    <div class="relative min-h-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-20 lg:py-24 flex flex-col justify-between z-10">
+
+      <!-- Top Romantic Quote Banner as Requested -->
+      <div class="w-full text-center sm:text-left pt-2 pb-6 border-b border-purple-400/20">
+        <p class="font-script text-2xl sm:text-3xl lg:text-4xl text-[#f3e5ab] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] tracking-wide">
+          “Oh, darling, don't you ever grow up...”
+        </p>
+      </div>
+
+      <!-- Main Exhibition Body: Split Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center my-auto py-6">
+
+        <!-- LEFT COLUMN: Typography & Story Narrative (Mirroring Reference) -->
+        <div class="lg:col-span-7 flex flex-col justify-center space-y-5 text-left">
+          
+          <div>
+            <span class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-[#c084fc] font-semibold uppercase block mb-1">
+              2006 – 2024 • A LITTLE ABOUT ME
+            </span>
+            <h2 class="font-cinzel font-bold text-4xl sm:text-5xl lg:text-6xl text-[#fcfbfa] tracking-[0.08em] uppercase leading-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+              MY STORY
+            </h2>
+            <p class="font-sans text-xs sm:text-sm tracking-[0.25em] text-[#d4af37] uppercase font-medium mt-1">
+              18 YEARS IN THE MAKING
+            </p>
           </div>
 
-          <!-- Subtle Glow Dust -->
-          <span class="sparkle-dot" style="top: 48%; left: 16%; width: 4px; height: 4px;"></span>
-          <span class="sparkle-dot" style="top: 54%; left: 35%; width: 5px; height: 5px; animation-delay: 0.6s;"></span>
-          <span class="sparkle-dot" style="top: 52%; left: 68%; width: 4.5px; height: 4.5px; animation-delay: 1.2s;"></span>
-          <span class="sparkle-dot" style="top: 58%; left: 84%; width: 4px; height: 4px; animation-delay: 1.8s;"></span>
+          <!-- Editorial Category Filter Badges (from Image Layout) -->
+          <div class="flex items-center space-x-3 pt-1">
+            <span class="px-4 py-1 rounded-full text-[10px] font-cinzel uppercase tracking-widest font-semibold gallery-tab-active shadow-sm">
+              Chapter I
+            </span>
+            <span class="px-4 py-1 rounded-full text-[10px] font-cinzel uppercase tracking-widest font-normal gallery-tab-inactive">
+              Memoir
+            </span>
+          </div>
 
-          <!-- Overlaid Text Content at Bottom -->
-          <div class="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-6 flex flex-col justify-end text-left">
-            <div class="text-gold-light drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] text-lg mb-1.5">
-              <i class="fa-solid fa-quote-left"></i>
-            </div>
-
-            <p class="font-serif text-sm sm:text-base text-gold-light italic font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,1)] mb-2">
-              18 years in the making...
-            </p>
-            
-            <p class="font-serif text-[12px] sm:text-xs text-[#fcfbfa] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed italic font-light mb-2">
+          <!-- Story Narrative Text -->
+          <div class="space-y-4 pt-2 text-[#f0e6f6] font-sans text-xs sm:text-sm leading-relaxed max-w-xl font-light drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)]">
+            <p class="font-serif text-base sm:text-lg italic text-[#fcfbfa] leading-normal text-purple-100">
               “It feels crazy to think that 18 years have already passed. From little moments to big memories, every year has been part of the story that brought me here.”
             </p>
-            
-            <p class="font-sans text-[11px] sm:text-xs text-[#f0e6f6] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed font-light mb-2">
-              “And now, I'm celebrating a milestone I can't wait to share with the people who have been part of my journey.”
+            <p class="text-purple-200/90">
+              And now, I'm celebrating a milestone I can't wait to share with the people who have been part of my journey.
             </p>
-            
-            <p class="font-sans text-[11px] sm:text-xs text-[#f3e5ab] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed font-medium mb-3.5">
-              “I'm so glad you're here to celebrate with me.”
+            <p class="text-[#f3e5ab] font-medium">
+              I'm so glad you're here to celebrate with me.
             </p>
-            
-            <button onclick="navigateToPage(2)" class="w-full py-2.5 text-center text-xs font-cinzel uppercase tracking-[0.2em] text-[#fcfbfa] bg-[#5c2d91]/80 hover:bg-[#5c2d91] backdrop-blur-md border border-gold-champagne/70 rounded-full shadow-[0_0_15px_rgba(212,175,55,0.25)] transition">
-              NEXT: THE CELEBRATION →
+          </div>
+
+          <!-- Navigation CTA -->
+          <div class="pt-4">
+            <button onclick="navigateToPage(2)" class="inline-flex items-center space-x-2 px-8 py-3 bg-[#5c2d91]/80 hover:bg-[#5c2d91] border border-gold-champagne/80 hover:border-gold-light text-[#fcfbfa] text-xs font-cinzel uppercase tracking-[0.25em] rounded-full shadow-[0_0_20px_rgba(92,45,145,0.6)] transition-all transform hover:-translate-y-0.5">
+              <span>NEXT: THE CELEBRATION</span>
+              <i class="fa-solid fa-arrow-right text-xs text-gold-light"></i>
             </button>
           </div>
         </div>
+
+        <!-- RIGHT COLUMN: 3D Exhibition Frame on Museum Wall (From Image Layout) -->
+        <div class="lg:col-span-5 relative flex justify-center items-center py-6">
+          <div class="relative w-full max-w-md">
+            
+            <!-- Curved Architectural Pedestal at Bottom of Frame -->
+            <div class="gallery-curved-plinth hidden lg:block"></div>
+
+            <!-- Main Framed Artwork -->
+            <div class="gallery-canvas-frame z-10">
+              <div class="relative aspect-[3/4] overflow-hidden bg-black rounded-[2px] shadow-inner">
+                <img src="4th.JPG" alt="Franz 18th Exhibition Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';" class="w-full h-full object-cover object-center filter contrast-[1.08] brightness-95">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+                <div class="absolute bottom-3 right-3 bg-black/75 backdrop-blur-md border border-gold-champagne/70 px-3.5 py-1 rounded-full">
+                  <span class="font-script text-gold-light text-base sm:text-lg">Franz</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
 
-      <!-- DESKTOP VIEW: Side-by-Side Grid Layout -->
-      <div class="hidden lg:grid grid-cols-12 gap-10 items-center">
-        <div class="col-span-5 flex justify-center relative z-40">
-          <div class="relative p-2 rounded-2xl bg-gradient-to-tr from-purple-800/80 via-gold-champagne/40 to-purple-400/60 shadow-[0_20px_50px_rgba(0,0,0,0.95)] border border-purple-300/50 max-w-sm w-full bg-plum-deep/80 backdrop-blur-md">
-            <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-purple-950">
-              <img src="4th.JPG" alt="Franz - 4th Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';" class="w-full h-full object-cover object-[center_15%] filter contrast-[1.05] brightness-95">
-              <div class="absolute inset-0 bg-gradient-to-t from-plum-deep/80 via-transparent to-transparent"></div>
-            </div>
-            <div class="absolute -bottom-3 -right-3 bg-plum-deep/95 border border-gold-champagne/70 px-4 py-1.5 rounded-full shadow-lg">
-              <span class="font-script text-gold-light text-xl">Franz</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Purple Translucent Story Card Panel -->
-        <div class="col-span-7 relative z-10 purple-story-card p-8 sm:p-11 rounded-2xl">
-          <div class="flex items-center justify-between mb-4">
-            <div class="text-[#e9d5ff] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-3xl">
-              <i class="fa-solid fa-quote-left"></i>
-            </div>
-            
-            <!-- Story Music Trigger Button -->
-            <button id="storyMusicButton" onclick="playStoryMusic()" class="flex items-center space-x-2.5 px-4 py-1.5 rounded-full bg-purple-950/70 hover:bg-purple-900/90 border border-gold-champagne/60 text-gold-light transition shadow-md group">
-              <div class="flex items-center space-x-1 h-3">
-                <span class="music-bar paused"></span>
-                <span class="music-bar paused"></span>
-                <span class="music-bar paused"></span>
-                <span class="music-bar paused"></span>
-              </div>
-              <span id="storyMusicBtnText" class="font-cinzel text-[11px] tracking-widest uppercase text-gold-light font-medium group-hover:text-white">Play Story Melody</span>
-            </button>
-          </div>
-
-          <p class="font-serif text-xl sm:text-2xl text-gold-light italic font-normal drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] mb-4">
-            18 years in the making...
-          </p>
-          
-          <p class="font-serif text-lg sm:text-xl text-[#fcfbfa] drop-shadow-[0_2px_8px_rgba(15,6,23,0.95)] leading-relaxed font-light italic mb-5">
-            “It feels crazy to think that 18 years have already passed. From little moments to big memories, every year has been part of the story that brought me here.”
-          </p>
-          
-          <p class="font-sans text-sm sm:text-base text-[#f0e6f6] drop-shadow-[0_2px_8px_rgba(15,6,23,0.95)] leading-relaxed font-light mb-5">
-            “And now, I'm celebrating a milestone I can't wait to share with the people who have been part of my journey.”
-          </p>
-          
-          <p class="font-sans text-sm sm:text-base text-[#f3e5ab] drop-shadow-[0_2px_8px_rgba(15,6,23,0.95)] leading-relaxed font-medium mb-8">
-            “I'm so glad you're here to celebrate with me.”
-          </p>
-          
-          <div class="flex items-center justify-end pt-6 border-t border-purple-400/30">
-            <button onclick="navigateToPage(2)" class="px-7 py-3 text-xs font-cinzel uppercase tracking-[0.25em] text-[#fcfbfa] bg-[#5c2d91]/70 hover:bg-[#5c2d91] backdrop-blur-sm border border-gold-champagne/70 hover:border-gold-light transition rounded-full shadow-[0_0_15px_rgba(212,175,55,0.25)]">
-              NEXT: THE CELEBRATION →
-            </button>
-          </div>
-        </div>
+      <!-- Bottom Minimalist Exhibition Footnote -->
+      <div class="w-full flex items-center justify-between pt-4 border-t border-purple-400/15 text-[10px] font-cinzel text-purple-300/60 uppercase tracking-widest">
+        <span>Curated Gallery Edition</span>
+        <span>Amethyst Reverie • 2028</span>
       </div>
 
     </div>
 
-    <!-- Background Slower Rising Yellow Circles Layer -->
     <div class="rising-circles-layer"></div>
   </section>
 
@@ -725,7 +669,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           <div class="w-16 h-[1px] bg-gradient-to-r from-transparent via-gold-champagne/80 to-transparent mx-auto mt-2.5"></div>
         </div>
 
-        <!-- DESKTOP / BROWSER VIEW: Fully Centered Layout -->
+        <!-- Desktop Grid View -->
         <div class="hidden md:flex flex-col gap-9 text-center">
           <div class="grid grid-cols-2 gap-8 items-start pb-8 border-b border-purple-300/20 text-center">
             <div class="flex flex-col items-center text-center">
@@ -781,7 +725,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           </div>
         </div>
 
-        <!-- MOBILE VIEW -->
+        <!-- Mobile View -->
         <div class="flex md:hidden flex-col space-y-7 text-left">
           <div class="flex items-start space-x-4">
             <div class="text-gold-light text-2xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
@@ -835,7 +779,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       </div>
     </div>
     
-    <!-- Rising Yellow Circles Layer -->
     <div class="rising-circles-layer"></div>
   </section>
 
@@ -856,7 +799,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       </div>
     </div>
     
-    <!-- Rising Yellow Circles Layer -->
     <div class="rising-circles-layer"></div>
   </section>
 
@@ -925,7 +867,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       </div>
     </div>
     
-    <!-- Rising Yellow Circles Layer -->
     <div class="rising-circles-layer"></div>
   </section>
 
@@ -937,19 +878,12 @@ const totalPages = 5;
 let isTransitioning = false;
 const targetDate = new Date('2028-09-22T18:00:00+08:00').getTime();
 
-// Audio References
+// Background Audio
 const bgAudio = document.getElementById('bgAudio');
-const storyAudio = document.getElementById('storyAudio');
-let activeTrack = null; // 'bg' | 'story' | null
 
 function playBackgroundMusic() {
-  if (storyAudio && !storyAudio.paused) {
-    storyAudio.pause();
-    updateStoryMusicUI(false);
-  }
   if (bgAudio) {
     bgAudio.play().then(() => {
-      activeTrack = 'bg';
       updateGlobalAudioUI(true);
     }).catch(err => {
       console.warn("Audio autoplay blocked by browser policy:", err);
@@ -957,52 +891,15 @@ function playBackgroundMusic() {
   }
 }
 
-function playStoryMusic() {
-  if (bgAudio && !bgAudio.paused) {
-    bgAudio.pause();
-  }
-  if (storyAudio) {
-    if (storyAudio.paused) {
-      storyAudio.play().then(() => {
-        activeTrack = 'story';
-        updateStoryMusicUI(true);
-        updateGlobalAudioUI(true);
-      }).catch(err => console.warn("Story audio playback error:", err));
-    } else {
-      storyAudio.pause();
-      activeTrack = null;
-      updateStoryMusicUI(false);
-      updateGlobalAudioUI(false);
-    }
-  }
-}
-
 function toggleGlobalAudio() {
-  if (activeTrack === 'story') {
-    if (!storyAudio.paused) {
-      storyAudio.pause();
-      updateStoryMusicUI(false);
-      updateGlobalAudioUI(false);
-    } else {
-      storyAudio.play();
-      updateStoryMusicUI(true);
+  if (!bgAudio) return;
+  if (!bgAudio.paused) {
+    bgAudio.pause();
+    updateGlobalAudioUI(false);
+  } else {
+    bgAudio.play().then(() => {
       updateGlobalAudioUI(true);
-    }
-    return;
-  }
-
-  // Otherwise handle background music
-  if (bgAudio) {
-    if (!bgAudio.paused) {
-      bgAudio.pause();
-      activeTrack = null;
-      updateGlobalAudioUI(false);
-    } else {
-      bgAudio.play().then(() => {
-        activeTrack = 'bg';
-        updateGlobalAudioUI(true);
-      }).catch(err => console.warn(err));
-    }
+    }).catch(err => console.warn(err));
   }
 }
 
@@ -1019,22 +916,6 @@ function updateGlobalAudioUI(isPlaying) {
     if (heroText) heroText.innerText = "SOUND ON";
     if (heroIcon) heroIcon.className = "fa-solid fa-music text-[8px]";
     if (navIcon) navIcon.className = "fa-solid fa-music";
-  }
-}
-
-function updateStoryMusicUI(isPlaying) {
-  const label = document.getElementById('storyMusicBtnText');
-  const mobileLabel = document.getElementById('storyMobileAudioLabel');
-  const bars = document.querySelectorAll('.music-bar');
-
-  if (isPlaying) {
-    if (label) label.innerText = "Pause Story Melody";
-    if (mobileLabel) mobileLabel.innerText = "Pause Music";
-    bars.forEach(b => b.classList.remove('paused'));
-  } else {
-    if (label) label.innerText = "Play Story Melody";
-    if (mobileLabel) mobileLabel.innerText = "Play Music";
-    bars.forEach(b => b.classList.add('paused'));
   }
 }
 
