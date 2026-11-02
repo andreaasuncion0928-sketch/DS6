@@ -21,9 +21,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 .bg-custom-3{background-image:url('celeb b.jpeg'), radial-gradient(circle at 60% 40%, #230d3a 0%, #0c0413 85%)}
 .bg-custom-rsvp{background-image:url('QRpage.jpg'), radial-gradient(circle at 50% 50%, #240b36 0%, #09030e 85%)}
 .bg-custom-live{background: radial-gradient(circle at 50% 25%, #2a0b45 0%, #130324 55%, #080112 100%)}
-.bg-gallery-plum { background: radial-gradient(circle at 50% 20%, #2a0845 0%, #150524 50%, #090210 100%); }
+.bg-gallery-plum { background: radial-gradient(circle at 50% 20%, #26073e 0%, #120320 50%, #06010c 100%); }
 
-/* 18s Page Background Layers: 18s b.jpg for browser/desktop view */
+/* 18s Page Background Layers */
 .bg-18s-layer {
   position: absolute;
   inset: 0;
@@ -435,60 +435,196 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   pointer-events: none;
 }
 
-/* ==================== VOGUE MAGAZINE EDITORIAL CARDS WITH SEQUENTIAL CASCADE ==================== */
-.mag-card {
+/* ==========================================================================
+   KINETIC CAMERA VIBE SLIDESHOW ENGINE STYLES (PAGE 4)
+   ========================================================================== */
+.kinetic-viewport {
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+}
+
+.kinetic-stage {
   position: relative;
-  overflow: hidden;
-  border-radius: 0.5rem;
-  background: #140526;
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  box-shadow: 0 12px 35px rgba(0,0,0,0.8);
-  cursor: pointer;
-  
-  /* Gradual smooth cascade appearance */
-  opacity: 0;
-  transform: translateY(28px) scale(0.97);
-  filter: blur(8px);
-  transition: 
-    opacity 1.6s cubic-bezier(0.2, 0.8, 0.2, 1), 
-    transform 1.6s cubic-bezier(0.2, 0.8, 0.2, 1), 
-    filter 1.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-color 0.4s ease,
-    box-shadow 0.4s ease;
-  will-change: opacity, transform, filter;
-}
-
-/* Visible active transition */
-.mag-card.flow-in {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-}
-
-.mag-card:hover {
-  transform: translateY(-4px) scale(1.01);
-  border-color: rgba(243, 229, 171, 0.85);
-  box-shadow: 0 20px 50px rgba(92, 45, 145, 0.5), 0 0 25px rgba(212, 175, 55, 0.2);
-}
-
-.mag-card img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 12%; /* Head-safe protection */
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  will-change: transform;
 }
-.mag-card:hover img { transform: scale(1.05); }
 
-.mag-overlay {
+/* Camera Shake / Jolt Impact Animations */
+.camera-jolt-hard {
+  animation: cameraJoltImpact 0.42s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+.camera-jolt-whip {
+  animation: cameraWhipImpact 0.48s cubic-bezier(0.18, 0.89, 0.32, 1.28) both;
+}
+
+@keyframes cameraJoltImpact {
+  0% { transform: scale(1.05) translate3d(0, 0, 50px); filter: brightness(1.35) contrast(1.1); }
+  20% { transform: translate3d(-14px, 8px, 20px) rotate(-1.4deg); }
+  45% { transform: translate3d(10px, -6px, 5px) rotate(1.1deg); }
+  70% { transform: translate3d(-5px, 3px, 0px) rotate(-0.5deg); }
+  100% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); filter: brightness(1) contrast(1); }
+}
+
+@keyframes cameraWhipImpact {
+  0% { transform: skewX(-5deg) translate3d(18px, 0, 40px); }
+  30% { transform: skewX(3deg) translate3d(-10px, -4px, 15px); }
+  65% { transform: skewX(-1.5deg) translate3d(4px, 2px, 0); }
+  100% { transform: skewX(0deg) translate3d(0, 0, 0); }
+}
+
+/* Kinetic Slide Layers */
+.kinetic-slide {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15,6,23,0) 40%, rgba(15,6,23,0.85) 80%, rgba(15,6,23,0.98) 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.25rem;
-  opacity: 0.95;
+  width: 100%;
+  height: 100%;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 35px 80px rgba(0,0,0,0.95), 0 0 30px rgba(92,45,145,0.4);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  backface-visibility: hidden;
+  transform-origin: center center;
+  transition: transform 0.65s cubic-bezier(0.2, 0.85, 0.25, 1), 
+              opacity 0.65s cubic-bezier(0.2, 0.85, 0.25, 1), 
+              filter 0.65s ease;
+  will-change: transform, opacity, filter;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.kinetic-slide.current {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 20;
+  transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  filter: blur(0px);
+}
+
+/* 1. Zoom Punch Transitions */
+.kinetic-slide.punch-out {
+  z-index: 25;
+  animation: zoomPunchOut 0.58s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+.kinetic-slide.punch-in {
+  z-index: 30;
+  animation: zoomPunchIn 0.62s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes zoomPunchOut {
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 1; filter: blur(0px) brightness(1); }
+  50% { filter: blur(6px) brightness(1.7); }
+  100% { transform: translate3d(0, 0, 600px) scale(3.2); opacity: 0; filter: blur(22px) brightness(2.2); }
+}
+
+@keyframes zoomPunchIn {
+  0% { transform: translate3d(0, 0, -500px) scale(0.45); opacity: 0; filter: blur(16px) brightness(1.5); }
+  60% { opacity: 1; filter: blur(3px) brightness(1.2); }
+  100% { transform: translate3d(0, 0, 0) scale(1); opacity: 1; filter: blur(0px) brightness(1); }
+}
+
+/* 2. Whip Pan Transitions (Extreme horizontal velocity sweep) */
+.kinetic-slide.whip-out-left {
+  animation: whipOutLeft 0.52s cubic-bezier(0.85, 0, 0.15, 1) forwards;
+}
+.kinetic-slide.whip-in-right {
+  animation: whipInRight 0.52s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.kinetic-slide.whip-out-right {
+  animation: whipOutRight 0.52s cubic-bezier(0.85, 0, 0.15, 1) forwards;
+}
+.kinetic-slide.whip-in-left {
+  animation: whipInLeft 0.52s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes whipOutLeft {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; filter: blur(0px); }
+  35% { filter: blur(20px) contrast(1.3); }
+  100% { transform: translate3d(-140%, 0, -180px) rotate(-14deg) skewX(-16deg); opacity: 0; filter: blur(35px); }
+}
+
+@keyframes whipInRight {
+  0% { transform: translate3d(140%, 0, 160px) rotate(14deg) skewX(18deg); opacity: 0; filter: blur(35px); }
+  45% { opacity: 1; filter: blur(12px); }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg) skewX(0deg); opacity: 1; filter: blur(0px); }
+}
+
+@keyframes whipOutRight {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; filter: blur(0px); }
+  35% { filter: blur(20px) contrast(1.3); }
+  100% { transform: translate3d(140%, 0, -180px) rotate(14deg) skewX(16deg); opacity: 0; filter: blur(35px); }
+}
+
+@keyframes whipInLeft {
+  0% { transform: translate3d(-140%, 0, 160px) rotate(-14deg) skewX(-18deg); opacity: 0; filter: blur(35px); }
+  45% { opacity: 1; filter: blur(12px); }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg) skewX(0deg); opacity: 1; filter: blur(0px); }
+}
+
+/* 3. Parallax / 3D Depth Zoom Transitions */
+.kinetic-slide.depth-out {
+  animation: depthPushOut 0.65s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+.kinetic-slide.depth-in {
+  animation: depthSlideIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes depthPushOut {
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 1; filter: blur(0); }
+  100% { transform: translate3d(-25%, 0, -420px) scale(0.75) rotateY(16deg); opacity: 0; filter: blur(14px) brightness(0.4); }
+}
+
+@keyframes depthSlideIn {
+  0% { transform: translate3d(110%, 0, 180px) scale(1.12) rotateY(-18deg); opacity: 0; filter: blur(10px); }
+  50% { opacity: 1; }
+  100% { transform: translate3d(0, 0, 0) scale(1) rotateY(0deg); opacity: 1; filter: blur(0); }
+}
+
+/* Kinetic Film Speed Streak Flash Overlay */
+.kinetic-streak-flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.7) 48%, rgba(243,229,171,0.95) 50%, rgba(192,132,252,0.8) 54%, transparent 100%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  z-index: 50;
+  transform: translateX(-100%) skewX(-25deg);
+}
+.kinetic-streak-flash.fire-streak {
+  animation: streakPass 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+@keyframes streakPass {
+  0% { transform: translateX(-120%) skewX(-30deg); opacity: 0.95; }
+  60% { opacity: 0.85; }
+  100% { transform: translateX(120%) skewX(-15deg); opacity: 0; }
+}
+
+/* Live Viewfinder UI Overlays */
+.viewfinder-hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 35;
+  border-radius: 1.25rem;
+}
+.viewfinder-corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-color: rgba(243, 229, 171, 0.85);
+  pointer-events: none;
+}
+.viewfinder-tl { top: 16px; left: 16px; border-top: 2px solid; border-left: 2px solid; }
+.viewfinder-tr { top: 16px; right: 16px; border-top: 2px solid; border-right: 2px solid; }
+.viewfinder-bl { bottom: 16px; left: 16px; border-bottom: 2px solid; border-left: 2px solid; }
+.viewfinder-br { bottom: 16px; right: 16px; border-bottom: 2px solid; border-right: 2px solid; }
+
+.kinetic-progress-bar {
+  transition: width 0.1s linear;
 }
 </style>
 </head>
@@ -523,7 +659,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   <div id="veil"></div>
 </div>
 
-<!-- ==================== PERMANENTLY VISIBLE NAVIGATION BAR (BROWSER & MOBILE) ==================== -->
+<!-- ==================== PERMANENTLY VISIBLE NAVIGATION BAR ==================== -->
 <header class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-[#0b0412]/98 via-[#0b0412]/92 to-transparent backdrop-blur-md border-b border-purple-500/20 py-2 sm:py-2.5 px-2 sm:px-6 transition-all duration-300">
   <div class="max-w-7xl mx-auto flex items-center justify-between gap-1 sm:gap-4">
     
@@ -533,7 +669,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       <span class="hidden xs:inline">Gate</span>
     </button>
 
-    <!-- Always-Visible Navigation Bar: Fully visible and horizontally scrollable on mobile -->
+    <!-- Always-Visible Navigation Bar -->
     <nav class="flex items-center overflow-x-auto no-scrollbar space-x-2.5 sm:space-x-5 lg:space-x-7 px-1 py-1">
       <button onclick="navigateToPage(0)" class="nav-item shrink-0 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.14em] sm:tracking-[0.2em] text-gold-light font-semibold hover:text-gold-light transition" data-page="0">Home</button>
       <button onclick="navigateToPage(1)" class="nav-item shrink-0 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.14em] sm:tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="1">My Story</button>
@@ -541,7 +677,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       <button onclick="navigateToPage(3)" class="nav-item shrink-0 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.14em] sm:tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="3">The 18s</button>
       <button onclick="navigateToPage(4)" class="nav-item shrink-0 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.14em] sm:tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="4">Gallery</button>
       <button onclick="navigateToPage(5)" class="nav-item shrink-0 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.14em] sm:tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="5">RSVP</button>
-      <!-- Live Photos button made pure white (not yellow) -->
       <button onclick="navigateToPage(6)" class="nav-item shrink-0 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.14em] sm:tracking-[0.2em] text-white hover:text-purple-200 font-semibold transition" data-page="6">Live Photos</button>
     </nav>
 
@@ -628,7 +763,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 1: My Story (4th.JPG Photo) ==================== -->
+  <!-- ==================== Page 1: My Story ==================== -->
   <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center overflow-x-hidden">
     <div class="absolute inset-0 bg-gradient-to-r from-[#170627]/95 via-[#230b3d]/85 to-[#3b125f]/70 pointer-events-none"></div>
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_35%,rgba(168,85,247,0.35)_0%,transparent_60%)] pointer-events-none"></div>
@@ -661,10 +796,10 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           </div>
 
           <div class="flex items-center space-x-3 pt-1">
-            <span class="px-4 py-1 rounded-full text-[10px] font-cinzel uppercase tracking-widest font-semibold gallery-tab-active shadow-sm">
+            <span class="px-4 py-1 rounded-full text-[10px] font-cinzel uppercase tracking-widest font-semibold bg-purple-900/60 border border-gold-champagne/40 text-gold-light shadow-sm">
               Chapter I
             </span>
-            <span class="px-4 py-1 rounded-full text-[10px] font-cinzel uppercase tracking-widest font-normal gallery-tab-inactive">
+            <span class="px-4 py-1 rounded-full text-[10px] font-cinzel uppercase tracking-widest font-normal text-purple-200/60 border border-purple-400/20">
               Memoir
             </span>
           </div>
@@ -846,7 +981,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 3: The 18s (Uses 18s b.jpg for Desktop) ==================== -->
+  <!-- ==================== Page 3: The 18s ==================== -->
   <section id="page-3" class="page-sheet peel-in-wait relative bg-plum-deep overflow-hidden">
     <div class="bg-18s-blur-underlay"></div>
     <div class="bg-18s-layer"></div>
@@ -872,163 +1007,223 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 4: Pure Magazine Editorial Gallery (Sequential Smooth Dissolve Cascade) ==================== -->
-  <section id="page-4" class="page-sheet peel-in-wait bg-gallery-plum overflow-y-auto">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_15%,rgba(212,175,55,0.08)_0%,transparent_60%)] pointer-events-none"></div>
+  <!-- ==================== Page 4: KINETIC CAMERA 3D SLIDESHOW GALLERY ==================== -->
+  <section id="page-4" class="page-sheet peel-in-wait bg-gallery-plum overflow-hidden flex flex-col justify-between py-16 sm:py-20 px-3 sm:px-8">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_25%,rgba(168,85,247,0.22)_0%,rgba(15,6,23,0.92)_70%)] pointer-events-none"></div>
 
-    <div class="relative z-20 min-h-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-24 sm:py-28">
-      
-      <!-- Nostalgic Top Quote -->
-      <div class="text-center mb-6 max-w-2xl mx-auto">
-        <p class="font-script text-2xl sm:text-3xl text-gold-light drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] leading-relaxed">
-          “Take pictures in your mind of your childhood room...<br class="hidden sm:inline">
-          Wish I'd never grown up.”
-        </p>
-        <div class="w-16 h-[1px] bg-gradient-to-r from-transparent via-gold-champagne/60 to-transparent mx-auto mt-4"></div>
-      </div>
-
-      <!-- Page Heading -->
-      <div class="text-center mb-12 sm:mb-16">
-        <span class="font-cinzel text-[11px] sm:text-xs tracking-[0.35em] text-[#d4bbf3] uppercase font-semibold block mb-2">
-          CHAPTER V · THE MEMORIES
+    <!-- Top Kinetic Gallery Header Bar -->
+    <div class="relative z-30 max-w-6xl w-full mx-auto flex items-center justify-between gap-3 pt-2 pb-1 border-b border-purple-400/20">
+      <div>
+        <span class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-gold-champagne uppercase font-bold flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+          KINETIC CAMERA · MEMORIES IN MOTION
         </span>
-        <h2 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#fcfbfa] font-light tracking-wide mb-2">
+        <h2 class="font-serif text-2xl sm:text-3xl text-white font-light tracking-wide mt-0.5">
           Moments in Bloom
         </h2>
-        <p class="font-sans text-xs sm:text-sm text-purple-200/80 font-light tracking-wider max-w-xl mx-auto">
-          An editorial chronicle of elegance, memories, and light.
-        </p>
       </div>
 
-      <!-- MAGAZINE SPREAD ROW 1: Hero Cover & Stack -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8 items-stretch">
-        
-        <!-- Photo 1: 6th.jpeg -->
-        <div class="lg:col-span-7 mag-card min-h-[500px]" onclick="openPhotoViewer('6th.jpeg', 'VOGUE · THE AMETHYST COVER', 'Vol. 18 · Franz Debut Issue')">
-          <img src="6th.jpeg" alt="Editorial Cover Franz" class="object-[center_12%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=80';">
-          <div class="mag-overlay">
-            <span class="font-cinzel text-[10px] tracking-[0.3em] text-gold-champagne uppercase font-bold">Cover Story</span>
-            <h3 class="font-serif text-3xl sm:text-4xl text-white font-normal leading-tight">The Radiance of Eighteen</h3>
-            <p class="font-sans text-xs text-purple-200/90 mt-1">Styled In Lavender Silks & Amethyst Hues</p>
-          </div>
+      <!-- Kinetic FX Mode Switcher -->
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <div class="hidden sm:flex items-center bg-black/60 backdrop-blur-md border border-purple-400/30 rounded-full p-1 text-[10px] font-cinzel uppercase">
+          <button onclick="setKineticMode('auto')" id="mode-auto" class="px-2.5 py-1 rounded-full text-gold-light bg-purple-900/70 border border-gold-champagne/40">Dynamic</button>
+          <button onclick="setKineticMode('punch')" id="mode-punch" class="px-2.5 py-1 rounded-full text-purple-200 hover:text-white">Punch</button>
+          <button onclick="setKineticMode('whip')" id="mode-whip" class="px-2.5 py-1 rounded-full text-purple-200 hover:text-white">Whip</button>
+          <button onclick="setKineticMode('depth')" id="mode-depth" class="px-2.5 py-1 rounded-full text-purple-200 hover:text-white">Parallax</button>
         </div>
 
-        <!-- Photo 2 & 3: 1st.JPG & 2nd.JPG -->
-        <div class="lg:col-span-5 flex flex-col gap-6">
-          <div class="mag-card flex-1 min-h-[235px]" onclick="openPhotoViewer('1st.JPG', 'A New Dawning', 'The Archive Issue')">
-            <img src="1st.JPG" alt="Editorial Series 1" class="object-[center_18%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80';">
-            <div class="mag-overlay">
-              <span class="font-cinzel text-[9px] tracking-widest text-gold-light uppercase">Issue I</span>
-              <h4 class="font-serif text-xl text-white">A New Dawning</h4>
-            </div>
-          </div>
-
-          <div class="mag-card flex-1 min-h-[235px]" onclick="openPhotoViewer('2nd.JPG', 'Unscripted Elegance', 'The Candid Portfolio')">
-            <img src="2nd.JPG" alt="Editorial Series 2" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80';">
-            <div class="mag-overlay">
-              <span class="font-cinzel text-[9px] tracking-widest text-gold-light uppercase">Issue II</span>
-              <h4 class="font-serif text-xl text-white">Unscripted Elegance</h4>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- MAGAZINE SPREAD ROW 2: Triple Portrait Harmony -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <!-- Photo 4: 3rd.JPG -->
-        <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('3rd.JPG', 'Golden Hour Glimmer', 'Portfolio Edition III')">
-          <img src="3rd.JPG" alt="Photo 3" class="object-[center_14%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80';">
-          <div class="mag-overlay">
-            <span class="font-cinzel text-[9px] tracking-widest text-gold-light uppercase">Spread III</span>
-            <h4 class="font-serif text-lg text-white">Golden Hour Glimmer</h4>
-          </div>
-        </div>
-
-        <!-- Photo 5: 5th.JPG -->
-        <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('5th.JPG', 'In Quiet Radiance', 'Portfolio Edition V')">
-          <img src="5th.JPG" alt="Photo 5" class="object-[center_14%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80';">
-          <div class="mag-overlay">
-            <span class="font-cinzel text-[9px] tracking-widest text-gold-light uppercase">Spread V</span>
-            <h4 class="font-serif text-lg text-white">In Quiet Radiance</h4>
-          </div>
-        </div>
-
-        <!-- Photo 6: 7th.jpeg -->
-        <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('7th.jpeg', 'The Velvet Hour', 'Portfolio Edition VII')">
-          <img src="7th.jpeg" alt="Photo 7" class="object-[center_14%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80';">
-          <div class="mag-overlay">
-            <span class="font-cinzel text-[9px] tracking-widest text-gold-light uppercase">Spread VII</span>
-            <h4 class="font-serif text-lg text-white">The Velvet Hour</h4>
-          </div>
-        </div>
-      </div>
-
-      <!-- MAGAZINE SPREAD ROW 3: Portrait Pair (Twilight Grace 8th.jpeg is now Portrait) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <!-- Photo 7: 8th.jpeg (Twilight Grace converted to Portrait) -->
-        <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('8th.jpeg', 'Twilight Grace', 'Collector Series VIII')">
-          <img src="8th.jpeg" alt="Photo 8" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80';">
-          <div class="mag-overlay">
-            <span class="font-cinzel text-[10px] tracking-widest text-gold-champagne uppercase">Portrait Feature</span>
-            <h4 class="font-serif text-2xl text-white">Twilight Grace</h4>
-          </div>
-        </div>
-
-        <!-- Photo 8: 9th.jpeg (Portrait) -->
-        <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('9th.jpeg', 'Gentle Whispers', 'Portfolio Edition IX')">
-          <img src="9th.jpeg" alt="Photo 9" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80';">
-          <div class="mag-overlay">
-            <span class="font-cinzel text-[10px] tracking-widest text-gold-light uppercase">Spread IX</span>
-            <h4 class="font-serif text-2xl text-white">Gentle Whispers</h4>
-          </div>
-        </div>
-      </div>
-
-      <!-- MAGAZINE SPREAD ROW 4: Final Triptych (10th, 11th, 12th) -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
-        <!-- Photo 9: 10th.jpeg -->
-        <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('10th.jpeg', 'Serendipity In Bloom', 'The Debutante Archive X')">
-          <img src="10th.jpeg" alt="Photo 10" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80';">
-          <div class="mag-overlay">
-            <span class="font-cinzel text-[9px] tracking-widest text-gold-light uppercase">Edition X</span>
-            <h4 class="font-serif text-base sm:text-lg text-white">Serendipity in Bloom</h4>
-          </div>
-        </div>
-
-        <!-- Photo 10: 11th.jpeg -->
-        <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('11th.jpeg', 'Midnight Reverie', 'The Debutante Archive XI')">
-          <img src="11th.jpeg" alt="Photo 11" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80';">
-          <div class="mag-overlay">
-            <span class="font-cinzel text-[9px] tracking-widest text-gold-light uppercase">Edition XI</span>
-            <h4 class="font-serif text-base sm:text-lg text-white">Midnight Reverie</h4>
-          </div>
-        </div>
-
-        <!-- Photo 11: 12th.jpeg -->
-        <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('12th.jpeg', 'Eighteen Chapters', 'The Finale Archive XII')">
-          <img src="12th.jpeg" alt="Photo 12" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';">
-          <div class="mag-overlay">
-            <span class="font-cinzel text-[9px] tracking-widest text-gold-light uppercase">Finale XII</span>
-            <h4 class="font-serif text-base sm:text-lg text-white">Eighteen Chapters</h4>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-center pt-8 border-t border-purple-500/20 flex flex-col items-center">
-        <h4 class="font-serif text-2xl text-purple-200">The Story Continues</h4>
-        <p class="font-script text-3xl text-gold-light mt-2">With love, Franz</p>
-        <button onclick="navigateToPage(5)" class="mt-6 px-8 py-2.5 rounded-full bg-[#5c2d91] hover:bg-purple-700 text-gold-light text-xs font-cinzel tracking-widest uppercase transition">
-          PROCEED TO RSVP <i class="fa-solid fa-arrow-right ml-1.5"></i>
+        <button onclick="toggleKineticAutoplay()" id="kineticAutoBtn" class="px-3 py-1.5 rounded-full bg-purple-950/80 border border-gold-champagne/50 hover:border-gold-light text-gold-light text-[10px] font-cinzel uppercase tracking-wider flex items-center gap-1.5 transition">
+          <i id="kineticAutoIcon" class="fa-solid fa-pause text-[9px]"></i>
+          <span id="kineticAutoText" class="hidden xs:inline">Pause</span>
         </button>
+      </div>
+    </div>
+
+    <!-- Center Kinetic 3D Viewport Stage -->
+    <div class="relative z-20 kinetic-viewport flex-1 max-w-5xl w-full mx-auto my-3 sm:my-5 flex items-center justify-center">
+      
+      <!-- Camera Rig Stage -->
+      <div id="kineticStage" class="kinetic-stage relative w-full h-[62vh] sm:h-[68vh] max-h-[720px]">
+        
+        <!-- Viewfinder HUD / Reticle Overlay -->
+        <div class="viewfinder-hud">
+          <div class="viewfinder-corner viewfinder-tl"></div>
+          <div class="viewfinder-tr viewfinder-tr"></div>
+          <div class="viewfinder-bl viewfinder-bl"></div>
+          <div class="viewfinder-br viewfinder-br"></div>
+
+          <!-- Top-Right Live Camera Info -->
+          <div class="absolute top-4 right-6 font-cinzel text-[9px] tracking-widest text-gold-light/90 flex items-center gap-3 drop-shadow">
+            <span class="bg-black/60 px-2 py-0.5 rounded border border-purple-400/40">SHUTTER: 1/250</span>
+            <span class="bg-black/60 px-2 py-0.5 rounded border border-purple-400/40">f/1.8 · 3D SPACE</span>
+          </div>
+
+          <!-- Bottom-Left Slide Index -->
+          <div class="absolute bottom-4 left-6 font-cinzel text-xs tracking-widest text-gold-light bg-black/70 backdrop-blur-md px-3 py-1 rounded-full border border-gold-champagne/50">
+            <span id="kineticIndexDisplay">01</span> / <span>11</span>
+          </div>
+
+          <!-- Tap to Inspect Button on Live Frame -->
+          <button onclick="inspectCurrentKineticPhoto()" class="absolute bottom-4 right-6 pointer-events-auto bg-black/75 hover:bg-black backdrop-blur-md border border-gold-champagne/70 text-gold-light hover:text-white px-3.5 py-1.5 rounded-full text-[10px] font-cinzel uppercase tracking-widest transition flex items-center gap-1.5 shadow-lg">
+            <i class="fa-solid fa-expand text-[10px]"></i>
+            <span>Enlarge</span>
+          </button>
+        </div>
+
+        <!-- High-Velocity Streak Light Blur Pass -->
+        <div id="kineticStreak" class="kinetic-streak-flash"></div>
+
+        <!-- 11 Kinetic Image Slide Stack -->
+        <!-- Slide 0: 6th.jpeg -->
+        <div class="kinetic-slide current" data-index="0" data-title="The Radiance of Eighteen" data-subtitle="The Amethyst Muse · Debut Issue" data-src="6th.jpeg">
+          <img src="6th.jpeg" alt="Franz Editorial Cover" class="w-full h-full object-cover object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80';">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-10 pointer-events-none">
+            <span class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-gold-champagne uppercase font-bold">Keyframe 01 · Editorial Cover</span>
+            <h3 class="font-serif text-3xl sm:text-4xl text-white font-normal leading-tight mt-1">The Radiance of Eighteen</h3>
+            <p class="font-sans text-xs text-purple-200 mt-1">Immersed in lavender silks and dreamlit amethyst tones.</p>
+          </div>
+        </div>
+
+        <!-- Slide 1: 1st.JPG -->
+        <div class="kinetic-slide" data-index="1" data-title="A New Dawning" data-subtitle="The Archive Issue I" data-src="1st.JPG">
+          <img src="1st.JPG" alt="Editorial Series 1" class="w-full h-full object-cover object-[center_18%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80';">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-10 pointer-events-none">
+            <span class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-gold-champagne uppercase font-bold">Keyframe 02 · Genesis</span>
+            <h3 class="font-serif text-3xl sm:text-4xl text-white font-normal leading-tight mt-1">A New Dawning</h3>
+            <p class="font-sans text-xs text-purple-200 mt-1">The opening chapter of grace, quiet confidence, and poise.</p>
+          </div>
+        </div>
+
+        <!-- Slide 2: 2nd.JPG -->
+        <div class="kinetic-slide" data-index="2" data-title="Unscripted Elegance" data-subtitle="The Candid Portfolio II" data-src="2nd.JPG">
+          <img src="2nd.JPG" alt="Editorial Series 2" class="w-full h-full object-cover object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80';">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-10 pointer-events-none">
+            <span class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-gold-champagne uppercase font-bold">Keyframe 03 · Candid</span>
+            <h3 class="font-serif text-3xl sm:text-4xl text-white font-normal leading-tight mt-1">Unscripted Elegance</h3>
+            <p class="font-sans text-xs text-purple-200 mt-1">Spontaneous smiles frozen in timeless golden light.</p>
+          </div>
+        </div>
+
+        <!-- Slide 3: 3rd.JPG -->
+        <div class="kinetic-slide" data-index="3" data-title="Golden Hour Glimmer" data-subtitle="Portfolio Edition III" data-src="3rd.JPG">
+          <img src="3rd.JPG" alt="Photo 3" class="w-full h-full object-cover object-[center_14%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80';">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-10 pointer-events-none">
+            <span class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-gold-champagne uppercase font-bold">Keyframe 04 · Sunlight</span>
+            <h3 class="font-serif text-3xl sm:text-4xl text-white font-normal leading-tight mt-1">Golden Hour Glimmer</h3>
+            <p class="font-sans text-xs text-purple-200 mt-1">Bathed in the warm sunset glow across Tagaytay.</p>
+          </div>
+        </div>
+
+        <!-- Slide 4: 5th.JPG -->
+        <div class="kinetic-slide" data-index="4" data-title="In Quiet Radiance" data-subtitle="Portfolio Edition V" data-src="5th.JPG">
+          <img src="5th.JPG" alt="Photo 5" class="w-full h-full object-cover object-[center_14%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1200&q=80';">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-10 pointer-events-none">
+            <span class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-gold-champagne uppercase font-bold">Keyframe 05 · Stillness</span>
+            <h3 class="font-serif text-3xl sm:text-4xl text-white font-normal leading-tight mt-1">In Quiet Radiance</h3>
+            <p class="font-sans text-xs text-purple-200 mt-1">Soft glances that hold eighteen years of dreams.</p>
+          </div>
+        </div>
+
+        <!-- Slide 5: 7th.jpeg -->
+        <div class="kinetic-slide" data-index="5" data-title="The Velvet Hour" data-subtitle="Portfolio Edition VII" data-src="7th.jpeg">
+          <img src="7th.jpeg" alt="Photo 7" class="w-full h-full object-cover object-[center_14%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80';">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-10 pointer-events-none">
+            <span class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-gold-champagne uppercase font-bold">Keyframe 06 · Twilight</span>
+            <h3 class="font-serif text-3xl sm:text-4xl text-white font-normal leading-tight mt-1">The Velvet Hour</h3>
+            <p class="font-sans text-xs text-purple-200 mt-1">Rich contrasts framed by royal amethyst shadows.</p>
+          </div>
+        </div>
+
+        <!-- Slide 6: 8th.jpeg -->
+        <div class="kinetic-slide" data-index="6" data-title="Twilight Grace" data-subtitle="Collector Series VIII" data-src="8th.jpeg">
+          <img src="8th.jpeg" alt="Photo 8" class="w-full h-full object-cover object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=1200&q=80';">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-10 pointer-events-none">
+            <span class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-gold-champagne uppercase font-bold">Keyframe 07 · Reverie</span>
+            <h3 class="font-serif text-3xl sm:text-4xl text-white font-normal leading-tight mt-1">Twilight Grace</h3>
+            <p class="font-sans text-xs text-purple-200 mt-1">Cinematic depth capturing the transition into womanhood.</p>
+          </div>
+        </div>
+
+        <!-- Slide 7: 9th.jpeg -->
+        <div class="kinetic-slide" data-index="7" data-title="Gentle Whispers" data-subtitle="Portfolio Edition IX" data-src="9th.jpeg">
+          <img src="9th.jpeg" alt="Photo 9" class="w-full h-full object-cover object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=80';">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-10 pointer-events-none">
+            <span class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-gold-champagne uppercase font-bold">Keyframe 08 · Harmony</span>
+            <h3 class="font-serif text-3xl sm:text-4xl text-white font-normal leading-tight mt-1">Gentle Whispers</h3>
+            <p class="font-sans text-xs text-purple-200 mt-1">Intimate warmth surrounded by blooming garden florals.</p>
+          </div>
+        </div>
+
+        <!-- Slide 8: 10th.jpeg -->
+        <div class="kinetic-slide" data-index="8" data-title="Serendipity in Bloom" data-subtitle="The Debutante Archive X" data-src="10th.jpeg">
+          <img src="10th.jpeg" alt="Photo 10" class="w-full h-full object-cover object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80';">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-10 pointer-events-none">
+            <span class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-gold-champagne uppercase font-bold">Keyframe 09 · Serendipity</span>
+            <h3 class="font-serif text-3xl sm:text-4xl text-white font-normal leading-tight mt-1">Serendipity in Bloom</h3>
+            <p class="font-sans text-xs text-purple-200 mt-1">Unfiltered joy leading into the milestone evening.</p>
+          </div>
+        </div>
+
+        <!-- Slide 9: 11th.jpeg -->
+        <div class="kinetic-slide" data-index="9" data-title="Midnight Reverie" data-subtitle="The Debutante Archive XI" data-src="11th.jpeg">
+          <img src="11th.jpeg" alt="Photo 11" class="w-full h-full object-cover object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80';">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-10 pointer-events-none">
+            <span class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-gold-champagne uppercase font-bold">Keyframe 10 · Starlight</span>
+            <h3 class="font-serif text-3xl sm:text-4xl text-white font-normal leading-tight mt-1">Midnight Reverie</h3>
+            <p class="font-sans text-xs text-purple-200 mt-1">Mystical purple ambiance resonating through the garden.</p>
+          </div>
+        </div>
+
+        <!-- Slide 10: 12th.jpeg -->
+        <div class="kinetic-slide" data-index="10" data-title="Eighteen Chapters" data-subtitle="The Finale Archive XII" data-src="12th.jpeg">
+          <img src="12th.jpeg" alt="Photo 12" class="w-full h-full object-cover object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80';">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-10 pointer-events-none">
+            <span class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-gold-champagne uppercase font-bold">Keyframe 11 · Finale</span>
+            <h3 class="font-serif text-3xl sm:text-4xl text-white font-normal leading-tight mt-1">Eighteen Chapters</h3>
+            <p class="font-sans text-xs text-purple-200 mt-1">Ready to step forward into everything that lies ahead.</p>
+          </div>
+        </div>
+
       </div>
 
     </div>
-    
+
+    <!-- Bottom Kinetic Controls & Navigation Bar -->
+    <div class="relative z-30 max-w-5xl w-full mx-auto flex flex-col gap-2 pb-2">
+      <!-- Progress Track -->
+      <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+        <div id="kineticProgressBar" class="kinetic-progress-bar h-full w-0 bg-gradient-to-r from-purple-500 via-gold-champagne to-gold-light"></div>
+      </div>
+
+      <!-- Action Footer with Kinetic Triggers -->
+      <div class="flex items-center justify-between gap-3 pt-1">
+        <div class="flex items-center gap-2">
+          <!-- Prev Button -->
+          <button onclick="kineticPrevSlide()" class="w-10 h-10 rounded-full bg-black/60 hover:bg-purple-900/80 border border-gold-champagne/60 text-gold-light hover:text-white flex items-center justify-center transition shadow-md hover:scale-105 active:scale-95" aria-label="Previous Kinetic Shot">
+            <i class="fa-solid fa-arrow-left text-sm"></i>
+          </button>
+          <!-- Next Button -->
+          <button onclick="kineticNextSlide()" class="w-10 h-10 rounded-full bg-black/60 hover:bg-purple-900/80 border border-gold-champagne/60 text-gold-light hover:text-white flex items-center justify-center transition shadow-md hover:scale-105 active:scale-95" aria-label="Next Kinetic Shot">
+            <i class="fa-solid fa-arrow-right text-sm"></i>
+          </button>
+          
+          <span class="hidden sm:inline font-cinzel text-[10px] text-purple-300/80 tracking-widest uppercase ml-2">
+            Swipe or use arrow keys
+          </span>
+        </div>
+
+        <!-- Direct Next Page Button -->
+        <button onclick="navigateToPage(5)" class="px-6 sm:px-8 py-2.5 rounded-full bg-gradient-to-r from-purple-900 to-purple-950 border border-gold-champagne/80 hover:border-gold-light text-[#fcfbfa] hover:text-[#f3e5ab] text-xs font-cinzel tracking-[0.2em] uppercase transition shadow-lg flex items-center gap-2 transform hover:-translate-y-0.5">
+          <span>PROCEED TO RSVP</span>
+          <i class="fa-solid fa-arrow-right text-xs text-gold-light"></i>
+        </button>
+      </div>
+    </div>
+
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 5: RSVP Page (Form Removed - Clean QR Only) ==================== -->
+  <!-- ==================== Page 5: RSVP Page ==================== -->
   <section id="page-5" class="page-sheet peel-in-wait bg-custom-rsvp bg-cover bg-center overflow-y-auto">
     <div class="absolute inset-0 bg-[#0f0617]/75 backdrop-blur-[2px]"></div>
 
@@ -1072,7 +1267,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 6: Live Photos Page (Yellow Subtitle Text) ==================== -->
+  <!-- ==================== Page 6: Live Photos Page ==================== -->
   <section id="page-6" class="page-sheet peel-in-wait bg-custom-live overflow-y-auto">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(168,85,247,0.18)_0%,transparent_60%)] pointer-events-none"></div>
 
@@ -1088,13 +1283,11 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         Live Event Gallery
       </p>
       
-      <!-- Yellow Font for real-time description text as requested -->
       <p class="font-sans text-sm sm:text-base text-[#f3e5ab] font-medium max-w-xl mx-auto leading-relaxed mb-8 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
         All your real-time photos captured during the event will instantly post here.<br class="hidden sm:inline">
         Scan the QR code or tap to upload. Watch our shared digital gallery come to life as the night unfolds.
       </p>
 
-      <!-- Live Photo Hub Card using demoQR -->
       <div class="p-8 sm:p-10 rounded-3xl bg-[#170529]/80 border border-gold-champagne/60 shadow-[0_20px_60px_rgba(0,0,0,0.85)] max-w-md w-full flex flex-col items-center backdrop-blur-md">
         
         <div class="p-3.5 bg-white rounded-2xl shadow-2xl mb-4 hover:scale-105 transition cursor-pointer border-2 border-gold-champagne/60" onclick="triggerGuestUpload()">
@@ -1354,12 +1547,21 @@ function closeDateCalendarModalOnBackdrop(e) {
   if (e.target.id === 'dateCalendarModal') closeDateCalendarModal();
 }
 
-// Close on escape key
+// Close on escape key & Arrow keys for Kinetic Gallery
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeHotelLightbox();
     closeDateCalendarModal();
     closePhotoViewer();
+  }
+  if (currentPageIndex === 4) {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      kineticNextSlide();
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      kineticPrevSlide();
+    }
   }
 });
 
@@ -1446,19 +1648,216 @@ function relockGates() {
   navigateToPage(0);
 }
 
-// Cascading Sequential Image Reveal for Gallery Page
-function startGalleryCascade() {
-  const cards = document.querySelectorAll('#page-4 .mag-card');
-  cards.forEach(card => card.classList.remove('flow-in'));
-  
-  cards.forEach((card, idx) => {
-    // 380ms stagger delay between each image dissolve
-    setTimeout(() => {
-      card.classList.add('flow-in');
-    }, 280 + (idx * 380));
+/* ==========================================================================
+   KINETIC CAMERA 3D SLIDESHOW LOGIC
+   ========================================================================== */
+let kineticCurrentIdx = 0;
+const totalKineticSlides = 11;
+let kineticMode = 'auto'; // 'auto', 'punch', 'whip', 'depth'
+let kineticIsAnimating = false;
+let kineticAutoplayTimer = null;
+let kineticProgressTimer = null;
+let kineticAutoplayActive = true;
+const slideDuration = 4800; // ms per slide
+let progressStartTime = 0;
+
+function setKineticMode(mode) {
+  kineticMode = mode;
+  ['auto', 'punch', 'whip', 'depth'].forEach(m => {
+    const btn = document.getElementById(`mode-${m}`);
+    if (btn) {
+      if (m === mode) {
+        btn.className = "px-2.5 py-1 rounded-full text-gold-light bg-purple-900/70 border border-gold-champagne/40";
+      } else {
+        btn.className = "px-2.5 py-1 rounded-full text-purple-200 hover:text-white";
+      }
+    }
   });
 }
 
+function triggerKineticStreakFlash() {
+  const streak = document.getElementById('kineticStreak');
+  if (!streak) return;
+  streak.classList.remove('fire-streak');
+  void streak.offsetWidth; // re-flow
+  streak.classList.add('fire-streak');
+}
+
+function triggerCameraJolt(type) {
+  const stage = document.getElementById('kineticStage');
+  if (!stage) return;
+  stage.classList.remove('camera-jolt-hard', 'camera-jolt-whip');
+  void stage.offsetWidth;
+  if (type === 'whip') {
+    stage.classList.add('camera-jolt-whip');
+  } else {
+    stage.classList.add('camera-jolt-hard');
+  }
+  setTimeout(() => {
+    stage.classList.remove('camera-jolt-hard', 'camera-jolt-whip');
+  }, 500);
+}
+
+function kineticTransitionTo(targetIdx, direction = 'next') {
+  if (kineticIsAnimating || targetIdx === kineticCurrentIdx) return;
+  kineticIsAnimating = true;
+
+  const slides = document.querySelectorAll('#page-4 .kinetic-slide');
+  const currentSlide = slides[kineticCurrentIdx];
+  const nextSlide = slides[targetIdx];
+
+  // Determine transition archetype
+  let chosenEffect = kineticMode;
+  if (chosenEffect === 'auto') {
+    const effects = ['punch', 'whip', 'depth'];
+    chosenEffect = effects[Math.floor(Math.random() * effects.length)];
+  }
+
+  // Trigger Light streak
+  triggerKineticStreakFlash();
+  triggerCameraJolt(chosenEffect === 'whip' ? 'whip' : 'hard');
+
+  // Clear animation helper classes
+  slides.forEach(s => {
+    s.classList.remove(
+      'punch-out', 'punch-in',
+      'whip-out-left', 'whip-in-right', 'whip-out-right', 'whip-in-left',
+      'depth-out', 'depth-in'
+    );
+  });
+
+  if (chosenEffect === 'punch') {
+    currentSlide.classList.add('punch-out');
+    nextSlide.classList.add('punch-in');
+  } else if (chosenEffect === 'whip') {
+    if (direction === 'next') {
+      currentSlide.classList.add('whip-out-left');
+      nextSlide.classList.add('whip-in-right');
+    } else {
+      currentSlide.classList.add('whip-out-right');
+      nextSlide.classList.add('whip-in-left');
+    }
+  } else {
+    // Parallax 3D Depth Zoom
+    currentSlide.classList.add('depth-out');
+    nextSlide.classList.add('depth-in');
+  }
+
+  nextSlide.classList.add('current');
+
+  // Update Indicator
+  const idxDisplay = document.getElementById('kineticIndexDisplay');
+  if (idxDisplay) {
+    idxDisplay.innerText = String(targetIdx + 1).padStart(2, '0');
+  }
+
+  setTimeout(() => {
+    currentSlide.classList.remove('current');
+    kineticCurrentIdx = targetIdx;
+    kineticIsAnimating = false;
+  }, 620);
+
+  resetKineticProgress();
+}
+
+function kineticNextSlide() {
+  const next = (kineticCurrentIdx + 1) % totalKineticSlides;
+  kineticTransitionTo(next, 'next');
+}
+
+function kineticPrevSlide() {
+  const prev = (kineticCurrentIdx - 1 + totalKineticSlides) % totalKineticSlides;
+  kineticTransitionTo(prev, 'prev');
+}
+
+function inspectCurrentKineticPhoto() {
+  const current = document.querySelector('#page-4 .kinetic-slide.current');
+  if (!current) return;
+  const src = current.getAttribute('data-src');
+  const title = current.getAttribute('data-title');
+  const subtitle = current.getAttribute('data-subtitle');
+  openPhotoViewer(src, title, subtitle);
+}
+
+// Autoplay & Progress Ring
+function startKineticAutoplay() {
+  stopKineticAutoplay();
+  kineticAutoplayActive = true;
+  updateAutoplayButtonUI(true);
+  progressStartTime = Date.now();
+  
+  kineticProgressTimer = setInterval(() => {
+    const elapsed = Date.now() - progressStartTime;
+    const pct = Math.min(100, (elapsed / slideDuration) * 100);
+    const bar = document.getElementById('kineticProgressBar');
+    if (bar) bar.style.width = `${pct}%`;
+  }, 35);
+
+  kineticAutoplayTimer = setTimeout(() => {
+    kineticNextSlide();
+    startKineticAutoplay();
+  }, slideDuration);
+}
+
+function resetKineticProgress() {
+  progressStartTime = Date.now();
+  const bar = document.getElementById('kineticProgressBar');
+  if (bar) bar.style.width = '0%';
+}
+
+function stopKineticAutoplay() {
+  if (kineticAutoplayTimer) clearTimeout(kineticAutoplayTimer);
+  if (kineticProgressTimer) clearInterval(kineticProgressTimer);
+  kineticAutoplayActive = false;
+  updateAutoplayButtonUI(false);
+}
+
+function toggleKineticAutoplay() {
+  if (kineticAutoplayActive) {
+    stopKineticAutoplay();
+  } else {
+    startKineticAutoplay();
+  }
+}
+
+function updateAutoplayButtonUI(isActive) {
+  const btnText = document.getElementById('kineticAutoText');
+  const icon = document.getElementById('kineticAutoIcon');
+  if (btnText && icon) {
+    if (isActive) {
+      btnText.innerText = "Pause";
+      icon.className = "fa-solid fa-pause text-[9px]";
+    } else {
+      btnText.innerText = "Play";
+      icon.className = "fa-solid fa-play text-[9px]";
+    }
+  }
+}
+
+// Touch Gestures for Kinetic Slideshow
+let touchStartX = 0;
+let touchStartY = 0;
+const stageEl = document.getElementById('kineticStage');
+if (stageEl) {
+  stageEl.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  stageEl.addEventListener('touchend', (e) => {
+    const diffX = e.changedTouches[0].screenX - touchStartX;
+    const diffY = e.changedTouches[0].screenY - touchStartY;
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+      if (diffX < 0) {
+        kineticNextSlide();
+      } else {
+        kineticPrevSlide();
+      }
+    }
+  }, { passive: true });
+}
+
+/* Page Navigation Management */
 function navigateToPage(targetIndex){
   if(targetIndex === currentPageIndex || isTransitioning) return;
   isTransitioning = true;
@@ -1477,9 +1876,11 @@ function navigateToPage(targetIndex){
     else btn.classList.remove('text-gold-light','font-semibold');
   });
 
-  // Trigger smooth sequential fade cascade when entering Gallery
+  // Kinetic Camera Autoplay handling
   if (targetIndex === 4) {
-    startGalleryCascade();
+    startKineticAutoplay();
+  } else {
+    stopKineticAutoplay();
   }
   
   setTimeout(() => {
