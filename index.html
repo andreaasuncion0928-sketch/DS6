@@ -19,14 +19,14 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 .bg-custom-1{background-image:url('background b.jpg'), radial-gradient(circle at 50% 30%, #240b36 0%, #0f0617 80%)}
 .bg-custom-2{background-image:url('2nd page.jpg'), radial-gradient(circle at 40% 40%, #240b36 0%, #09030e 85%)}
 .bg-custom-3{background-image:url('celeb b.jpeg'), radial-gradient(circle at 60% 40%, #230d3a 0%, #0c0413 85%)}
-.bg-custom-18s{background-image:url('2nd page b.jpg'), radial-gradient(circle at 50% 50%, #240b36 0%, #09030e 85%)}
+.bg-custom-18s{background-image:url('18s.jpg'), radial-gradient(circle at 50% 50%, #240b36 0%, #09030e 85%)}
 .bg-custom-4{background-image:url('4th page b.jpg'), radial-gradient(circle at 50% 50%, #1a082c 0%, #07020b 90%)}
 
 @media (max-width:768px){
   .bg-custom-1{background-image:url('background p.jpg'), radial-gradient(circle at 50% 30%, #240b36 0%, #0f0617 80%)}
   .bg-custom-2{background-image:url('2nd page.jpg'), radial-gradient(circle at 40% 40%, #240b36 0%, #09030e 85%)}
   .bg-custom-3{background-image:url('celeb p.jpeg'), radial-gradient(circle at 60% 40%, #230d3a 0%, #0c0413 85%)}
-  .bg-custom-18s{background-image:url('2nd page p.jpg'), radial-gradient(circle at 50% 50%, #240b36 0%, #09030e 85%)}
+  .bg-custom-18s{background-image:url('18s.jpg'), radial-gradient(circle at 50% 50%, #240b36 0%, #09030e 85%)}
   .bg-custom-4{background-image:url('4th page p.jpg'), radial-gradient(circle at 50% 50%, #1a082c 0%, #07020b 90%)}
 }
 
@@ -215,6 +215,8 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   cursor: pointer;
   animation: lockPulse 2.4s ease-in-out infinite;
   transition: opacity .4s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .g-lock:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
 @keyframes lockPulse {
@@ -318,9 +320,26 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   100% { transform: translateY(-10vh) translateX(16px) scale(1.15); opacity: 0; }
 }
 
-/* ========================================================
-   ENHANCED TRANSLUCENT GLASS CARD (MORE SEE-THROUGH)
-   ======================================================== */
+/* Enchanted Animations */
+.enchanted-eighteen {
+  display: inline-block;
+  animation: enchantedFloatSlow 6s ease-in-out infinite alternate, enchantedShimmer 4s ease-in-out infinite alternate;
+  will-change: transform, text-shadow;
+}
+
+@keyframes enchantedFloatSlow {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes enchantedShimmer {
+  0% { text-shadow: 0 4px 18px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4); }
+  50% { text-shadow: 0 6px 28px rgba(0,0,0,0.98), 0 0 38px rgba(243,229,171,0.7), 0 0 60px rgba(192,132,252,0.8); }
+  100% { text-shadow: 0 4px 18px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4); }
+}
+
+/* Translucent Glass Card */
 .celebration-glass-card {
   background: rgba(18, 5, 29, 0.22);
   backdrop-filter: blur(8px);
@@ -340,7 +359,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   }
 }
 
-/* Crisp readable text drop-shadows on see-through backgrounds */
 .text-contrast-heavy {
   text-shadow: 
     0 2px 6px rgba(0, 0, 0, 0.95), 
@@ -368,7 +386,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 0.75rem;
   background: rgba(8, 2, 14, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -447,8 +465,8 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 </head>
 <body class="bg-plum-deep text-ivory font-sans antialiased overflow-hidden select-none">
 
-<!-- Background Audio Only -->
-<audio id="bgAudio" src="background.mp3" loop preload="auto"></audio>
+<!-- Mobile-friendly preloaded audio -->
+<audio id="bgAudio" src="background.mp3" loop preload="auto" playsinline webkit-playsinline></audio>
 
 <!-- ===== ENTRANCE GATE ===== -->
 <div id="gate" role="dialog" aria-label="Invitation entrance">
@@ -459,11 +477,11 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       <div id="archBackdropHider"></div>
       <div id="portalMist"></div>
       <div id="gateGlow"></div>
-      <img class="gate-leaf-crop l" src="gate.jpg" alt="" onclick="openGate()">
-      <img class="gate-leaf-crop r" src="gate.jpg" alt="" onclick="openGate()">
+      <img id="gateLeafL" class="gate-leaf-crop l" src="gate.jpg" alt="">
+      <img id="gateLeafR" class="gate-leaf-crop r" src="gate.jpg" alt="">
       <div id="cflames"></div>
       <div class="mist a"></div><div class="mist b"></div>
-      <button type="button" class="g-lock" onclick="openGate()" aria-label="Open the gate"></button>
+      <button id="gateLockBtn" type="button" class="g-lock" aria-label="Open the gate"></button>
     </div>
   </div>
   <div id="fxLayer"></div>
@@ -659,19 +677,13 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
       </div>
 
-      <div class="w-full flex items-center justify-between pt-4 border-t border-purple-400/15 text-[10px] font-cinzel text-purple-300/60 uppercase tracking-widest">
-        <span>Curated Gallery Edition</span>
-        <span>Amethyst Reverie • 2028</span>
-      </div>
-
     </div>
 
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 2: The Celebration (Ultra-Translucent Card + Clickable Elements) ==================== -->
+  <!-- ==================== Page 2: The Celebration ==================== -->
   <section id="page-2" class="page-sheet peel-in-wait bg-custom-3 bg-cover bg-center">
-    <!-- Light ambient overlay to reveal background scenic image -->
     <div class="absolute inset-0 bg-gradient-to-b from-[#0f0617]/35 via-transparent to-[#0f0617]/45 pointer-events-none"></div>
 
     <div class="relative z-20 min-h-full max-w-5xl mx-auto px-4 sm:px-8 py-20 sm:py-24 flex flex-col justify-center">
@@ -682,7 +694,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         </p>
       </div>
 
-      <!-- Ultra-Translucent See-Through Glassmorphic Card -->
       <div class="celebration-glass-card rounded-3xl p-6 sm:p-10 md:p-12 relative text-center">
         
         <div class="text-center mb-8">
@@ -718,7 +729,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
               </div>
             </button>
 
-            <!-- Clickable Venue Location (Narra Hill Hotel Lightbox) -->
+            <!-- Clickable Venue Location -->
             <button type="button" onclick="openHotelLightbox()" class="clickable-glass-node group text-center flex flex-col items-center cursor-pointer border border-transparent focus:outline-none focus:border-gold-champagne/60">
               <div class="text-gold-light text-3xl mb-2 text-contrast-heavy group-hover:scale-110 transition duration-300">
                 <i class="fa-solid fa-location-dot"></i>
@@ -755,7 +766,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           </div>
         </div>
 
-        <!-- Mobile View (Responsive Clickable Nodes) -->
+        <!-- Mobile View -->
         <div class="flex md:hidden flex-col space-y-5 text-left">
           
           <button type="button" onclick="openDateCalendarModal()" class="clickable-glass-node flex items-start space-x-4 border border-white/10 w-full text-left bg-black/20">
@@ -816,7 +827,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 3: The 18s / Guest Finder ==================== -->
+  <!-- ==================== Page 3: The 18s / Guest Finder (Updated: 18s.jpg) ==================== -->
   <section id="page-3" class="page-sheet peel-in-wait bg-custom-18s bg-cover bg-center">
     <div class="relative z-20 min-h-full max-w-xl mx-auto px-6 py-32 flex flex-col justify-center items-center">
       <div class="w-full text-center">
@@ -906,67 +917,71 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
 </main>
 
-<!-- ==================== LIGHTBOX MODAL: NARRA HILL HOTEL ==================== -->
+<!-- ==================== LIGHTBOX MODAL: NARRA HILL HOTEL (VIEWPORT-FIT + CLOSE 'X' BUTTON) ==================== -->
 <div id="hotelLightbox" class="modal-overlay" onclick="closeHotelLightboxOnBackdrop(event)">
-  <div class="modal-box relative w-full max-w-3xl bg-[#140624]/95 border border-gold-champagne/60 rounded-3xl p-6 sm:p-8 shadow-[0_25px_80px_rgba(0,0,0,0.9)] overflow-hidden">
+  <div class="modal-box relative w-full max-w-3xl max-h-[92vh] flex flex-col bg-[#140624]/95 border border-gold-champagne/70 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-[0_25px_80px_rgba(0,0,0,0.95)] overflow-hidden">
     
-    <button onclick="closeHotelLightbox()" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition" aria-label="Close Hotel Gallery">
-      <i class="fa-solid fa-xmark text-sm"></i>
+    <!-- Prominent Close Button -->
+    <button type="button" onclick="closeHotelLightbox()" class="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/70 hover:bg-black/90 border border-gold-champagne/80 flex items-center justify-center text-gold-light hover:text-white transition shadow-lg cursor-pointer" aria-label="Close Hotel Gallery">
+      <i class="fa-solid fa-xmark text-sm sm:text-base"></i>
     </button>
 
-    <div class="text-center mb-6">
-      <span class="font-cinzel text-xs tracking-[0.3em] text-gold-light uppercase font-semibold">The Celebration Venue</span>
-      <h3 class="font-serif text-3xl sm:text-4xl text-[#fcfbfa] mt-1">Narra Hill, Tagaytay</h3>
-      <p class="font-sans text-xs text-purple-200/80 mt-1 max-w-md mx-auto">An enchanting pavilion suspended amidst lush greenery, overlooking breathtaking panoramic views of Taal Lake.</p>
-    </div>
-
-    <!-- Gallery Image Display -->
-    <div class="relative aspect-[16/9] w-full rounded-2xl overflow-hidden border border-purple-400/40 shadow-2xl bg-black mb-4">
-      <img id="hotelMainImg" src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80" alt="Narra Hill Tagaytay" class="w-full h-full object-cover transition-opacity duration-300">
-      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-4">
-        <p id="hotelImgCaption" class="font-cinzel text-xs tracking-wider text-gold-light uppercase font-medium">Tagaytay Ridge Pavilion & Panoramic Garden</p>
+    <!-- Scrollable interior to guarantee fitting within any browser view height -->
+    <div class="overflow-y-auto pr-1 flex flex-col">
+      <div class="text-center mb-3 sm:mb-4 pr-8 sm:pr-0">
+        <span class="font-cinzel text-[10px] sm:text-xs tracking-[0.3em] text-gold-light uppercase font-semibold">The Celebration Venue</span>
+        <h3 class="font-serif text-2xl sm:text-3xl text-[#fcfbfa] mt-0.5">Narra Hill, Tagaytay</h3>
+        <p class="font-sans text-[11px] sm:text-xs text-purple-200/80 mt-1 max-w-md mx-auto leading-relaxed">An enchanting pavilion suspended amidst lush greenery, overlooking breathtaking panoramic views of Taal Lake.</p>
       </div>
-    </div>
 
-    <!-- Thumbnail Strip -->
-    <div class="grid grid-cols-3 gap-3">
-      <button onclick="changeHotelImg('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80', 'Tagaytay Ridge Pavilion & Panoramic Garden')" class="aspect-[16/10] rounded-xl overflow-hidden border border-gold-champagne/70 focus:outline-none focus:ring-2 focus:ring-gold-light">
-        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=400&q=80" alt="Thumbnail 1" class="w-full h-full object-cover">
-      </button>
-      <button onclick="changeHotelImg('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80', 'Twilight Lounge & Glass House Suite')" class="aspect-[16/10] rounded-xl overflow-hidden border border-purple-400/40 hover:border-gold-champagne focus:outline-none focus:ring-2 focus:ring-gold-light">
-        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80" alt="Thumbnail 2" class="w-full h-full object-cover">
-      </button>
-      <button onclick="changeHotelImg('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80', 'Evening Ambient Lighting & Reception Deck')" class="aspect-[16/10] rounded-xl overflow-hidden border border-purple-400/40 hover:border-gold-champagne focus:outline-none focus:ring-2 focus:ring-gold-light">
-        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=400&q=80" alt="Thumbnail 3" class="w-full h-full object-cover">
-      </button>
-    </div>
+      <!-- Gallery Image Display -->
+      <div class="relative w-full rounded-xl sm:rounded-2xl overflow-hidden border border-purple-400/40 shadow-2xl bg-black mb-3 shrink-0" style="aspect-ratio: 16 / 9; max-height: 48vh;">
+        <img id="hotelMainImg" src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80" alt="Narra Hill Tagaytay" class="w-full h-full object-cover transition-opacity duration-300">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex items-end p-3 sm:p-4">
+          <p id="hotelImgCaption" class="font-cinzel text-[11px] sm:text-xs tracking-wider text-gold-light uppercase font-medium">Tagaytay Ridge Pavilion & Panoramic Garden</p>
+        </div>
+      </div>
 
-    <!-- Actions -->
-    <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-purple-400/20">
-      <span class="text-xs text-purple-300 font-sans"><i class="fa-solid fa-map-pin mr-1.5 text-gold-champagne"></i>Tagaytay City, Cavite, Philippines</span>
-      <a href="https://maps.google.com/?q=Narra+Hill+Tagaytay" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 px-5 py-2 rounded-full bg-[#5c2d91] hover:bg-purple-700 text-[#fcfbfa] text-xs font-cinzel tracking-wider uppercase border border-gold-champagne/60 transition">
-        <span>Open in Google Maps</span>
-        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-      </a>
+      <!-- Thumbnail Strip -->
+      <div class="grid grid-cols-3 gap-2 sm:gap-3 mb-3">
+        <button type="button" onclick="changeHotelImg('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80', 'Tagaytay Ridge Pavilion & Panoramic Garden')" class="aspect-[16/10] rounded-lg sm:rounded-xl overflow-hidden border border-gold-champagne/80 focus:outline-none focus:ring-2 focus:ring-gold-light">
+          <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=400&q=80" alt="Thumbnail 1" class="w-full h-full object-cover">
+        </button>
+        <button type="button" onclick="changeHotelImg('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80', 'Twilight Lounge & Glass House Suite')" class="aspect-[16/10] rounded-lg sm:rounded-xl overflow-hidden border border-purple-400/40 hover:border-gold-champagne focus:outline-none focus:ring-2 focus:ring-gold-light">
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80" alt="Thumbnail 2" class="w-full h-full object-cover">
+        </button>
+        <button type="button" onclick="changeHotelImg('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80', 'Evening Ambient Lighting & Reception Deck')" class="aspect-[16/10] rounded-lg sm:rounded-xl overflow-hidden border border-purple-400/40 hover:border-gold-champagne focus:outline-none focus:ring-2 focus:ring-gold-light">
+          <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=400&q=80" alt="Thumbnail 3" class="w-full h-full object-cover">
+        </button>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 pt-3 border-t border-purple-400/20">
+        <span class="text-[11px] text-purple-300 font-sans"><i class="fa-solid fa-map-pin mr-1.5 text-gold-champagne"></i>Tagaytay City, Cavite, Philippines</span>
+        <a href="https://maps.google.com/?q=Narra+Hill+Tagaytay" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#5c2d91] hover:bg-purple-700 text-[#fcfbfa] text-[11px] font-cinzel tracking-wider uppercase border border-gold-champagne/60 transition">
+          <span>Open in Google Maps</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+        </a>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ==================== MODAL: CALENDAR & COUNTDOWN ==================== -->
 <div id="dateCalendarModal" class="modal-overlay" onclick="closeDateCalendarModalOnBackdrop(event)">
-  <div class="modal-box relative w-full max-w-lg bg-[#140624]/95 border border-gold-champagne/60 rounded-3xl p-6 sm:p-8 shadow-[0_25px_80px_rgba(0,0,0,0.9)] overflow-hidden text-center">
+  <div class="modal-box relative w-full max-w-lg max-h-[92vh] overflow-y-auto bg-[#140624]/95 border border-gold-champagne/60 rounded-3xl p-5 sm:p-8 shadow-[0_25px_80px_rgba(0,0,0,0.9)] text-center">
     
-    <button onclick="closeDateCalendarModal()" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition" aria-label="Close Calendar">
+    <button type="button" onclick="closeDateCalendarModal()" class="absolute top-4 right-4 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/70 hover:bg-black/90 border border-gold-champagne/80 flex items-center justify-center text-gold-light hover:text-white transition cursor-pointer" aria-label="Close Calendar">
       <i class="fa-solid fa-xmark text-sm"></i>
     </button>
 
     <span class="font-cinzel text-xs tracking-[0.3em] text-gold-light uppercase font-semibold">Save The Date</span>
-    <h3 class="font-serif text-3xl sm:text-4xl text-[#fcfbfa] mt-1">September 22, 2028</h3>
+    <h3 class="font-serif text-2xl sm:text-3xl text-[#fcfbfa] mt-1">September 22, 2028</h3>
     <p class="font-sans text-xs text-[#d4bbf3] mt-1">Friday Evening • 6:00 PM onwards</p>
 
     <!-- Visual September 2028 Calendar Grid -->
-    <div class="my-6 p-4 rounded-2xl bg-black/45 border border-purple-400/30">
-      <div class="font-cinzel text-xs tracking-widest text-[#f3e5ab] font-bold uppercase mb-3">
+    <div class="my-5 p-3 sm:p-4 rounded-2xl bg-black/45 border border-purple-400/30">
+      <div class="font-cinzel text-xs tracking-widest text-[#f3e5ab] font-bold uppercase mb-2">
         September 2028
       </div>
       <div class="grid grid-cols-7 gap-1 text-[11px] font-cinzel text-purple-300/70 mb-2 font-semibold">
@@ -989,24 +1004,24 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       </div>
     </div>
 
-    <!-- Enlarged Countdown Section -->
-    <div class="mb-6">
+    <!-- Countdown Section -->
+    <div class="mb-5">
       <p class="font-cinzel text-[10px] tracking-[0.25em] text-[#d4bbf3] uppercase mb-2">Countdown to the Milestone</p>
-      <div class="grid grid-cols-4 gap-2 px-3 py-3 rounded-2xl bg-[#240b36]/60 border border-gold-champagne/40">
+      <div class="grid grid-cols-4 gap-2 px-3 py-2.5 rounded-2xl bg-[#240b36]/60 border border-gold-champagne/40">
         <div>
-          <span id="cal-modal-days" class="text-xl sm:text-2xl font-serif text-[#fcfbfa] block font-semibold leading-none">000</span>
+          <span id="cal-modal-days" class="text-lg sm:text-xl font-serif text-[#fcfbfa] block font-semibold leading-none">000</span>
           <span class="text-[8px] font-cinzel tracking-wider text-gold-light uppercase">Days</span>
         </div>
         <div>
-          <span id="cal-modal-hours" class="text-xl sm:text-2xl font-serif text-[#fcfbfa] block font-semibold leading-none">00</span>
+          <span id="cal-modal-hours" class="text-lg sm:text-xl font-serif text-[#fcfbfa] block font-semibold leading-none">00</span>
           <span class="text-[8px] font-cinzel tracking-wider text-gold-light uppercase">Hours</span>
         </div>
         <div>
-          <span id="cal-modal-minutes" class="text-xl sm:text-2xl font-serif text-[#fcfbfa] block font-semibold leading-none">00</span>
+          <span id="cal-modal-minutes" class="text-lg sm:text-xl font-serif text-[#fcfbfa] block font-semibold leading-none">00</span>
           <span class="text-[8px] font-cinzel tracking-wider text-gold-light uppercase">Mins</span>
         </div>
         <div>
-          <span id="cal-modal-seconds" class="text-xl sm:text-2xl font-serif text-[#fcfbfa] block font-semibold leading-none">00</span>
+          <span id="cal-modal-seconds" class="text-lg sm:text-xl font-serif text-[#fcfbfa] block font-semibold leading-none">00</span>
           <span class="text-[8px] font-cinzel tracking-wider text-gold-light uppercase">Secs</span>
         </div>
       </div>
@@ -1014,7 +1029,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
     <!-- Add to Calendar Link -->
     <div class="pt-2 border-t border-purple-400/20">
-      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Franz%E2%80%99s+18th+Birthday+%E2%80%94+Amethyst+Reverie&dates=20280922T100000Z/20280922T160000Z&details=Join+Franz+in+celebrating+her+18th+milestone+at+Narra+Hill%2C+Tagaytay.&location=Narra+Hill%2C+Tagaytay+City%2C+Cavite" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-purple-800 to-purple-900 border border-gold-champagne/70 text-gold-light hover:text-white text-xs font-cinzel tracking-widest uppercase transition shadow-md">
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Franz%E2%80%99s+18th+Birthday+%E2%80%94+Amethyst+Reverie&dates=20280922T100000Z/20280922T160000Z&details=Join+Franz+in+celebrating+her+18th+milestone+at+Narra+Hill%2C+Tagaytay.&location=Narra+Hill%2C+Tagaytay+City%2C+Cavite" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 px-5 py-2 rounded-full bg-gradient-to-r from-purple-800 to-purple-900 border border-gold-champagne/70 text-gold-light hover:text-white text-xs font-cinzel tracking-widest uppercase transition shadow-md">
         <i class="fa-regular fa-calendar-plus text-xs"></i>
         <span>Add to Google Calendar</span>
       </a>
@@ -1032,14 +1047,22 @@ const targetDate = new Date('2028-09-22T18:00:00+08:00').getTime();
 // Background Audio
 const bgAudio = document.getElementById('bgAudio');
 
+// Mobile-optimized audio unlocker
 function playBackgroundMusic() {
-  if (bgAudio) {
-    bgAudio.play().then(() => {
-      updateGlobalAudioUI(true);
-    }).catch(err => {
-      console.warn("Audio autoplay blocked by browser policy:", err);
-    });
-  }
+  if (!bgAudio) return;
+  bgAudio.play().then(() => {
+    updateGlobalAudioUI(true);
+  }).catch(() => {
+    const resumeOnInteraction = () => {
+      bgAudio.play().then(() => {
+        updateGlobalAudioUI(true);
+        document.removeEventListener('touchend', resumeOnInteraction);
+        document.removeEventListener('click', resumeOnInteraction);
+      }).catch(e => console.warn(e));
+    };
+    document.addEventListener('touchend', resumeOnInteraction, { once: true });
+    document.addEventListener('click', resumeOnInteraction, { once: true });
+  });
 }
 
 function toggleGlobalAudio() {
@@ -1143,11 +1166,16 @@ for (let i = 0; i < 16; i++) {
   fx.appendChild(p);
 }
 
-// Gate Opening Animation sequence
+// Gate Opening Animation sequence with touch-unlock support
 let gateOpened = false;
-function openGate() {
+function openGate(e) {
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
   if (gateOpened) return;
   gateOpened = true;
+
   playBackgroundMusic();
 
   const g = document.getElementById('gate');
@@ -1156,6 +1184,17 @@ function openGate() {
   setTimeout(() => g.classList.add('fade'), 3700);
   setTimeout(() => g.classList.add('done'), 4900);
 }
+
+const gateLockBtn = document.getElementById('gateLockBtn');
+const gateLeafL = document.getElementById('gateLeafL');
+const gateLeafR = document.getElementById('gateLeafR');
+
+[gateLockBtn, gateLeafL, gateLeafR].forEach(el => {
+  if (el) {
+    el.addEventListener('touchend', openGate, { passive: false });
+    el.addEventListener('click', openGate);
+  }
+});
 
 function relockGates() {
   const g = document.getElementById('gate');
