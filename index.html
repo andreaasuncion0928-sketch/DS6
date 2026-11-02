@@ -21,9 +21,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 .bg-custom-3{background-image:url('celeb b.jpeg'), radial-gradient(circle at 60% 40%, #230d3a 0%, #0c0413 85%)}
 .bg-custom-18s{background-image:url('18s.jpg'), radial-gradient(circle at 50% 50%, #240b36 0%, #09030e 85%)}
 
-/* Minimal clean deep plum gradient for Gallery without floral image */
+/* Minimal clean deep plum gradient for Gallery */
 .bg-gallery-plum {
-  background: radial-gradient(circle at 50% 25%, #2a0845 0%, #150524 50%, #090210 100%);
+  background: radial-gradient(circle at 50% 20%, #2a0845 0%, #150524 50%, #090210 100%);
 }
 
 @media (max-width:768px){
@@ -465,27 +465,30 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   color: #d4bbf3;
 }
 
-/* Editorial Masonry Photo Card */
-.editorial-photo-card {
+/* Enchanted Head-Safe Editorial Frame */
+.enchanted-photo-card {
   position: relative;
   overflow: hidden;
-  border-radius: 0.75rem;
-  background: #140721;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  border-radius: 0.85rem;
+  background: #120422;
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
   cursor: pointer;
+  border: 1px solid rgba(212, 187, 243, 0.15);
 }
-.editorial-photo-card:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 18px 45px rgba(92,45,145,0.4);
+.enchanted-photo-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(212, 175, 55, 0.55);
+  box-shadow: 0 20px 45px rgba(92, 45, 145, 0.45), 0 0 25px rgba(212, 175, 55, 0.25);
 }
-.editorial-photo-card img {
+.enchanted-photo-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s ease, filter 0.5s ease;
+  object-position: center 10%; /* Head-safe protection against cropping */
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
 }
-.editorial-photo-card:hover img {
+.enchanted-photo-card:hover img {
   transform: scale(1.04);
 }
 </style>
@@ -500,12 +503,12 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   <div id="gateWorld">
     <div class="g-side l"></div><div class="g-side r"></div>
     <div id="gateStage">
-      <img class="gate-photo-base" src="gate.jpg" alt="Franz's Garden Gate">
+      <img class="gate-photo-base" src="gate.jpg" alt="Franz's Garden Gate"[cite: 1]>
       <div id="archBackdropHider"></div>
       <div id="portalMist"></div>
       <div id="gateGlow"></div>
-      <img id="gateLeafL" class="gate-leaf-crop l" src="gate.jpg" alt="">
-      <img id="gateLeafR" class="gate-leaf-crop r" src="gate.jpg" alt="">
+      <img id="gateLeafL" class="gate-leaf-crop l" src="gate.jpg" alt=""[cite: 1]>
+      <img id="gateLeafR" class="gate-leaf-crop r" src="gate.jpg" alt=""[cite: 1]>
       <div id="cflames"></div>
       <div class="mist a"></div><div class="mist b"></div>
       <button id="gateLockBtn" type="button" class="g-lock" aria-label="Open the gate"></button>
@@ -521,34 +524,56 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   <div id="veil"></div>
 </div>
 
-<!-- Header Navigation -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-plum-deep/95 via-plum-deep/85 to-transparent backdrop-blur-md border-b border-purple-500/15 py-3 px-4 sm:px-8 transition-all duration-300">
+<!-- ==================== UNIFIED NAVIGATION (BROWSER & MOBILE) ==================== -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-plum-deep/98 via-plum-deep/90 to-transparent backdrop-blur-md border-b border-purple-500/20 py-2.5 px-3 sm:px-8 transition-all duration-300">
   <div class="max-w-7xl mx-auto flex items-center justify-between">
-    <div class="flex items-center space-x-3">
-      <button id="mobileMenuBtn" class="lg:hidden text-lavender-soft/80 hover:text-white p-1 text-sm focus:outline-none" aria-label="Open Navigation"><i class="fa-solid fa-bars"></i></button>
-      <button onclick="relockGates()" class="hidden sm:inline-flex items-center space-x-1.5 text-[10px] font-cinzel text-purple-300/80 hover:text-gold-light transition uppercase tracking-wider"><i class="fa-solid fa-dungeon text-xs text-gold-champagne"></i><span>Gate Entrance</span></button>
+    
+    <!-- Left: Replay Entrance & Toggle Indicator -->
+    <div class="flex items-center space-x-2 sm:space-x-3">
+      <button onclick="relockGates()" class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-purple-950/60 border border-gold-champagne/40 hover:border-gold-light text-[10px] font-cinzel text-purple-200 hover:text-gold-light transition uppercase tracking-wider" title="Replay Gate Entrance">
+        <i class="fa-solid fa-dungeon text-xs text-gold-champagne"></i>
+        <span class="hidden xs:inline">Gate Entrance</span>
+      </button>
     </div>
-    <nav class="hidden lg:flex items-center space-x-7 xl:space-x-9">
-      <button onclick="navigateToPage(0)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-gold-light font-semibold hover:text-gold-light transition duration-200" data-page="0">Home</button>
-      <button onclick="navigateToPage(1)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="1">My Story</button>
-      <button onclick="navigateToPage(2)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="2">The Celebration</button>
-      <button onclick="navigateToPage(3)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="3">The 18s</button>
-      <button onclick="navigateToPage(4)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="4">Gallery</button>
-      <button onclick="navigateToPage(3)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="3">Find Your Name</button>
-      <button onclick="navigateToPage(2)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200" data-page="2">FAQs</button>
-      <button onclick="navigateToPage(4)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200 text-gold-champagne/90 font-semibold" data-page="4">RSVP</button>
+
+    <!-- Desktop Menu Bar -->
+    <nav class="hidden lg:flex items-center space-x-5 xl:space-x-7">
+      <button onclick="navigateToPage(0)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-gold-light font-semibold hover:text-gold-light transition" data-page="0">Home</button>
+      <button onclick="navigateToPage(1)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="1">My Story</button>
+      <button onclick="navigateToPage(2)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="2">The Celebration</button>
+      <button onclick="navigateToPage(3)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="3">The 18s</button>
+      <button onclick="navigateToPage(4)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="4">Gallery</button>
+      <button onclick="navigateToPage(2); setTimeout(openDateCalendarModal, 400);" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition">RSVP</button>
+      <button onclick="navigateToPage(4); document.getElementById('page-4').scrollTo({top: 9999, behavior: 'smooth'});" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-gold-champagne font-medium hover:text-white transition">Live Photos</button>
     </nav>
-    <div class="flex items-center space-x-3">
-      <button id="navMusicBtn" onclick="toggleGlobalAudio()" class="text-lavender-soft/75 hover:text-gold-champagne transition text-xs p-1.5 rounded-full hover:bg-white/5" title="Toggle Audio"><i id="navMusicIcon" class="fa-solid fa-music"></i></button>
+
+    <!-- Right Controls: Audio & Mobile Menu Button -->
+    <div class="flex items-center space-x-2 sm:space-x-3">
+      <button id="navMusicBtn" onclick="toggleGlobalAudio()" class="text-lavender-soft/80 hover:text-gold-champagne transition text-xs p-1.5 rounded-full hover:bg-white/5" title="Toggle Audio">
+        <i id="navMusicIcon" class="fa-solid fa-music"></i>
+      </button>
+      
+      <!-- Mobile Menu Toggle Button (Clearly visible on mobile) -->
+      <button id="mobileMenuBtn" class="lg:hidden flex items-center justify-center p-2 rounded-lg bg-white/5 border border-purple-400/30 text-gold-light hover:text-white focus:outline-none" aria-label="Toggle Navigation Menu">
+        <i class="fa-solid fa-bars text-sm"></i>
+      </button>
     </div>
   </div>
-  <div id="mobileMenu" class="hidden lg:hidden pt-4 pb-2 border-t border-purple-500/20 mt-2 bg-plum-deep/95 backdrop-blur-xl px-4 rounded-b-xl flex flex-col space-y-3">
-    <button onclick="navigateToPage(0); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">Home</button>
-    <button onclick="navigateToPage(1); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">My Story</button>
-    <button onclick="navigateToPage(2); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">The Celebration</button>
-    <button onclick="navigateToPage(3); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft py-1">The 18s (Find Your Role)</button>
-    <button onclick="navigateToPage(4); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-gold-champagne py-1 font-semibold">Gallery & RSVP</button>
-    <button onclick="relockGates(); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-purple-300 py-1 border-t border-purple-500/20 pt-2">Replay Gate Entrance</button>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobileMenu" class="hidden lg:hidden pt-3 pb-3 border-t border-purple-500/25 mt-2 bg-plum-deep/98 backdrop-blur-2xl px-4 rounded-b-2xl flex flex-col space-y-2.5 shadow-2xl">
+    <button onclick="relockGates(); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-purple-300 py-1.5 border-b border-purple-500/20 flex items-center gap-2">
+      <i class="fa-solid fa-dungeon text-gold-champagne text-xs"></i> Gate Entrance
+    </button>
+    <button onclick="navigateToPage(0); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft hover:text-gold-light py-1">Home</button>
+    <button onclick="navigateToPage(1); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft hover:text-gold-light py-1">My Story</button>
+    <button onclick="navigateToPage(2); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft hover:text-gold-light py-1">The Celebration</button>
+    <button onclick="navigateToPage(3); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft hover:text-gold-light py-1">The 18s</button>
+    <button onclick="navigateToPage(4); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft hover:text-gold-light py-1">Gallery</button>
+    <button onclick="navigateToPage(2); closeMobileMenu(); setTimeout(openDateCalendarModal, 450);" class="text-left text-xs uppercase tracking-widest text-gold-champagne py-1 font-semibold">RSVP</button>
+    <button onclick="navigateToPage(4); closeMobileMenu(); setTimeout(() => { document.getElementById('page-4').scrollTo({top: 9999, behavior: 'smooth'}); }, 450);" class="text-left text-xs uppercase tracking-widest text-gold-light py-1 flex items-center gap-1.5">
+      <i class="fa-solid fa-camera-retro text-xs text-gold-champagne"></i> Live Photos
+    </button>
   </div>
 </header>
 
@@ -632,7 +657,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_35%,rgba(168,85,247,0.35)_0%,transparent_60%)] pointer-events-none"></div>
 
     <div class="hidden lg:block gallery-subframe">
-      <img src="4th.JPG" alt="Exhibition Art Background" class="w-full h-full object-cover">
+      <img src="6th.jpeg" alt="Exhibition Art Background" class="w-full h-full object-cover">
     </div>
 
     <div class="relative min-h-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-20 lg:py-24 flex flex-col justify-between z-10">
@@ -692,7 +717,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
             <div class="gallery-curved-plinth hidden lg:block"></div>
             <div class="gallery-canvas-frame z-10">
               <div class="relative aspect-[3/4] overflow-hidden bg-black rounded-[2px] shadow-inner">
-                <img src="4th.JPG" alt="Franz 18th Exhibition Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';" class="w-full h-full object-cover object-center filter contrast-[1.08] brightness-95">
+                <img src="6th.jpeg" alt="Franz 18th Exhibition Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';" class="w-full h-full object-cover object-[center_15%] filter contrast-[1.08] brightness-95">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
                 <div class="absolute bottom-3 right-3 bg-black/75 backdrop-blur-md border border-gold-champagne/70 px-3.5 py-1 rounded-full">
                   <span class="font-script text-gold-light text-base sm:text-lg">Franz</span>
@@ -854,20 +879,19 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 3: The 18s / Guest Finder (Updated placeholder & 18s.jpg) ==================== -->
+  <!-- ==================== Page 3: The 18s / Guest Finder ==================== -->
   <section id="page-3" class="page-sheet peel-in-wait bg-custom-18s bg-cover bg-center">
     <div class="relative z-20 min-h-full max-w-xl mx-auto px-6 py-32 flex flex-col justify-center items-center">
       <div class="w-full text-center">
         <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-gold-light uppercase font-semibold mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">Guest Role Lookup</p>
         <h3 class="font-serif text-3xl sm:text-4xl text-ivory font-light mb-6 drop-shadow-[0_3px_10px_rgba(0,0,0,0.9)]">Enter Your Name</h3>
         <form onsubmit="handle18sLookup(event)" class="w-full flex flex-col sm:flex-row gap-3 shadow-[0_15px_35px_rgba(0,0,0,0.7)]">
-          <!-- Updated placeholder as requested -->
           <input type="text" id="guestSearchInput" placeholder="enter your full name (first, last)" required class="flex-1 px-5 py-3.5 bg-black/60 backdrop-blur-md border border-purple-300/40 rounded text-sm text-ivory placeholder-purple-300/60 focus:outline-none focus:border-gold-champagne transition shadow-inner">
           <button type="submit" class="px-7 py-3.5 bg-purple-900/90 hover:bg-purple-800 backdrop-blur-md border border-gold-champagne/60 hover:border-gold-champagne text-xs font-cinzel uppercase tracking-widest text-ivory rounded transition shadow-lg">Find My Role</button>
         </form>
         <div id="lookupResult" class="w-full mt-6 transition-all duration-300 hidden"></div>
         <div class="mt-12">
-          <button onclick="navigateToPage(4)" class="px-5 py-2 text-xs font-cinzel uppercase tracking-widest text-gold-light bg-black/40 backdrop-blur-sm border border-purple-400/30 hover:border-gold-champagne rounded transition">Continue to Gallery & RSVP <i class="fa-solid fa-arrow-right ml-1"></i></button>
+          <button onclick="navigateToPage(4)" class="px-5 py-2 text-xs font-cinzel uppercase tracking-widest text-gold-light bg-black/40 backdrop-blur-sm border border-purple-400/30 hover:border-gold-champagne rounded transition">Continue to Gallery <i class="fa-solid fa-arrow-right ml-1"></i></button>
         </div>
       </div>
     </div>
@@ -875,7 +899,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 4: Luxury Editorial Gallery & RSVP ==================== -->
+  <!-- ==================== Page 4: Pure Enchanted Photo Gallery (6th.jpeg to 12th.jpeg) ==================== -->
   <section id="page-4" class="page-sheet peel-in-wait bg-gallery-plum overflow-y-auto">
     <!-- Subtle Golden Ambient Lighting & Soft Particles -->
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_15%,rgba(212,175,55,0.08)_0%,transparent_60%)] pointer-events-none"></div>
@@ -883,7 +907,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
     <div class="relative z-20 min-h-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-24 sm:py-28">
       
-      <!-- Nostalgic Top Quote (Requested) -->
+      <!-- Nostalgic Top Quote -->
       <div class="text-center mb-8 max-w-2xl mx-auto">
         <p class="font-script text-2xl sm:text-3xl text-gold-light drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] leading-relaxed">
           “Take pictures in your mind of your childhood room...<br class="hidden sm:inline">
@@ -892,7 +916,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         <div class="w-16 h-[1px] bg-gradient-to-r from-transparent via-gold-champagne/60 to-transparent mx-auto mt-4"></div>
       </div>
 
-      <!-- Redesigned Editorial Heading (CHAPTER V · THE MEMORIES) -->
+      <!-- Page Heading -->
       <div class="text-center mb-14 sm:mb-16">
         <span class="font-cinzel text-[11px] sm:text-xs tracking-[0.35em] text-[#d4bbf3] uppercase font-semibold block mb-2">
           CHAPTER V · THE MEMORIES
@@ -905,7 +929,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         </p>
       </div>
 
-      <!-- ==================== GROUP 1: THE PORTRAITS ==================== -->
+      <!-- ==================== GROUP 1: THE PORTRAITS (Head-Safe Showcase) ==================== -->
       <div class="mb-20">
         <div class="flex items-baseline space-x-3 mb-6 pb-2 border-b border-purple-400/20">
           <span class="font-cinzel text-xs tracking-[0.25em] text-gold-light uppercase font-semibold">01</span>
@@ -913,37 +937,37 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           <span class="text-xs font-sans text-purple-300/60 italic">— Formal portraits, styled shoots, and favorite photos.</span>
         </div>
 
-        <!-- Asymmetrical Masonry Grid with 1st.JPG, 4th.JPG, 5th.JPG -->
+        <!-- Asymmetrical Masonry Grid with 6th.jpeg, 7th.jpeg, 8th.jpeg -->
         <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
           
-          <!-- Large Featured Portrait (4th.JPG) -->
-          <div class="md:col-span-7 editorial-photo-card aspect-[4/5] md:aspect-auto" onclick="openPhotoViewer('4th.JPG', 'The Amethyst Debutante', 'Formal Styled Portrait — Manila')">
-            <img src="4th.JPG" alt="The Portraits Featured" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=80';">
+          <!-- Large Featured Portrait (6th.jpeg) - Head-Protected framing -->
+          <div class="md:col-span-7 enchanted-photo-card aspect-[4/5] md:aspect-auto" onclick="openPhotoViewer('6th.jpeg', 'The Amethyst Muse', 'Formal Editorial Portrait')">
+            <img src="6th.jpeg" alt="The Portraits Featured Franz" class="object-[center_12%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=80';">
             <div class="absolute inset-0 bg-gradient-to-t from-[#0f0617]/90 via-transparent to-transparent flex flex-col justify-end p-6">
               <span class="font-cinzel text-[10px] tracking-widest text-gold-light uppercase">Featured Portrait</span>
-              <h4 class="font-serif text-xl sm:text-2xl text-white font-normal mt-0.5">The Amethyst Reverie</h4>
+              <h4 class="font-serif text-xl sm:text-2xl text-white font-normal mt-0.5">The Amethyst Muse</h4>
               <p class="font-sans text-xs text-purple-200/80 mt-1">Tap to enlarge portrait</p>
             </div>
           </div>
 
-          <!-- Stacked Side Photos (1st.JPG & 5th.JPG) -->
+          <!-- Stacked Side Photos: 7th.jpeg (Landscape) & 8th.jpeg (Portrait) -->
           <div class="md:col-span-5 flex flex-col gap-5">
-            <div class="editorial-photo-card aspect-[16/10] flex-1" onclick="openPhotoViewer('1st.JPG', 'A New Dawning', 'Editorial Series I')">
-              <img src="1st.JPG" alt="Portrait Series 1" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80';">
+            <div class="enchanted-photo-card aspect-[16/10] flex-1" onclick="openPhotoViewer('7th.jpeg', 'In Radiant Splendor', 'Editorial Series VII')">
+              <img src="7th.jpeg" alt="Portrait Series 7" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80';">
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
                 <div>
-                  <p class="font-cinzel text-[11px] tracking-wider text-purple-200">A New Dawning</p>
-                  <p class="font-sans text-[10px] text-gold-champagne/80">Editorial Series I</p>
+                  <p class="font-cinzel text-[11px] tracking-wider text-purple-200">In Radiant Splendor</p>
+                  <p class="font-sans text-[10px] text-gold-champagne/80">Editorial Series VII</p>
                 </div>
               </div>
             </div>
 
-            <div class="editorial-photo-card aspect-[16/10] flex-1" onclick="openPhotoViewer('5th.JPG', 'In Quiet Radiance', 'Editorial Series V')">
-              <img src="5th.JPG" alt="Portrait Series 5" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80';">
+            <div class="enchanted-photo-card aspect-[16/10] flex-1" onclick="openPhotoViewer('8th.jpeg', 'Twilight Grace', 'Editorial Series VIII')">
+              <img src="8th.jpeg" alt="Portrait Series 8" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80';">
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
                 <div>
-                  <p class="font-cinzel text-[11px] tracking-wider text-purple-200">In Quiet Radiance</p>
-                  <p class="font-sans text-[10px] text-gold-champagne/80">Editorial Series V</p>
+                  <p class="font-cinzel text-[11px] tracking-wider text-purple-200">Twilight Grace</p>
+                  <p class="font-sans text-[10px] text-gold-champagne/80">Editorial Series VIII</p>
                 </div>
               </div>
             </div>
@@ -952,7 +976,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         </div>
       </div>
 
-      <!-- ==================== GROUP 2: THE LITTLE MOMENTS ==================== -->
+      <!-- ==================== GROUP 2: THE LITTLE MOMENTS (9th.jpeg, 10th.jpeg) ==================== -->
       <div class="mb-20">
         <div class="flex items-baseline space-x-3 mb-6 pb-2 border-b border-purple-400/20">
           <span class="font-cinzel text-xs tracking-[0.25em] text-gold-light uppercase font-semibold">02</span>
@@ -960,35 +984,24 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           <span class="text-xs font-sans text-purple-300/60 italic">— Candid shots, everyday memories, and fun moments.</span>
         </div>
 
-        <!-- Dynamic Grid with 2nd.JPG & 3rd.JPG + Candid Moments -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           
-          <div class="editorial-photo-card aspect-square" onclick="openPhotoViewer('2nd.JPG', 'Laughter & Unscripted Smiles', 'Memories Through 18 Years')">
-            <img src="2nd.JPG" alt="Candid 2" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80';">
+          <div class="enchanted-photo-card aspect-[16/11]" onclick="openPhotoViewer('9th.jpeg', 'Gentle Whispers', 'Candid Series IX')">
+            <img src="9th.jpeg" alt="Candid 9" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80';">
             <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex items-end p-4">
               <div>
-                <p class="font-cinzel text-xs text-white">Unscripted Smiles</p>
-                <p class="font-sans text-[10px] text-purple-200/70">Candid Chronicles</p>
+                <p class="font-cinzel text-xs text-white">Gentle Whispers</p>
+                <p class="font-sans text-[10px] text-purple-200/70">Candid Series IX</p>
               </div>
             </div>
           </div>
 
-          <div class="editorial-photo-card aspect-square" onclick="openPhotoViewer('3rd.JPG', 'Golden Hour Glimmer', 'Everyday Chapters')">
-            <img src="3rd.JPG" alt="Candid 3" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80';">
+          <div class="enchanted-photo-card aspect-[16/11]" onclick="openPhotoViewer('10th.jpeg', 'Serendipity in Bloom', 'Candid Series X')">
+            <img src="10th.jpeg" alt="Candid 10" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80';">
             <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex items-end p-4">
               <div>
-                <p class="font-cinzel text-xs text-white">Golden Hour Glimmer</p>
-                <p class="font-sans text-[10px] text-purple-200/70">Everyday Chapters</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="editorial-photo-card aspect-square sm:col-span-2 lg:col-span-1" onclick="openPhotoViewer('1st.JPG', 'Treasured Polaroids', 'Friendship & Milestones')">
-            <img src="1st.JPG" alt="Candid 1" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80';">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex items-end p-4">
-              <div>
-                <p class="font-cinzel text-xs text-white">Treasured Polaroids</p>
-                <p class="font-sans text-[10px] text-purple-200/70">Milestone Keepsakes</p>
+                <p class="font-cinzel text-xs text-white">Serendipity in Bloom</p>
+                <p class="font-sans text-[10px] text-purple-200/70">Candid Series X</p>
               </div>
             </div>
           </div>
@@ -996,8 +1009,8 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         </div>
       </div>
 
-      <!-- ==================== GROUP 3: THE CELEBRATION & GUEST UPLOAD ==================== -->
-      <div class="mb-20">
+      <!-- ==================== GROUP 3: THE CELEBRATION (11th.jpeg, 12th.jpeg + Guest Vault) ==================== -->
+      <div class="mb-14">
         <div class="flex items-baseline space-x-3 mb-6 pb-2 border-b border-purple-400/20">
           <span class="font-cinzel text-xs tracking-[0.25em] text-gold-light uppercase font-semibold">03</span>
           <h3 class="font-serif text-2xl text-[#fcfbfa] font-normal">The Celebration</h3>
@@ -1006,35 +1019,35 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           
-          <!-- Sample Celebration Card Grid (4 cols) -->
+          <!-- Celebration Photos: 11th.jpeg & 12th.jpeg -->
           <div class="lg:col-span-7 grid grid-cols-2 gap-4">
-            <div class="editorial-photo-card aspect-[3/4]" onclick="openPhotoViewer('3rd.JPG', 'Candlelit Reverie', 'Narra Hill Tagaytay')">
-              <img src="3rd.JPG" alt="Celebration 3" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80';">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
-                <span class="font-cinzel text-[11px] text-gold-light">Candlelit Moments</span>
+            <div class="enchanted-photo-card aspect-[3/4]" onclick="openPhotoViewer('11th.jpeg', 'Midnight Reverie', 'Celebration Series XI')">
+              <img src="11th.jpeg" alt="Celebration 11" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80';">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3.5">
+                <span class="font-cinzel text-[11px] text-gold-light">Midnight Reverie</span>
               </div>
             </div>
-            <div class="editorial-photo-card aspect-[3/4]" onclick="openPhotoViewer('5th.JPG', 'An Evening in Bloom', 'Debut Celebration')">
-              <img src="5th.JPG" alt="Celebration 5" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80';">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
-                <span class="font-cinzel text-[11px] text-gold-light">An Evening in Bloom</span>
+            
+            <div class="enchanted-photo-card aspect-[3/4]" onclick="openPhotoViewer('12th.jpeg', 'Eighteen in Bloom', 'Celebration Series XII')">
+              <img src="12th.jpeg" alt="Celebration 12" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80';">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3.5">
+                <span class="font-cinzel text-[11px] text-gold-light">Eighteen in Bloom</span>
               </div>
             </div>
           </div>
 
-          <!-- Guest Upload Feature with QR Code & Link (Requested) -->
-          <div class="lg:col-span-5 p-7 sm:p-8 rounded-2xl bg-[#1c082e]/80 border border-gold-champagne/50 shadow-2xl text-center flex flex-col items-center">
+          <!-- Guest Photo Vault with QR Code -->
+          <div class="lg:col-span-5 p-6 sm:p-8 rounded-2xl bg-[#1c082e]/85 border border-gold-champagne/50 shadow-2xl text-center flex flex-col items-center">
             <div class="w-12 h-12 rounded-full bg-purple-900/80 border border-gold-champagne/60 flex items-center justify-center text-gold-light mb-3">
               <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
             </div>
             <span class="font-cinzel text-[11px] tracking-widest text-gold-light uppercase font-semibold">Share Your Photos</span>
             <h4 class="font-serif text-2xl text-[#fcfbfa] mt-1 mb-2">Guest Photo Vault</h4>
-            <p class="font-sans text-xs text-purple-200/80 max-w-sm mb-5 leading-relaxed">
-              Captured a magical moment tonight? Scan the code or upload your photos directly to Franz's live gallery memory book.
+            <p class="font-sans text-xs text-purple-200/80 max-w-sm mb-4 leading-relaxed">
+              Captured a magical moment tonight? Scan the code or upload your photos directly to Franz's live memory album.
             </p>
 
-            <!-- Interactive QR Code Container -->
-            <div class="p-3 bg-white rounded-xl shadow-lg mb-4 cursor-pointer hover:scale-105 transition" onclick="triggerGuestUpload()">
+            <div class="p-3 bg-white rounded-xl shadow-lg mb-3 cursor-pointer hover:scale-105 transition" onclick="triggerGuestUpload()">
               <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://photos.google.com&color=24-11-54" alt="Scan to Upload Photos" class="w-28 h-28 mx-auto">
             </div>
             <span class="text-[10px] font-cinzel text-purple-300 uppercase tracking-wider mb-4">Scan using phone camera</span>
@@ -1049,41 +1062,8 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         </div>
       </div>
 
-      <!-- ==================== RSVP SECTION ==================== -->
-      <div class="max-w-2xl mx-auto bg-plum-deep/85 backdrop-blur-md p-8 sm:p-12 rounded-2xl border border-purple-500/30 shadow-2xl mt-8">
-        <div class="text-center mb-8">
-          <span class="font-cinzel text-xs tracking-widest text-gold-light uppercase">Confirmation of Attendance</span>
-          <h3 class="font-serif text-2xl sm:text-3xl text-purple-100 font-light mt-1">A Place for You</h3>
-          <p class="font-sans text-xs text-purple-300/80 mt-2">Kindly confirm your attendance by <span class="text-gold-light font-semibold">September 1, 2028</span>.</p>
-        </div>
-        <form onsubmit="handleRSVPSubmit(event)" class="space-y-5">
-          <div>
-            <label class="block font-cinzel text-[10px] uppercase tracking-widest text-purple-200 mb-1">Full Name</label>
-            <input type="text" id="rsvpName" required placeholder="e.g., Sophia Montgomery" class="w-full px-4 py-2.5 bg-white/5 border border-purple-400/30 rounded text-sm text-ivory placeholder-purple-400/40 focus:outline-none focus:border-gold-champagne">
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block font-cinzel text-[10px] uppercase tracking-widest text-purple-200 mb-1">Attendance Status</label>
-              <select id="rsvpStatus" class="w-full px-4 py-2.5 bg-purple-950/90 border border-purple-400/30 rounded text-sm text-ivory focus:outline-none focus:border-gold-champagne">
-                <option value="attending">Joyfully Accept</option>
-                <option value="declining">Regretfully Decline</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-cinzel text-[10px] uppercase tracking-widest text-purple-200 mb-1">Dietary Preferences</label>
-              <input type="text" id="rsvpDietary" placeholder="None / Vegetarian / etc." class="w-full px-4 py-2.5 bg-white/5 border border-purple-400/30 rounded text-sm text-ivory placeholder-purple-400/40 focus:outline-none focus:border-gold-champagne">
-            </div>
-          </div>
-          <div>
-            <label class="block font-cinzel text-[10px] uppercase tracking-widest text-purple-200 mb-1">Message for Franz</label>
-            <textarea id="rsvpMessage" rows="3" placeholder="Leave a warm birthday wish..." class="w-full px-4 py-2 bg-white/5 border border-purple-400/30 rounded text-sm text-ivory placeholder-purple-400/40 focus:outline-none focus:border-gold-champagne"></textarea>
-          </div>
-          <button type="submit" class="w-full py-3 bg-gradient-to-r from-purple-800 to-purple-900 border border-gold-champagne/50 hover:border-gold-champagne text-xs font-cinzel uppercase tracking-[0.25em] text-ivory rounded shadow-lg transition">Confirm My RSVP</button>
-        </form>
-        <div id="rsvpFeedback" class="mt-4 text-center hidden"></div>
-      </div>
-
-      <div class="text-center mt-16 pt-8 border-t border-purple-500/20">
+      <!-- Footer Return to Home -->
+      <div class="text-center pt-8 border-t border-purple-500/20">
         <h4 class="font-serif text-2xl text-purple-200">Until We Meet in Bloom</h4>
         <p class="font-sans text-xs text-purple-300/70 mt-2 max-w-md mx-auto">“Thank you for being part of my story. I look forward to celebrating this beautiful beginning with you.”</p>
         <p class="font-script text-3xl text-gold-light mt-3">With love, Franz</p>
@@ -1106,12 +1086,12 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     </button>
 
     <div class="relative w-full flex-1 max-h-[70vh] flex items-center justify-center bg-black/60 rounded-xl overflow-hidden mb-3">
-      <img id="viewerLargeImg" src="4th.JPG" alt="Enlarged View" class="max-h-[68vh] w-auto max-w-full object-contain">
+      <img id="viewerLargeImg" src="6th.jpeg" alt="Enlarged View" class="max-h-[68vh] w-auto max-w-full object-contain">
     </div>
 
     <div class="flex items-center justify-between px-2 pt-2 border-t border-purple-400/20">
       <div>
-        <h4 id="viewerImgTitle" class="font-serif text-xl sm:text-2xl text-white font-normal">The Amethyst Debutante</h4>
+        <h4 id="viewerImgTitle" class="font-serif text-xl sm:text-2xl text-white font-normal">The Amethyst Muse</h4>
         <p id="viewerImgSubtitle" class="font-sans text-xs text-gold-light">Formal Styled Shoot</p>
       </div>
       <span class="text-[10px] font-cinzel uppercase tracking-widest text-purple-300/70">Moments in Bloom</span>
@@ -1281,7 +1261,7 @@ function updateGlobalAudioUI(isPlaying) {
   }
 }
 
-// Lightbox: Photo Viewer (1st.JPG - 5th.JPG)
+// Lightbox: Photo Viewer (6th.jpeg - 12th.jpeg)
 function openPhotoViewer(src, title, subtitle) {
   const modal = document.getElementById('photoViewerModal');
   const img = document.getElementById('viewerLargeImg');
@@ -1530,19 +1510,6 @@ function handle18sLookup(e){
       <p class="font-sans text-[11px] text-purple-300/80 mt-2">No matching role record found under this spelling. Please verify your formal name or check with Franz.</p>
     </div>`;
   resultArea.querySelector('.search-guest-name').textContent = input;
-}
-
-function handleRSVPSubmit(e){
-  e.preventDefault();
-  const name = document.getElementById('rsvpName').value;
-  const status = document.getElementById('rsvpStatus').value;
-  const feedback = document.getElementById('rsvpFeedback');
-  feedback.classList.remove('hidden');
-  feedback.innerHTML = `
-    <div class="p-3 bg-purple-900/60 border border-gold-champagne/40 rounded text-xs text-purple-200">
-      <i class="fa-solid fa-circle-check text-gold-champagne mr-1"></i> Thank you, <strong class="rsvp-guest-name text-white"></strong>. Your confirmation (${status === 'attending' ? 'Attending' : 'Declining'}) has been noted!
-    </div>`;
-  feedback.querySelector('.rsvp-guest-name').textContent = name;
 }
 
 const mobileBtn = document.getElementById('mobileMenuBtn'), mobileMenu = document.getElementById('mobileMenu');
