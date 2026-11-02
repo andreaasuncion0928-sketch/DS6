@@ -292,9 +292,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 .page-sheet.peel-out { transform: translate3d(-35%,0,-250px) rotateY(-38deg) rotateZ(-3deg); opacity: 0; filter: blur(4px); pointer-events: none; z-index: 10; }
 .page-sheet.peel-in-wait { transform: translate3d(25%,0,-180px) rotateY(25deg) scale(.92); opacity: 0; filter: blur(4px); pointer-events: none; z-index: 10; }
 
-/* ========================================================
-   REFINED SLOWER, GENTLE RISING EMBERS (ACROSS ALL PAGES)
-   ======================================================== */
+/* Rising Circles Layer */
 .rising-circles-layer {
   position: absolute;
   inset: 0;
@@ -320,35 +318,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   100% { transform: translateY(-10vh) translateX(16px) scale(1.15); opacity: 0; }
 }
 
-.vintage-invitation-btn {
-  position: relative;
-  border: 1px solid rgba(212,175,55,.65);
-  background: rgba(15,6,23,.55);
-  box-shadow: 0 0 15px rgba(92,45,145,.4), inset 0 0 10px rgba(212,175,55,.2);
-  transition: all .4s ease;
-}
-.vintage-invitation-btn:hover {
-  background: rgba(92,45,145,.65);
-  border-color: rgba(243,229,171,.95);
-  box-shadow: 0 0 25px rgba(212,175,55,.5), inset 0 0 15px rgba(212,175,55,.3);
-  transform: translateY(-1px) scale(1.02);
-}
-
-.btn-details-dark {
-  background: #251239;
-  border: 1px solid rgba(168,85,247,.4);
-  border-radius: 9999px;
-  transition: all .3s ease;
-}
-.btn-details-dark:hover {
-  background: #3b1d5a;
-  border-color: rgba(212,175,55,.85);
-  transform: translateY(-1px);
-}
-
-/* ========================================================
-   ENCHANTED ANIMATIONS FOR HERO CARD
-   ======================================================== */
+/* Enchanted Animations */
 .enchanted-eighteen {
   display: inline-block;
   animation: enchantedFloatSlow 6s ease-in-out infinite alternate, enchantedShimmer 4s ease-in-out infinite alternate;
@@ -367,15 +337,12 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   100% { text-shadow: 0 4px 18px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4); }
 }
 
-/* ========================================================
-   PAGE 1 & 2 - TRANSLUCENT CARDS
-   ======================================================== */
 .purple-story-card {
-  background: rgba(36, 11, 54, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(36, 11, 54, 0.68);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(168, 85, 247, 0.45);
-  box-shadow: 0 20px 50px rgba(15, 6, 23, 0.8), inset 0 0 30px rgba(92, 45, 145, 0.25);
+  box-shadow: 0 20px 50px rgba(15, 6, 23, 0.85), inset 0 0 30px rgba(92, 45, 145, 0.25);
 }
 
 .celebration-glass-card {
@@ -386,19 +353,10 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   box-shadow: 0 25px 60px rgba(11, 4, 18, 0.7), inset 0 0 25px rgba(255, 255, 255, 0.08);
 }
 
-@media (max-width: 768px) {
-  .celebration-glass-card {
-    background: rgba(20, 7, 33, 0.35);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(212, 187, 243, 0.35);
-  }
-}
-
 .mobile-story-frame {
   position: relative;
   width: 100%;
-  max-width: 22.5rem;
+  max-width: 23rem;
   margin: 0 auto;
   border-radius: 1.5rem;
   overflow: hidden;
@@ -422,10 +380,10 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(15, 6, 23, 0.05) 0%,
-    rgba(15, 6, 23, 0) 30%,
-    rgba(15, 6, 23, 0.7) 58%,
-    rgba(15, 6, 23, 0.94) 82%,
+    rgba(15, 6, 23, 0.15) 0%,
+    rgba(15, 6, 23, 0.1) 25%,
+    rgba(15, 6, 23, 0.75) 55%,
+    rgba(15, 6, 23, 0.96) 80%,
     rgba(15, 6, 23, 0.99) 100%
   );
   z-index: 2;
@@ -449,33 +407,36 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 .enchanted-title {
   animation: enchantedGlow 4s ease-in-out infinite alternate;
 }
-.enchanted-quote {
-  animation: enchantedFloat 6s ease-in-out infinite alternate;
-}
-.enchanted-body {
-  animation: enchantedFloat 6s ease-in-out infinite alternate 1s;
-}
-
-@keyframes enchantedFloat {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-4px); }
-  100% { transform: translateY(0px); }
-}
-
 @keyframes enchantedGlow {
-  0% {
-    text-shadow: 0 2px 8px rgba(0,0,0,0.9), 0 0 15px rgba(168,85,247,0.3);
-  }
-  50% {
-    text-shadow: 0 4px 22px rgba(0,0,0,0.95), 0 0 28px rgba(212,175,55,0.5), 0 0 45px rgba(192,132,252,0.7);
-  }
-  100% {
-    text-shadow: 0 2px 8px rgba(0,0,0,0.9), 0 0 15px rgba(168,85,247,0.3);
-  }
+  0% { text-shadow: 0 2px 8px rgba(0,0,0,0.9), 0 0 15px rgba(168,85,247,0.3); }
+  50% { text-shadow: 0 4px 22px rgba(0,0,0,0.95), 0 0 28px rgba(212,175,55,0.5), 0 0 45px rgba(192,132,252,0.7); }
+  100% { text-shadow: 0 2px 8px rgba(0,0,0,0.9), 0 0 15px rgba(168,85,247,0.3); }
 }
+
+/* Audio Waveform Animation */
+.music-bar {
+  display: inline-block;
+  width: 2px;
+  background-color: #d4af37;
+  border-radius: 2px;
+  animation: audioWave 1.2s ease-in-out infinite alternate;
+}
+.music-bar:nth-child(2) { animation-delay: 0.2s; height: 10px; }
+.music-bar:nth-child(3) { animation-delay: 0.4s; height: 14px; }
+.music-bar:nth-child(4) { animation-delay: 0.1s; height: 8px; }
+.music-bar:nth-child(5) { animation-delay: 0.3s; height: 12px; }
+@keyframes audioWave {
+  0% { transform: scaleY(0.4); }
+  100% { transform: scaleY(1.3); }
+}
+.music-bar.paused { animation-play-state: paused; transform: scaleY(0.4); }
 </style>
 </head>
 <body class="bg-plum-deep text-ivory font-sans antialiased overflow-hidden select-none">
+
+<!-- Native Audio Players -->
+<audio id="bgAudio" src="background.mp3" loop preload="auto"></audio>
+<audio id="storyAudio" src="mystory.mp3" loop preload="auto"></audio>
 
 <!-- ===== ENTRANCE GATE ===== -->
 <div id="gate" role="dialog" aria-label="Invitation entrance">
@@ -521,7 +482,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       <button onclick="navigateToPage(4)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/80 hover:text-gold-light transition duration-200 text-gold-champagne/90 font-semibold" data-page="4">RSVP</button>
     </nav>
     <div class="flex items-center space-x-3">
-      <button id="navMusicBtn" onclick="toggleAudio()" class="text-lavender-soft/75 hover:text-gold-champagne transition text-xs p-1.5 rounded-full hover:bg-white/5" title="Toggle Twilight Melody"><i id="navMusicIcon" class="fa-solid fa-music"></i></button>
+      <button id="navMusicBtn" onclick="toggleGlobalAudio()" class="text-lavender-soft/75 hover:text-gold-champagne transition text-xs p-1.5 rounded-full hover:bg-white/5" title="Toggle Audio"><i id="navMusicIcon" class="fa-solid fa-music"></i></button>
     </div>
   </div>
   <div id="mobileMenu" class="hidden lg:hidden pt-4 pb-2 border-t border-purple-500/20 mt-2 bg-plum-deep/95 backdrop-blur-xl px-4 rounded-b-xl flex flex-col space-y-3">
@@ -544,7 +505,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       <div class="absolute inset-0 bg-radial-gradient from-transparent via-[#0b0412]/40 to-[#0b0412]/80"></div>
     </div>
 
-    <!-- Central Restrained Luxury Card (Balanced size & vertical placement to fit browser screens) -->
+    <!-- Central Restrained Luxury Card -->
     <div class="relative z-10 max-w-2xl w-full mx-auto px-4 sm:px-6 text-center my-auto">
       <div class="py-6 sm:py-8 md:py-10 px-6 sm:px-12 md:px-16 rounded-3xl bg-[#0f0617]/50 backdrop-blur-md border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.65)]">
 
@@ -600,7 +561,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         </div>
       </div>
 
-      <button onclick="toggleAudio()" class="text-[8.5px] font-cinzel tracking-[0.22em] text-[#d4af37]/80 hover:text-white uppercase transition flex items-center gap-1.5">
+      <button onclick="toggleGlobalAudio()" class="text-[8.5px] font-cinzel tracking-[0.22em] text-[#d4af37]/80 hover:text-white uppercase transition flex items-center gap-1.5">
         <span id="heroMusicStatus">Sound On</span>
         <i id="heroMusicIcon" class="fa-solid fa-volume-high text-[8px]"></i>
       </button>
@@ -612,51 +573,66 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
   <!-- ==================== Page 1: My Story ==================== -->
   <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center">
-    <div class="relative min-h-full max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 flex flex-col justify-center">
+    <div class="relative min-h-full max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-24 flex flex-col justify-center">
       
-      <!-- Title Header: Just "My Story" -->
-      <div class="text-center mb-6 sm:mb-12 relative z-20">
-        <h2 class="enchanted-title font-serif text-3xl sm:text-5xl md:text-6xl text-purple-100 font-light drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">My Story</h2>
-        <div class="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-purple-300/80 to-transparent mx-auto mt-4 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></div>
+      <!-- Section Header -->
+      <div class="text-center mb-6 sm:mb-10 relative z-20">
+        <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-[#d4bbf3] uppercase font-medium mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+          A LITTLE ABOUT ME
+        </p>
+        <h2 class="enchanted-title font-serif text-3xl sm:text-5xl md:text-6xl text-purple-100 font-light drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+          My Story
+        </h2>
+        <div class="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-purple-300/80 to-transparent mx-auto mt-3 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></div>
       </div>
       
-      <!-- MOBILE VIEW: Text Overlaid directly on 4th.JPG -->
+      <!-- MOBILE VIEW: Text Overlaid directly on portrait with custom music trigger -->
       <div class="block lg:hidden relative z-20 w-full flex justify-center">
-        <div class="mobile-story-frame" style="aspect-ratio: 9/16; max-height: 78vh;">
+        <div class="mobile-story-frame" style="aspect-ratio: 9/16; max-height: 80vh;">
           <img class="portrait-bg" src="4th.JPG" alt="Franz - 4th Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';">
           <div class="mobile-story-scrim"></div>
 
-          <!-- Top-right Franz badge -->
-          <div class="absolute top-4 right-4 z-10 px-3.5 py-1 rounded-full bg-black/65 backdrop-blur-md border border-gold-champagne/80 shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-            <span class="font-script text-gold-light text-base">Franz</span>
+          <!-- Top Franz badge & Story Music Button -->
+          <div class="absolute top-4 left-4 right-4 z-10 flex items-center justify-between">
+            <button onclick="playStoryMusic()" class="flex items-center space-x-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-gold-champagne/70 text-gold-light shadow-md active:scale-95 transition" title="Play Story Melody">
+              <i class="fa-solid fa-music text-xs"></i>
+              <span class="font-cinzel text-[10px] tracking-wider uppercase" id="storyMobileAudioLabel">Play Music</span>
+            </button>
+            <div class="px-3.5 py-1 rounded-full bg-black/65 backdrop-blur-md border border-gold-champagne/80 shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+              <span class="font-script text-gold-light text-base">Franz</span>
+            </div>
           </div>
 
           <!-- Subtle Glow Dust -->
-          <span class="sparkle-dot" style="top: 54%; left: 18%; width: 4px; height: 4px;"></span>
-          <span class="sparkle-dot" style="top: 60%; left: 32%; width: 5px; height: 5px; animation-delay: 0.6s;"></span>
-          <span class="sparkle-dot" style="top: 56%; left: 62%; width: 4.5px; height: 4.5px; animation-delay: 1.2s;"></span>
-          <span class="sparkle-dot" style="top: 62%; left: 82%; width: 4px; height: 4px; animation-delay: 1.8s;"></span>
+          <span class="sparkle-dot" style="top: 48%; left: 16%; width: 4px; height: 4px;"></span>
+          <span class="sparkle-dot" style="top: 54%; left: 35%; width: 5px; height: 5px; animation-delay: 0.6s;"></span>
+          <span class="sparkle-dot" style="top: 52%; left: 68%; width: 4.5px; height: 4.5px; animation-delay: 1.2s;"></span>
+          <span class="sparkle-dot" style="top: 58%; left: 84%; width: 4px; height: 4px; animation-delay: 1.8s;"></span>
 
           <!-- Overlaid Text Content at Bottom -->
           <div class="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-6 flex flex-col justify-end text-left">
-            <div class="text-gold-light drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] text-xl sm:text-2xl mb-2">
+            <div class="text-gold-light drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] text-lg mb-1.5">
               <i class="fa-solid fa-quote-left"></i>
             </div>
-            
-            <p class="font-serif text-[13px] sm:text-base text-[#fcfbfa] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed italic font-light mb-2.5">
-              “It feels crazy to think that 18 years have already passed. From little moments to big memories every year has been part of the story that brought me here.”
+
+            <p class="font-serif text-sm sm:text-base text-gold-light italic font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,1)] mb-2">
+              18 years in the making...
             </p>
             
-            <p class="font-sans text-[11px] sm:text-xs text-[#f0e6f6] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed font-light mb-2.5">
-              “Now, a new season begins — I'd love to celebrate it with you.”
+            <p class="font-serif text-[12px] sm:text-xs text-[#fcfbfa] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed italic font-light mb-2">
+              “It feels crazy to think that 18 years have already passed. From little moments to big memories, every year has been part of the story that brought me here.”
+            </p>
+            
+            <p class="font-sans text-[11px] sm:text-xs text-[#f0e6f6] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed font-light mb-2">
+              “And now, I'm celebrating a milestone I can't wait to share with the people who have been part of my journey.”
             </p>
             
             <p class="font-sans text-[11px] sm:text-xs text-[#f3e5ab] drop-shadow-[0_2px_8px_rgba(0,0,0,1)] leading-relaxed font-medium mb-3.5">
-              “Come celebrate, have fun, and make a memory with me.”
+              “I'm so glad you're here to celebrate with me.”
             </p>
             
-            <button onclick="navigateToPage(2)" class="w-full py-2 text-center text-xs font-cinzel uppercase tracking-widest text-[#fcfbfa] bg-[#5c2d91]/80 hover:bg-[#5c2d91] backdrop-blur-md border border-gold-champagne/70 rounded-full shadow-[0_0_15px_rgba(212,175,55,0.25)] transition">
-              The Celebration <i class="fa-solid fa-arrow-right ml-1"></i>
+            <button onclick="navigateToPage(2)" class="w-full py-2.5 text-center text-xs font-cinzel uppercase tracking-[0.2em] text-[#fcfbfa] bg-[#5c2d91]/80 hover:bg-[#5c2d91] backdrop-blur-md border border-gold-champagne/70 rounded-full shadow-[0_0_15px_rgba(212,175,55,0.25)] transition">
+              NEXT: THE CELEBRATION →
             </button>
           </div>
         </div>
@@ -676,25 +652,44 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           </div>
         </div>
 
-        <!-- Purple Translucent Card Panel -->
+        <!-- Purple Translucent Story Card Panel -->
         <div class="col-span-7 relative z-10 purple-story-card p-8 sm:p-11 rounded-2xl">
-          <div class="text-[#e9d5ff] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-3xl mb-5"><i class="fa-solid fa-quote-left"></i></div>
-          
-          <p class="enchanted-quote font-serif text-lg sm:text-xl md:text-2xl text-[#fcfbfa] drop-shadow-[0_2px_8px_rgba(15,6,23,0.95)] leading-relaxed font-light italic mb-6">
-            “It feels crazy to think that 18 years have already passed. From little moments to big memories every year has been part of the story that brought me here.”
+          <div class="flex items-center justify-between mb-4">
+            <div class="text-[#e9d5ff] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-3xl">
+              <i class="fa-solid fa-quote-left"></i>
+            </div>
+            
+            <!-- Story Music Trigger Button -->
+            <button id="storyMusicButton" onclick="playStoryMusic()" class="flex items-center space-x-2.5 px-4 py-1.5 rounded-full bg-purple-950/70 hover:bg-purple-900/90 border border-gold-champagne/60 text-gold-light transition shadow-md group">
+              <div class="flex items-center space-x-1 h-3">
+                <span class="music-bar paused"></span>
+                <span class="music-bar paused"></span>
+                <span class="music-bar paused"></span>
+                <span class="music-bar paused"></span>
+              </div>
+              <span id="storyMusicBtnText" class="font-cinzel text-[11px] tracking-widest uppercase text-gold-light font-medium group-hover:text-white">Play Story Melody</span>
+            </button>
+          </div>
+
+          <p class="font-serif text-xl sm:text-2xl text-gold-light italic font-normal drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] mb-4">
+            18 years in the making...
           </p>
           
-          <p class="enchanted-body font-sans text-sm sm:text-base text-[#f0e6f6] drop-shadow-[0_2px_8px_rgba(15,6,23,0.95)] leading-relaxed font-light mb-6">
-            “Now, a new season begins — I'd love to celebrate it with you.”
+          <p class="font-serif text-lg sm:text-xl text-[#fcfbfa] drop-shadow-[0_2px_8px_rgba(15,6,23,0.95)] leading-relaxed font-light italic mb-5">
+            “It feels crazy to think that 18 years have already passed. From little moments to big memories, every year has been part of the story that brought me here.”
           </p>
           
-          <p class="enchanted-body font-sans text-sm sm:text-base text-[#f3e5ab] drop-shadow-[0_2px_8px_rgba(15,6,23,0.95)] leading-relaxed font-medium mb-8">
-            “Come celebrate, have fun, and make a memory with me.”
+          <p class="font-sans text-sm sm:text-base text-[#f0e6f6] drop-shadow-[0_2px_8px_rgba(15,6,23,0.95)] leading-relaxed font-light mb-5">
+            “And now, I'm celebrating a milestone I can't wait to share with the people who have been part of my journey.”
+          </p>
+          
+          <p class="font-sans text-sm sm:text-base text-[#f3e5ab] drop-shadow-[0_2px_8px_rgba(15,6,23,0.95)] leading-relaxed font-medium mb-8">
+            “I'm so glad you're here to celebrate with me.”
           </p>
           
           <div class="flex items-center justify-end pt-6 border-t border-purple-400/30">
-            <button onclick="navigateToPage(2)" class="px-6 py-2.5 text-xs font-cinzel uppercase tracking-widest text-[#fcfbfa] bg-[#5c2d91]/60 hover:bg-[#5c2d91] backdrop-blur-sm border border-gold-champagne/70 hover:border-gold-light transition rounded-full shadow-[0_0_15px_rgba(212,175,55,0.25)]">
-              The Celebration <i class="fa-solid fa-arrow-right ml-1"></i>
+            <button onclick="navigateToPage(2)" class="px-7 py-3 text-xs font-cinzel uppercase tracking-[0.25em] text-[#fcfbfa] bg-[#5c2d91]/70 hover:bg-[#5c2d91] backdrop-blur-sm border border-gold-champagne/70 hover:border-gold-light transition rounded-full shadow-[0_0_15px_rgba(212,175,55,0.25)]">
+              NEXT: THE CELEBRATION →
             </button>
           </div>
         </div>
@@ -940,13 +935,112 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 let currentPageIndex = 0;
 const totalPages = 5;
 let isTransitioning = false;
-let audioContext = null;
-let isPlayingAudio = false;
 const targetDate = new Date('2028-09-22T18:00:00+08:00').getTime();
+
+// Audio References
+const bgAudio = document.getElementById('bgAudio');
+const storyAudio = document.getElementById('storyAudio');
+let activeTrack = null; // 'bg' | 'story' | null
+
+function playBackgroundMusic() {
+  if (storyAudio && !storyAudio.paused) {
+    storyAudio.pause();
+    updateStoryMusicUI(false);
+  }
+  if (bgAudio) {
+    bgAudio.play().then(() => {
+      activeTrack = 'bg';
+      updateGlobalAudioUI(true);
+    }).catch(err => {
+      console.warn("Audio autoplay blocked by browser policy:", err);
+    });
+  }
+}
+
+function playStoryMusic() {
+  if (bgAudio && !bgAudio.paused) {
+    bgAudio.pause();
+  }
+  if (storyAudio) {
+    if (storyAudio.paused) {
+      storyAudio.play().then(() => {
+        activeTrack = 'story';
+        updateStoryMusicUI(true);
+        updateGlobalAudioUI(true);
+      }).catch(err => console.warn("Story audio playback error:", err));
+    } else {
+      storyAudio.pause();
+      activeTrack = null;
+      updateStoryMusicUI(false);
+      updateGlobalAudioUI(false);
+    }
+  }
+}
+
+function toggleGlobalAudio() {
+  if (activeTrack === 'story') {
+    if (!storyAudio.paused) {
+      storyAudio.pause();
+      updateStoryMusicUI(false);
+      updateGlobalAudioUI(false);
+    } else {
+      storyAudio.play();
+      updateStoryMusicUI(true);
+      updateGlobalAudioUI(true);
+    }
+    return;
+  }
+
+  // Otherwise handle background music
+  if (bgAudio) {
+    if (!bgAudio.paused) {
+      bgAudio.pause();
+      activeTrack = null;
+      updateGlobalAudioUI(false);
+    } else {
+      bgAudio.play().then(() => {
+        activeTrack = 'bg';
+        updateGlobalAudioUI(true);
+      }).catch(err => console.warn(err));
+    }
+  }
+}
+
+function updateGlobalAudioUI(isPlaying) {
+  const heroText = document.getElementById('heroMusicStatus');
+  const heroIcon = document.getElementById('heroMusicIcon');
+  const navIcon = document.getElementById('navMusicIcon');
+  
+  if (isPlaying) {
+    if (heroText) heroText.innerText = "SOUND OFF";
+    if (heroIcon) heroIcon.className = "fa-solid fa-volume-high text-[8px]";
+    if (navIcon) navIcon.className = "fa-solid fa-volume-high text-gold-champagne";
+  } else {
+    if (heroText) heroText.innerText = "SOUND ON";
+    if (heroIcon) heroIcon.className = "fa-solid fa-music text-[8px]";
+    if (navIcon) navIcon.className = "fa-solid fa-music";
+  }
+}
+
+function updateStoryMusicUI(isPlaying) {
+  const label = document.getElementById('storyMusicBtnText');
+  const mobileLabel = document.getElementById('storyMobileAudioLabel');
+  const bars = document.querySelectorAll('.music-bar');
+
+  if (isPlaying) {
+    if (label) label.innerText = "Pause Story Melody";
+    if (mobileLabel) mobileLabel.innerText = "Pause Music";
+    bars.forEach(b => b.classList.remove('paused'));
+  } else {
+    if (label) label.innerText = "Play Story Melody";
+    if (mobileLabel) mobileLabel.innerText = "Play Music";
+    bars.forEach(b => b.classList.add('paused'));
+  }
+}
 
 const R = Math.random;
 
-// Candle flames accurately mapped onto the candles in gate.jpg
+// Candle flames accurately mapped onto gate.jpg
 const candleCoords = [
   [300, 725],
   [665, 855],
@@ -968,7 +1062,7 @@ candleCoords.forEach(([x, y]) => {
   cflamesContainer.appendChild(d);
 });
 
-// Purple petals floating across entrance
+// Floating purple entrance petals
 const fx = document.getElementById('fxLayer');
 for (let i = 0; i < 16; i++) {
   const s = R() * 8 + 8, p = document.createElement('div');
@@ -982,8 +1076,11 @@ let gateOpened = false;
 function openGate() {
   if (gateOpened) return;
   gateOpened = true;
+  
+  // Play background.mp3 immediately upon unlocking gate
+  playBackgroundMusic();
+
   const g = document.getElementById('gate');
-  if (!isPlayingAudio) toggleAudio();
   g.classList.add('open');
   setTimeout(() => g.classList.add('zoom'), 1900);
   setTimeout(() => g.classList.add('fade'), 3700);
@@ -1044,43 +1141,6 @@ function updateCountdown(){
 setInterval(updateCountdown, 1000);
 updateCountdown();
 
-let chordsStarted = false;
-function toggleAudio(){
-  const heroText = document.getElementById('heroMusicStatus'),
-        heroIcon = document.getElementById('heroMusicIcon'),
-        navIcon = document.getElementById('navMusicIcon');
-  if(!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  
-  if(!isPlayingAudio){
-    if(audioContext.state === 'suspended') audioContext.resume();
-    if(!chordsStarted){ playTwilightChords(); chordsStarted = true; }
-    isPlayingAudio = true;
-    if(heroText) heroText.innerText = "SOUND OFF";
-    if(heroIcon) heroIcon.className = "fa-solid fa-volume-high text-[8px]";
-    if(navIcon) navIcon.className = "fa-solid fa-volume-high text-gold-champagne";
-  } else {
-    if(audioContext.state === 'running') audioContext.suspend();
-    isPlayingAudio = false;
-    if(heroText) heroText.innerText = "SOUND ON";
-    if(heroIcon) heroIcon.className = "fa-solid fa-music text-[8px]";
-    if(navIcon) navIcon.className = "fa-solid fa-music";
-  }
-}
-
-function playTwilightChords(){
-  if(!audioContext) return;
-  [146.83, 185.00, 220.00, 277.18].forEach(freq => {
-    const osc = audioContext.createOscillator(), gain = audioContext.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(freq, audioContext.currentTime);
-    gain.gain.setValueAtTime(0.01, audioContext.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.04, audioContext.currentTime + 3);
-    osc.connect(gain);
-    gain.connect(audioContext.destination);
-    osc.start();
-  });
-}
-
 function handle18sLookup(e){
   e.preventDefault();
   const input = document.getElementById('guestSearchInput').value.trim();
@@ -1139,7 +1199,7 @@ const mobileBtn = document.getElementById('mobileMenuBtn'), mobileMenu = documen
 if(mobileBtn) mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
 function closeMobileMenu(){ if(mobileMenu) mobileMenu.classList.add('hidden'); }
 
-// Slow rising embers logic running across all pages
+// Rising embers background effect
 function createRisingCirclesOnAllPages(){
   const layers = document.querySelectorAll('.rising-circles-layer');
   layers.forEach(layer => {
@@ -1150,7 +1210,7 @@ function createRisingCirclesOnAllPages(){
       c.style.width = `${size}px`;
       c.style.height = `${size}px`;
       c.style.left = `${Math.random() * 99}%`;
-      const duration = Math.random() * 8 + 18; // 18s - 26s
+      const duration = Math.random() * 8 + 18;
       c.style.animationDuration = `${duration}s`;
       c.style.animationDelay = `${Math.random() * 16}s`;
       layer.appendChild(c);
