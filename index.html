@@ -318,36 +318,77 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   100% { transform: translateY(-10vh) translateX(16px) scale(1.15); opacity: 0; }
 }
 
-/* Enchanted Animations */
-.enchanted-eighteen {
-  display: inline-block;
-  animation: enchantedFloatSlow 6s ease-in-out infinite alternate, enchantedShimmer 4s ease-in-out infinite alternate;
-  will-change: transform, text-shadow;
-}
-
-@keyframes enchantedFloatSlow {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0px); }
-}
-
-@keyframes enchantedShimmer {
-  0% { text-shadow: 0 4px 18px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4); }
-  50% { text-shadow: 0 6px 28px rgba(0,0,0,0.98), 0 0 38px rgba(243,229,171,0.7), 0 0 60px rgba(192,132,252,0.8); }
-  100% { text-shadow: 0 4px 18px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4); }
-}
-
+/* ========================================================
+   ENHANCED TRANSLUCENT GLASS CARD (MORE SEE-THROUGH)
+   ======================================================== */
 .celebration-glass-card {
-  background: rgba(20, 7, 33, 0.45);
+  background: rgba(18, 5, 29, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(212, 187, 243, 0.35);
+  box-shadow: 
+    0 30px 70px rgba(8, 2, 14, 0.65), 
+    inset 0 0 25px rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 768px) {
+  .celebration-glass-card {
+    background: rgba(18, 5, 29, 0.25);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(212, 187, 243, 0.35);
+  }
+}
+
+/* Crisp readable text drop-shadows on see-through backgrounds */
+.text-contrast-heavy {
+  text-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.95), 
+    0 0 16px rgba(0, 0, 0, 0.8),
+    0 0 30px rgba(15, 6, 23, 0.9);
+}
+
+.clickable-glass-node {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+}
+.clickable-glass-node:hover {
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(212, 175, 55, 0.15);
+  border-color: rgba(243, 229, 171, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Modals & Lightbox */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(8, 2, 14, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(212, 187, 243, 0.32);
-  box-shadow: 0 25px 60px rgba(11, 4, 18, 0.7), inset 0 0 25px rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-box {
+  transform: scale(0.92) translateY(12px);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-overlay.active .modal-box {
+  transform: scale(1) translateY(0);
 }
 
-/* ========================================================
-   EXHIBITION / MUSEUM GALLERY FRAME (BASED ON IMAGE)
-   ======================================================== */
+/* Gallery Architecture Frame (My Story) */
 .gallery-canvas-frame {
   position: relative;
   background: #f4ede3;
@@ -406,7 +447,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 </head>
 <body class="bg-plum-deep text-ivory font-sans antialiased overflow-hidden select-none">
 
-<!-- Background Audio Only (No mystory.mp3) -->
+<!-- Background Audio Only -->
 <audio id="bgAudio" src="background.mp3" loop preload="auto"></audio>
 
 <!-- ===== ENTRANCE GATE ===== -->
@@ -468,7 +509,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
 <main class="perspective-container relative w-full h-screen overflow-hidden bg-black">
 
-  <!-- ==================== Page 0: High-End Luxury Home ==================== -->
+  <!-- ==================== Page 0: Luxury Home ==================== -->
   <section id="page-0" class="page-sheet active bg-plum-deep flex flex-col justify-between pt-16 md:pt-20 pb-4">
     <div class="absolute inset-0 z-0">
       <div class="w-full h-full bg-custom-1 bg-cover bg-center"></div>
@@ -476,7 +517,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       <div class="absolute inset-0 bg-radial-gradient from-transparent via-[#0b0412]/40 to-[#0b0412]/80"></div>
     </div>
 
-    <!-- Central Restrained Luxury Card -->
     <div class="relative z-10 max-w-2xl w-full mx-auto px-4 sm:px-6 text-center my-auto">
       <div class="py-6 sm:py-8 md:py-10 px-6 sm:px-12 md:px-16 rounded-3xl bg-[#0f0617]/50 backdrop-blur-md border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.65)]">
 
@@ -508,7 +548,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
       </div>
     </div>
 
-    <!-- Bottom Minimalist Countdown -->
+    <!-- Bottom Countdown -->
     <div class="relative z-10 pt-1 pb-2 flex flex-col items-center justify-center gap-2">
       <div class="inline-flex items-center gap-4 sm:gap-6 px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-[#0b0412]/70 backdrop-blur-md border border-white/10 shadow-md text-center font-cinzel">
         <div>
@@ -541,32 +581,26 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 1: My Story (Exhibition Gallery Architecture Layout) ==================== -->
+  <!-- ==================== Page 1: My Story ==================== -->
   <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center overflow-x-hidden">
-    <!-- Ambient Depth Gradients Matching Image Lighting -->
     <div class="absolute inset-0 bg-gradient-to-r from-[#170627]/95 via-[#230b3d]/85 to-[#3b125f]/70 pointer-events-none"></div>
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_35%,rgba(168,85,247,0.35)_0%,transparent_60%)] pointer-events-none"></div>
 
-    <!-- Recessed Secondary Gallery Art in the Background (from attached layout) -->
     <div class="hidden lg:block gallery-subframe">
       <img src="4th.JPG" alt="Exhibition Art Background" class="w-full h-full object-cover">
     </div>
 
     <div class="relative min-h-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-20 lg:py-24 flex flex-col justify-between z-10">
 
-      <!-- Top Romantic Quote Banner as Requested -->
       <div class="w-full text-center sm:text-left pt-2 pb-6 border-b border-purple-400/20">
         <p class="font-script text-2xl sm:text-3xl lg:text-4xl text-[#f3e5ab] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] tracking-wide">
           “Oh, darling, don't you ever grow up...”
         </p>
       </div>
 
-      <!-- Main Exhibition Body: Split Layout -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center my-auto py-6">
 
-        <!-- LEFT COLUMN: Typography & Story Narrative (Mirroring Reference) -->
         <div class="lg:col-span-7 flex flex-col justify-center space-y-5 text-left">
-          
           <div>
             <span class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-[#c084fc] font-semibold uppercase block mb-1">
               2006 – 2024 • A LITTLE ABOUT ME
@@ -579,7 +613,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
             </p>
           </div>
 
-          <!-- Editorial Category Filter Badges (from Image Layout) -->
           <div class="flex items-center space-x-3 pt-1">
             <span class="px-4 py-1 rounded-full text-[10px] font-cinzel uppercase tracking-widest font-semibold gallery-tab-active shadow-sm">
               Chapter I
@@ -589,7 +622,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
             </span>
           </div>
 
-          <!-- Story Narrative Text -->
           <div class="space-y-4 pt-2 text-[#f0e6f6] font-sans text-xs sm:text-sm leading-relaxed max-w-xl font-light drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)]">
             <p class="font-serif text-base sm:text-lg italic text-[#fcfbfa] leading-normal text-purple-100">
               “It feels crazy to think that 18 years have already passed. From little moments to big memories, every year has been part of the story that brought me here.”
@@ -602,7 +634,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
             </p>
           </div>
 
-          <!-- Navigation CTA -->
           <div class="pt-4">
             <button onclick="navigateToPage(2)" class="inline-flex items-center space-x-2 px-8 py-3 bg-[#5c2d91]/80 hover:bg-[#5c2d91] border border-gold-champagne/80 hover:border-gold-light text-[#fcfbfa] text-xs font-cinzel uppercase tracking-[0.25em] rounded-full shadow-[0_0_20px_rgba(92,45,145,0.6)] transition-all transform hover:-translate-y-0.5">
               <span>NEXT: THE CELEBRATION</span>
@@ -611,14 +642,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           </div>
         </div>
 
-        <!-- RIGHT COLUMN: 3D Exhibition Frame on Museum Wall (From Image Layout) -->
         <div class="lg:col-span-5 relative flex justify-center items-center py-6">
           <div class="relative w-full max-w-md">
-            
-            <!-- Curved Architectural Pedestal at Bottom of Frame -->
             <div class="gallery-curved-plinth hidden lg:block"></div>
-
-            <!-- Main Framed Artwork -->
             <div class="gallery-canvas-frame z-10">
               <div class="relative aspect-[3/4] overflow-hidden bg-black rounded-[2px] shadow-inner">
                 <img src="4th.JPG" alt="Franz 18th Exhibition Portrait" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';" class="w-full h-full object-cover object-center filter contrast-[1.08] brightness-95">
@@ -628,13 +654,11 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
                 </div>
               </div>
             </div>
-
           </div>
         </div>
 
       </div>
 
-      <!-- Bottom Minimalist Exhibition Footnote -->
       <div class="w-full flex items-center justify-between pt-4 border-t border-purple-400/15 text-[10px] font-cinzel text-purple-300/60 uppercase tracking-widest">
         <span>Curated Gallery Edition</span>
         <span>Amethyst Reverie • 2028</span>
@@ -645,131 +669,141 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 2: The Celebration ==================== -->
+  <!-- ==================== Page 2: The Celebration (Ultra-Translucent Card + Clickable Elements) ==================== -->
   <section id="page-2" class="page-sheet peel-in-wait bg-custom-3 bg-cover bg-center">
-    <div class="absolute inset-0 bg-[#0f0617]/35 backdrop-brightness-[0.95]"></div>
+    <!-- Light ambient overlay to reveal background scenic image -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0f0617]/35 via-transparent to-[#0f0617]/45 pointer-events-none"></div>
 
-    <div class="relative z-20 min-h-full max-w-5xl mx-auto px-4 sm:px-8 py-24 sm:py-28 flex flex-col justify-center">
+    <div class="relative z-20 min-h-full max-w-5xl mx-auto px-4 sm:px-8 py-20 sm:py-24 flex flex-col justify-center">
       
-      <div class="text-center mb-6 sm:mb-8">
-        <p class="font-cinzel text-xs tracking-[0.35em] text-[#d4bbf3] uppercase font-semibold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+      <div class="text-center mb-5 sm:mb-7">
+        <p class="font-cinzel text-xs tracking-[0.35em] text-[#e9d5ff] uppercase font-semibold text-contrast-heavy">
           Chapter II • Event Guide
         </p>
       </div>
 
-      <!-- Centered See-Through Glassmorphic Card -->
-      <div class="celebration-glass-card rounded-3xl p-6 sm:p-12 md:p-14 relative text-center">
-        <div class="text-center mb-8 sm:mb-10">
-          <p class="font-cinzel text-xs sm:text-[13px] tracking-[0.35em] text-gold-light uppercase font-semibold mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+      <!-- Ultra-Translucent See-Through Glassmorphic Card -->
+      <div class="celebration-glass-card rounded-3xl p-6 sm:p-10 md:p-12 relative text-center">
+        
+        <div class="text-center mb-8">
+          <p class="font-cinzel text-xs sm:text-[13px] tracking-[0.35em] text-gold-light uppercase font-semibold mb-1 text-contrast-heavy">
             The Celebration
           </p>
-          <h2 class="font-script text-5xl sm:text-6xl md:text-7xl text-[#fcfbfa] drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] -rotate-1 select-none leading-tight">
+          <h2 class="font-script text-5xl sm:text-6xl md:text-7xl text-[#fcfbfa] text-contrast-heavy -rotate-1 select-none leading-tight">
             Details
           </h2>
-          <div class="w-16 h-[1px] bg-gradient-to-r from-transparent via-gold-champagne/80 to-transparent mx-auto mt-2.5"></div>
+          <div class="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-gold-champagne to-transparent mx-auto mt-2"></div>
         </div>
 
         <!-- Desktop Grid View -->
-        <div class="hidden md:flex flex-col gap-9 text-center">
-          <div class="grid grid-cols-2 gap-8 items-start pb-8 border-b border-purple-300/20 text-center">
-            <div class="flex flex-col items-center text-center">
-              <div class="text-gold-light text-3xl mb-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+        <div class="hidden md:flex flex-col gap-8 text-center">
+          <div class="grid grid-cols-2 gap-8 items-start pb-7 border-b border-purple-200/20 text-center">
+            
+            <!-- Clickable Date & Time Item -->
+            <button type="button" onclick="openDateCalendarModal()" class="clickable-glass-node group text-center flex flex-col items-center cursor-pointer border border-transparent focus:outline-none focus:border-gold-champagne/60">
+              <div class="text-gold-light text-3xl mb-2 text-contrast-heavy group-hover:scale-110 transition duration-300">
                 <i class="fa-regular fa-calendar-check"></i>
               </div>
               <div>
-                <p class="font-cinzel text-[11px] tracking-widest text-[#d4bbf3]/80 uppercase font-medium mb-1">Date & Time</p>
-                <p class="font-serif text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                <p class="font-cinzel text-[11px] tracking-widest text-[#f0e6f6] uppercase font-medium mb-1 text-contrast-heavy flex items-center justify-center gap-1.5">
+                  <span>Date & Time</span>
+                  <span class="text-[9px] text-gold-light bg-gold-champagne/20 border border-gold-champagne/40 px-2 py-0.5 rounded-full font-sans tracking-normal">Tap to view</span>
+                </p>
+                <p class="font-serif text-2xl text-[#fcfbfa] font-normal leading-snug text-contrast-heavy group-hover:text-gold-light transition">
                   September 22, 2028
                 </p>
-                <p class="font-sans text-sm text-[#d4bbf3] flex items-center justify-center mt-1 drop-shadow">
+                <p class="font-sans text-sm text-[#e9d5ff] flex items-center justify-center mt-1 text-contrast-heavy">
                   <i class="fa-regular fa-clock mr-1.5 text-xs text-gold-champagne"></i> 6:00 PM
                 </p>
               </div>
-            </div>
+            </button>
 
-            <div class="flex flex-col items-center text-center">
-              <div class="text-gold-light text-3xl mb-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+            <!-- Clickable Venue Location (Narra Hill Hotel Lightbox) -->
+            <button type="button" onclick="openHotelLightbox()" class="clickable-glass-node group text-center flex flex-col items-center cursor-pointer border border-transparent focus:outline-none focus:border-gold-champagne/60">
+              <div class="text-gold-light text-3xl mb-2 text-contrast-heavy group-hover:scale-110 transition duration-300">
                 <i class="fa-solid fa-location-dot"></i>
               </div>
               <div>
-                <p class="font-cinzel text-[11px] tracking-widest text-[#d4bbf3]/80 uppercase font-medium mb-1">Venue Location</p>
-                <p class="font-serif text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                <p class="font-cinzel text-[11px] tracking-widest text-[#f0e6f6] uppercase font-medium mb-1 text-contrast-heavy flex items-center justify-center gap-1.5">
+                  <span>Venue Location</span>
+                  <span class="text-[9px] text-gold-light bg-gold-champagne/20 border border-gold-champagne/40 px-2 py-0.5 rounded-full font-sans tracking-normal"><i class="fa-solid fa-camera mr-1"></i>View Hotel</span>
+                </p>
+                <p class="font-serif text-2xl text-[#fcfbfa] font-normal leading-snug text-contrast-heavy underline decoration-gold-champagne/50 underline-offset-4 group-hover:text-gold-light transition">
                   Narra Hill
                 </p>
-                <p class="font-sans text-sm text-[#d4bbf3] mt-0.5 drop-shadow">
+                <p class="font-sans text-sm text-[#e9d5ff] mt-0.5 text-contrast-heavy">
                   Tagaytay City, Cavite
                 </p>
-                <div class="mt-2">
-                  <a href="https://maps.google.com/?q=Narra+Hill+Tagaytay" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-xs font-cinzel font-semibold tracking-wider text-gold-light hover:text-white underline underline-offset-4 decoration-gold-champagne/60 transition drop-shadow">
-                    <i class="fa-solid fa-diamond-turn-right text-xs text-gold-champagne"></i>
-                    <span>View Directions</span>
-                  </a>
-                </div>
               </div>
-            </div>
+            </button>
           </div>
 
+          <!-- Attire Guidelines -->
           <div class="flex flex-col items-center text-center">
-            <div class="text-gold-light text-3xl mb-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+            <div class="text-gold-light text-3xl mb-2 text-contrast-heavy">
               <i class="fa-solid fa-vest-patches"></i>
             </div>
             <div>
-              <p class="font-cinzel text-[11px] tracking-widest text-[#d4bbf3]/80 uppercase font-medium mb-1">Attire Guidelines</p>
-              <p class="font-serif text-2xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+              <p class="font-cinzel text-[11px] tracking-widest text-[#f0e6f6] uppercase font-medium mb-1 text-contrast-heavy">Attire Guidelines</p>
+              <p class="font-serif text-2xl text-[#fcfbfa] font-normal leading-snug text-contrast-heavy">
                 Dress Code: Strictly White
               </p>
-              <p class="font-sans text-sm text-[#d4bbf3] mt-1 drop-shadow">
+              <p class="font-sans text-sm text-[#e9d5ff] mt-1 text-contrast-heavy">
                 Formal / Semi-Formal Evening Wear
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Mobile View -->
-        <div class="flex md:hidden flex-col space-y-7 text-left">
-          <div class="flex items-start space-x-4">
-            <div class="text-gold-light text-2xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+        <!-- Mobile View (Responsive Clickable Nodes) -->
+        <div class="flex md:hidden flex-col space-y-5 text-left">
+          
+          <button type="button" onclick="openDateCalendarModal()" class="clickable-glass-node flex items-start space-x-4 border border-white/10 w-full text-left bg-black/20">
+            <div class="text-gold-light text-2xl mt-0.5 text-contrast-heavy">
               <i class="fa-regular fa-calendar-check"></i>
             </div>
-            <div>
-              <p class="font-serif text-xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <span class="font-cinzel text-[10px] tracking-widest uppercase text-purple-200 text-contrast-heavy">Date & Time</span>
+                <span class="text-[9px] text-gold-light bg-gold-champagne/20 border border-gold-champagne/40 px-2 py-0.5 rounded-full">Tap Calendar</span>
+              </div>
+              <p class="font-serif text-xl text-[#fcfbfa] font-normal leading-snug text-contrast-heavy mt-0.5">
                 September 22, 2028
               </p>
-              <p class="font-sans text-xs text-[#d4bbf3] flex items-center mt-1 drop-shadow">
+              <p class="font-sans text-xs text-[#e9d5ff] flex items-center mt-1 text-contrast-heavy">
                 <i class="fa-regular fa-clock mr-1.5 text-xs text-gold-champagne"></i> 6:00 PM
               </p>
             </div>
-          </div>
+          </button>
 
-          <div class="flex items-start space-x-4">
-            <div class="text-gold-light text-2xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+          <button type="button" onclick="openHotelLightbox()" class="clickable-glass-node flex items-start space-x-4 border border-white/10 w-full text-left bg-black/20">
+            <div class="text-gold-light text-2xl mt-0.5 text-contrast-heavy">
               <i class="fa-solid fa-location-dot"></i>
             </div>
             <div class="flex-1">
-              <p class="font-serif text-xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+              <div class="flex items-center justify-between">
+                <span class="font-cinzel text-[10px] tracking-widest uppercase text-purple-200 text-contrast-heavy">Venue Location</span>
+                <span class="text-[9px] text-gold-light bg-gold-champagne/20 border border-gold-champagne/40 px-2 py-0.5 rounded-full"><i class="fa-solid fa-images mr-1"></i>Hotel Photos</span>
+              </div>
+              <p class="font-serif text-xl text-[#fcfbfa] font-normal leading-snug text-contrast-heavy underline decoration-gold-champagne/50 underline-offset-4 mt-0.5">
                 Narra Hill
               </p>
-              <p class="font-sans text-xs text-[#d4bbf3] mt-0.5 drop-shadow">
+              <p class="font-sans text-xs text-[#e9d5ff] mt-0.5 text-contrast-heavy">
                 Tagaytay City, Cavite
               </p>
-              <div class="mt-2">
-                <a href="https://maps.google.com/?q=Narra+Hill+Tagaytay" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-[11px] font-cinzel font-semibold tracking-wider text-gold-light hover:text-white underline underline-offset-4 decoration-gold-champagne/60 transition drop-shadow">
-                  <i class="fa-solid fa-diamond-turn-right text-xs text-gold-champagne"></i>
-                  <span>View Directions</span>
-                </a>
-              </div>
             </div>
-          </div>
+          </button>
 
-          <div class="flex items-start space-x-4">
-            <div class="text-gold-light text-2xl mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+          <div class="flex items-start space-x-4 p-3.5 border border-white/5 rounded-2xl bg-black/15">
+            <div class="text-gold-light text-2xl mt-0.5 text-contrast-heavy">
               <i class="fa-solid fa-vest-patches"></i>
             </div>
             <div class="flex-1">
-              <p class="font-serif text-xl text-[#fcfbfa] font-normal leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+              <span class="font-cinzel text-[10px] tracking-widest uppercase text-purple-200 text-contrast-heavy">Attire Guidelines</span>
+              <p class="font-serif text-xl text-[#fcfbfa] font-normal leading-snug text-contrast-heavy mt-0.5">
                 Dress Code: Strictly White
               </p>
-              <p class="font-sans text-xs text-[#d4bbf3] mt-1 drop-shadow">
+              <p class="font-sans text-xs text-[#e9d5ff] mt-1 text-contrast-heavy">
                 Formal / Semi-Formal Evening Wear
               </p>
             </div>
@@ -872,6 +906,123 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
 </main>
 
+<!-- ==================== LIGHTBOX MODAL: NARRA HILL HOTEL ==================== -->
+<div id="hotelLightbox" class="modal-overlay" onclick="closeHotelLightboxOnBackdrop(event)">
+  <div class="modal-box relative w-full max-w-3xl bg-[#140624]/95 border border-gold-champagne/60 rounded-3xl p-6 sm:p-8 shadow-[0_25px_80px_rgba(0,0,0,0.9)] overflow-hidden">
+    
+    <button onclick="closeHotelLightbox()" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition" aria-label="Close Hotel Gallery">
+      <i class="fa-solid fa-xmark text-sm"></i>
+    </button>
+
+    <div class="text-center mb-6">
+      <span class="font-cinzel text-xs tracking-[0.3em] text-gold-light uppercase font-semibold">The Celebration Venue</span>
+      <h3 class="font-serif text-3xl sm:text-4xl text-[#fcfbfa] mt-1">Narra Hill, Tagaytay</h3>
+      <p class="font-sans text-xs text-purple-200/80 mt-1 max-w-md mx-auto">An enchanting pavilion suspended amidst lush greenery, overlooking breathtaking panoramic views of Taal Lake.</p>
+    </div>
+
+    <!-- Gallery Image Display -->
+    <div class="relative aspect-[16/9] w-full rounded-2xl overflow-hidden border border-purple-400/40 shadow-2xl bg-black mb-4">
+      <img id="hotelMainImg" src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80" alt="Narra Hill Tagaytay" class="w-full h-full object-cover transition-opacity duration-300">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-4">
+        <p id="hotelImgCaption" class="font-cinzel text-xs tracking-wider text-gold-light uppercase font-medium">Tagaytay Ridge Pavilion & Panoramic Garden</p>
+      </div>
+    </div>
+
+    <!-- Thumbnail Strip -->
+    <div class="grid grid-cols-3 gap-3">
+      <button onclick="changeHotelImg('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80', 'Tagaytay Ridge Pavilion & Panoramic Garden')" class="aspect-[16/10] rounded-xl overflow-hidden border border-gold-champagne/70 focus:outline-none focus:ring-2 focus:ring-gold-light">
+        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=400&q=80" alt="Thumbnail 1" class="w-full h-full object-cover">
+      </button>
+      <button onclick="changeHotelImg('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80', 'Twilight Lounge & Glass House Suite')" class="aspect-[16/10] rounded-xl overflow-hidden border border-purple-400/40 hover:border-gold-champagne focus:outline-none focus:ring-2 focus:ring-gold-light">
+        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80" alt="Thumbnail 2" class="w-full h-full object-cover">
+      </button>
+      <button onclick="changeHotelImg('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80', 'Evening Ambient Lighting & Reception Deck')" class="aspect-[16/10] rounded-xl overflow-hidden border border-purple-400/40 hover:border-gold-champagne focus:outline-none focus:ring-2 focus:ring-gold-light">
+        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=400&q=80" alt="Thumbnail 3" class="w-full h-full object-cover">
+      </button>
+    </div>
+
+    <!-- Actions -->
+    <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-purple-400/20">
+      <span class="text-xs text-purple-300 font-sans"><i class="fa-solid fa-map-pin mr-1.5 text-gold-champagne"></i>Tagaytay City, Cavite, Philippines</span>
+      <a href="https://maps.google.com/?q=Narra+Hill+Tagaytay" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 px-5 py-2 rounded-full bg-[#5c2d91] hover:bg-purple-700 text-[#fcfbfa] text-xs font-cinzel tracking-wider uppercase border border-gold-champagne/60 transition">
+        <span>Open in Google Maps</span>
+        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MODAL: CALENDAR & COUNTDOWN ==================== -->
+<div id="dateCalendarModal" class="modal-overlay" onclick="closeDateCalendarModalOnBackdrop(event)">
+  <div class="modal-box relative w-full max-w-lg bg-[#140624]/95 border border-gold-champagne/60 rounded-3xl p-6 sm:p-8 shadow-[0_25px_80px_rgba(0,0,0,0.9)] overflow-hidden text-center">
+    
+    <button onclick="closeDateCalendarModal()" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition" aria-label="Close Calendar">
+      <i class="fa-solid fa-xmark text-sm"></i>
+    </button>
+
+    <span class="font-cinzel text-xs tracking-[0.3em] text-gold-light uppercase font-semibold">Save The Date</span>
+    <h3 class="font-serif text-3xl sm:text-4xl text-[#fcfbfa] mt-1">September 22, 2028</h3>
+    <p class="font-sans text-xs text-[#d4bbf3] mt-1">Friday Evening • 6:00 PM onwards</p>
+
+    <!-- Visual September 2028 Calendar Grid -->
+    <div class="my-6 p-4 rounded-2xl bg-black/45 border border-purple-400/30">
+      <div class="font-cinzel text-xs tracking-widest text-[#f3e5ab] font-bold uppercase mb-3">
+        September 2028
+      </div>
+      <div class="grid grid-cols-7 gap-1 text-[11px] font-cinzel text-purple-300/70 mb-2 font-semibold">
+        <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+      </div>
+      <div class="grid grid-cols-7 gap-1 text-xs font-sans text-white/80">
+        <!-- Week 1 -->
+        <span class="p-1.5 opacity-20">27</span><span class="p-1.5 opacity-20">28</span><span class="p-1.5 opacity-20">29</span><span class="p-1.5 opacity-20">30</span><span class="p-1.5 opacity-20">31</span><span class="p-1.5">1</span><span class="p-1.5">2</span>
+        <!-- Week 2 -->
+        <span class="p-1.5">3</span><span class="p-1.5">4</span><span class="p-1.5">5</span><span class="p-1.5">6</span><span class="p-1.5">7</span><span class="p-1.5">8</span><span class="p-1.5">9</span>
+        <!-- Week 3 -->
+        <span class="p-1.5">10</span><span class="p-1.5">11</span><span class="p-1.5">12</span><span class="p-1.5">13</span><span class="p-1.5">14</span><span class="p-1.5">15</span><span class="p-1.5">16</span>
+        <!-- Week 4 -->
+        <span class="p-1.5">17</span><span class="p-1.5">18</span><span class="p-1.5">19</span><span class="p-1.5">20</span><span class="p-1.5">21</span>
+        <!-- Highlighted Day: 22nd -->
+        <span class="p-1.5 rounded-full bg-gradient-to-r from-gold-champagne to-gold-light text-black font-bold shadow-[0_0_15px_rgba(212,175,55,0.8)] scale-110">22</span>
+        <span class="p-1.5">23</span>
+        <!-- Week 5 -->
+        <span class="p-1.5">24</span><span class="p-1.5">25</span><span class="p-1.5">26</span><span class="p-1.5">27</span><span class="p-1.5">28</span><span class="p-1.5">29</span><span class="p-1.5">30</span>
+      </div>
+    </div>
+
+    <!-- Enlarged Countdown Section -->
+    <div class="mb-6">
+      <p class="font-cinzel text-[10px] tracking-[0.25em] text-[#d4bbf3] uppercase mb-2">Countdown to the Milestone</p>
+      <div class="grid grid-cols-4 gap-2 px-3 py-3 rounded-2xl bg-[#240b36]/60 border border-gold-champagne/40">
+        <div>
+          <span id="cal-modal-days" class="text-xl sm:text-2xl font-serif text-[#fcfbfa] block font-semibold leading-none">000</span>
+          <span class="text-[8px] font-cinzel tracking-wider text-gold-light uppercase">Days</span>
+        </div>
+        <div>
+          <span id="cal-modal-hours" class="text-xl sm:text-2xl font-serif text-[#fcfbfa] block font-semibold leading-none">00</span>
+          <span class="text-[8px] font-cinzel tracking-wider text-gold-light uppercase">Hours</span>
+        </div>
+        <div>
+          <span id="cal-modal-minutes" class="text-xl sm:text-2xl font-serif text-[#fcfbfa] block font-semibold leading-none">00</span>
+          <span class="text-[8px] font-cinzel tracking-wider text-gold-light uppercase">Mins</span>
+        </div>
+        <div>
+          <span id="cal-modal-seconds" class="text-xl sm:text-2xl font-serif text-[#fcfbfa] block font-semibold leading-none">00</span>
+          <span class="text-[8px] font-cinzel tracking-wider text-gold-light uppercase">Secs</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add to Calendar Link -->
+    <div class="pt-2 border-t border-purple-400/20">
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Franz%E2%80%99s+18th+Birthday+%E2%80%94+Amethyst+Reverie&dates=20280922T100000Z/20280922T160000Z&details=Join+Franz+in+celebrating+her+18th+milestone+at+Narra+Hill%2C+Tagaytay.&location=Narra+Hill%2C+Tagaytay+City%2C+Cavite" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-purple-800 to-purple-900 border border-gold-champagne/70 text-gold-light hover:text-white text-xs font-cinzel tracking-widest uppercase transition shadow-md">
+        <i class="fa-regular fa-calendar-plus text-xs"></i>
+        <span>Add to Google Calendar</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
 <script>
 let currentPageIndex = 0;
 const totalPages = 5;
@@ -919,6 +1070,46 @@ function updateGlobalAudioUI(isPlaying) {
   }
 }
 
+// Lightbox: Narra Hill Hotel
+function openHotelLightbox() {
+  const modal = document.getElementById('hotelLightbox');
+  if (modal) modal.classList.add('active');
+}
+function closeHotelLightbox() {
+  const modal = document.getElementById('hotelLightbox');
+  if (modal) modal.classList.remove('active');
+}
+function closeHotelLightboxOnBackdrop(e) {
+  if (e.target.id === 'hotelLightbox') closeHotelLightbox();
+}
+function changeHotelImg(src, caption) {
+  const main = document.getElementById('hotelMainImg');
+  const cap = document.getElementById('hotelImgCaption');
+  if (main) main.src = src;
+  if (cap) cap.innerText = caption;
+}
+
+// Modal: Calendar & Countdown
+function openDateCalendarModal() {
+  const modal = document.getElementById('dateCalendarModal');
+  if (modal) modal.classList.add('active');
+}
+function closeDateCalendarModal() {
+  const modal = document.getElementById('dateCalendarModal');
+  if (modal) modal.classList.remove('active');
+}
+function closeDateCalendarModalOnBackdrop(e) {
+  if (e.target.id === 'dateCalendarModal') closeDateCalendarModal();
+}
+
+// Close on escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeHotelLightbox();
+    closeDateCalendarModal();
+  }
+});
+
 const R = Math.random;
 
 // Candle flames accurately mapped onto gate.jpg
@@ -957,8 +1148,6 @@ let gateOpened = false;
 function openGate() {
   if (gateOpened) return;
   gateOpened = true;
-  
-  // Play background.mp3 immediately upon unlocking gate
   playBackgroundMusic();
 
   const g = document.getElementById('gate');
@@ -1007,17 +1196,35 @@ function enterCelebration() { navigateToPage(1); }
 function updateCountdown(){
   const difference = targetDate - new Date().getTime();
   if(difference <= 0){
-    ['p1-days','p1-hours','p1-minutes','p1-seconds'].forEach(id => document.getElementById(id).innerText="00");
+    ['p1-days','p1-hours','p1-minutes','p1-seconds','cal-modal-days','cal-modal-hours','cal-modal-minutes','cal-modal-seconds'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerText = "00";
+    });
     return;
   }
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
   const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-  document.getElementById('p1-days').innerText = String(days).padStart(3, '0');
-  document.getElementById('p1-hours').innerText = String(hours).padStart(2, '0');
-  document.getElementById('p1-minutes').innerText = String(minutes).padStart(2, '0');
-  document.getElementById('p1-seconds').innerText = String(seconds).padStart(2, '0');
+
+  const dStr = String(days).padStart(3, '0');
+  const hStr = String(hours).padStart(2, '0');
+  const mStr = String(minutes).padStart(2, '0');
+  const sStr = String(seconds).padStart(2, '0');
+
+  document.getElementById('p1-days').innerText = dStr;
+  document.getElementById('p1-hours').innerText = hStr;
+  document.getElementById('p1-minutes').innerText = mStr;
+  document.getElementById('p1-seconds').innerText = sStr;
+
+  const calD = document.getElementById('cal-modal-days');
+  const calH = document.getElementById('cal-modal-hours');
+  const calM = document.getElementById('cal-modal-minutes');
+  const calS = document.getElementById('cal-modal-seconds');
+  if (calD) calD.innerText = dStr;
+  if (calH) calH.innerText = hStr;
+  if (calM) calM.innerText = mStr;
+  if (calS) calS.innerText = sStr;
 }
 setInterval(updateCountdown, 1000);
 updateCountdown();
