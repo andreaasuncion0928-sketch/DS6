@@ -23,18 +23,11 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 .bg-custom-live{background: radial-gradient(circle at 50% 25%, #2a0b45 0%, #130324 55%, #080112 100%)}
 .bg-gallery-plum { background: radial-gradient(circle at 50% 20%, #2a0845 0%, #150524 50%, #090210 100%); }
 
-@media (max-width:768px){
-  .bg-custom-1{background-image:url('background p.jpg'), radial-gradient(circle at 50% 30%, #240b36 0%, #0f0617 80%)}
-  .bg-custom-2{background-image:url('2nd page.jpg'), radial-gradient(circle at 40% 40%, #240b36 0%, #09030e 85%)}
-  .bg-custom-3{background-image:url('celeb p.jpeg'), radial-gradient(circle at 60% 40%, #230d3a 0%, #0c0413 85%)}
-  .bg-custom-rsvp{background-image:url('QRpage.jpg'), radial-gradient(circle at 50% 50%, #240b36 0%, #09030e 85%)}
-}
-
-/* ===== 18s PAGE ZOOMED-OUT MIDDLE ALIGNMENT ===== */
+/* 18s Page Background Layers: 18s b.jpg for browser/desktop view */
 .bg-18s-layer {
   position: absolute;
   inset: 0;
-  background-image: url('18s.jpg');
+  background-image: url('18s b.jpg');
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
@@ -43,12 +36,21 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 .bg-18s-blur-underlay {
   position: absolute;
   inset: 0;
-  background-image: url('18s.jpg');
+  background-image: url('18s b.jpg');
   background-size: cover;
   background-position: top center;
   filter: blur(28px) brightness(0.42);
   transform: scale(1.15);
   z-index: 0;
+}
+
+@media (max-width:768px){
+  .bg-custom-1{background-image:url('background p.jpg'), radial-gradient(circle at 50% 30%, #240b36 0%, #0f0617 80%)}
+  .bg-custom-2{background-image:url('2nd page.jpg'), radial-gradient(circle at 40% 40%, #240b36 0%, #09030e 85%)}
+  .bg-custom-3{background-image:url('celeb p.jpeg'), radial-gradient(circle at 60% 40%, #230d3a 0%, #0c0413 85%)}
+  .bg-custom-rsvp{background-image:url('QRpage.jpg'), radial-gradient(circle at 50% 50%, #240b36 0%, #09030e 85%)}
+  .bg-18s-layer { background-image: url('18s.jpg'); }
+  .bg-18s-blur-underlay { background-image: url('18s.jpg'); }
 }
 
 /* ===== ENTRANCE GATE STYLES ===== */
@@ -433,7 +435,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   pointer-events: none;
 }
 
-/* ==================== VOGUE MAGAZINE EDITORIAL CARDS ==================== */
+/* ==================== VOGUE MAGAZINE EDITORIAL CARDS WITH SEQUENTIAL CASCADE ==================== */
 .mag-card {
   position: relative;
   overflow: hidden;
@@ -441,14 +443,34 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   background: #140526;
   border: 1px solid rgba(212, 175, 55, 0.25);
   box-shadow: 0 12px 35px rgba(0,0,0,0.8);
-  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
+  
+  /* Gradual smooth cascade appearance */
+  opacity: 0;
+  transform: translateY(28px) scale(0.97);
+  filter: blur(8px);
+  transition: 
+    opacity 1.6s cubic-bezier(0.2, 0.8, 0.2, 1), 
+    transform 1.6s cubic-bezier(0.2, 0.8, 0.2, 1), 
+    filter 1.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+  will-change: opacity, transform, filter;
 }
+
+/* Visible active transition */
+.mag-card.flow-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
 .mag-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.01);
   border-color: rgba(243, 229, 171, 0.85);
   box-shadow: 0 20px 50px rgba(92, 45, 145, 0.5), 0 0 25px rgba(212, 175, 55, 0.2);
 }
+
 .mag-card img {
   width: 100%;
   height: 100%;
@@ -501,55 +523,34 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
   <div id="veil"></div>
 </div>
 
-<!-- ==================== EXACTLY MATCHED NAVIGATION (BROWSER & MOBILE) ==================== -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-plum-deep/98 via-plum-deep/90 to-transparent backdrop-blur-md border-b border-purple-500/20 py-2.5 px-3 sm:px-8 transition-all duration-300">
-  <div class="max-w-7xl mx-auto flex items-center justify-between">
+<!-- ==================== PERMANENTLY VISIBLE NAVIGATION BAR (BROWSER & MOBILE) ==================== -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-[#0b0412]/98 via-[#0b0412]/92 to-transparent backdrop-blur-md border-b border-purple-500/20 py-2 sm:py-2.5 px-2 sm:px-6 transition-all duration-300">
+  <div class="max-w-7xl mx-auto flex items-center justify-between gap-1 sm:gap-4">
     
-    <div class="flex items-center space-x-2 sm:space-x-3">
-      <button onclick="relockGates()" class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-purple-950/60 border border-gold-champagne/40 hover:border-gold-light text-[10px] font-cinzel text-purple-200 hover:text-gold-light transition uppercase tracking-wider" title="Replay Gate Entrance">
-        <i class="fa-solid fa-dungeon text-xs text-gold-champagne"></i>
-        <span>Gate Entrance</span>
-      </button>
-    </div>
+    <!-- Entrance Button -->
+    <button onclick="relockGates()" class="shrink-0 inline-flex items-center space-x-1 sm:space-x-1.5 px-2 sm:px-2.5 py-1 rounded-full bg-purple-950/70 border border-gold-champagne/50 hover:border-gold-light text-[9px] sm:text-[10px] font-cinzel text-purple-200 hover:text-gold-light transition uppercase tracking-wider" title="Replay Gate Entrance">
+      <i class="fa-solid fa-dungeon text-[10px] sm:text-xs text-gold-champagne"></i>
+      <span class="hidden xs:inline">Gate</span>
+    </button>
 
-    <!-- Browser View Menu -->
-    <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8">
-      <button onclick="navigateToPage(0)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-gold-light font-semibold hover:text-gold-light transition" data-page="0">Home</button>
-      <button onclick="navigateToPage(1)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="1">My Story</button>
-      <button onclick="navigateToPage(2)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="2">The Celebration</button>
-      <button onclick="navigateToPage(3)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="3">The 18s</button>
-      <button onclick="navigateToPage(4)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="4">Gallery</button>
-      <button onclick="navigateToPage(5)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="5">RSVP</button>
-      <button onclick="navigateToPage(6)" class="nav-item text-[11px] font-sans uppercase tracking-[0.2em] text-gold-champagne font-semibold hover:text-white transition" data-page="6">Live Photos</button>
+    <!-- Always-Visible Navigation Bar: Fully visible and horizontally scrollable on mobile -->
+    <nav class="flex items-center overflow-x-auto no-scrollbar space-x-2.5 sm:space-x-5 lg:space-x-7 px-1 py-1">
+      <button onclick="navigateToPage(0)" class="nav-item shrink-0 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.14em] sm:tracking-[0.2em] text-gold-light font-semibold hover:text-gold-light transition" data-page="0">Home</button>
+      <button onclick="navigateToPage(1)" class="nav-item shrink-0 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.14em] sm:tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="1">My Story</button>
+      <button onclick="navigateToPage(2)" class="nav-item shrink-0 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.14em] sm:tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="2">The Celebration</button>
+      <button onclick="navigateToPage(3)" class="nav-item shrink-0 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.14em] sm:tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="3">The 18s</button>
+      <button onclick="navigateToPage(4)" class="nav-item shrink-0 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.14em] sm:tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="4">Gallery</button>
+      <button onclick="navigateToPage(5)" class="nav-item shrink-0 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.14em] sm:tracking-[0.2em] text-lavender-soft/85 hover:text-gold-light transition" data-page="5">RSVP</button>
+      <!-- Live Photos button made pure white (not yellow) -->
+      <button onclick="navigateToPage(6)" class="nav-item shrink-0 text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.14em] sm:tracking-[0.2em] text-white hover:text-purple-200 font-semibold transition" data-page="6">Live Photos</button>
     </nav>
 
-    <!-- Mobile Header Action Controls -->
-    <div class="flex items-center space-x-2 sm:space-x-3">
+    <!-- Audio Control Toggle -->
+    <div class="shrink-0 flex items-center">
       <button id="navMusicBtn" onclick="toggleGlobalAudio()" class="text-lavender-soft/80 hover:text-gold-champagne transition text-xs p-1.5 rounded-full hover:bg-white/5" title="Toggle Audio">
         <i id="navMusicIcon" class="fa-solid fa-music"></i>
       </button>
-      
-      <!-- Visible Mobile Menu Icon -->
-      <button id="mobileMenuBtn" class="lg:hidden flex items-center justify-center p-2 rounded-lg bg-white/5 border border-purple-400/30 text-gold-light hover:text-white focus:outline-none" aria-label="Toggle Navigation Menu">
-        <i class="fa-solid fa-bars text-sm"></i>
-      </button>
     </div>
-  </div>
-
-  <!-- Mobile Dropdown with Exact Same Aligned Hierarchy -->
-  <div id="mobileMenu" class="hidden lg:hidden pt-3 pb-3 border-t border-purple-500/25 mt-2 bg-plum-deep/98 backdrop-blur-2xl px-4 rounded-b-2xl flex flex-col space-y-2 shadow-2xl">
-    <button onclick="relockGates(); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-purple-300 py-1 flex items-center gap-2 border-b border-purple-500/20 pb-2">
-      <i class="fa-solid fa-dungeon text-gold-champagne text-xs"></i> Gate Entrance
-    </button>
-    <button onclick="navigateToPage(0); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft hover:text-gold-light py-1">Home</button>
-    <button onclick="navigateToPage(1); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft hover:text-gold-light py-1">My Story</button>
-    <button onclick="navigateToPage(2); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft hover:text-gold-light py-1">The Celebration</button>
-    <button onclick="navigateToPage(3); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft hover:text-gold-light py-1">The 18s</button>
-    <button onclick="navigateToPage(4); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft hover:text-gold-light py-1">Gallery</button>
-    <button onclick="navigateToPage(5); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-lavender-soft hover:text-gold-light py-1 font-semibold">RSVP</button>
-    <button onclick="navigateToPage(6); closeMobileMenu();" class="text-left text-xs uppercase tracking-widest text-gold-champagne py-1 font-semibold flex items-center gap-1.5">
-      <i class="fa-solid fa-camera-retro text-xs text-gold-champagne"></i> Live Photos
-    </button>
   </div>
 </header>
 
@@ -627,7 +628,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 1: My Story (Using 4th.JPG Photo) ==================== -->
+  <!-- ==================== Page 1: My Story (4th.JPG Photo) ==================== -->
   <section id="page-1" class="page-sheet peel-in-wait bg-custom-2 bg-cover bg-center overflow-x-hidden">
     <div class="absolute inset-0 bg-gradient-to-r from-[#170627]/95 via-[#230b3d]/85 to-[#3b125f]/70 pointer-events-none"></div>
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_75%_35%,rgba(168,85,247,0.35)_0%,transparent_60%)] pointer-events-none"></div>
@@ -710,7 +711,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 2: The Celebration (With Next to 18s Button) ==================== -->
+  <!-- ==================== Page 2: The Celebration ==================== -->
   <section id="page-2" class="page-sheet peel-in-wait bg-custom-3 bg-cover bg-center">
     <div class="absolute inset-0 bg-gradient-to-b from-[#0f0617]/35 via-transparent to-[#0f0617]/45 pointer-events-none"></div>
 
@@ -734,7 +735,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           <div class="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-gold-champagne to-transparent mx-auto mt-2"></div>
         </div>
 
-        <!-- Desktop Grid View -->
         <div class="hidden md:flex flex-col gap-8 text-center">
           <div class="grid grid-cols-2 gap-8 items-start pb-7 border-b border-purple-200/20 text-center">
             
@@ -833,7 +833,6 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           </div>
         </div>
 
-        <!-- NEW: Dedicated Navigation Button to 18s Page -->
         <div class="mt-8 pt-6 border-t border-purple-300/20 flex justify-center">
           <button onclick="navigateToPage(3)" class="px-8 py-3 rounded-full bg-gradient-to-r from-purple-900 to-purple-950 border border-gold-champagne/80 hover:border-gold-light text-[#fcfbfa] hover:text-[#f3e5ab] text-xs font-cinzel tracking-[0.25em] uppercase transition shadow-lg transform hover:-translate-y-0.5 flex items-center space-x-2">
             <span>NEXT: THE 18S ROLES</span>
@@ -847,11 +846,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 3: The 18s (Zoomed-Out Middle Photo with Blurred Top) ==================== -->
+  <!-- ==================== Page 3: The 18s (Uses 18s b.jpg for Desktop) ==================== -->
   <section id="page-3" class="page-sheet peel-in-wait relative bg-plum-deep overflow-hidden">
-    <!-- Blurred Underlay filling top and full viewport -->
     <div class="bg-18s-blur-underlay"></div>
-    <!-- Clear Zoomed-Out Contained Photo in Center -->
     <div class="bg-18s-layer"></div>
     <div class="absolute inset-0 bg-black/40 z-[2]"></div>
 
@@ -875,7 +872,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 4: Pure Magazine Editorial Franz Gallery (1st-3rd & 5th-12th) ==================== -->
+  <!-- ==================== Page 4: Pure Magazine Editorial Gallery (Sequential Smooth Dissolve Cascade) ==================== -->
   <section id="page-4" class="page-sheet peel-in-wait bg-gallery-plum overflow-y-auto">
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_15%,rgba(212,175,55,0.08)_0%,transparent_60%)] pointer-events-none"></div>
 
@@ -903,11 +900,10 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         </p>
       </div>
 
-      <!-- ==================== VOGUE MAGAZINE COVER SPREAD ==================== -->
-      <!-- Cover Row: Big Hero Portrait + Landscape Feature (No 4th.JPG) -->
+      <!-- MAGAZINE SPREAD ROW 1: Hero Cover & Stack -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8 items-stretch">
         
-        <!-- Main Magazine Cover Feature: 6th.jpeg -->
+        <!-- Photo 1: 6th.jpeg -->
         <div class="lg:col-span-7 mag-card min-h-[500px]" onclick="openPhotoViewer('6th.jpeg', 'VOGUE · THE AMETHYST COVER', 'Vol. 18 · Franz Debut Issue')">
           <img src="6th.jpeg" alt="Editorial Cover Franz" class="object-[center_12%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=80';">
           <div class="mag-overlay">
@@ -917,7 +913,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           </div>
         </div>
 
-        <!-- Right Side Stack: 1st.JPG & 2nd.JPG -->
+        <!-- Photo 2 & 3: 1st.JPG & 2nd.JPG -->
         <div class="lg:col-span-5 flex flex-col gap-6">
           <div class="mag-card flex-1 min-h-[235px]" onclick="openPhotoViewer('1st.JPG', 'A New Dawning', 'The Archive Issue')">
             <img src="1st.JPG" alt="Editorial Series 1" class="object-[center_18%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80';">
@@ -938,8 +934,9 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
 
       </div>
 
-      <!-- ==================== ASYMMETRICAL EDITORIAL SPREAD 2 ==================== -->
+      <!-- MAGAZINE SPREAD ROW 2: Triple Portrait Harmony -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <!-- Photo 4: 3rd.JPG -->
         <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('3rd.JPG', 'Golden Hour Glimmer', 'Portfolio Edition III')">
           <img src="3rd.JPG" alt="Photo 3" class="object-[center_14%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80';">
           <div class="mag-overlay">
@@ -948,6 +945,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           </div>
         </div>
 
+        <!-- Photo 5: 5th.JPG -->
         <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('5th.JPG', 'In Quiet Radiance', 'Portfolio Edition V')">
           <img src="5th.JPG" alt="Photo 5" class="object-[center_14%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80';">
           <div class="mag-overlay">
@@ -956,6 +954,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           </div>
         </div>
 
+        <!-- Photo 6: 7th.jpeg -->
         <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('7th.jpeg', 'The Velvet Hour', 'Portfolio Edition VII')">
           <img src="7th.jpeg" alt="Photo 7" class="object-[center_14%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80';">
           <div class="mag-overlay">
@@ -965,29 +964,30 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         </div>
       </div>
 
-      <!-- ==================== WIDE HORIZONTAL EDITORIAL STRIP ==================== -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
-        <!-- Wide Panoramic Landscape (8th.jpeg) -->
-        <div class="lg:col-span-8 mag-card aspect-[16/9]" onclick="openPhotoViewer('8th.jpeg', 'Twilight Grace Panorama', 'Collector Series VIII')">
-          <img src="8th.jpeg" alt="Photo 8" class="object-[center_20%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=1200&q=80';">
+      <!-- MAGAZINE SPREAD ROW 3: Portrait Pair (Twilight Grace 8th.jpeg is now Portrait) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <!-- Photo 7: 8th.jpeg (Twilight Grace converted to Portrait) -->
+        <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('8th.jpeg', 'Twilight Grace', 'Collector Series VIII')">
+          <img src="8th.jpeg" alt="Photo 8" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80';">
           <div class="mag-overlay">
-            <span class="font-cinzel text-[10px] tracking-widest text-gold-champagne uppercase">Landscape Spread</span>
-            <h4 class="font-serif text-2xl text-white">Twilight Grace Panorama</h4>
+            <span class="font-cinzel text-[10px] tracking-widest text-gold-champagne uppercase">Portrait Feature</span>
+            <h4 class="font-serif text-2xl text-white">Twilight Grace</h4>
           </div>
         </div>
 
-        <!-- Vertical Accent (9th.jpeg) -->
-        <div class="lg:col-span-4 mag-card aspect-[3/4] lg:aspect-auto" onclick="openPhotoViewer('9th.jpeg', 'Gentle Whispers', 'Portfolio Edition IX')">
+        <!-- Photo 8: 9th.jpeg (Portrait) -->
+        <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('9th.jpeg', 'Gentle Whispers', 'Portfolio Edition IX')">
           <img src="9th.jpeg" alt="Photo 9" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80';">
           <div class="mag-overlay">
-            <span class="font-cinzel text-[9px] tracking-widest text-gold-light uppercase">Spread IX</span>
-            <h4 class="font-serif text-lg text-white">Gentle Whispers</h4>
+            <span class="font-cinzel text-[10px] tracking-widest text-gold-light uppercase">Spread IX</span>
+            <h4 class="font-serif text-2xl text-white">Gentle Whispers</h4>
           </div>
         </div>
       </div>
 
-      <!-- ==================== THREE-COL FINALE SPREAD (10th, 11th, 12th) ==================== -->
+      <!-- MAGAZINE SPREAD ROW 4: Final Triptych (10th, 11th, 12th) -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
+        <!-- Photo 9: 10th.jpeg -->
         <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('10th.jpeg', 'Serendipity In Bloom', 'The Debutante Archive X')">
           <img src="10th.jpeg" alt="Photo 10" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80';">
           <div class="mag-overlay">
@@ -996,6 +996,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           </div>
         </div>
 
+        <!-- Photo 10: 11th.jpeg -->
         <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('11th.jpeg', 'Midnight Reverie', 'The Debutante Archive XI')">
           <img src="11th.jpeg" alt="Photo 11" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80';">
           <div class="mag-overlay">
@@ -1004,6 +1005,7 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
           </div>
         </div>
 
+        <!-- Photo 11: 12th.jpeg -->
         <div class="mag-card aspect-[3/4]" onclick="openPhotoViewer('12th.jpeg', 'Eighteen Chapters', 'The Finale Archive XII')">
           <img src="12th.jpeg" alt="Photo 12" class="object-[center_15%]" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';">
           <div class="mag-overlay">
@@ -1026,67 +1028,43 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 5: Dedicated RSVP Page (QRpage.jpg Background + sampleQR.png) ==================== -->
+  <!-- ==================== Page 5: RSVP Page (Form Removed - Clean QR Only) ==================== -->
   <section id="page-5" class="page-sheet peel-in-wait bg-custom-rsvp bg-cover bg-center overflow-y-auto">
     <div class="absolute inset-0 bg-[#0f0617]/75 backdrop-blur-[2px]"></div>
 
-    <div class="relative z-20 min-h-full max-w-3xl mx-auto px-4 sm:px-8 py-24 sm:py-28 flex flex-col justify-center">
+    <div class="relative z-20 min-h-full max-w-2xl mx-auto px-4 sm:px-8 py-24 sm:py-28 flex flex-col justify-center items-center text-center">
       
       <!-- Top RSVP Nostalgic Header -->
       <div class="text-center mb-8">
-        <p class="font-script text-3xl sm:text-4xl text-[#f3e5ab] drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] leading-tight mb-2">
+        <span class="font-cinzel text-xs tracking-[0.35em] text-gold-light uppercase font-semibold block mb-2">
+          OFFICIAL RSVP PORTAL
+        </span>
+        <p class="font-script text-3xl sm:text-5xl text-[#f3e5ab] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] leading-tight mb-2">
           “And it's so quiet in the world tonight...”
         </p>
-        <p class="font-serif text-lg sm:text-xl text-purple-100 font-light drop-shadow">
+        <p class="font-serif text-lg sm:text-xl text-purple-100 font-light drop-shadow max-w-md mx-auto">
           Bring the noise! Let us know if you'll be joining the celebration.
         </p>
-        <div class="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-gold-champagne to-transparent mx-auto mt-3"></div>
+        <div class="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-gold-champagne to-transparent mx-auto mt-4"></div>
       </div>
 
-      <!-- RSVP Glassmorphic Card Container with sampleQR.png -->
-      <div class="celebration-glass-card rounded-3xl p-6 sm:p-10 shadow-2xl">
-        <div class="text-center mb-6">
-          <span class="font-cinzel text-xs tracking-[0.35em] text-gold-light uppercase font-semibold">Official RSVP Portal</span>
-          <h3 class="font-serif text-3xl text-white font-normal mt-1">Confirmation of Attendance</h3>
-          <p class="font-sans text-xs text-purple-300 mt-1">Kindly confirm by <strong class="text-gold-light font-semibold">September 1, 2028</strong></p>
+      <!-- Pure QR Display Card -->
+      <div class="celebration-glass-card rounded-3xl p-8 sm:p-12 shadow-[0_25px_80px_rgba(0,0,0,0.85)] max-w-md w-full flex flex-col items-center">
+        <h3 class="font-serif text-2xl sm:text-3xl text-white font-normal mb-1">Confirm Attendance</h3>
+        <p class="font-sans text-xs text-purple-200/80 mb-6">Kindly respond by <strong class="text-gold-light">September 1, 2028</strong></p>
+
+        <div class="p-3.5 bg-white rounded-2xl shadow-2xl border-2 border-gold-champagne/70 hover:scale-105 transition duration-300">
+          <img src="sampleQR.png" alt="RSVP QR Code" class="w-48 h-48 object-contain" onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://forms.google.com&color=24-11-54';">
         </div>
 
-        <!-- QR Code Block for RSVP -->
-        <div class="flex flex-col items-center justify-center mb-8">
-          <div class="p-3 bg-white/95 rounded-2xl shadow-xl border border-gold-champagne/60 hover:scale-105 transition duration-300">
-            <img src="sampleQR.png" alt="RSVP QR Code" class="w-36 h-36 object-contain" onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://forms.google.com&color=24-11-54';">
-          </div>
-          <span class="font-cinzel text-[10px] text-gold-light uppercase tracking-widest mt-2">Scan with camera to RSVP online</span>
-        </div>
-
-        <!-- Interactive RSVP Form -->
-        <form onsubmit="handleRSVPSubmit(event)" class="space-y-4">
-          <div>
-            <label class="block font-cinzel text-[10px] uppercase tracking-widest text-purple-200 mb-1">Full Name</label>
-            <input type="text" id="rsvpName" required placeholder="enter your full name" class="w-full px-4 py-2.5 bg-black/50 border border-purple-400/40 rounded text-sm text-ivory placeholder-purple-400/40 focus:outline-none focus:border-gold-champagne">
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block font-cinzel text-[10px] uppercase tracking-widest text-purple-200 mb-1">Attendance Status</label>
-              <select id="rsvpStatus" class="w-full px-4 py-2.5 bg-purple-950/90 border border-purple-400/40 rounded text-sm text-ivory focus:outline-none focus:border-gold-champagne">
-                <option value="attending">Joyfully Accept</option>
-                <option value="declining">Regretfully Decline</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-cinzel text-[10px] uppercase tracking-widest text-purple-200 mb-1">Dietary Preferences</label>
-              <input type="text" id="rsvpDietary" placeholder="None / Vegetarian / etc." class="w-full px-4 py-2.5 bg-black/50 border border-purple-400/40 rounded text-sm text-ivory placeholder-purple-400/40 focus:outline-none focus:border-gold-champagne">
-            </div>
-          </div>
-          <div>
-            <label class="block font-cinzel text-[10px] uppercase tracking-widest text-purple-200 mb-1">Message for Franz</label>
-            <textarea id="rsvpMessage" rows="2" placeholder="Leave a birthday wish..." class="w-full px-4 py-2 bg-black/50 border border-purple-400/40 rounded text-sm text-ivory placeholder-purple-400/40 focus:outline-none focus:border-gold-champagne"></textarea>
-          </div>
-          <button type="submit" class="w-full py-3 bg-gradient-to-r from-purple-800 to-purple-950 border border-gold-champagne/70 hover:border-gold-champagne text-xs font-cinzel uppercase tracking-[0.25em] text-ivory rounded-full shadow-lg transition">
-            Confirm My RSVP
-          </button>
-        </form>
-        <div id="rsvpFeedback" class="mt-4 text-center hidden"></div>
+        <span class="font-cinzel text-[11px] text-gold-light uppercase tracking-widest mt-4">
+          Scan with your phone to complete RSVP
+        </span>
+        
+        <a href="https://forms.google.com" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center space-x-2 px-8 py-3 rounded-full bg-gradient-to-r from-purple-800 to-purple-950 border border-gold-champagne/80 text-gold-light hover:text-white text-xs font-cinzel tracking-widest uppercase transition shadow-lg">
+          <span>Open Online RSVP Form</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+        </a>
       </div>
 
     </div>
@@ -1094,13 +1072,13 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
     <div class="rising-circles-layer"></div>
   </section>
 
-  <!-- ==================== Page 6: Brand New Separate Live Photos Page (demoQR) ==================== -->
+  <!-- ==================== Page 6: Live Photos Page (Yellow Subtitle Text) ==================== -->
   <section id="page-6" class="page-sheet peel-in-wait bg-custom-live overflow-y-auto">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(168,85,247,0.18)_0%,transparent_60%)] pointer-events-none"></div>
 
     <div class="relative z-20 min-h-full max-w-4xl mx-auto px-4 sm:px-8 py-24 sm:py-28 flex flex-col justify-center items-center text-center">
       
-      <span class="font-cinzel text-xs tracking-[0.35em] text-gold-light uppercase font-semibold mb-2 block">
+      <span class="font-cinzel text-xs tracking-[0.35em] text-purple-200 uppercase font-semibold mb-2 block">
         Interactive Event Stream
       </span>
       <h2 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#fcfbfa] font-light tracking-wide mb-2">
@@ -1110,7 +1088,8 @@ tailwind.config={theme:{extend:{colors:{'plum-deep':'#0f0617','royal-purple':'#2
         Live Event Gallery
       </p>
       
-      <p class="font-sans text-sm sm:text-base text-purple-100/90 max-w-xl mx-auto leading-relaxed mb-8">
+      <!-- Yellow Font for real-time description text as requested -->
+      <p class="font-sans text-sm sm:text-base text-[#f3e5ab] font-medium max-w-xl mx-auto leading-relaxed mb-8 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
         All your real-time photos captured during the event will instantly post here.<br class="hidden sm:inline">
         Scan the QR code or tap to upload. Watch our shared digital gallery come to life as the night unfolds.
       </p>
@@ -1283,7 +1262,6 @@ const targetDate = new Date('2028-09-22T18:00:00+08:00').getTime();
 // Background Audio Engine
 const bgAudio = document.getElementById('bgAudio');
 
-// Direct zero-delay sound activator
 function playBackgroundMusicImmediate() {
   if (!bgAudio) return;
   bgAudio.currentTime = 0;
@@ -1387,7 +1365,7 @@ document.addEventListener('keydown', (e) => {
 
 // Photo Upload Handlers
 function triggerGuestUpload() {
-  const input = document.getElementById('livePhotoInput') || document.getElementById('guestPhotoInput');
+  const input = document.getElementById('livePhotoInput');
   if (input) input.click();
 }
 function handleLivePhotoUpload(e) {
@@ -1437,7 +1415,6 @@ for (let i = 0; i < 16; i++) {
 // Zero-Delay Gate Touch & Click Audio Starter
 let gateOpened = false;
 function triggerGateOpenImmediate(e) {
-  // Fire sound immediately on exact user touch / pointer down without queuing
   playBackgroundMusicImmediate();
 
   if (gateOpened) return;
@@ -1456,7 +1433,6 @@ const gateLeafR = document.getElementById('gateLeafR');
 
 [gateLockBtn, gateLeafL, gateLeafR].forEach(el => {
   if (el) {
-    // Both touchstart (zero mobile latency) and click listener
     el.addEventListener('touchstart', triggerGateOpenImmediate, { passive: true });
     el.addEventListener('click', triggerGateOpenImmediate);
   }
@@ -1468,6 +1444,19 @@ function relockGates() {
   gateOpened = false;
   g.classList.remove('done', 'fade', 'zoom', 'open');
   navigateToPage(0);
+}
+
+// Cascading Sequential Image Reveal for Gallery Page
+function startGalleryCascade() {
+  const cards = document.querySelectorAll('#page-4 .mag-card');
+  cards.forEach(card => card.classList.remove('flow-in'));
+  
+  cards.forEach((card, idx) => {
+    // 380ms stagger delay between each image dissolve
+    setTimeout(() => {
+      card.classList.add('flow-in');
+    }, 280 + (idx * 380));
+  });
 }
 
 function navigateToPage(targetIndex){
@@ -1487,6 +1476,11 @@ function navigateToPage(targetIndex){
     if(pageAttr === targetIndex) btn.classList.add('text-gold-light','font-semibold');
     else btn.classList.remove('text-gold-light','font-semibold');
   });
+
+  // Trigger smooth sequential fade cascade when entering Gallery
+  if (targetIndex === 4) {
+    startGalleryCascade();
+  }
   
   setTimeout(() => {
     currentSheet.classList.remove('peel-out');
@@ -1574,23 +1568,6 @@ function handle18sLookup(e){
     </div>`;
   resultArea.querySelector('.search-guest-name').textContent = input;
 }
-
-function handleRSVPSubmit(e){
-  e.preventDefault();
-  const name = document.getElementById('rsvpName').value;
-  const status = document.getElementById('rsvpStatus').value;
-  const feedback = document.getElementById('rsvpFeedback');
-  feedback.classList.remove('hidden');
-  feedback.innerHTML = `
-    <div class="p-3 bg-purple-900/70 border border-gold-champagne/60 rounded text-xs text-purple-200">
-      <i class="fa-solid fa-circle-check text-gold-champagne mr-1"></i> Thank you, <strong class="rsvp-guest-name text-white"></strong>. Your confirmation (${status === 'attending' ? 'Attending' : 'Declining'}) has been noted!
-    </div>`;
-  feedback.querySelector('.rsvp-guest-name').textContent = name;
-}
-
-const mobileBtn = document.getElementById('mobileMenuBtn'), mobileMenu = document.getElementById('mobileMenu');
-if(mobileBtn) mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-function closeMobileMenu(){ if(mobileMenu) mobileMenu.classList.add('hidden'); }
 
 // Rising embers background effect
 function createRisingCirclesOnAllPages(){
